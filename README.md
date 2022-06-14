@@ -18,7 +18,8 @@
 - créer des quizz
 - Modifier SES quizz
 - Supprimer SES quizz
-- Choisir une langue pour son quiz
+- Choisir une langue pour son quizz
+- Choisir une catégorie pour son quizz
 - Noter les quizz des autres
 - Noter la difficulté des quizz des autres
 - visiter sa page de profil
@@ -30,12 +31,13 @@
 ## MODADMIN
 - Member's Rights
 - Visiter la page d'administration (onglets : users, quizz, signalements)
-- Supprimer quizz de n'importe quel utilisateur 
+- Supprimer quizz de n'importe quel utilisateur
 - Supprimer des membres
 - supprimer les signalements
 - voir les signalements
 - envoyer des mails aux membres
 - voir les quizz supprimés
 - supprimer définitevement un quizz
-- récupérer des quizz supprimés 
-
+- récupérer des quizz supprimés
+- donner les droits d'administration à un membre
+- ajouter des catégories de quizz
