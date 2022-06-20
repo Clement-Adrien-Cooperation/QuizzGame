@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/*Purple 250 - Green 142 - Blue 230 - Pink 340*/
+$hue-color: 250;
+
+$main-color: hsl($hue-color, 69%, 61%);
+$main-color-alt:  hsl($hue-color, 57%, 53%);
+$main-color-light:  hsl($hue-color, 92%, 85%);
+
+$title-color:  hsl($hue-color, 8%, 15%);
+$text-color:  hsl($hue-color, 8%, 45%);
+$text-color-light: hsl($hue-color, 8%, 65%);
+
+$input-color: hsl($hue-color, 70%, 95%);
+$body-color: hsl($hue-color, 60%, 98%);
+
+$main-font: 'Poppins', sans-serif;
+$secondary-font: 'Poppins', sans-serif;
+
+// utile ?
+
+$black: #1D2424;
+$white: #ececec;
+
+$light-grey: #d6d8da;
+$grey: #485a70;
+$dark-grey: #2f3235;
+
+$green: #4bb47c;
+$green-hover: #71b996;
+
+$red: #ff0d3d;
+$red-hover: #f03056;
+
+$orange: #ff6600;
+$orange-hover: #fd822f;
+
+$yellow: #ffbc03;
+$yellow-hover: #fcc634;
+
+$blue: #3498db;
+$blue-hover: #59b9fa;
+
+$medium-radius: 10px;
+$small-radius: 5px;
+
+//!!! Ne pas oublier de fix le "any" type dans le composant Container

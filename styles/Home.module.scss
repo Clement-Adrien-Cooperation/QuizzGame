@@ -1,0 +1,10 @@
+@import './vars';
+@import './mixins';
+
+.title {
+  @include flexCenter;
+  font-family: $main-font;
+  font-size: 4em;
+  font-weight: 600;
+  margin-top: 50px;
+}

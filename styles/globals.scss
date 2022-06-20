@@ -1,0 +1,13 @@
+@import './vars';
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: $body-color;
+}
+
+h1, h2, h3, h4 {
+  color: var(--title-color);
+}
