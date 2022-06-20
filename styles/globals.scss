@@ -6,8 +6,15 @@ html {
 
 body {
   background: $body-color;
+  font-family: $main-font;
+  color: $text-color; // ????
+
+  ::selection {
+    background-color: $main-color;
+    color: $body-color;
+  }
 }
 
 h1, h2, h3, h4 {
-  color: var(--title-color);
+  color: $title-color;
 }

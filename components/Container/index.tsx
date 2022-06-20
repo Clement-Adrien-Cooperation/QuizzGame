@@ -1,4 +1,4 @@
-// import Navbar from '../Navbar';
+import Navbar from '../Navbar';
 import Head from "../Header";
 
 const Container = (props: any) => {
@@ -6,7 +6,7 @@ const Container = (props: any) => {
   return (
     <>
       <Head />
-      {/* <Navbar /> */}
+      <Navbar />
       {props.children}
     </>
   );

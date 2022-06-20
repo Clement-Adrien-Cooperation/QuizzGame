@@ -1,10 +1,33 @@
 @import './vars';
 @import './mixins';
 
+.container {
+  @include flexCenter;
+  flex-direction: column;
+  min-height: 80vh;
+}
+
 .title {
   @include flexCenter;
-  font-family: $main-font;
   font-size: 4em;
   font-weight: 600;
-  margin-top: 50px;
+  margin: 20px;
+}
+
+.text {
+  color: $text-color;
+  max-width: 50vw;
+
+  &_light {
+    color: $text-color-light;
+    margin: 20px;
+  }
+}
+
+.input {
+  max-width: 50vw;
+  background: $input-color;
+  padding: 9px 16px;
+  // padding: 1vh 1vw;
+  border-radius: $small-radius;
 }

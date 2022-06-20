@@ -31,3 +31,10 @@
   opacity: 0;
   animation: apparition $time $delay ease-out forwards;
 }
+
+@keyframes animApparition {
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
