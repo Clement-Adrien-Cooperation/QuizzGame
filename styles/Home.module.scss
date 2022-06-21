@@ -1,4 +1,4 @@
-@import './vars';
+// @import './vars';
 @import './mixins';
 
 .container {
@@ -15,19 +15,19 @@
 }
 
 .text {
-  color: $text-color;
+  color: var(--text-color);
   max-width: 50vw;
 
   &_light {
-    color: $text-color-light;
+    color: var(--text-color-light);
     margin: 20px;
   }
 }
 
 .input {
   max-width: 50vw;
-  background: $input-color;
+  background: var(--input-color);
   padding: 9px 16px;
   // padding: 1vh 1vw;
-  border-radius: $small-radius;
+  border-radius: var(--small-radius);
 }

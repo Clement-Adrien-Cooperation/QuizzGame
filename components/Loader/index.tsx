@@ -12,6 +12,8 @@ const Loader = () => {
       <div className={styles.loader}>
         <Image
           layout="responsive"
+          width='32'
+          height='32'
           src={loader}
         />
       </div>

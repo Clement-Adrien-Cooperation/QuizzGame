@@ -1,5 +1,6 @@
-import Navbar from '../Navbar';
 import Head from "../Header";
+import Navbar from '../Navbar';
+import Theme from '../Theme';
 
 const Container = (props: any) => {
 
@@ -7,6 +8,7 @@ const Container = (props: any) => {
     <>
       <Head />
       <Navbar />
+      <Theme />
       {props.children}
     </>
   );

@@ -1,0 +1,75 @@
+@import '../../styles/mixins';
+
+.container {
+  @include posAbsolute(20%, auto, auto, 50%);
+  @include flexCenter;
+  background: var(--main-color-light);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.button {
+
+  &_purple {
+    @include colorPicker;
+    background: hsl(var(--purple-color), 69%, 61%);
+
+    &:hover {
+      background: hsl(var(--purple-color), 57%, 53%);
+    }
+  }
+
+  &_green {
+    @include colorPicker;
+    background: hsl(var(--green-color), 69%, 61%);
+
+    &:hover {
+      background: hsl(var(--green-color), 57%, 53%);
+    }
+  }
+
+  &_blue {
+    @include colorPicker;
+    background: hsl(var(--blue-color), 69%, 61%);
+
+    &:hover {
+      background: hsl(var(--blue-color), 57%, 53%);
+    }
+  }
+
+  &_pink {
+    @include colorPicker;
+    background: hsl(var(--pink-color), 69%, 61%);
+
+    &:hover {
+      background: hsl(var(--pink-color), 57%, 53%);
+    }
+  }
+
+  &_red {
+    @include colorPicker;
+    background: hsl(var(--red-color), 69%, 61%);
+
+    &:hover {
+      background: hsl(var(--red-color), 57%, 53%);
+    }
+  }
+
+  &_yellow {
+    @include colorPicker;
+    background: hsl(var(--yellow-color), 69%, 61%);
+
+    &:hover {
+      background: hsl(var(--yellow-color), 57%, 53%);
+    }
+  }
+
+  &_orange {
+    @include colorPicker;
+    background: hsl(var(--orange-color), 69%, 61%);
+
+    &:hover {
+      background: hsl(var(--orange-color), 57%, 53%);
+    }
+  }
+}
