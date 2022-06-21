@@ -2,7 +2,11 @@ import Head from "../Header";
 import Navbar from '../Navbar';
 import Theme from '../Theme';
 
-const Container = (props: any) => {
+type PropsType = {
+  children: JSX.Element,
+};
+
+const Container = (props: PropsType) => {
 
   return (
     <>

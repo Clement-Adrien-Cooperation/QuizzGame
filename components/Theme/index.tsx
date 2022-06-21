@@ -24,24 +24,6 @@ const Theme = () => {
 
   return (
     <section className={styles.container}>
-      {/* <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          console.log('done')
-          changeColor();
-        }}
-      >
-
-        <input
-          type='color'
-          onChange={(e) => {
-          }}
-        />
-
-        <button type='submit'>
-          Valider
-        </button>
-      </form> */}
 
       <input
         className={styles.input}
