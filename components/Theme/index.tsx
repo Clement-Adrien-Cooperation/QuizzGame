@@ -44,46 +44,102 @@ const Theme = () => {
       </form> */}
 
       <input
-        className={styles.button_purple}
-        type='button'
+        className={styles.input}
+        type='radio'
+        name='color'
+        id='purple'
+      />
+      <label
+        className={styles.picker}
+        htmlFor='purple'
         onClick={() => {changeColor('250')}}
-      />
+      >
+        <span className={styles.picker_purple}/>
+      </label>
 
       <input
-        className={styles.button_green}
-        type='button'
+        className={styles.input}
+        type='radio'
+        name='color'
+        id='green'
+      />
+      <label
+        className={styles.picker}
+        htmlFor='green'
         onClick={() => {changeColor('142')}}
-      />
+      >
+        <span className={styles.picker_green}/>
+      </label>
 
       <input
-        className={styles.button_blue}
-        type='button'
+        className={styles.input}
+        type='radio'
+        name='color'
+        id='blue'
+      />
+      <label
+        className={styles.picker}
+        htmlFor='blue'
         onClick={() => {changeColor('230')}}
-      />
+      >
+        <span className={styles.picker_blue}/>
+      </label>
 
       <input
-        className={styles.button_pink}
-        type='button'
+        className={styles.input}
+        type='radio'
+        name='color'
+        id='pink'
+      />
+      <label
+        className={styles.picker}
+        htmlFor='pink'
         onClick={() => {changeColor('340')}}
-      />
+      >
+        <span className={styles.picker_pink}/>
+      </label>
 
       <input
-        className={styles.button_red}
-        type='button'
+        className={styles.input}
+        type='radio'
+        name='color'
+        id='red'
+      />
+      <label
+        className={styles.picker}
+        htmlFor='red'
         onClick={() => {changeColor('360')}}
-      />
+      >
+        <span className={styles.picker_red}/>
+      </label>
 
       <input
-        className={styles.button_yellow}
-        type='button'
+        className={styles.input}
+        type='radio'
+        name='color'
+        id='yellow'
+      />
+      <label
+        className={styles.picker}
+        htmlFor='yellow'
         onClick={() => {changeColor('60')}}
-      />
+      >
+        <span className={styles.picker_yellow}/>
+      </label>
 
       <input
-        className={styles.button_orange}
-        type='button'
-        onClick={() => {changeColor('25')}}
+        className={styles.input}
+        type='radio'
+        name='color'
+        id='orange'
       />
+      <label
+        className={styles.picker}
+        htmlFor='orange'
+        onClick={() => {changeColor('25')}}
+      >
+        <span className={styles.picker_orange}/>
+      </label>
     </section>
   );
 };

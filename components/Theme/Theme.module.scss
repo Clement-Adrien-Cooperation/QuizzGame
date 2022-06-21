@@ -6,9 +6,21 @@
   background: var(--main-color-light);
   padding: 10px;
   border-radius: 5px;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.button {
+.input {
+  display: none;
+
+  &:checked + .picker{
+    border-color: var(--black);
+  }
+}
+
+.picker {
+  border: 2px solid transparent;
+  border-radius: 50%;
+  margin: 0 5px;
 
   &_purple {
     @include colorPicker;

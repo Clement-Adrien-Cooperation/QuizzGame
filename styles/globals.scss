@@ -31,12 +31,12 @@
 
   // utile ?
 
-  --black: #1D2424;
-  --white: #ececec;
+  --black: hsl(var(--hue-color), 10%, 10%);
+  --white: hsl(var(--hue-color), 10%, 90%);
 
-  --light-grey: #d6d8da;
-  --grey: #485a70;
-  --dark-grey: #2f3235;
+  --light-grey: hsl(var(--hue-color), 5%, 70%);
+  --grey: hsl(var(--hue-color), 5%, 50%);
+  --dark-grey: hsl(var(--hue-color), 5%, 25%);
 }
 
 html {
