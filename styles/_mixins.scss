@@ -17,7 +17,6 @@
   right: $right;
   bottom: $bottom;
   left: $left;
-  transform: translate(-50%, -50%);
 }
 
 @mixin posFixed ($top: 0, $right: 0, $bottom: auto, $left: auto) {
