@@ -1,0 +1,11 @@
+@import '../../styles/mixins';
+
+.title {
+  @include posCenter;
+}
+
+.loader {
+  @include posCenter;
+  width: 150px;
+  height: 150px;
+}
