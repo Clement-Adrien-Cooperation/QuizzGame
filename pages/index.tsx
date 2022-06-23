@@ -1,7 +1,10 @@
 import type { NextPage } from 'next';
 import styles from '../styles/Home.module.scss';
 
-const Home: NextPage = () => {
+const Home: NextPage = (props) => {
+
+  console.log(props);
+  
   return (
     <section className={styles.container}>
       <h1 className={styles.title}>
@@ -25,3 +28,4 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+

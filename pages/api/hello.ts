@@ -13,9 +13,6 @@ export default async function handler(
   if(req.method === "GET") {
     res.status(200).json({data: 5})
   }
-  else if(req.method === "POST") {
-    const data = req.body; 
-  }
 };
 
 
