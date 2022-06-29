@@ -1,0 +1,13 @@
+@import '../../styles/mixins';
+
+.navbar {
+  @include posFixed(0, auto, auto, 0);
+  background: var(--main-color);
+  width: var(--navbar-width);
+  height: 100vh;
+}
+
+.list {
+  @include flexCenter;
+  flex-direction: column;
+}

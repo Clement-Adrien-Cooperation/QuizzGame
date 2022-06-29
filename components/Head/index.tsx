@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-const Header = () => {
+const NextHead = () => {
   return (
     <Head>
       <meta httpEquiv="x-UA-Compatible" content="IE-edge" />
@@ -20,4 +20,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default NextHead;

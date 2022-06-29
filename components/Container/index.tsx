@@ -1,4 +1,4 @@
-import Head from "../Header";
+import Head from "../Head";
 import Navbar from '../Navbar';
 import Theme from '../Theme';
 

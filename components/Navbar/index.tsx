@@ -3,24 +3,30 @@ import styles from './Navbar.module.scss';
 
 const Navbar = () => {
   return (
-    <nav>
-      <ul>
+    <nav className={styles.navbar}>
+      <ul className={styles.list}>
 
         <li>
           <Link href='/'>
-            Accueil
+            <a>
+              Accueil
+            </a>
           </Link>
         </li>
 
         <li>
           <Link href='/profil'>
-            Profil
+            <a>
+              Profil
+            </a>
           </Link>
         </li>
 
         <li>
           <Link href='/connexion'>
-            Se connecter
+            <a>
+              Se connecter
+            </a>
           </Link>
         </li>
 

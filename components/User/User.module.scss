@@ -1,0 +1,28 @@
+@import '../../styles/mixins';
+
+.card {
+  @include flexCenter;
+  justify-content: space-between;
+  width: 500px;
+  border-radius: var(--small-radius);
+  background: var(--main-color-light);
+  margin: 50px 0;
+  padding: 20px 40px;
+  color: var(--text-color);
+}
+
+.pseudo {
+  color: var(--title-color);
+}
+
+.button {
+  padding: 10px 20px;
+  border-radius: var(--small-radius);
+  background: var(--main-color-alt);
+  color: var(--text-color-light);
+
+  &:hover {
+    background: var(--main-color);
+    color: var(--white);
+  }
+}
