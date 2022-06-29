@@ -14,11 +14,11 @@ export default async function handle (
       data: {
         pseudo: req.body.pseudo,
         email: req.body.email,
-        avatar: req.body.avatar,
-        is_banished: req.body.is_banished,
-        is_admin: req.body.is_admin
+        password: req.body.password,
+        avatar: req.body.avatar
       }
     });
+
     res.status(200).json(user);
     
   } catch (error){

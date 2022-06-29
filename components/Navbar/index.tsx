@@ -30,6 +30,14 @@ const Navbar = () => {
           </Link>
         </li>
 
+        <li>
+          <Link href='/admin'>
+            <a>
+              Administration
+            </a>
+          </Link>
+        </li>
+
       </ul>
     </nav>
   );

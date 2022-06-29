@@ -7,7 +7,8 @@ const User = ({
   avatar,
   is_admin,
   is_banished,
-  deleteUser
+  unbanUser,
+  banUser
 }: {
   id: number,
   pseudo: string,
@@ -15,20 +16,22 @@ const User = ({
   avatar: string,
   is_admin: boolean,
   is_banished: boolean,
-  // deleteUser: (id: number)
+  unbanUser: Function,
+  banUser: Function
 }) => {
+
 
   return (
     <div className={styles.card}>
       <h3 className={styles.pseudo}>
-        {pseudo}
+        {pseudo} {is_banished.toString()}
       </h3>
 
       <button
         className={styles.button}
-        onClick={() => deleteUser(id)}
+        onClick={() => is_banished ? unbanUser(id) : banUser(id)}
       >
-        Supprimer
+        {is_banished ? "UnBan" : "Ban"}
       </button>
     </div>
   );
