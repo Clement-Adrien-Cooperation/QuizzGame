@@ -24,14 +24,14 @@ const User = ({
   return (
     <div className={styles.card}>
       <h3 className={styles.pseudo}>
-        {pseudo} {is_banished.toString()}
+        {pseudo}
       </h3>
 
       <button
         className={styles.button}
         onClick={() => is_banished ? unbanUser(id) : banUser(id)}
       >
-        {is_banished ? "UnBan" : "Ban"}
+        {is_banished ? "Débannir" : "Bannir"}
       </button>
     </div>
   );

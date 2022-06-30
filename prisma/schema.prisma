@@ -12,8 +12,8 @@ datasource db {
 
 model User {
   id            Int       @id @default(autoincrement())
-  pseudo        String
-  email         String
+  pseudo        String    
+  email         String    
   password      String
   avatar        String?
   is_admin      Boolean   @default(false)
@@ -28,7 +28,7 @@ model User {
 model Quizz {
   id            Int       @id @default(autoincrement())
   user          User      @relation(fields: [user_id], references: [id])
-  user_id       Int
+  user_id       Int       @unique
   title         String
   category      String
   difficulty    Int
@@ -46,7 +46,7 @@ model Quizz {
 model Questions {
   id            Int       @id @default(autoincrement())
   quizz         Quizz     @relation(fields: [quizz_id], references: [id])
-  quizz_id      Int
+  quizz_id      Int       @unique
   question      String
   description   String?
   proposition   String[]
@@ -56,8 +56,8 @@ model Questions {
 model Comment {
   id            Int       @id @default(autoincrement())
   user          User      @relation(fields: [user_id], references: [id])
-  user_id       Int
+  user_id       Int       @unique
   quizz         Quizz     @relation(fields: [quizz_id], references: [id])
-  quizz_id      Int
+  quizz_id      Int       @unique
   content       String
 }
