@@ -6,7 +6,7 @@ const Navbar = () => {
     <nav className={styles.navbar}>
       <ul className={styles.list}>
 
-        <li>
+        <li className={styles.list__item}>
           <Link href='/'>
             <a>
               Accueil
@@ -14,7 +14,7 @@ const Navbar = () => {
           </Link>
         </li>
 
-        <li>
+        <li className={styles.list__item}>
           <Link href='/profil'>
             <a>
               Profil
@@ -22,7 +22,7 @@ const Navbar = () => {
           </Link>
         </li>
 
-        <li>
+        <li className={styles.list__item}>
           <Link href='/connexion'>
             <a>
               Se connecter
@@ -30,7 +30,7 @@ const Navbar = () => {
           </Link>
         </li>
 
-        <li>
+        <li className={styles.list__item}>
           <Link href='/admin'>
             <a>
               Administration

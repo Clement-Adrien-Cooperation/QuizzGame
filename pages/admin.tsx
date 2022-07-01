@@ -1,52 +1,52 @@
 import type { NextPage } from 'next';
+import { useEffect, useState } from 'react';
 import styles from '../styles/Admin.module.scss';
 import Users from '../components/Users';
-import User from '../components/User';
-import { useEffect, useState } from 'react';
+import BanishedUsers from '../components/BanishedUsers';
 
-type Props = {
-  usersData: {
-    id: number,
-    pseudo: string,
-    email: string,
-    password: string,
-    avatar?: string | null,
-    is_admin: boolean,
-    is_banished: boolean
-  };
-};
-
-const Admin: NextPage<Props> = ({usersData}:any) => {
+const Admin: NextPage = ({ usersData, banishedUsersData }:any) => {
 
   const [users, setUsers] = useState([]);
-  console.log(users)
-
+  const [banishedUsers, setBanishedUsers] = useState([]);
+  
+  // A the moment we have our data, we update our states
   useEffect(() => {
     setUsers(usersData);
+    setBanishedUsers(banishedUsersData);
   },[]);
 
+  // Function for bann a user
   const banUser = async (user_id: number) => {
 
+    // Set up the body for the request with user ID & new status of bannishement
     const body = { 
       user_id,
       is_banished: true
     };
   
+    // Fetch our API
     await fetch(`/api/banUser`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     })
     .then(async() => {
-      const data = await fetch('/api/getAllUsers');
-      const usersData = await data.json();
+      // Then, we fetch again our API to get users & bannished users
+      const usersDataFromAPI = await fetch('/api/getAllUsers');
+      const usersData = await usersDataFromAPI.json();
       setUsers(usersData);
+      
+      // & we update the states
+      const banishedUsersDataFromAPI = await fetch('/api/getBanishedUsers');
+      const banishedUsersData = await banishedUsersDataFromAPI.json();
+      setBanishedUsers(banishedUsersData);
     })
     .catch((error) => {
       console.log(error);
     });
   };
 
+  // Same function, but for unban a user
   const unBanUser = async (user_id: number) => {
 
     const body = {
@@ -60,40 +60,40 @@ const Admin: NextPage<Props> = ({usersData}:any) => {
       body: JSON.stringify(body)
     })
     .then(async() => {
-      const data = await fetch('/api/getAllUsers');
-      const usersData = await data.json();
+      const usersDataFromAPI = await fetch('/api/getAllUsers');
+      const usersData = await usersDataFromAPI.json();
       setUsers(usersData);
+
+      const banishedUsersDataFromAPI = await fetch('/api/getBanishedUsers');
+      const banishedUsersData = await banishedUsersDataFromAPI.json();
+      setBanishedUsers(banishedUsersData);
     })
     .catch((error) => {
       console.log(error);
     });
   };
 
- 
-
   return (
-    <section className={styles.container}>
-      <h2>
+    <section className={styles.admin}>
+      <h2 className={styles.title}>
         Administration
       </h2>
-      <ul>
-        {users?.map(({id, pseudo, email, avatar, is_admin, is_banished}: any) => {
-          return (
-            <li key={id}>
-              <User
-                id={id}
-                pseudo={pseudo}
-                email={email}
-                avatar={avatar}
-                is_admin={is_admin}
-                is_banished={is_banished}
-                banUser={banUser}
-                unbanUser={unBanUser}
-              />
-            </li>
-          );
-        })}
-      </ul>
+
+      <section className={styles.container}>
+
+        <Users
+          users={users}
+          banUser={banUser}
+          unBanUser={unBanUser}
+        />
+
+        <BanishedUsers
+          banishedUsers={banishedUsers}
+          banUser={banUser}
+          unBanUser={unBanUser}
+        />
+
+      </section>
     </section>
   );
 };
@@ -102,14 +102,19 @@ export default Admin;
 
 export async function getStaticProps() {
 
-  const data = await fetch('http://localhost:3000/api/getAllUsers');
+  // Get data from API for users & bannished users
+  const usersDataFromAPI = await fetch('http://localhost:3000/api/getAllUsers');
+  const banishedUsersDataFromAPI = await fetch('http://localhost:3000/api/getBanishedUsers');
 
-  const usersData = await data.json();
+  // Translate to JSON
+  const usersData = await usersDataFromAPI.json();
+  const banishedUsersData = await banishedUsersDataFromAPI.json();
 
-  console.log(usersData)
+  // We return those props & using it in the states
   return {
     props: {
-      usersData
+      usersData,
+      banishedUsersData
     }
   };
 };

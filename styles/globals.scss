@@ -3,11 +3,10 @@
 
 :root {
   --purple-color: 250;
-  --green-color: 142;
+  --green-color: 120;
   --blue-color: 230;
   --pink-color: 340;
   --red-color: 360;
-  --yellow-color: 60;
   --orange-color: 25;
 
   --hue-color: var(--purple-color);
@@ -30,9 +29,7 @@
   --medium-radius: 10px;
   --small-radius: 5px;
 
-  --navbar-width: 150px;
-
-  // utile ?
+  --navbar-width: 250px;
 
   --black: hsl(var(--hue-color), 10%, 10%);
   --white: hsl(var(--hue-color), 10%, 90%);

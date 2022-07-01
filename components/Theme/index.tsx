@@ -48,7 +48,7 @@ const Theme = () => {
       <label
         className={styles.picker}
         htmlFor='green'
-        onClick={() => {changeColor('142')}}
+        onClick={() => {changeColor('120')}}
       >
         <span className={styles.picker_green}/>
       </label>
@@ -93,20 +93,6 @@ const Theme = () => {
         onClick={() => {changeColor('360')}}
       >
         <span className={styles.picker_red}/>
-      </label>
-
-      <input
-        className={styles.input}
-        type='radio'
-        name='color'
-        id='yellow'
-      />
-      <label
-        className={styles.picker}
-        htmlFor='yellow'
-        onClick={() => {changeColor('60')}}
-      >
-        <span className={styles.picker_yellow}/>
       </label>
 
       <input

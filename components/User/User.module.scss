@@ -6,7 +6,7 @@
   width: 500px;
   border-radius: var(--small-radius);
   background: var(--main-color-light);
-  margin: 50px 0;
+  margin: 10px 0;
   padding: 20px 40px;
   color: var(--text-color);
 }
@@ -20,6 +20,9 @@
   border-radius: var(--small-radius);
   background: var(--main-color-alt);
   color: var(--text-color-light);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: .3s;
 
   &:hover {
     background: var(--main-color);

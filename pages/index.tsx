@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 import {useState} from 'react';
-import Router from 'next/router'
 import styles from '../styles/Home.module.scss';
 
 const Home: NextPage = () => {

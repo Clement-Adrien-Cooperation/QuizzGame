@@ -2,14 +2,14 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { prisma } from '../../lib/prisma';
 
-export default async function getAllUsers (
+export default async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
     const users = await prisma.user.findMany({
       where: {
-        is_banished: false
+        is_banished: true
       },
       orderBy: [{
         id: 'asc'

@@ -7,7 +7,7 @@ const User = ({
   avatar,
   is_admin,
   is_banished,
-  unbanUser,
+  unBanUser,
   banUser
 }: {
   id: number,
@@ -16,8 +16,8 @@ const User = ({
   avatar: string,
   is_admin: boolean,
   is_banished: boolean,
-  unbanUser: Function,
   banUser: Function
+  unBanUser: Function,
 }) => {
 
 
@@ -29,7 +29,7 @@ const User = ({
 
       <button
         className={styles.button}
-        onClick={() => is_banished ? unbanUser(id) : banUser(id)}
+        onClick={() => is_banished ? unBanUser(id) : banUser(id)}
       >
         {is_banished ? "Débannir" : "Bannir"}
       </button>

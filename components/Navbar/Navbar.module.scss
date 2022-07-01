@@ -2,6 +2,7 @@
 
 .navbar {
   @include posFixed(0, auto, auto, 0);
+  @include flexCenter;
   background: var(--main-color);
   width: var(--navbar-width);
   height: 100vh;
@@ -10,4 +11,18 @@
 .list {
   @include flexCenter;
   flex-direction: column;
+
+  &__item {
+    color: var(--text-color);
+    margin: 5px 0;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: .3s;
+
+    &:hover {
+      color: var(--black);
+      letter-spacing: 6px;
+    }
+  }
 }
