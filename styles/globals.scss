@@ -29,7 +29,7 @@
   --medium-radius: 10px;
   --small-radius: 5px;
 
-  --navbar-width: 250px;
+  --navbar-width: 300px;
 
   --black: hsl(var(--hue-color), 10%, 10%);
   --white: hsl(var(--hue-color), 10%, 90%);
@@ -69,7 +69,7 @@ h1, h2, h3, h4 {
   font-weight: 500;
 }
 
-h1, h2 {
+h1 {
   font-family: var(--title-font);
   font-weight: 600;
 }

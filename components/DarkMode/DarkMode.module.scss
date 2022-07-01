@@ -1,0 +1,42 @@
+@import '../../styles/mixins';
+
+.dark_mode {
+  @include flexCenter;
+  margin-top: 10px;
+}
+
+.input {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  background: #bdc3c7;
+  border-radius: 20px;
+  transition: .3s;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+
+  &::before {
+    @include posAbsolute(0, auto, auto, 0);
+    content: '';
+    width: 20px;
+    height: 20px;
+    background: var(--white);
+    border-radius: 50%;
+    transform: scale(1.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: .3s;
+  }
+
+  &.checked {
+    background: var(--main-color);
+
+    &::before {
+      left: 20px;
+    }
+  }
+}
+
+.title {
+  color: var(--black);
+  margin-left: 5px;
+}

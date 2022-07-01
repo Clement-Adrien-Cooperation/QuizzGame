@@ -1,33 +1,42 @@
-// @import './vars';
 @import './mixins';
+
+.title {
+  text-align: center;
+  font-size: 4em;
+  font-weight: 600;
+  margin-top: 4vh;
+}
 
 .container {
   @include flexCenter;
   flex-direction: column;
-  min-height: 80vh;
-}
+  margin-top: 10vh;
 
-.title {
-  @include flexCenter;
-  font-size: 4em;
-  font-weight: 600;
-  margin: 20px;
-}
-
-.text {
-  color: var(--text-color);
-  max-width: 50vw;
-
-  &_light {
-    color: var(--text-color-light);
-    margin: 20px;
+  &__title {
+    font-size: 30px;
+    margin-bottom: 3vh;
+    font-weight: 600;
   }
 }
 
-.input {
-  max-width: 50vw;
-  background: var(--input-color);
-  padding: 9px 16px;
-  // padding: 1vh 1vw;
-  border-radius: var(--small-radius);
+.form {
+  @include flexCenter;
+  flex-direction: column;
+
+  &__input {
+    max-width: 50vw;
+    background: var(--input-color);
+    margin: 5px 0;
+    padding: 9px 16px;
+    border-radius: var(--small-radius);
+  }
+
+  &__submit_button {
+    @include mainButton;
+    margin-top: 20px;
+  }
+}
+
+.button {
+  @include secondaryButton;
 }
