@@ -1,7 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './ColorsPicker.module.scss';
 
 const ColorsPicker = () => {
+
+  const [hue, setHue] = useState('250');
 
   useEffect(() => {
     // Get the previous favorite color on local storage
@@ -11,6 +13,7 @@ const ColorsPicker = () => {
     if(previousTheme) {
       // We can change the hue color
       changeColor(previousTheme);
+      setHue(previousTheme);
     };
   }, []);
 
@@ -20,6 +23,9 @@ const ColorsPicker = () => {
 
     // Then we save the new favorite color in the local storage
     localStorage.setItem('favorite-color', newHue);
+
+    // & in the state
+    setHue(newHue);
   };
 
   return (
@@ -30,6 +36,8 @@ const ColorsPicker = () => {
         type='radio'
         name='color'
         id='purple'
+        defaultChecked={hue === '250' ? true : false}
+        readOnly
       />
       <label
         className={styles.picker}
@@ -44,6 +52,8 @@ const ColorsPicker = () => {
         type='radio'
         name='color'
         id='green'
+        defaultChecked={hue === '120' ? true : false}
+        readOnly
       />
       <label
         className={styles.picker}
@@ -58,6 +68,8 @@ const ColorsPicker = () => {
         type='radio'
         name='color'
         id='blue'
+        defaultChecked={hue === '230' ? true : false}
+        readOnly
       />
       <label
         className={styles.picker}
@@ -72,6 +84,8 @@ const ColorsPicker = () => {
         type='radio'
         name='color'
         id='pink'
+        defaultChecked={hue === '340' ? true : false}
+        readOnly
       />
       <label
         className={styles.picker}
@@ -86,6 +100,8 @@ const ColorsPicker = () => {
         type='radio'
         name='color'
         id='red'
+        defaultChecked={hue === '360' ? true : false}
+        readOnly
       />
       <label
         className={styles.picker}
@@ -100,6 +116,8 @@ const ColorsPicker = () => {
         type='radio'
         name='color'
         id='orange'
+        defaultChecked={hue === '25' ? true : false}
+        readOnly
       />
       <label
         className={styles.picker}

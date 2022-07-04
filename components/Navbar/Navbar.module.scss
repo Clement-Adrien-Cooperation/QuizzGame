@@ -13,6 +13,7 @@
   flex-direction: column;
 
   &__item {
+    cursor: pointer;
     color: var(--black);
     margin: 5px 0;
     font-weight: 500;

@@ -5,10 +5,12 @@ import styles from './Theme.module.scss';
 const Theme = () => {
 
   return (
-    <section className={styles.container}>
-      <ColorsPicker/>
-      <DarkMode />
-    </section>
+    <div className={styles.params}>
+      <section className={styles.container}>
+        <ColorsPicker/>
+        <DarkMode />
+      </section>
+    </div>
   );
 };
 

@@ -5,7 +5,7 @@ const DarkMode = () => {
 
   const [darkMode, setDarkMode] = useState(false);
 
-  const themeButtonRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Get the previous favorite theme on local storage
@@ -17,6 +17,7 @@ const DarkMode = () => {
       toggleTheme(previousTheme);
     };
   }, []);
+  
 
   const toggleTheme = (newTheme: string) => {
     // We can change de hue color on CSS root properties
@@ -24,13 +25,13 @@ const DarkMode = () => {
     if(newTheme === 'dark') {
       document.body.classList.add('dark');
       localStorage.setItem('favorite-theme', newTheme);
-      themeButtonRef.current.classList.toggle('checked');
+      buttonRef.current?.classList.toggle('checked');
       setDarkMode(true);
 
     } else if(newTheme === 'light') {
       document.body.classList.remove('dark');
       localStorage.setItem('favorite-theme', newTheme);
-      themeButtonRef.current.classList.toggle('checked');
+      buttonRef.current?.classList.toggle('checked');
       setDarkMode(false);
 
     };
@@ -38,24 +39,25 @@ const DarkMode = () => {
 
   return (
     <section className={styles.container}>
-      <button
-        className={styles.dark_mode}
-        type='button'
+
+      <input
+        className={styles.input}
+        type='checkbox'
+        id='switch'
+        checked={darkMode}
+        readOnly
+      />
+
+      <label
+        className={styles.label}
+        htmlFor="switch"
         onClick={() => {
           darkMode ? toggleTheme('light') : toggleTheme('dark');
         }}
-      >
+      ></label>
 
-        <div
-          ref={themeButtonRef}
-          className={styles.input}
-        />
+      <span className={styles.span}>Mode sombre</span>
 
-        <span className={styles.title}>
-          Mode sombre
-        </span>
-
-      </button>
     </section>
   );
 };
