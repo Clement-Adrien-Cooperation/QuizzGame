@@ -10,19 +10,29 @@ const Home: NextPage = () => {
   const [warningMessage, setWarningMessage] = useState('');
 
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+    // Prevent the refresh
     e.preventDefault();
 
+    // Reset the warning message
     setWarningMessage('');
 
+    // If there is nothing in one of the fields
     if(pseudo === '' || email === '' || password === '') {
+
+      // We warn user
       setWarningMessage('Veuillez remplir tous les champs');
 
+    // If email is not valid
     } else if (!email.includes('@') && !email.includes('.')) {
+
+      // We warn him too
       setWarningMessage('Veuillez entrer un email valide');
     } else {
 
+      // If everything is ok, set up the body
       const body = { pseudo, email, password };
 
+      // & create a new user
       await fetch(`/api/createOneUser`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -33,7 +43,14 @@ const Home: NextPage = () => {
 
   const handleChangePseudo = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    setPseudo(e.target.value);
+    // If pseudo is longer than 30 letters
+    if(pseudo.length > 30) {
+      // We warn user
+      setWarningMessage('Votre pseudo ne doit pas excéder 30 caractères');
+    } else {
+      // If not, we update state
+      setPseudo(e.target.value);
+    };
   };
 
   const getUsers = async () => {
@@ -73,7 +90,6 @@ const Home: NextPage = () => {
               value={pseudo}
               onChange={handleChangePseudo}
               required
-              // placeholder = "Pseudo"
             />
 
             <label
@@ -92,7 +108,6 @@ const Home: NextPage = () => {
               value={email}
               onChange={(e) => (setEmail(e.target.value))}
               required
-              // placeholder = "Email"
             />
 
             <label
@@ -114,7 +129,6 @@ const Home: NextPage = () => {
               onChange={(e) => (setPassword(e.target.value))}
               required
               type="password"
-              // placeholder = "Mot de passe"
             />
 
             <label

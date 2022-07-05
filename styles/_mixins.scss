@@ -46,11 +46,12 @@
   border-radius: var(--small-radius);
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: var(--white);
+  color: var(--text-color-light);
   transition: transform .2s;
     
   &:hover {
     background: var(--main-color-alt);
+    color: var(--white);
   }
 
   &:active {
@@ -90,4 +91,10 @@
   &:focus {
     border-color: var(--main-color);
   }
+}
+
+@mixin hiddenInput {
+  width: 0;
+  height: 0;
+  visibility: hidden;
 }

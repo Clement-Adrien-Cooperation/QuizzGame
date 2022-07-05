@@ -73,6 +73,29 @@ const Admin: NextPage = ({ usersData, banishedUsersData }:any) => {
     });
   };
 
+  const deleteUser = async (user_id: number) => {
+    
+    const body = { user_id };
+  
+    await fetch(`/api/deleteUser`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    })
+    .then(async() => {
+      const usersDataFromAPI = await fetch('/api/getAllUsers');
+      const usersData = await usersDataFromAPI.json();
+      setUsers(usersData);
+
+      const banishedUsersDataFromAPI = await fetch('/api/getBanishedUsers');
+      const banishedUsersData = await banishedUsersDataFromAPI.json();
+      setBanishedUsers(banishedUsersData);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+
   return (
     <section className={styles.admin}>
       <h2 className={styles.title}>
@@ -85,12 +108,14 @@ const Admin: NextPage = ({ usersData, banishedUsersData }:any) => {
           users={users}
           banUser={banUser}
           unBanUser={unBanUser}
+          deleteUser={deleteUser}
         />
 
         <BanishedUsers
           banishedUsers={banishedUsers}
           banUser={banUser}
           unBanUser={unBanUser}
+          deleteUser={deleteUser}
         />
 
       </section>

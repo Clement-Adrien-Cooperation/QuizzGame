@@ -1,7 +1,7 @@
 import User from '../User';
 import styles from './Users.module.scss';
 
-const Users = ({ users, banUser, unBanUser }:any) => {
+const Users = ({ users, banUser, unBanUser, deleteUser }:any) => {
 
   return (
     <section className={styles.container}>
@@ -22,6 +22,7 @@ const Users = ({ users, banUser, unBanUser }:any) => {
                 is_banished={is_banished}
                 banUser={banUser}
                 unBanUser={unBanUser}
+                deleteUser={deleteUser}
               />
             </li>
           );
