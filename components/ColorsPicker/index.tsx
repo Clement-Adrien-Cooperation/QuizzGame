@@ -51,22 +51,6 @@ const ColorsPicker = () => {
         className={styles.input}
         type='radio'
         name='color'
-        id='green'
-        defaultChecked={hue === '120' ? true : false}
-        readOnly
-      />
-      <label
-        className={styles.picker}
-        htmlFor='green'
-        onClick={() => {changeColor('120')}}
-      >
-        <span className={styles.picker_green}/>
-      </label>
-
-      <input
-        className={styles.input}
-        type='radio'
-        name='color'
         id='blue'
         defaultChecked={hue === '230' ? true : false}
         readOnly

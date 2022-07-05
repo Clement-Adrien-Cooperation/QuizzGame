@@ -1,5 +1,9 @@
 import { useEffect, useState, useRef } from "react";
+import Image from 'next/image';
 import styles from './DarkMode.module.scss';
+
+import sun from '../../public/icons/sun.svg';
+import moon from '../../public/icons/moon.svg';
 
 const DarkMode = () => {
 
@@ -20,7 +24,7 @@ const DarkMode = () => {
   
 
   const toggleTheme = (newTheme: string) => {
-    // We can change de hue color on CSS root properties
+    // We can change the hue color on CSS root properties
     // Then we save the new favorite theme in the local storage
     if(newTheme === 'dark') {
       document.body.classList.add('dark');
@@ -56,7 +60,19 @@ const DarkMode = () => {
         }}
       ></label>
 
-      <span className={styles.span}>Mode sombre</span>
+      <div className={styles.icon}>
+        <Image
+          src={darkMode ? moon : sun}
+          width='32px'
+          height='32px'
+          layout="responsive"
+          alt='Changer de thème'
+        />
+      </div>
+
+      <span className={styles.span}>
+        Mode sombre
+      </span>
 
     </section>
   );

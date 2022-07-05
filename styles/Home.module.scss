@@ -22,19 +22,50 @@
 .form {
   @include flexCenter;
   flex-direction: column;
+  width: 250px;
+}
 
-  &__input {
-    max-width: 50vw;
-    background: var(--input-color);
-    margin: 5px 0;
-    padding: 9px 16px;
-    border-radius: var(--small-radius);
-  }
+.field {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  margin: 5px 0;
+}
 
-  &__submit_button {
-    @include mainButton;
-    margin-top: 20px;
-  }
+.input {
+  @include mainInput;
+  position: absolute;
+}
+
+.input:focus + .label,
+.input:valid + .label {
+  transform: translateY(-23px);
+  padding: 3px 6px;
+  background: var(--main-color);
+  color: var(--white);
+  font-size: 0.8em;
+  border-radius: 5px;
+}
+
+.label {
+  position: absolute;
+  top: 13px;
+  left: 15px;
+  pointer-events: none;
+  display: block;
+  transition: 0.4s;
+}
+
+.submit_button {
+  @include mainButton;
+}
+
+.warning {
+  color: var(--red);
+  display: block;
+  height: 1rem;
+  font-size: 0.9rem;
+  margin: 10px 0 15px;
 }
 
 .button {

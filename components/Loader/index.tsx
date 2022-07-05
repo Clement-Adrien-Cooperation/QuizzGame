@@ -14,6 +14,7 @@ const Loader = () => {
           layout="responsive"
           width='32'
           height='32'
+          alt='Chargement en cours...'
           src={loader}
         />
       </div>

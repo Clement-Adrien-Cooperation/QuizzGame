@@ -9,11 +9,12 @@
   cursor: pointer;
   width: 40px;
   height: 20px;
-  background: var(--text-color-light);
+  background: var(--light-grey);
   display: inline-block;
   border-radius: 25px;
   position: relative;
-  box-shadow: inset 2px 2px 8px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 2px 2px 8px rgba(0, 0, 0, 0.25);
+  transition: 0.3s;
 
   &:after {
     content: '';
@@ -24,7 +25,7 @@
     height: 22px;
     background: var(--white);
     border-radius: 50%;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
     transition: 0.3s;
   }
 }
@@ -44,7 +45,12 @@
   }
 }
 
+.icon {
+  margin: 0 5px 0 10px;
+  height: 18px;
+  width: 18px;
+}
+
 .span {
-  color: var(--white);
-  margin-left: 10px;
+  color: var(--black);
 }

@@ -64,6 +64,7 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   transition: transform .2s;
+  font-weight: 500;
 
   &:hover {
     color: var(--main-color-alt);
@@ -71,5 +72,22 @@
 
   &:active {
     transform: scale(0.95);
+  }
+}
+
+@mixin mainInput {
+  color: var(--text-color);
+  width: 100%;
+  background: var(--input-color);
+  padding: 9px 16px;
+  border-radius: var(--small-radius);
+  border: 2px solid transparent;
+
+  &:hover {
+    border-color: var(--main-color-light);
+  }
+
+  &:focus {
+    border-color: var(--main-color);
   }
 }

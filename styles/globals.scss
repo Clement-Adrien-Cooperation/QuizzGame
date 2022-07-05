@@ -2,14 +2,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&display=swap');
 
 :root {
-  --purple-color: 250;
-  --green-color: 120;
-  --blue-color: 230;
-  --pink-color: 340;
-  --red-color: 360;
-  --orange-color: 25;
+  --purple-hue: 250;
+  --green-hue: 120;
+  --blue-hue: 230;
+  --pink-hue: 340;
+  --red-hue: 360;
+  --orange-hue: 25;
 
-  --hue-color: var(--purple-color);
+  --hue-color: var(--purple-hue);
 
   --main-color: hsl(var(--hue-color), 69%, 61%);
   --main-color-secondary: hsl(var(--hue-color), 69%, 61%);
@@ -20,8 +20,8 @@
   --text-color:  hsl(var(--hue-color), 8%, 45%);
   --text-color-light: hsl(var(--hue-color), 8%, 65%);
 
-  --input-color: hsl(var(--hue-color), 70%, 95%);
   --body-color: hsl(var(--hue-color), 60%, 98%);
+  --input-color: hsl(var(--hue-color), 70%, 95%);
 
   --main-font: 'Poppins', sans-serif;
   --title-font: 'Rubik Moonrocks', cursive;
@@ -37,6 +37,15 @@
   --light-grey: hsl(var(--hue-color), 5%, 70%);
   --grey: hsl(var(--hue-color), 5%, 50%);
   --dark-grey: hsl(var(--hue-color), 5%, 25%);
+
+  --green: hsl(var(--green-hue), 69%, 61%);
+  --green-hover: hsl(var(--green-hue), 57%, 53%);
+
+  --red: hsl(var(--red-hue), 69%, 61%);
+  --red-hover: hsl(var(--red-hue), 57%, 53%);
+
+  --orange: hsl(var(--orange-hue), 69%, 61%);
+  --orange-hover: hsl(var(--orange-hue), 57%, 53%);
 }
 
 html {
