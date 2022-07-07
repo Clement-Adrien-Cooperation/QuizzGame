@@ -4,7 +4,7 @@
   @include hiddenInput;
 
   &:checked + .card {
-    height: auto;
+    height: 220px;
     padding: 15px;
 
     & .toggle_icon {
@@ -40,7 +40,7 @@
   right: 30px;
   width: 25px;
   height: 25px;
-  transition: transform .3s;
+  transition: .3s;
 }
 
 .avatar {

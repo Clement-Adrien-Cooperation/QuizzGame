@@ -1,0 +1,39 @@
+@import '../../styles/mixins';
+
+.title {
+  text-align: center;
+  font-size: 4em;
+  font-weight: 600;
+  margin-top: 4vh;
+}
+
+.container {
+  @include flexCenter;
+  flex-direction: column;
+  margin-top: 10vh;
+
+  &__title {
+    font-size: 30px;
+    margin-bottom: 3vh;
+    font-weight: 600;
+  }
+}
+
+.form {
+  @include flexCenter;
+  flex-direction: column;
+  width: 250px;
+}
+
+.submit_button {
+  @include mainButton;
+}
+
+.warning {
+  color: var(--red);
+  display: block;
+  text-align: center;
+  height: 2rem;
+  font-size: 0.9rem;
+  margin: 10px 0 10px;
+}

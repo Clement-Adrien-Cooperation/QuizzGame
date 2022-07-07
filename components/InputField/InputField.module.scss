@@ -1,0 +1,33 @@
+@import '../../styles/mixins';
+
+.field {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  margin: 5px 0;
+}
+
+.input {
+  @include mainInput;
+  position: absolute;
+}
+
+.input:focus + .label,
+.input:valid + .label {
+  transform: translateY(-125%);
+  padding: 3px 6px;
+  background: var(--main-color);
+  color: var(--white);
+  font-size: 0.8em;
+  border-radius: 5px;
+}
+
+.label {
+  position: absolute;
+  top: 13px;
+  left: 15px;
+  pointer-events: none;
+  display: block;
+  font-size: 0.9em;
+  transition: 0.4s;
+}

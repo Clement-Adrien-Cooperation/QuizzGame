@@ -128,8 +128,6 @@ const User = ({
             </section>
           </section>
         )}
-
-
       </label>
     </div>
   );
