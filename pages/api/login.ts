@@ -7,9 +7,10 @@ export default async function handle (
   res: NextApiResponse
 ) {
   try {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findMany({
       where: {
-        pseudo_email: req.body.pseudoOrEmail
+        pseudo: req.body.pseudo,
+        password: req.body.password
       }
     });
     res.status(200).json(user);

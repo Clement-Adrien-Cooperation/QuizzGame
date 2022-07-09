@@ -3,7 +3,9 @@ import styles from './SignUp.module.scss';
 
 import InputField from '../InputField';
 
-const SignUp = () => {
+const SignUp = ({handleToggleForm }: {
+  handleToggleForm: Function
+}) => {
 
   const [pseudo, setPseudo] = useState('');
   const [email, setEmail]= useState('');
@@ -102,7 +104,7 @@ const SignUp = () => {
     <section className={styles.container}>
 
       <h2 className={styles.container__title}>
-        Inscription
+        Créer un compte
       </h2>
 
       <form
@@ -149,10 +151,20 @@ const SignUp = () => {
           className={styles.submit_button}
           type='submit'
         >
-          S'inscrire
+          Inscription
         </button>
 
       </form>
+
+      <button
+        className={styles.secondary_button}
+        onClick={() => handleToggleForm()}
+      >
+        Déjà un compte ?
+        <br />
+        Se connecter
+      </button>
+
     </section>
   );
 };
