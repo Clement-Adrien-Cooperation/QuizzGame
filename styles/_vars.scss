@@ -1,47 +1,49 @@
-// @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-// /*Purple 250 - Green 142 - Blue 230 - Pink 340*/
-// $hue-color: 250;
+:root {
+  --purple-hue: 250;
+  --green-hue: 120;
+  --blue-hue: 230;
+  --pink-hue: 340;
+  --red-hue: 360;
+  --orange-hue: 25;
 
-// $main-color: hsl($hue-color, 69%, 61%);
-// $main-color-alt:  hsl($hue-color, 57%, 53%);
-// $main-color-light:  hsl($hue-color, 92%, 85%);
+  --hue-color: var(--purple-hue);
 
-// $title-color:  hsl($hue-color, 8%, 15%);
-// $text-color:  hsl($hue-color, 8%, 45%);
-// $text-color-light: hsl($hue-color, 8%, 65%);
+  --main-color: hsl(var(--hue-color), 69%, 61%);
+  --main-color-secondary: hsl(var(--hue-color), 79%, 75%); // A REVOIR
+  --main-color-alt:  hsl(var(--hue-color), 57%, 53%);
+  --main-color-light:  hsl(var(--hue-color), 92%, 85%);
 
-// $input-color: hsl($hue-color, 70%, 95%);
-// $body-color: hsl($hue-color, 60%, 98%);
+  --title-color:  hsl(var(--hue-color), 8%, 15%);
+  --text-color:  hsl(var(--hue-color), 8%, 30%);
+  --text-color-light: hsl(var(--hue-color), 8%, 75%);
 
-// $main-font: 'Poppins', sans-serif;
-// $secondary-font: 'Poppins', sans-serif;
+  --body-color: hsl(var(--hue-color), 60%, 98%);
+  --input-color: hsl(var(--hue-color), 70%, 95%);
 
-// // utile ?
+  --main-font: 'Poppins', sans-serif;
+  --title-font: 'Rubik Moonrocks', cursive;
 
-// $black: #1D2424;
-// $white: #ececec;
+  --medium-radius: 10px;
+  --small-radius: 5px;
 
-// $light-grey: #d6d8da;
-// $grey: #485a70;
-// $dark-grey: #2f3235;
+  --navbar-width: 300px;
 
-// $green: #4bb47c;
-// $green-hover: #71b996;
+  --black: hsl(var(--hue-color), 10%, 10%);
+  --white: hsl(var(--hue-color), 10%, 90%);
 
-// $red: #ff0d3d;
-// $red-hover: #f03056;
+  --light-grey: hsl(var(--hue-color), 5%, 70%);
+  --grey: hsl(var(--hue-color), 5%, 50%);
+  --dark-grey: hsl(var(--hue-color), 5%, 25%);
 
-// $orange: #ff6600;
-// $orange-hover: #fd822f;
+  --green: hsl(var(--green-hue), 69%, 61%);
+  --green-hover: hsl(var(--green-hue), 57%, 53%);
 
-// $yellow: #ffbc03;
-// $yellow-hover: #fcc634;
+  --red: hsl(var(--red-hue), 69%, 61%);
+  --red-hover: hsl(var(--red-hue), 57%, 53%);
 
-// $blue: #3498db;
-// $blue-hover: #59b9fa;
-
-// $medium-radius: 10px;
-// $small-radius: 5px;
-
-//!!! Ne pas oublier de fix le "any" type dans le composant Container
+  --orange: hsl(var(--orange-hue), 69%, 61%);
+  --orange-hover: hsl(var(--orange-hue), 57%, 53%);
+}

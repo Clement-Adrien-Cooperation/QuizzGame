@@ -5,19 +5,7 @@
   flex-wrap: wrap;
 }
 
-.input {
-  display: none;
-
-  &:checked + .picker{
-    border-color: var(--black);
-  }
-}
-
 .picker {
-  border: 2px solid transparent;
-  border-radius: 50%;
-  margin: 5px;
-
   &_purple {
     @include colorPicker;
     background: hsl(var(--purple-hue), 69%, 61%);

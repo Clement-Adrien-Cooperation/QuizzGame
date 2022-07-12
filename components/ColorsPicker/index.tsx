@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import styles from './ColorsPicker.module.scss';
 
+import ColorPicker from '../ColorPicker';
+
 const ColorsPicker = () => {
 
   const [hue, setHue] = useState('250');
@@ -31,87 +33,52 @@ const ColorsPicker = () => {
   return (
     <section className={styles.container}>
 
-      <input
-        className={styles.input}
-        type='radio'
-        name='color'
-        id='purple'
-        defaultChecked={hue === '250' ? true : false}
-        readOnly
-      />
-      <label
-        className={styles.picker}
-        htmlFor='purple'
-        onClick={() => {changeColor('250')}}
+      <ColorPicker
+        hue={hue}
+        colorName={'purple'}
+        hueColor={'250'}
+        changeColor={changeColor}
       >
         <span className={styles.picker_purple}/>
-      </label>
+      </ColorPicker>
 
-      <input
-        className={styles.input}
-        type='radio'
-        name='color'
-        id='blue'
-        defaultChecked={hue === '230' ? true : false}
-        readOnly
-      />
-      <label
-        className={styles.picker}
-        htmlFor='blue'
-        onClick={() => {changeColor('230')}}
+      <ColorPicker
+        hue={hue}
+        colorName={'blue'}
+        hueColor={'230'}
+        changeColor={changeColor}
       >
         <span className={styles.picker_blue}/>
-      </label>
+      </ColorPicker>
 
-      <input
-        className={styles.input}
-        type='radio'
-        name='color'
-        id='pink'
-        defaultChecked={hue === '340' ? true : false}
-        readOnly
-      />
-      <label
-        className={styles.picker}
-        htmlFor='pink'
-        onClick={() => {changeColor('340')}}
+      <ColorPicker
+        hue={hue}
+        colorName={'pink'}
+        hueColor={'340'}
+        changeColor={changeColor}
       >
         <span className={styles.picker_pink}/>
-      </label>
+      </ColorPicker>
 
-      <input
-        className={styles.input}
-        type='radio'
-        name='color'
-        id='red'
-        defaultChecked={hue === '360' ? true : false}
-        readOnly
-      />
-      <label
-        className={styles.picker}
-        htmlFor='red'
-        onClick={() => {changeColor('360')}}
+      <ColorPicker
+        hue={hue}
+        colorName={'red'}
+        hueColor={'360'}
+        changeColor={changeColor}
       >
         <span className={styles.picker_red}/>
-      </label>
+      </ColorPicker>
 
-      <input
-        className={styles.input}
-        type='radio'
-        name='color'
-        id='orange'
-        defaultChecked={hue === '25' ? true : false}
-        readOnly
-      />
-      <label
-        className={styles.picker}
-        htmlFor='orange'
-        onClick={() => {changeColor('25')}}
+      <ColorPicker
+        hue={hue}
+        colorName={'orange'}
+        hueColor={'25'}
+        changeColor={changeColor}
       >
         <span className={styles.picker_orange}/>
-      </label>
-    </section>
+      </ColorPicker>
 
+    </section>
   );
 };
 

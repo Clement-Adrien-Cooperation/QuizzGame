@@ -22,13 +22,29 @@ const Home: NextPage = () => {
 
       <section className={styles.container}>
 
-        <button
-          className={styles.button}
-          type='button'
-          onClick={getUsers}
-        >
-          GET USERS
-        </button>
+      <button
+        className={styles.button1}
+        type='button'
+        onClick={getUsers}
+      >
+        Get users
+      </button>
+
+      <button
+        className={styles.button2}
+        type='button'
+        onClick={getUsers}
+      >
+        Get users
+      </button>
+
+      <button
+        className={styles.button3}
+        type='button'
+        onClick={getUsers}
+      >
+        Get users
+      </button>
 
       </section>
 

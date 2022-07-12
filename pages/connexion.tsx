@@ -15,25 +15,33 @@ const Connexion: NextPage = () => {
   const handleToggleForm = () => {
 
     if(showSignUp) {
-
+      setShowSignUp(false);
       setShowSignIn(true);
-
-      signInRef.current?.classList.add('selected');
-      signUpRef.current?.classList.remove('selected');
-
-      setTimeout(() => {
-        setShowSignUp(false);
-      }, 300);
     } else {
+      setShowSignIn(false);
       setShowSignUp(true);
-
-      signUpRef.current?.classList.add('selected');
-      signInRef.current?.classList.remove('selected');
-
-      setTimeout(() => {
-        setShowSignIn(false);
-      }, 300);
     };
+
+    // if(showSignUp) {
+
+    //   setShowSignIn(true);
+
+    //   signInRef.current?.classList.add('selected');
+    //   signUpRef.current?.classList.remove('selected');
+
+    //   setTimeout(() => {
+    //     setShowSignUp(false);
+    //   }, 300);
+    // } else {
+    //   setShowSignIn(false);
+    //   setShowSignUp(true);
+
+    //   signUpRef.current?.classList.add('selected');
+    //   signInRef.current?.classList.remove('selected');
+
+    //   setTimeout(() => {
+    //   }, 300);
+    // };
   };
 
   return (
