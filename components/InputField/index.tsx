@@ -6,12 +6,14 @@ const InputField = ({
   state,
   inputID,
   type,
+  isDisabled,
   handleFunction,
 }:{
   name: string,
   state: string,
   inputID: string,
   type: string,
+  isDisabled: boolean,
   handleFunction: ChangeEventHandler<HTMLInputElement>
 }) => {
 
@@ -24,6 +26,7 @@ const InputField = ({
         id={inputID}
         value={state}
         onChange={handleFunction}
+        disabled={isDisabled}
         required
       />
 

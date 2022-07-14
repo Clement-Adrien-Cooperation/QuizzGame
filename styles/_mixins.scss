@@ -38,6 +38,11 @@
   border-radius: 50%;
   width: 50px;
   height: 50px;
+  transition: transform 0.2s;
+
+  &:active {
+    transform: scale(0.95);
+  }
 }
 
 @mixin mainButton {
@@ -60,6 +65,22 @@
   &:active {
     transform: scale(0.95);
   }
+
+  &:disabled {
+    background: var(--grey);
+    border-color: var(--grey);
+    cursor: default;
+
+    &:hover {
+      background: var(--grey);
+      border-color: var(--grey);
+      color: var(--text-color-light);
+    }
+
+    &:active {
+      transform: none;
+    }
+  }
 }
 
 @mixin secondaryButton {
@@ -81,6 +102,22 @@
   &:active {
     transform: scale(0.95);
   }
+
+  &:disabled {
+    color: var(--grey);
+    border-color: var(--grey);
+    cursor: default;
+
+    &:hover {
+      background: transparent;
+      border-color: var(--grey);
+      color: var(--grey);
+    }
+
+    &:active {
+      transform: none;
+    }
+  }
 }
 
 @mixin underlineButton {
@@ -88,8 +125,8 @@
   text-decoration: underline;
   text-transform: uppercase;
   letter-spacing: 2px;
-  transition: transform .2s;
   font-weight: 500;
+  transition: transform .2s;
 
   &:hover {
     color: var(--main-color-alt);
@@ -98,6 +135,21 @@
 
   &:active {
     transform: scale(0.95);
+  }
+
+  &:disabled {
+    text-decoration: none;
+    color: var(--grey);
+    border-color: var(--grey);
+    cursor: default;
+
+    &:hover {
+      color: var(--grey);
+    }
+
+    &:active {
+      transform: none;
+    }
   }
 }
 

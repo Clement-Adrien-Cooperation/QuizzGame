@@ -2,8 +2,9 @@ import { useState } from 'react';
 import styles from './SignUp.module.scss';
 
 import InputField from '../InputField';
+import Warning from '../Warning';
 
-const SignUp = ({handleToggleForm }: {
+const SignUp = ({ handleToggleForm }: {
   handleToggleForm: Function
 }) => {
 
@@ -12,16 +13,21 @@ const SignUp = ({handleToggleForm }: {
   const [password, setPassword]= useState('');
   const [confirmPassword, setConfirmPassword]= useState('');
   const [warningMessage, setWarningMessage] = useState('');
+  const [disableButton, setDisableButton] = useState(false);
 
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     // Prevent the refresh
     e.preventDefault();
+    setDisableButton(true);
 
     // Reset the warning message
     setWarningMessage('');
 
     // If there is nothing in one of the fields
-    if(pseudo === '' || email === '' || password === '' || confirmPassword === '') {
+    if(pseudo.trim() === ''
+    || email.trim() === ''
+    || password.trim() === ''
+    || confirmPassword.trim() === '') {
 
       // We warn user
       setWarningMessage('Veuillez remplir tous les champs');
@@ -59,6 +65,8 @@ const SignUp = ({handleToggleForm }: {
       setPassword('');
       setConfirmPassword('');
     };
+
+    setDisableButton(false);
   };
 
   const handleChangePseudo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,6 +108,7 @@ const SignUp = ({handleToggleForm }: {
     };
   };
   
+  
   return (
     <section className={styles.container}>
 
@@ -116,6 +125,7 @@ const SignUp = ({handleToggleForm }: {
           state={pseudo}
           inputID={'pseudo'}
           type={'text'}
+          isDisabled={false}
           handleFunction={handleChangePseudo}
         />
 
@@ -124,6 +134,7 @@ const SignUp = ({handleToggleForm }: {
           state={email}
           inputID={'email'}
           type={'text'}
+          isDisabled={false}
           handleFunction={handleChangeEmail}
         />
 
@@ -132,6 +143,7 @@ const SignUp = ({handleToggleForm }: {
           state={password}
           inputID={'password'}
           type={'password'}
+          isDisabled={false}
           handleFunction={handleChangePassword}
         />
 
@@ -140,16 +152,22 @@ const SignUp = ({handleToggleForm }: {
           state={confirmPassword}
           inputID={'confirm-password'}
           type={'password'}
+          isDisabled={false}
           handleFunction={handleChangeConfirmPassword}
         />
 
-        <p className={styles.warning}>
-          {warningMessage}
-        </p>
+        
+        { warningMessage && (
+          <Warning
+            warningMessage={warningMessage}
+            setWarningMessage={setWarningMessage}
+          />
+        )}
         
         <button
           className={styles.submit_button}
           type='submit'
+          disabled={disableButton}
         >
           Inscription
         </button>

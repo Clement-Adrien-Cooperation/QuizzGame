@@ -13,6 +13,7 @@
 
   --main-color: hsl(var(--hue-color), 69%, 61%);
   --main-color-secondary: hsl(var(--hue-color), 79%, 75%); // A REVOIR
+  --main-color-third: hsl(var(--hue-color), 50%, 75%);
   --main-color-alt:  hsl(var(--hue-color), 57%, 53%);
   --main-color-light:  hsl(var(--hue-color), 92%, 85%);
 
@@ -41,8 +42,10 @@
   --green: hsl(var(--green-hue), 69%, 61%);
   --green-hover: hsl(var(--green-hue), 57%, 53%);
 
-  --red: hsl(var(--red-hue), 69%, 61%);
-  --red-hover: hsl(var(--red-hue), 57%, 53%);
+  --red: #721c24;
+  --red-hover: #b95f68;
+  --red-bg: #f8d7da;
+  --red-border: #f5c6cb;
 
   --orange: hsl(var(--orange-hue), 69%, 61%);
   --orange-hover: hsl(var(--orange-hue), 57%, 53%);

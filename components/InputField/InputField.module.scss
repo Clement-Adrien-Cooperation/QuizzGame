@@ -10,6 +10,33 @@
 .input {
   @include mainInput;
   position: absolute;
+  color: var(--text-color);
+  width: 100%;
+  background: var(--input-color);
+  padding: 9px 16px;
+  border-radius: var(--small-radius);
+  border: 2px solid transparent;
+
+  &:hover {
+    border-color: var(--main-color-light);
+  }
+
+  &:focus {
+    border-color: var(--main-color);
+  }
+
+  &:disabled {
+    background: var(--grey);
+  
+    & + .label {
+      color: var(--text-color-light);
+      text-decoration: line-through;
+    }
+
+    &:hover {
+      border-color: transparent;
+    }
+  }
 }
 
 .input:focus + .label,

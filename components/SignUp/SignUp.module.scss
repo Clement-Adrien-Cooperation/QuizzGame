@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  // min-height: 100vh;
 
   &__title {
     font-size: 30px;
@@ -12,28 +11,6 @@
     font-weight: 600;
   }
 }
-
-// .sign_up {
-//   // transform: translateX(-100vw);
-//   // opacity: 0;
-//   // transition: .3s;
-
-//   // &.selected + .sign_up {
-//   //   transform: translateX(0);
-//   //   opacity: 1;
-//   // }
-
-//   opacity: 0;
-//   transform: translateX(100vw);
-//   animation: apparitionAnimation 0.3s ease-out forwards;
-// }
-
-// @keyframes apparitionAnimation {
-//   100% {
-//     transform: none;
-//     opacity: 1;
-//   }
-// }
 
 .title {
   text-align: center;
@@ -48,6 +25,7 @@
 }
 
 .submit_button {
+  margin-top: 20px;
   @include mainButton;
 }
 
@@ -55,13 +33,4 @@
   font-size: 12px;
   margin-top: 30px;
   @include underlineButton;
-}
-
-.warning {
-  color: var(--red);
-  display: block;
-  text-align: center;
-  height: 2rem;
-  font-size: 0.9rem;
-  margin: 10px 0 10px;
 }

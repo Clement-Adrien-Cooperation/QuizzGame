@@ -1,3 +1,4 @@
+import { ReactFragment } from 'react';
 import styles from './ColorPicker.module.scss';
 
 const ColorPicker = ({
@@ -20,6 +21,7 @@ const ColorPicker = ({
         defaultChecked={hue === hueColor ? true : false}
         readOnly
       />
+      
       <label
         className={styles.picker}
         htmlFor={colorName}

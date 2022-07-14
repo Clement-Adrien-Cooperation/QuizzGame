@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from './SignIn.module.scss';
 
 import InputField from '../InputField';
+import Warning from '../Warning';
 
 const SignIn = ({handleToggleForm }: {
   handleToggleForm: Function
@@ -67,6 +68,7 @@ const SignIn = ({handleToggleForm }: {
           state={pseudo}
           inputID={'pseudo'}
           type={'text'}
+          isDisabled={false}
           handleFunction={handleChangePseudo}
         />
 
@@ -75,6 +77,7 @@ const SignIn = ({handleToggleForm }: {
           state={email}
           inputID={'email'}
           type={'text'}
+          isDisabled={false}
           handleFunction={handleChangeEmail}
         /> */}
 
@@ -83,12 +86,16 @@ const SignIn = ({handleToggleForm }: {
           state={password}
           inputID={'password'}
           type={'password'}
+          isDisabled={false}
           handleFunction={handleChangePassword}
         />
 
-        <p className={styles.warning}>
-          {warningMessage}
-        </p>
+        { warningMessage && (
+          <Warning
+            warningMessage={warningMessage}
+            setWarningMessage={setWarningMessage}
+          />
+        )}
         
         <button
           className={styles.submit_button}
