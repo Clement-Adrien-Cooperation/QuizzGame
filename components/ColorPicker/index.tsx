@@ -1,15 +1,20 @@
-import { ReactFragment } from 'react';
 import styles from './ColorPicker.module.scss';
 
-const ColorPicker = ({
-  children, hue, colorName, hueColor, changeColor
-}:{
+type ColorPickerProps = {
   children: any,
   hue: string,
   colorName: string,
   hueColor: string,
   changeColor: Function
-}) => {
+};
+
+const ColorPicker = ({
+  children,
+  hue,
+  colorName,
+  hueColor,
+  changeColor
+} : ColorPickerProps) => {
 
   return (
     <>

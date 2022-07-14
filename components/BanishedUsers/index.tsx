@@ -1,7 +1,19 @@
 import User from '../User';
 import styles from './BanishedUsers.module.scss';
 
-const BanishedUsers = ({ banishedUsers, banUser, unBanUser, deleteUser }:any) => {
+type BanishedUsersProps = {
+  banishedUsers: any,
+  banUser: Function,
+  unBanUser: Function,
+  deleteUser: Function
+};
+
+const BanishedUsers = ({ 
+  banishedUsers,
+  banUser,
+  unBanUser,
+  deleteUser
+} : BanishedUsersProps ) => {
 
   return (
     <section className={styles.container}>

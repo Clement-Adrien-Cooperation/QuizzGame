@@ -16,6 +16,22 @@ const Navbar = () => {
         </li>
 
         <li className={styles.list__item}>
+          <Link href='/quizz'>
+            <a>
+              Quizz
+            </a>
+          </Link>
+        </li>
+
+        <li className={styles.list__item}>
+          <Link href='/quizz/create'>
+            <a>
+              Créer un quizz
+            </a>
+          </Link>
+        </li>
+
+        <li className={styles.list__item}>
           <Link href='/profil'>
             <a>
               Profil

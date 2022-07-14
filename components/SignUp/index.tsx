@@ -4,9 +4,11 @@ import styles from './SignUp.module.scss';
 import InputField from '../InputField';
 import Warning from '../Warning';
 
-const SignUp = ({ handleToggleForm }: {
+type SignUpProps = {
   handleToggleForm: Function
-}) => {
+};
+
+const SignUp = ({ handleToggleForm } : SignUpProps) => {
 
   const [pseudo, setPseudo] = useState('');
   const [email, setEmail]= useState('');
@@ -164,13 +166,12 @@ const SignUp = ({ handleToggleForm }: {
           />
         )}
         
-        <button
+        <input
           className={styles.submit_button}
           type='submit'
+          value='inscription'
           disabled={disableButton}
-        >
-          Inscription
-        </button>
+        />
 
       </form>
 

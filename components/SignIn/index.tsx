@@ -4,18 +4,22 @@ import styles from './SignIn.module.scss';
 import InputField from '../InputField';
 import Warning from '../Warning';
 
-const SignIn = ({handleToggleForm }: {
-  handleToggleForm: Function
-}) => {
+type SignInProps = {
+  handleToggleForm: () => void
+};
+
+const SignIn = ({ handleToggleForm } : SignInProps) => {
 
   // const [pseudoOrEmail, setPseudoOrEmail] = useState('');
   const [pseudo, setPseudo] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [warningMessage, setWarningMessage] = useState('');
+  const [disableButton, setDisableButton] = useState(false);
 
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setDisableButton(true);
 
     const body = { pseudo, password }
 
@@ -34,6 +38,8 @@ const SignIn = ({handleToggleForm }: {
     .catch((error) => {
       console.log(error);
     });
+    
+    setDisableButton(false);
   };
 
   // const handleChangePseudoOrEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,12 +103,12 @@ const SignIn = ({handleToggleForm }: {
           />
         )}
         
-        <button
+        <input
           className={styles.submit_button}
           type='submit'
-        >
-          Connexion
-        </button>
+          value='Connexion'
+          disabled={disableButton}
+        />
 
       </form>
 

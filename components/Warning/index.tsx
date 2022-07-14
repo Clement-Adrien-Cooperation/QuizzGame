@@ -1,24 +1,26 @@
 import styles from './Warning.module.scss';
 
-const Warning = ({
-  warningMessage,
-  setWarningMessage
-}: {
+type WarningProps = {
   warningMessage: string,
   setWarningMessage: Function
-}) => {
+};
+
+const Warning = ({ warningMessage, setWarningMessage }: WarningProps) => {
 
   return (
     <div className={styles.warning}>
+
       <p className={styles.warning__message}>
         {warningMessage}
       </p>
+
       <button
         className={styles.warning__button}
         onClick={() => setWarningMessage('')}
       >
         &times;
       </button>
+      
     </div>
   );
 };

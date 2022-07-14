@@ -7,7 +7,7 @@
   margin: 5px 0;
 }
 
-.input {
+.select {
   position: absolute;
   color: var(--text-color);
   width: 100%;
@@ -38,8 +38,12 @@
   }
 }
 
-.input:focus + .label,
-.input:valid + .label {
+.option {
+  border-radius: var(--small-radius);
+}
+
+.select:focus + .label,
+.select:valid + .label {
   transform: translateY(-125%);
   padding: 3px 6px;
   background: var(--main-color);

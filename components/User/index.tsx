@@ -1,9 +1,21 @@
 import Image from 'next/image';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import styles from './User.module.scss';
 
 import defaultAvatar from '../../public/icons/defaultAvatar.svg';
 import arrow from '../../public/icons/arrow.svg';
+
+type UserProps = {
+  id: number,
+  pseudo: string,
+  email: string,
+  avatar: string,
+  is_admin: boolean,
+  is_banished: boolean,
+  banUser: Function
+  unBanUser: Function,
+  deleteUser: Function
+};
 
 const User = ({
   id,
@@ -15,25 +27,12 @@ const User = ({
   unBanUser,
   banUser,
   deleteUser
-}: {
-  id: number,
-  pseudo: string,
-  email: string,
-  avatar: string,
-  is_admin: boolean,
-  is_banished: boolean,
-  banUser: Function
-  unBanUser: Function,
-  deleteUser: Function
-}) => {
-
-  const iconRef = useRef<HTMLDivElement>(null);
+} : UserProps ) => {
   
   const [showDetails, setShowDetails] = useState(false);
 
   const toggleDetails = () => {
     setShowDetails(!showDetails);
-    iconRef.current?.classList.toggle('rotate');
   };
 
   return (
@@ -77,10 +76,7 @@ const User = ({
             {pseudo}
           </h3>
 
-          <div
-            className={styles.toggle_icon}
-            ref={iconRef}
-          >
+          <div className={styles.toggle_icon}>
             <Image
               src={arrow}
               width='32'

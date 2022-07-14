@@ -46,6 +46,7 @@
 }
 
 @mixin mainButton {
+  cursor: pointer;
   background: var(--main-color);
   padding: 9px 16px;
   border: 2px solid var(--main-color);
@@ -84,6 +85,7 @@
 }
 
 @mixin secondaryButton {
+  cursor: pointer;
   color: var(--main-color);
   border: 2px solid var(--main-color);
   border-radius: var(--small-radius);
@@ -121,6 +123,7 @@
 }
 
 @mixin underlineButton {
+  cursor: pointer;
   color: var(--main-color);
   text-decoration: underline;
   text-transform: uppercase;
@@ -150,23 +153,6 @@
     &:active {
       transform: none;
     }
-  }
-}
-
-@mixin mainInput {
-  color: var(--text-color);
-  width: 100%;
-  background: var(--input-color);
-  padding: 9px 16px;
-  border-radius: var(--small-radius);
-  border: 2px solid transparent;
-
-  &:hover {
-    border-color: var(--main-color-light);
-  }
-
-  &:focus {
-    border-color: var(--main-color);
   }
 }
 

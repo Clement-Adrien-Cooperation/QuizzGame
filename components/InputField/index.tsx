@@ -1,6 +1,15 @@
 import { ChangeEventHandler } from 'react';
 import styles from './InputField.module.scss';
 
+type InputFieldProps = {
+  name: string,
+  state: string,
+  inputID: string,
+  type: string,
+  isDisabled: boolean,
+  handleFunction: ChangeEventHandler<HTMLInputElement>
+};
+
 const InputField = ({
   name,
   state,
@@ -8,14 +17,7 @@ const InputField = ({
   type,
   isDisabled,
   handleFunction,
-}:{
-  name: string,
-  state: string,
-  inputID: string,
-  type: string,
-  isDisabled: boolean,
-  handleFunction: ChangeEventHandler<HTMLInputElement>
-}) => {
+} : InputFieldProps) => {
 
   return (
     <div className={styles.field}>
