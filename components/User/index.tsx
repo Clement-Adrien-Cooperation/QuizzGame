@@ -102,7 +102,7 @@ const User = ({
 
             </div>
 
-            <section className={styles.footer}>
+            <div className={styles.footer}>
 
               <button
                 className={styles.button}
@@ -121,7 +121,7 @@ const User = ({
                 </button>
               )}
 
-            </section>
+            </div>
           </section>
         )}
       </label>

@@ -17,18 +17,27 @@
   --main-color-alt:  hsl(var(--hue-color), 57%, 53%);
   --main-color-light:  hsl(var(--hue-color), 92%, 85%);
 
+  --body-color: hsl(var(--hue-color), 60%, 98%);
+  --input-color: hsl(var(--hue-color), 70%, 95%);
+
   --title-color:  hsl(var(--hue-color), 8%, 15%);
   --text-color:  hsl(var(--hue-color), 8%, 30%);
   --text-color-light: hsl(var(--hue-color), 8%, 75%);
 
-  --body-color: hsl(var(--hue-color), 60%, 98%);
-  --input-color: hsl(var(--hue-color), 70%, 95%);
+  --main-title-size: clamp(35px, 15vw, 80px);
+  --title-size: clamp(25px, 10vw, 60px);
+  --subtitle-size: clamp(20px, 8vw, 40px);
+  --text-size: clamp(14px, 5vw, 16px);
+  --small-text-size: clamp(12px, 4vw, 14px);
 
   --main-font: 'Poppins', sans-serif;
   --title-font: 'Rubik Moonrocks', cursive;
 
   --medium-radius: 10px;
   --small-radius: 5px;
+  
+  --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  --inner-box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.1);
 
   --navbar-width: 300px;
 

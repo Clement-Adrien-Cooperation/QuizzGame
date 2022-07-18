@@ -4,6 +4,8 @@ import Link from 'next/link';
 
 const Quizz: NextPage = ({ quizzData }:any) => {
 
+  console.log(quizzData);
+  
   return (
     <>
       <h2 className={styles.title}>
@@ -11,6 +13,10 @@ const Quizz: NextPage = ({ quizzData }:any) => {
       </h2>
 
       <section className={styles.container}>
+
+        <ul>
+          {/* {quizzData.map()} */}
+        </ul>
 
         <button className={styles.link}>
 

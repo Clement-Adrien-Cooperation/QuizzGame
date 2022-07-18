@@ -1,9 +1,16 @@
 import type { NextPage } from 'next';
+import { useState } from 'react';
+import Loader from '../components/Loader';
 import styles from '../styles/Home.module.scss';
 
 const Home: NextPage = () => {
 
+  const [showLoader, setShowLoader] = useState(false);
+
   const getUsers = async () => {
+
+    setShowLoader(true);
+
     await fetch('/api/getAllUsers')
     .then((res) => {
       return res.json();
@@ -11,6 +18,8 @@ const Home: NextPage = () => {
     .then((res) => {
       console.log(res);
     });
+
+    setShowLoader(false);
   };
   
   return (
@@ -47,6 +56,10 @@ const Home: NextPage = () => {
         </button>
 
       </section>
+
+      { showLoader && (
+        <Loader />
+      )}
 
     </>
   );

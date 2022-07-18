@@ -17,10 +17,49 @@
   @include flexCenter;
   flex-direction: column;
   margin-top: 100px;
-  width: 30vw;
+  width: 20vw;
 }
 
 .submit {
   margin-top: 500px;
   @include mainButton;
+}
+
+.range {
+  @include flexCenter;
+
+  &__label {
+    margin-right: 20px;
+  }
+
+  &__input {
+    width: 200px;
+    cursor: pointer;
+    
+    &::-webkit-slider-thumb {
+      background-color: var(--main-color);
+      -webkit-appearance: none;
+    }
+   
+    &::-webkit-slider-runnable-track {
+      background: var(--input-color);
+      border-radius: 50px;
+    }
+
+    // &::-moz-range-thumb {
+
+    // }
+
+    // &::-moz-range-track {
+
+    // }
+
+    // &::-ms-thumb {
+
+    // }
+
+    // &::-ms-track {
+
+    // }
+  }
 }

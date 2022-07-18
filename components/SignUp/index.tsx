@@ -3,6 +3,7 @@ import styles from './SignUp.module.scss';
 
 import InputField from '../InputField';
 import Warning from '../Warning';
+import Loader from '../Loader';
 
 type SignUpProps = {
   handleToggleForm: Function
@@ -14,8 +15,64 @@ const SignUp = ({ handleToggleForm } : SignUpProps) => {
   const [email, setEmail]= useState('');
   const [password, setPassword]= useState('');
   const [confirmPassword, setConfirmPassword]= useState('');
+
   const [warningMessage, setWarningMessage] = useState('');
-  const [disableButton, setDisableButton] = useState(false);
+  const [disableButton, setDisableButton] = useState(true);
+  const [showLoader, setShowLoader] = useState(false);
+
+  const checkForm = () => {
+
+    // If form is not filled
+    if(pseudo.trim() === ''
+    || email.trim() === ''
+    || password.trim() === ''
+    || confirmPassword.trim() === '') {
+
+      // We warn user
+      setWarningMessage('Veuillez remplir tous les champs');
+      setDisableButton(true);
+
+    // If email is not valid
+    } else if (!email.includes('@') && !email.includes('.')) {
+
+      // We warn him too
+      setWarningMessage('Veuillez entrer un email valide');
+      setDisableButton(true);
+
+    // If the two passwords are not the same
+    } else if (password !== confirmPassword) {
+
+      // Same routine..
+      setWarningMessage('Les deux mots de passe ne correspondent pas');
+      setDisableButton(true);
+    
+    } else if (password.length < 10 || password.length > 1000) {
+
+      setWarningMessage('Votre mot de passe doit contenir entre 10 et 1000 caractères');
+      setDisableButton(true);
+
+    } else if (pseudo.length > 30) {
+      
+      setWarningMessage('Votre pseudo ne doit pas excéder 30 caractères');
+      setDisableButton(true);
+
+    } else if (email.length > 100) {
+
+      setWarningMessage('Votre adresse mail ne doit pas excéder 100 caractères');
+      setDisableButton(true);
+
+    } else if (
+      password.length > 1000 && password.length < 10
+      || 
+      confirmPassword.length > 1000 && confirmPassword.length < 10) {
+
+      setWarningMessage('Votre mot de passe doit contenir entre 10 et 1000 caractères');
+      setDisableButton(true);
+
+    } else {
+      return true;
+    };
+  };
 
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     // Prevent the refresh
@@ -25,32 +82,10 @@ const SignUp = ({ handleToggleForm } : SignUpProps) => {
     // Reset the warning message
     setWarningMessage('');
 
-    // If there is nothing in one of the fields
-    if(pseudo.trim() === ''
-    || email.trim() === ''
-    || password.trim() === ''
-    || confirmPassword.trim() === '') {
+    if(checkForm()) {
 
-      // We warn user
-      setWarningMessage('Veuillez remplir tous les champs');
-
-    // If email is not valid
-    } else if (!email.includes('@') && !email.includes('.')) {
-
-      // We warn him too
-      setWarningMessage('Veuillez entrer un email valide');
-
-    // If the two passwords are not the same
-    } else if (password !== confirmPassword) {
-
-      // Same routine..
-      setWarningMessage('Les deux mots de passe ne correspondent pas');
-    
-    } else if (password.length < 10 || password.length > 1000) {
-
-      setWarningMessage('Votre mot de passe doit contenir entre 10 et 1000 caractères');
-
-    } else {
+      // Show loader
+      setShowLoader(true);
 
       // If everything is ok, set up the body
       const body = { pseudo, email, password };
@@ -62,10 +97,17 @@ const SignUp = ({ handleToggleForm } : SignUpProps) => {
         body: JSON.stringify(body)
       });
 
+
+      // Reset states & hide loader
       setPseudo('');
       setEmail('');
       setPassword('');
       setConfirmPassword('');
+
+      setShowLoader(false);
+
+      // Then, we can show sign in form (to change)
+      handleToggleForm();
     };
 
     setDisableButton(false);
@@ -77,114 +119,135 @@ const SignUp = ({ handleToggleForm } : SignUpProps) => {
     if(pseudo.length > 30) {
       // We warn user
       setWarningMessage('Votre pseudo ne doit pas excéder 30 caractères');
+      setDisableButton(true);
     } else {
       // If not, we update state
-      setPseudo(e.target.value);
+      setWarningMessage('');
+      setDisableButton(false);
     };
+
+    setPseudo(e.target.value);
   };
 
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
 
     if(email.length > 100) {
       setWarningMessage('Votre adresse mail ne doit pas excéder 100 caractères');
+      setDisableButton(true);
     } else {
-      setEmail(e.target.value);
+      setWarningMessage('');
+      setDisableButton(false);
     };
+
+    setEmail(e.target.value);
   };
 
   const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    if(password.length > 100) {
-      setWarningMessage('Votre mot de passe ne doit pas excéder 100 caractères');
+    if(password.length > 1000) {
+      setWarningMessage('Votre mot de passe ne doit pas excéder 1000 caractères');
+      setDisableButton(true);
     } else {
-      setPassword(e.target.value);
+      setWarningMessage('');
+      setDisableButton(false);
     };
+
+    setPassword(e.target.value);
   };
 
   const handleChangeConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    if(confirmPassword.length > 100) {
-      setWarningMessage('Votre mot de passe ne doit pas excéder 100 caractères');
+    if(confirmPassword.length > 1000) {
+      setWarningMessage('Votre mot de passe ne doit pas excéder 1000 caractères');
+      setDisableButton(true);
     } else {
-      setConfirmPassword(e.target.value);
+      setWarningMessage('');
+      setDisableButton(false);
     };
+
+    setConfirmPassword(e.target.value);
   };
   
-  
   return (
-    <section className={styles.container}>
+    <>
+      <section className={styles.container}>
 
-      <h2 className={styles.container__title}>
-        Créer un compte
-      </h2>
+        <h2 className={styles.container__title}>
+          Créer un compte
+        </h2>
 
-      <form
-        className={styles.form}
-        onSubmit={handleSubmitForm}
-      >
-        <InputField
-          name={'Pseudo'}
-          state={pseudo}
-          inputID={'pseudo'}
-          type={'text'}
-          isDisabled={false}
-          handleFunction={handleChangePseudo}
-        />
-
-        <InputField
-          name={'Adresse Mail'}
-          state={email}
-          inputID={'email'}
-          type={'text'}
-          isDisabled={false}
-          handleFunction={handleChangeEmail}
-        />
-
-        <InputField
-          name={'Mot de passe'}
-          state={password}
-          inputID={'password'}
-          type={'password'}
-          isDisabled={false}
-          handleFunction={handleChangePassword}
-        />
-
-        <InputField
-          name={'Confirmer le mot de passe'}
-          state={confirmPassword}
-          inputID={'confirm-password'}
-          type={'password'}
-          isDisabled={false}
-          handleFunction={handleChangeConfirmPassword}
-        />
-
-        
-        { warningMessage && (
-          <Warning
-            warningMessage={warningMessage}
-            setWarningMessage={setWarningMessage}
+        <form
+          className={styles.form}
+          onSubmit={handleSubmitForm}
+        >
+          <InputField
+            name={'Pseudo'}
+            state={pseudo}
+            inputID={'pseudo'}
+            type={'text'}
+            isDisabled={false}
+            handleFunction={handleChangePseudo}
           />
-        )}
-        
-        <input
-          className={styles.submit_button}
-          type='submit'
-          value='inscription'
-          disabled={disableButton}
-        />
 
-      </form>
+          <InputField
+            name={'Adresse Mail'}
+            state={email}
+            inputID={'email'}
+            type={'text'}
+            isDisabled={false}
+            handleFunction={handleChangeEmail}
+          />
 
-      <button
-        className={styles.secondary_button}
-        onClick={() => handleToggleForm()}
-      >
-        Déjà un compte ?
-        <br />
-        Se connecter
-      </button>
+          <InputField
+            name={'Mot de passe'}
+            state={password}
+            inputID={'password'}
+            type={'password'}
+            isDisabled={false}
+            handleFunction={handleChangePassword}
+          />
 
-    </section>
+          <InputField
+            name={'Confirmer le mot de passe'}
+            state={confirmPassword}
+            inputID={'confirm-password'}
+            type={'password'}
+            isDisabled={false}
+            handleFunction={handleChangeConfirmPassword}
+          />
+
+          
+          { warningMessage && (
+            <Warning
+              warningMessage={warningMessage}
+              setWarningMessage={setWarningMessage}
+            />
+          )}
+          
+          <input
+            className={styles.submit_button}
+            type='submit'
+            value='inscription'
+            disabled={disableButton}
+          />
+
+        </form>
+
+        <button
+          className={styles.secondary_button}
+          onClick={() => handleToggleForm()}
+        >
+          Déjà un compte ?
+          <br />
+          Se connecter
+        </button>
+
+      </section>
+
+      {showLoader && (
+        <Loader />
+      )}
+    </>
   );
 };
 

@@ -8,6 +8,7 @@ body {
   background: var(--body-color);
   font-family: var(--main-font);
   color: var(--text-color);
+  font-size: var(--text-size);
 
   ::selection {
     background-color: var(--main-color);
@@ -25,13 +26,14 @@ body {
   }
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4{
   color: var(--title-color);
   font-weight: 500;
 }
 
 h1 {
   font-family: var(--title-font);
+  font-size: var(--main-title-size);
   font-weight: 600;
 }
 

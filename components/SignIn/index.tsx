@@ -3,9 +3,10 @@ import styles from './SignIn.module.scss';
 
 import InputField from '../InputField';
 import Warning from '../Warning';
+import Loader from '../Loader';
 
 type SignInProps = {
-  handleToggleForm: () => void
+  handleToggleForm: Function
 };
 
 const SignIn = ({ handleToggleForm } : SignInProps) => {
@@ -15,7 +16,9 @@ const SignIn = ({ handleToggleForm } : SignInProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [warningMessage, setWarningMessage] = useState('');
+
   const [disableButton, setDisableButton] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
 
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -59,67 +62,73 @@ const SignIn = ({ handleToggleForm } : SignInProps) => {
   };
 
   return (
-    <section className={styles.container}>
+    <>
+      <section className={styles.container}>
 
-      <h2 className={styles.container__title}>
-        Se connecter
-      </h2>
+        <h2 className={styles.container__title}>
+          Se connecter
+        </h2>
 
-      <form
-        className={styles.form}
-        onSubmit={handleSubmitForm}
-      >
-        <InputField
-          name={'Pseudo'}
-          state={pseudo}
-          inputID={'pseudo'}
-          type={'text'}
-          isDisabled={false}
-          handleFunction={handleChangePseudo}
-        />
-
-        {/* <InputField
-          name={'adresse mail'}
-          state={email}
-          inputID={'email'}
-          type={'text'}
-          isDisabled={false}
-          handleFunction={handleChangeEmail}
-        /> */}
-
-        <InputField
-          name={'Mot de passe'}
-          state={password}
-          inputID={'password'}
-          type={'password'}
-          isDisabled={false}
-          handleFunction={handleChangePassword}
-        />
-
-        { warningMessage && (
-          <Warning
-            warningMessage={warningMessage}
-            setWarningMessage={setWarningMessage}
+        <form
+          className={styles.form}
+          onSubmit={handleSubmitForm}
+        >
+          <InputField
+            name={'Pseudo'}
+            state={pseudo}
+            inputID={'pseudo'}
+            type={'text'}
+            isDisabled={false}
+            handleFunction={handleChangePseudo}
           />
-        )}
-        
-        <input
-          className={styles.submit_button}
-          type='submit'
-          value='Connexion'
-          disabled={disableButton}
-        />
 
-      </form>
+          {/* <InputField
+            name={'adresse mail'}
+            state={email}
+            inputID={'email'}
+            type={'text'}
+            isDisabled={false}
+            handleFunction={handleChangeEmail}
+          /> */}
 
-      <button
-        className={styles.secondary_button}
-        onClick={() => handleToggleForm()}
-      >
-        Se créer un compte
-      </button>
+          <InputField
+            name={'Mot de passe'}
+            state={password}
+            inputID={'password'}
+            type={'password'}
+            isDisabled={false}
+            handleFunction={handleChangePassword}
+          />
 
-    </section>
+          { warningMessage && (
+            <Warning
+              warningMessage={warningMessage}
+              setWarningMessage={setWarningMessage}
+            />
+          )}
+          
+          <input
+            className={styles.submit_button}
+            type='submit'
+            value='Connexion'
+            disabled={disableButton}
+          />
+
+        </form>
+
+        <button
+          className={styles.secondary_button}
+          onClick={() => handleToggleForm()}
+        >
+          Se créer un compte
+        </button>
+
+      </section>
+
+      {showLoader && (
+        <Loader />
+      )}
+    </>
   );
 };
 

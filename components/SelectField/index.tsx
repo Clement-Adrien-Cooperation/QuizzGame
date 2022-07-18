@@ -35,7 +35,7 @@ const SelectField = ({
           className={styles.option}
           value=''
         >
-          Choisissez une option...
+          Choisissez une catégorie...
         </option>
 
         {options.map((option: string, index) => {

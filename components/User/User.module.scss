@@ -23,6 +23,7 @@
   border-radius: var(--small-radius);
   background: var(--main-color-light);
   transition: .3s;
+  font-size: clamp(0.8rem, 0.7153rem + 1.6368vw, 1rem);
 
   &:hover {
     background: var(--main-color-third);
