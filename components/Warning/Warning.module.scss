@@ -1,8 +1,8 @@
 @import '../../styles/mixins';
 
 .warning {
-  background: var(--red-bg);
-  border: 1px solid var(--red-border);
+  background: var(--warning-bg);
+  border: 1px solid var(--warning-border);
   border-radius: var(--small-radius);
   display: flex;
   align-items: center;
@@ -15,18 +15,18 @@
 
   &__message {
     font-size: 0.8em;
-    color: var(--red);
+    color: var(--warning);
   }
 
   &__button {
     margin-left: 10px;
     font-size: 1.4em;
-    color: var(--red);
+    color: var(--warning);
     font-weight: 300;
     transition: transform 0.2s;
 
     &:hover {
-      color: var(--red-hover);
+      color: var(--warning-hover);
     }
 
     &:active {

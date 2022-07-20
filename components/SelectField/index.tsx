@@ -3,6 +3,7 @@ import styles from './SelectField.module.scss';
 
 type SelectFieldProps = {
   name: string,
+  defaultOption: string,
   options: string[],
   isDisabled: boolean,
   handleFunction: ChangeEventHandler<HTMLSelectElement>
@@ -10,6 +11,7 @@ type SelectFieldProps = {
 
 const SelectField = ({
   name,
+  defaultOption,
   options,
   isDisabled,
   handleFunction
@@ -35,7 +37,7 @@ const SelectField = ({
           className={styles.option}
           value=''
         >
-          Choisissez une catégorie...
+          {defaultOption}
         </option>
 
         {options.map((option: string, index) => {

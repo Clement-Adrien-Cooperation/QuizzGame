@@ -4,7 +4,6 @@ BEGIN;
 
 DROP TABLE "user", quizz, questions, comment;
 
-
 CREATE TABLE "user" (
   id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
   pseudo TEXT NOT NULL UNIQUE,  

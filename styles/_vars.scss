@@ -48,14 +48,20 @@
   --grey: hsl(var(--hue-color), 5%, 50%);
   --dark-grey: hsl(var(--hue-color), 5%, 25%);
 
-  --green: hsl(var(--green-hue), 69%, 61%);
-  --green-hover: hsl(var(--green-hue), 57%, 53%);
+  --warning: #721c24;
+  --warning-hover: #b95f68;
+  --warning-bg: #f8d7da;
+  --warning-border: #f5c6cb;
 
-  --red: #721c24;
-  --red-hover: #b95f68;
-  --red-bg: #f8d7da;
-  --red-border: #f5c6cb;
+  --green: #2e8b57;
+  --green-hover: #4da874;
 
-  --orange: hsl(var(--orange-hue), 69%, 61%);
-  --orange-hover: hsl(var(--orange-hue), 57%, 53%);
+  --yellow: #e2be0a;
+  --yellow-hover: #e2ca53;
+
+  --orange: #e08f57;
+  --orange-hover: #f7b180;
+
+  --red: #df5757;
+  --red-hover: #f37f7f;
 }
