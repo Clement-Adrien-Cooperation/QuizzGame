@@ -18,27 +18,26 @@ model User {
   avatar        String?
   is_admin      Boolean   @default(false)
   is_banished   Boolean   @default(false)
-  quizz         Quizz?
-  comment       Comment?
+  quizz         Quizz[]
+  comment       Comment[]
 
   @@unique([pseudo, email])
-
 }
 
 model Quizz {
   id            Int       @id @default(autoincrement())
   user          User      @relation(fields: [user_id], references: [id])
-  user_id       Int       @unique
+  user_id       Int       
   title         String
   category      String
   difficulty    Int
-  lang          String
+  lang          String?
   image         String?
   is_visible    Boolean   @default(true)
-  date          DateTime
+  date          String
   rate          Int?
-  questions     Questions?
-  comment       Comment?
+  questions     Questions[]
+  comment       Comment[]
 
   @@unique([title])
 }
@@ -46,7 +45,7 @@ model Quizz {
 model Questions {
   id            Int       @id @default(autoincrement())
   quizz         Quizz     @relation(fields: [quizz_id], references: [id])
-  quizz_id      Int       @unique
+  quizz_id      Int       
   question      String
   description   String?
   proposition   String[]
@@ -56,8 +55,8 @@ model Questions {
 model Comment {
   id            Int       @id @default(autoincrement())
   user          User      @relation(fields: [user_id], references: [id])
-  user_id       Int       @unique
+  user_id       Int       
   quizz         Quizz     @relation(fields: [quizz_id], references: [id])
-  quizz_id      Int       @unique
+  quizz_id      Int       
   content       String
 }

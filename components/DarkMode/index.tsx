@@ -1,64 +1,58 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Image from 'next/image';
 import styles from './DarkMode.module.scss';
 
 import sun from '../../public/icons/sun.svg';
 import moon from '../../public/icons/moon.svg';
+import CheckButton from "../CheckButton";
 
 const DarkMode = () => {
 
   const [darkMode, setDarkMode] = useState(false);
 
-  const buttonRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     // Get the previous favorite theme on local storage
     const previousTheme = localStorage.getItem('favorite-theme');
 
-    // If there is a previous favorite theme saved,
-    if(previousTheme) {
-      // We can change the theme
-      toggleTheme(previousTheme);
+    // If the previous theme was 'dark'
+    if(previousTheme === 'dark') {
+      // Toggle state (false by default)
+      setDarkMode(!darkMode);
     };
   }, []);
-  
 
-  const toggleTheme = (newTheme: string) => {
-    // We can change the hue color on CSS root properties
-    // Then we save the new favorite theme in the local storage
-    if(newTheme === 'dark') {
+  // This useEffect watch state of dark mode
+  useEffect(() => {
+
+    // If dark mode is on
+    if(darkMode) {
+      // Add classlist to body for colors in CSS
       document.body.classList.add('dark');
-      localStorage.setItem('favorite-theme', newTheme);
-      buttonRef.current?.classList.toggle('checked');
-      setDarkMode(true);
 
-    } else if(newTheme === 'light') {
+      // & save it as favorite theme in local storage
+      localStorage.setItem('favorite-theme', 'dark');
+
+    } else {
+
+      // If dark mode is off, remove classlist from body
       document.body.classList.remove('dark');
-      localStorage.setItem('favorite-theme', newTheme);
-      buttonRef.current?.classList.toggle('checked');
-      setDarkMode(false);
 
+      // & save 'light' mode as favorite
+      localStorage.setItem('favorite-theme', 'light');
     };
+  }, [darkMode]);
+
+  const toggleTheme = () => {
+    setDarkMode(!darkMode);
   };
 
   return (
     <section className={styles.container}>
 
-      <input
-        className={styles.input}
-        type='checkbox'
-        id='switch'
-        checked={darkMode}
-        readOnly
+      <CheckButton
+        state={darkMode}
+        clickFunction={toggleTheme}
       />
-
-      <label
-        className={styles.label}
-        htmlFor="switch"
-        onClick={() => {
-          darkMode ? toggleTheme('light') : toggleTheme('dark');
-        }}
-      ></label>
 
       <div className={styles.icon}>
         <Image

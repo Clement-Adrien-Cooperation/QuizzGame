@@ -25,6 +25,24 @@ const CreateQuizz: NextPage = () => {
   const [disableButton, setDisableButton] = useState(false);
   const [showLoader, setShowLoader] = useState(false);
 
+  const checkForm = () => {
+
+    if(title.trim() === '') {
+      setWarningMessage('Vous devez choisir un titre');
+
+    } else if(category.trim() === '' || !categoryList.includes(category)) {
+      setWarningMessage('Vous devez choisir une catégorie valide');
+
+    } else if(lang === '' || !langList.includes(lang)) {
+      setWarningMessage('Vous devez choisir une langue valide');
+
+    } else if(difficulty < 0 || difficulty > 4 ) {
+      setWarningMessage("La difficulté n'est pas valide");
+    } else {
+      return true;
+    };
+  };
+
   const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     if(e.target.value.length > 50) {
       setWarningMessage('Le titre de votre quizz ne doit pas contenir plus de 50 caractères');
@@ -103,33 +121,29 @@ const CreateQuizz: NextPage = () => {
     setDisableButton(true);
     setShowLoader(true);
 
-    if(title.trim() === '') {
-      setWarningMessage('Vous devez choisir un titre');
+    const user_id :number = 12;
+    const is_visible :boolean = true;
+    const date = new Date();
 
-    } else if(category.trim() === '' || !categoryList.includes(category)) {
-      setWarningMessage('Vous devez choisir une catégorie valide');
-
-    } else if(lang === '' || !langList.includes(lang)) {
-      setWarningMessage('Vous devez choisir une langue valide');
-
-    } else if(difficulty < 0 || difficulty > 4 ) {
-      setWarningMessage("La difficulté n'est pas valide");
-
-    } else {
+    if(checkForm()) {
+      
 
       // If everything is ok, set up the body
-      const body = { title, category, difficulty };
+      const body = { user_id, title, category, lang, difficulty, is_visible, date };
 
       // & create a new user
       await fetch(`/api/createQuizz`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
-      });
+      }).catch((error) => {
+        console.log(error);
+        
+      })
 
       setTitle('');
       setCategory('');
-      setDifficulty(3);
+      setDifficulty(2);
     };
     
     setDisableButton(false);
