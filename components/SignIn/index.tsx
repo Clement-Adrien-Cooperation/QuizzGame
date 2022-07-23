@@ -11,14 +11,14 @@ type SignInProps = {
 
 const SignIn = ({ handleToggleForm } : SignInProps) => {
 
-  // const [pseudoOrEmail, setPseudoOrEmail] = useState('');
-  const [pseudo, setPseudo] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [warningMessage, setWarningMessage] = useState('');
+  // const [pseudoOrEmail, setPseudoOrEmail] = useState<string>('');
+  const [pseudo, setPseudo] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [warningMessage, setWarningMessage] = useState<string>('');
 
-  const [disableButton, setDisableButton] = useState(false);
-  const [showLoader, setShowLoader] = useState(false);
+  const [disableButton, setDisableButton] = useState<boolean>(false);
+  const [showLoader, setShowLoader] = useState<boolean>(false);
 
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

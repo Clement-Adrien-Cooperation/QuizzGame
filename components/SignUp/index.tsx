@@ -11,14 +11,14 @@ type SignUpProps = {
 
 const SignUp = ({ handleToggleForm } : SignUpProps) => {
 
-  const [pseudo, setPseudo] = useState('');
-  const [email, setEmail]= useState('');
-  const [password, setPassword]= useState('');
-  const [confirmPassword, setConfirmPassword]= useState('');
+  const [pseudo, setPseudo] = useState<string>('');
+  const [email, setEmail]= useState<string>('');
+  const [password, setPassword]= useState<string>('');
+  const [confirmPassword, setConfirmPassword]= useState<string>('');
 
-  const [warningMessage, setWarningMessage] = useState('');
-  const [disableButton, setDisableButton] = useState(true);
-  const [showLoader, setShowLoader] = useState(false);
+  const [warningMessage, setWarningMessage] = useState<string>('');
+  const [disableButton, setDisableButton] = useState<boolean>(true);
+  const [showLoader, setShowLoader] = useState<boolean>(false);
 
   const checkForm = () => {
 
@@ -96,7 +96,6 @@ const SignUp = ({ handleToggleForm } : SignUpProps) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
       });
-
 
       // Reset states & hide loader
       setPseudo('');
@@ -216,7 +215,6 @@ const SignUp = ({ handleToggleForm } : SignUpProps) => {
             handleFunction={handleChangeConfirmPassword}
           />
 
-          
           { warningMessage && (
             <Warning
               warningMessage={warningMessage}
@@ -227,7 +225,7 @@ const SignUp = ({ handleToggleForm } : SignUpProps) => {
           <input
             className={styles.submit_button}
             type='submit'
-            value='inscription'
+            value='Inscription'
             disabled={disableButton}
           />
 

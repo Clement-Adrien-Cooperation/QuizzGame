@@ -5,7 +5,7 @@ import styles from '../styles/Home.module.scss';
 
 const Home: NextPage = () => {
 
-  const [showLoader, setShowLoader] = useState(false);
+  const [showLoader, setShowLoader] = useState<boolean>(false);
 
   const getUsers = async () => {
 

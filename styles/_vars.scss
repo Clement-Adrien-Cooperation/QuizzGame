@@ -33,6 +33,7 @@
   --main-font: 'Poppins', sans-serif;
   --title-font: 'Rubik Moonrocks', cursive;
 
+  --border-transparent: 2px solid transparent;
   --medium-radius: 10px;
   --small-radius: 5px;
   
@@ -54,14 +55,24 @@
   --warning-border: #f5c6cb;
 
   --green: #2e8b57;
+  --green-secondary: #acbdb3;
   --green-hover: #4da874;
 
   --yellow: #e2be0a;
+  --yellow-secondary: #d3cdae;
   --yellow-hover: #e2ca53;
 
   --orange: #e08f57;
+  --orange-secondary: #dfbfa8;
   --orange-hover: #f7b180;
 
   --red: #df5757;
+  --red-secondary: #d8b2b2;
   --red-hover: #f37f7f;
+
+  --very-easy: linear-gradient(90deg, var(--white) 0%, var(--white) 0%);
+  --easy: linear-gradient(90deg, var(--green) 25%, var(--green-secondary) 25%);
+  --medium: linear-gradient(90deg, var(--yellow) 50%, var(--yellow-secondary) 50%);
+  --hard: linear-gradient(90deg, var(--orange) 75%, var(--orange-secondary) 75%);
+  --very-hard: linear-gradient(90deg, var(--red) 100%, var(--red-secondary) 100%);
 }

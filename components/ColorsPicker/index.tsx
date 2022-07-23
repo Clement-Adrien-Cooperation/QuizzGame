@@ -5,7 +5,7 @@ import ColorPicker from '../ColorPicker';
 
 const ColorsPicker = () => {
 
-  const [hue, setHue] = useState('250');
+  const [hue, setHue] = useState<string>('250');
 
   useEffect(() => {
     // Get the previous favorite color on local storage

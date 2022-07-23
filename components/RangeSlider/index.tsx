@@ -33,7 +33,7 @@ const RangeSlider = ({
       </label>
 
       <input
-        style={{background: `${gradient}`}}
+        style={{background: gradient}}
         type='range'
         min={min}
         max={max}

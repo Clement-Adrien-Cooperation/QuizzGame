@@ -4,9 +4,18 @@ import styles from '../styles/Admin.module.scss';
 import Users from '../components/Users';
 import BanishedUsers from '../components/BanishedUsers';
 
+type UserProps = {
+  id: number,
+  pseudo: string,
+  email: string,
+  avatar: string,
+  is_admin: boolean,
+  is_banished: boolean
+};
+
 const Admin: NextPage = ({ usersData, banishedUsersData }:any) => {
 
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<UserProps[]>([]);
   const [banishedUsers, setBanishedUsers] = useState([]);
   
   // A the moment we have our data, we update our states

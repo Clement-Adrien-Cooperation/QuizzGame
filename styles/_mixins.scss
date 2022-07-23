@@ -27,11 +27,6 @@
   left: $left;
 }
 
-@mixin animApparition ($time: 1s, $delay: 0s) {
-  opacity: 0;
-  animation: apparition $time $delay ease-out forwards;
-}
-
 @mixin colorPicker {
   cursor: pointer;
   display: block;

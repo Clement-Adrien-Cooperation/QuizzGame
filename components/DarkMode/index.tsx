@@ -8,7 +8,7 @@ import CheckButton from "../CheckButton";
 
 const DarkMode = () => {
 
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState<boolean>(false);
 
   useEffect(() => {
     // Get the previous favorite theme on local storage

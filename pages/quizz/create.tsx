@@ -13,17 +13,18 @@ const CreateQuizz: NextPage = () => {
   const categoryList :string[] = ['Cinéma', 'Musique', 'Autres'];
   const langList :string[] = ['Français', 'Anglais'];
 
-  const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('');
-  const [lang, setLang] = useState('');
-  const [difficulty, setDifficulty] = useState(2);
+  const [title, setTitle] = useState<string>('');
+  const [category, setCategory] = useState<string>('');
+  const [lang, setLang] = useState<string>('');
+  const [difficulty, setDifficulty] = useState<number>(2);
 
-  const [rangeColor, setRangeColor] = useState(`linear-gradient(90deg, var(--yellow) 50%, var(--input-color) 50%)`);
-  const [difficultyName, setDifficultyName] = useState('Normal');
-  const [colorDifficultyName, setColorDifficultyName] = useState('var(--yellow)');
-  const [warningMessage, setWarningMessage] = useState('');
-  const [disableButton, setDisableButton] = useState(false);
-  const [showLoader, setShowLoader] = useState(false);
+  const [rangeColor, setRangeColor] = useState<string>(`var(--medium)`);
+  const [difficultyName, setDifficultyName] = useState<string>('Normal');
+  const [colorDifficultyName, setColorDifficultyName] = useState<string>('var(--yellow)');
+  const [warningMessage, setWarningMessage] = useState<string>('');
+
+  const [disableButton, setDisableButton] = useState<boolean>(false);
+  const [showLoader, setShowLoader] = useState<boolean>(false);
 
   const checkForm = () => {
 
@@ -81,33 +82,33 @@ const CreateQuizz: NextPage = () => {
 
       switch (true) {
         case newDifficulty === 0 :
-          setRangeColor(`linear-gradient(90deg, var(--input-color) 0%, var(--input-color) 0%)`);
+          setRangeColor(`var(--very-easy)`);
           setDifficultyName('Très facile');
           setColorDifficultyName('var(--text-color)');
           break;
         case newDifficulty === 1 :
-          setRangeColor(`linear-gradient(90deg, var(--green) 25%, var(--input-color) 25%)`);
+          setRangeColor(`var(--easy)`);
           setDifficultyName('Facile');
           setColorDifficultyName('var(--green)');
           break;
         case newDifficulty === 2 :
-          setRangeColor(`linear-gradient(90deg, var(--yellow) 50%, var(--input-color) 50%)`);
+          setRangeColor(`var(--medium)`);
           setDifficultyName('Normal');
           setColorDifficultyName('var(--yellow)');
           break;
         case newDifficulty === 3 :
-          setRangeColor(`linear-gradient(90deg, var(--orange) 75%, var(--input-color) 75%)`);
+          setRangeColor(`var(--hard)`);
           setDifficultyName('Difficile');
           setColorDifficultyName('var(--orange)');
           break;
         case newDifficulty === 4 :
-          setRangeColor(`linear-gradient(90deg, var(--red) 100%, var(--input-color) 100%)`);
+          setRangeColor(`var(--very-hard)`);
           setDifficultyName('Très difficile');
           setColorDifficultyName('var(--red)');
           break;
           
         default:
-          setRangeColor(`linear-gradient(90deg, var(--input-color) 0%, var(--input-color) 0%)`);
+          setRangeColor(`var(--very-easy)`);
           setDifficultyName('Normal');
           setColorDifficultyName('var(--yellow)');
           break;
@@ -121,12 +122,11 @@ const CreateQuizz: NextPage = () => {
     setDisableButton(true);
     setShowLoader(true);
 
-    const user_id :number = 12;
+    const user_id :number = 1;
     const is_visible :boolean = true;
-    const date = new Date();
+    const date :Date = new Date();
 
     if(checkForm()) {
-      
 
       // If everything is ok, set up the body
       const body = { user_id, title, category, lang, difficulty, is_visible, date };
@@ -136,10 +136,7 @@ const CreateQuizz: NextPage = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
-      }).catch((error) => {
-        console.log(error);
-        
-      })
+      });
 
       setTitle('');
       setCategory('');

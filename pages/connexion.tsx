@@ -9,8 +9,8 @@ const Connexion: NextPage = () => {
   const signInRef = useRef<HTMLDivElement>(null);
   const signUpRef = useRef<HTMLDivElement>(null);
 
-  const [showSignUp, setShowSignUp] = useState(true);
-  const [showSignIn, setShowSignIn] = useState(false);
+  const [showSignUp, setShowSignUp] = useState<boolean>(true);
+  const [showSignIn, setShowSignIn] = useState<boolean>(false);
 
   const handleToggleForm = () => {
 

@@ -22,11 +22,13 @@
   flex-direction: column;
   border-radius: var(--small-radius);
   background: var(--main-color-light);
-  transition: .3s;
+  border: var(--border-transparent);
   font-size: clamp(0.8rem, 0.7153rem + 1.6368vw, 1rem);
+  transition-property: height, padding;
+  transition-duration: .3s;
 
   &:hover {
-    background: var(--main-color-third);
+    border-color: var(--main-color);
   }
 }
 
@@ -45,8 +47,8 @@
 }
 
 .avatar {
-  width: 60px;
-  height: 60px;
+  width: 56px;
+  height: 56px;
   padding: 10px;
   border-radius: var(--small-radius);
   background: rgba(0, 0, 0, 0.25);

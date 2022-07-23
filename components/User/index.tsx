@@ -29,7 +29,7 @@ const User = ({
   deleteUser
 } : UserProps ) => {
   
-  const [showDetails, setShowDetails] = useState(false);
+  const [showDetails, setShowDetails] = useState<boolean>(false);
 
   const toggleDetails = () => {
     setShowDetails(!showDetails);
