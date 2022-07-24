@@ -1,0 +1,25 @@
+@import '../../styles/mixins';
+
+.container {
+  @include posFixed(0, auto, auto, 0);
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  @include posCenter;
+  @include flexCenter;
+  flex-direction: column;
+  background: var(--main-color-light);
+  padding: 20px 45px;
+}
+
+.message {
+  text-align: center;
+}
+
+.buttons {
+  @include flexCenter;
+  justify-content: space-evenly;
+}

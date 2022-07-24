@@ -4,7 +4,7 @@
   @include hiddenInput;
 
   &:checked + .card {
-    height: 220px;
+    height: 240px;
     padding: 15px;
 
     & .toggle_icon {
@@ -14,7 +14,7 @@
 }
 
 .card {
-  width: 500px;
+  width: 400px;
   height: 60px;
   cursor: pointer;
   position: relative;
@@ -57,44 +57,4 @@
 .pseudo {
   color: var(--text-color);
   margin-left: 15px;
-}
-
-.wrapper {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-  opacity: 0;
-  transform: translateY(5px);
-  animation: animApparition 0.5s 0.3s ease-out forwards;
-}
-
-.content {
-  margin: 5px 0;
-}
-
-.subtitle {
-  font-weight: 500;
-}
-
-.footer {
-  margin-top: 20px;
-  @include flexCenter;
-  justify-content: space-between;
-}
-
-.button {
-  @include mainButton;
-
-  &__secondary {
-    @include secondaryButton;
-    font-size: 12px;
-  }
-}
-
-@keyframes animApparition {
-  100% {
-    opacity: 1;
-    transform: none;
-  }
 }

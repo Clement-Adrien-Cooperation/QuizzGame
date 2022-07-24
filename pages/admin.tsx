@@ -25,13 +25,10 @@ const Admin: NextPage = ({ usersData, banishedUsersData }:any) => {
   },[]);
 
   // Function for bann a user
-  const banUser = async (user_id: number) => {
+  const handleBanishement = async (user_id:number, is_banished :boolean) => {
 
     // Set up the body for the request with user ID & new status of bannishement
-    const body = { 
-      user_id,
-      is_banished: true
-    };
+    const body = { user_id, is_banished };
   
     // Fetch our API
     await fetch(`/api/banUser`, {
@@ -55,47 +52,22 @@ const Admin: NextPage = ({ usersData, banishedUsersData }:any) => {
     });
   };
 
-  // Same function, but for unban a user
-  const unBanUser = async (user_id: number) => {
+  const handlePromotion = async (user_id :number, is_admin :boolean) => {
 
-    const body = {
-      user_id,
-      is_banished: false
-    };
-  
-    await fetch(`/api/banUser`, {
+    const body = { user_id, is_admin }
+
+    await fetch('/api/promoteUser', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     })
     .then(async() => {
+      // Then, we fetch again our API to get users & bannished users
       const usersDataFromAPI = await fetch('/api/getAllUsers');
       const usersData = await usersDataFromAPI.json();
       setUsers(usersData);
-
-      const banishedUsersDataFromAPI = await fetch('/api/getBanishedUsers');
-      const banishedUsersData = await banishedUsersDataFromAPI.json();
-      setBanishedUsers(banishedUsersData);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  };
-
-  const deleteUser = async (user_id: number) => {
-    
-    const body = { user_id };
-  
-    await fetch(`/api/deleteUser`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    })
-    .then(async() => {
-      const usersDataFromAPI = await fetch('/api/getAllUsers');
-      const usersData = await usersDataFromAPI.json();
-      setUsers(usersData);
-
+      
+      // & we update the states
       const banishedUsersDataFromAPI = await fetch('/api/getBanishedUsers');
       const banishedUsersData = await banishedUsersDataFromAPI.json();
       setBanishedUsers(banishedUsersData);
@@ -115,16 +87,14 @@ const Admin: NextPage = ({ usersData, banishedUsersData }:any) => {
 
         <Users
           users={users}
-          banUser={banUser}
-          unBanUser={unBanUser}
-          deleteUser={deleteUser}
+          handleBanishement={handleBanishement}
+          handlePromotion={handlePromotion}
         />
 
         <BanishedUsers
           banishedUsers={banishedUsers}
-          banUser={banUser}
-          unBanUser={unBanUser}
-          deleteUser={deleteUser}
+          handleBanishement={handleBanishement}
+          handlePromotion={handlePromotion}
         />
 
       </section>

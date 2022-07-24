@@ -12,16 +12,14 @@ type UserProps = {
 
 type UsersProps = {
   users: UserProps[],
-  banUser: Function,
-  unBanUser: Function,
-  deleteUser: Function
+  handleBanishement: Function,
+  handlePromotion: Function
 };
 
 const Users = ({
   users,
-  banUser,
-  unBanUser,
-  deleteUser
+  handleBanishement,
+  handlePromotion
 } : UsersProps ) => {
 
   return (
@@ -41,9 +39,8 @@ const Users = ({
                 avatar={avatar}
                 is_admin={is_admin}
                 is_banished={is_banished}
-                banUser={banUser}
-                unBanUser={unBanUser}
-                deleteUser={deleteUser}
+                handleBanishement={handleBanishement}
+                handlePromotion={handlePromotion}
               />
             </li>
           );

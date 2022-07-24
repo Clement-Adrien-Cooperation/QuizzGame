@@ -18,7 +18,7 @@ const Theme = () => {
         <button
           className={styles.icon}
           type='button'
-          onClick={() => setShowSettings(true)}  
+          onClick={() => setShowSettings(true)}
         >
           <Image
             src={settings}

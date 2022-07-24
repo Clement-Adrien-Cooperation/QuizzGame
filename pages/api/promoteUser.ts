@@ -12,7 +12,7 @@ export default async function handle (
         id: req.body.user_id
       },
       data: {
-        is_banished: !req.body.is_banished
+        is_admin: !req.body.is_admin
       }
     });
 

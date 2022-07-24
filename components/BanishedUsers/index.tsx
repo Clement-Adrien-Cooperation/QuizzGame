@@ -1,3 +1,4 @@
+import handle from '../../pages/api/banUser';
 import User from '../User';
 import styles from './BanishedUsers.module.scss';
 
@@ -12,16 +13,14 @@ type UserProps = {
 
 type BanishedUsersProps = {
   banishedUsers: UserProps[],
-  banUser: Function,
-  unBanUser: Function,
-  deleteUser: Function
+  handleBanishement: Function,
+  handlePromotion: Function
 };
 
 const BanishedUsers = ({ 
   banishedUsers,
-  banUser,
-  unBanUser,
-  deleteUser
+  handleBanishement,
+  handlePromotion
 } : BanishedUsersProps ) => {
 
   return (
@@ -41,9 +40,8 @@ const BanishedUsers = ({
                 avatar={avatar}
                 is_admin={is_admin}
                 is_banished={is_banished}
-                banUser={banUser}
-                unBanUser={unBanUser}
-                deleteUser={deleteUser}
+                handleBanishement={handleBanishement}
+                handlePromotion={handlePromotion}
               />
             </li>
           );
