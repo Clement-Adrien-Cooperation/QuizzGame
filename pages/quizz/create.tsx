@@ -2,11 +2,11 @@ import { NextPage } from 'next';
 import React, { useState } from 'react';
 import styles from '../../styles/CreateQuizz.module.scss';
 
-import InputField from '../../components/InputField';
-import SelectField from '../../components/SelectField';
-import Warning from '../../components/Warning';
-import Loader from '../../components/Loader';
-import RangeSlider from '../../components/RangeSlider';
+import InputField from '../../components/InputField/InputField';
+import SelectField from '../../components/SelectField/SelectField';
+import Warning from '../../components/Warning/Warning';
+import Loader from '../../components/Loader/Loader';
+import RangeSlider from '../../components/RangeSlider/RangeSlider';
 
 const CreateQuizz: NextPage = () => {
 

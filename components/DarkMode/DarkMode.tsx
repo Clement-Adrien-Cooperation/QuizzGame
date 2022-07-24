@@ -4,7 +4,7 @@ import styles from './DarkMode.module.scss';
 
 import sun from '../../public/icons/sun.svg';
 import moon from '../../public/icons/moon.svg';
-import CheckButton from "../CheckButton";
+import CheckButton from "../CheckButton/CheckButton";
 
 const DarkMode = () => {
 

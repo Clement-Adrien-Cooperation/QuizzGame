@@ -1,4 +1,4 @@
-import CloseButton from '../CloseButton';
+import CloseButton from '../CloseButton/CloseButton';
 import styles from './ConfirmModal.module.scss';
 
 type ConfirmModalProps = {

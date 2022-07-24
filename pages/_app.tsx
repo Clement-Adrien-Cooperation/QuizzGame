@@ -1,4 +1,4 @@
-import Container from '../components/Container';
+import Container from '../components/Container/Container';
 import '../styles/reset.css';
 import '../styles/globals.scss';
 import type { AppProps } from 'next/app';

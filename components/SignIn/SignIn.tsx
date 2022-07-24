@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import styles from './SignIn.module.scss';
 
-import InputField from '../InputField';
-import Warning from '../Warning';
-import Loader from '../Loader';
+import InputField from '../InputField/InputField';
+import Warning from '../Warning/Warning';
+import Loader from '../Loader/Loader';
 
 type SignInProps = {
   handleToggleForm: Function

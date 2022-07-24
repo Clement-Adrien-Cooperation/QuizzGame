@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
 import { useRef, useState } from 'react';
 import styles from '../styles/Connexion.module.scss';
-import SignUp from '../components/SignUp';
-import SignIn from '../components/SignIn';
+import SignUp from '../components/SignUp/SignUp';
+import SignIn from '../components/SignIn/SignIn';
 
 const Connexion: NextPage = () => {
 

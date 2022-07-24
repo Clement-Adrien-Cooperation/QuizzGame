@@ -14,7 +14,7 @@
 
   &__item {
     cursor: pointer;
-    color: var(--black);
+    color: var(--white);
     margin: 5px 0;
     font-weight: 500;
     text-transform: uppercase;
@@ -22,7 +22,6 @@
     transition: .3s;
 
     &:hover {
-      color: var(--white);
       letter-spacing: 5px;
     }
   }

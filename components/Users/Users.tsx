@@ -1,6 +1,5 @@
-import handle from '../../pages/api/banUser';
-import User from '../User';
-import styles from './BanishedUsers.module.scss';
+import User from '../User/User';
+import styles from './Users.module.scss';
 
 type UserProps = {
   id: number,
@@ -11,26 +10,26 @@ type UserProps = {
   is_banished: boolean
 };
 
-type BanishedUsersProps = {
-  banishedUsers: UserProps[],
+type UsersProps = {
+  users: UserProps[],
   handleBanishement: Function,
   handlePromotion: Function
 };
 
-const BanishedUsers = ({ 
-  banishedUsers,
+const Users = ({
+  users,
   handleBanishement,
   handlePromotion
-} : BanishedUsersProps ) => {
+} : UsersProps ) => {
 
   return (
     <section className={styles.container}>
       <h3 className={styles.title}>
-        {banishedUsers === [] ? '' : 'Utilisateurs bannis'}
+        {users === [] ? '' : 'Utilisateurs actifs'}
       </h3>
 
       <ul>
-        {banishedUsers?.map(({id, pseudo, email, avatar, is_admin, is_banished}: UserProps) => {
+        {users?.map(({id, pseudo, email, avatar, is_admin, is_banished}: UserProps) => {
           return (
             <li key={id}>
               <User
@@ -51,4 +50,4 @@ const BanishedUsers = ({
   );
 };
 
-export default BanishedUsers;
+export default Users;

@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import { useState } from 'react';
-import Loader from '../components/Loader';
+import Loader from '../components/Loader/Loader';
 import styles from '../styles/Home.module.scss';
 
 const Home: NextPage = () => {

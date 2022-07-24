@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import styles from './Navbar.module.scss';
 
-import Theme from '../Theme';
+import Theme from '../Theme/Theme';
 
 const Navbar = () => {
 

@@ -2,9 +2,9 @@ import { useState } from 'react';
 import Image from 'next/image';
 import settings from '../../public/icons/settings.svg';
 import styles from './Theme.module.scss';
-import ColorsPicker from "../ColorsPicker";
-import DarkMode from "../DarkMode";
-import CloseButton from '../CloseButton';
+import ColorsPicker from "../ColorsPicker/ColorsPicker";
+import DarkMode from "../DarkMode/DarkMode";
+import CloseButton from '../CloseButton/CloseButton';
 
 const Theme = () => {
 

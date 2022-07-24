@@ -3,7 +3,7 @@ import { useState } from 'react';
 import styles from './User.module.scss';
 import defaultAvatar from '../../public/icons/defaultAvatar.svg';
 import arrow from '../../public/icons/arrow.svg';
-import UserDetails from '../UserDetails';
+import UserDetails from '../UserDetails/UserDetails';
 
 type UserProps = {
   id: number,

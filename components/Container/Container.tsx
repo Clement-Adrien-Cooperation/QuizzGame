@@ -1,6 +1,5 @@
-import Head from "../Head";
-import Navbar from '../Navbar';
-import Theme from '../Theme';
+import Head from "../Head/Head";
+import Navbar from '../Navbar/Navbar';
 
 type PropsType = {
   children: JSX.Element,

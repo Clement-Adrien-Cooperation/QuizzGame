@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import styles from '../styles/Admin.module.scss';
-import Users from '../components/Users';
-import BanishedUsers from '../components/BanishedUsers';
+import Users from '../components/Users/Users';
+import BanishedUsers from '../components/BanishedUsers/BanishedUsers';
 
 type UserProps = {
   id: number,
