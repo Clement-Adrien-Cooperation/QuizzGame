@@ -12,7 +12,6 @@ const Container = (props: PropsType) => {
     <>
       <Head />
       <Navbar />
-      <Theme />
       {props.children}
     </>
   );

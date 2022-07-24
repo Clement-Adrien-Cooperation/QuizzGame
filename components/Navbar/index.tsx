@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import styles from './Navbar.module.scss';
 
+import Theme from '../Theme';
+
 const Navbar = () => {
 
   return (
@@ -56,6 +58,9 @@ const Navbar = () => {
         </li>
 
       </ul>
+
+      <Theme />
+
     </nav>
   );
 };

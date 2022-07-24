@@ -16,7 +16,7 @@ type UserProps = {
 const Admin: NextPage = ({ usersData, banishedUsersData }:any) => {
 
   const [users, setUsers] = useState<UserProps[]>([]);
-  const [banishedUsers, setBanishedUsers] = useState([]);
+  const [banishedUsers, setBanishedUsers] = useState<UserProps[]>([]);
   
   // A the moment we have our data, we update our states
   useEffect(() => {

@@ -124,7 +124,7 @@ const CreateQuizz: NextPage = () => {
 
     const user_id :number = 1;
     const is_visible :boolean = true;
-    const date :Date = new Date();
+    const date :string = new Date().toLocaleDateString();
 
     if(checkForm()) {
 
@@ -201,6 +201,13 @@ const CreateQuizz: NextPage = () => {
             colorDifficultyName={colorDifficultyName}
             handleFunction={handleChangeDifficulty}
           />
+
+          { warningMessage && (
+            <Warning
+              warningMessage={warningMessage}
+              setWarningMessage={setWarningMessage}
+            />
+          )}
 
           <input
             className={styles.submit}

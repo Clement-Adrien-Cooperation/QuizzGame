@@ -12,7 +12,7 @@
   --hue-color: var(--purple-hue);
 
   --main-color: hsl(var(--hue-color), 69%, 61%);
-  --main-color-secondary: hsl(var(--hue-color), 79%, 75%); // A REVOIR
+  --main-color-secondary: hsl(var(--hue-color), 50%, 80%); // A REVOIR
   --main-color-third: hsl(var(--hue-color), 50%, 75%);
   --main-color-alt:  hsl(var(--hue-color), 57%, 53%);
   --main-color-light:  hsl(var(--hue-color), 92%, 85%);
@@ -49,11 +49,6 @@
   --grey: hsl(var(--hue-color), 5%, 50%);
   --dark-grey: hsl(var(--hue-color), 5%, 25%);
 
-  --warning: #721c24;
-  --warning-hover: #b95f68;
-  --warning-bg: #f8d7da;
-  --warning-border: #f5c6cb;
-
   --green: #2e8b57;
   --green-secondary: #acbdb3;
   --green-hover: #4da874;
@@ -69,6 +64,11 @@
   --red: #df5757;
   --red-secondary: #d8b2b2;
   --red-hover: #f37f7f;
+
+  --warning: #721c24;
+  --warning-hover: #b95f68;
+  --warning-bg: #f8d7da;
+  --warning-border: #f5c6cb;
 
   --very-easy: linear-gradient(90deg, var(--white) 0%, var(--white) 0%);
   --easy: linear-gradient(90deg, var(--green) 25%, var(--green-secondary) 25%);

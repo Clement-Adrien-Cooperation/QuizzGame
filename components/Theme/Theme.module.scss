@@ -1,7 +1,26 @@
 @import '../../styles/mixins';
 
 .container {
-  @include posAbsolute(10px, 10px, auto, auto);
+  position: absolute;
+  bottom: 20px;
+}
+
+.icon {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  transition: 0.8s;
+
+  &:hover {
+    transform: rotate(180deg);
+  }
+
+  &:active {
+    transform: rotate(180deg) scale(0.9);
+  }
+}
+
+.settings {
   @include flexCenter;
   flex-wrap: wrap;
   background: var(--main-color-light);
@@ -9,4 +28,14 @@
   border-radius: 5px;
   box-shadow: var(--box-shadow);
   width: 250px;
+  opacity: 0;
+  transform: translateY(200px);
+  animation: animApparition 0.3s ease-out forwards;
+}
+
+@keyframes animApparition {
+  100% {
+    opacity: 1;
+    transform: none;
+  }
 }

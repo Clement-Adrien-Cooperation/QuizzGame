@@ -5,21 +5,21 @@
   // height: 100vh;
 }
 
-.sign_in {
-  opacity: 0;
-  transform: translateX(100vw);
-  animation: apparitionAnimation 0.3s ease-in-out forwards;
-}
+// .sign_in {
+//   opacity: 0;
+//   transform: translateX(100vw);
+//   animation: apparitionAnimation 0.3s ease-in-out forwards;
+// }
 
-.sign_up {
-  opacity: 0;
-  transform: translateX(-100vw);
-  animation: apparitionAnimation 0.3s ease-in-out forwards;
-}
+// .sign_up {
+//   opacity: 0;
+//   transform: translateX(-100vw);
+//   animation: apparitionAnimation 0.3s ease-in-out forwards;
+// }
 
-@keyframes apparitionAnimation {
-  100% {
-    transform: none;
-    opacity: 1;
-  }
-}
+// @keyframes apparitionAnimation {
+//   100% {
+//     transform: none;
+//     opacity: 1;
+//   }
+// }
