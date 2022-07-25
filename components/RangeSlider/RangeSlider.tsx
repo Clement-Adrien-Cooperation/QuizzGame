@@ -6,7 +6,7 @@ type RangeSliderProps = {
   min: string,
   max: string,
   gradient: string,
-  difficultyName: string,
+  difficulty: string,
   colorDifficultyName: string,
   handleFunction: Function
 };
@@ -17,7 +17,7 @@ const RangeSlider = ({
   min,
   max,
   gradient,
-  difficultyName,
+  difficulty,
   colorDifficultyName,
   handleFunction
 } :RangeSliderProps) => {
@@ -47,7 +47,7 @@ const RangeSlider = ({
         className={styles.span}
         style={{color: `${colorDifficultyName}`}}
       >
-        {difficultyName}
+        {difficulty}
       </span>
     </div>
   );

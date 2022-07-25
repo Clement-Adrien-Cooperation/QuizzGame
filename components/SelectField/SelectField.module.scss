@@ -1,14 +1,12 @@
 @import '../../styles/mixins';
 
 .field {
-  position: relative;
   height: 50px;
   width: 100%;
   margin: 5px 0;
 }
 
 .select {
-  position: absolute;
   color: var(--text-color);
   width: 100%;
   background: var(--input-color);
@@ -26,37 +24,4 @@
   &:focus {
     border-color: var(--main-color);
   }
-
-  &:disabled {
-    background: var(--grey);
-  
-    & + .label {
-      color: var(--text-color-light);
-      text-decoration: line-through;
-    }
-
-    &:hover {
-      border-color: transparent;
-    }
-  }
-}
-
-.select:focus + .label,
-.select:valid + .label {
-  transform: translateY(-125%);
-  padding: 3px 6px;
-  background: var(--main-color);
-  color: var(--white);
-  font-size: 0.8em;
-  border-radius: 5px;
-}
-
-.label {
-  position: absolute;
-  top: 13px;
-  left: 15px;
-  pointer-events: none;
-  display: block;
-  font-size: 0.9em;
-  transition: 0.4s;
 }

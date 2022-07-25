@@ -1,6 +1,22 @@
 import { NextPage } from 'next';
 import styles from '../../styles/Quizz.module.scss';
 import Link from 'next/link';
+import Quiz from '../../components/Quiz/Quiz';
+
+type QuizProps = {
+  id: number,
+  user_id: number,
+  title: string,
+  category: string,
+  difficulty: string,
+  lang: string,
+  image: string,
+  is_visible: boolean,
+  date: string,
+  rate: number,
+  questions: string[],
+  comments: string[]
+};
 
 const Quizz: NextPage = ({ quizzData }:any) => {
 
@@ -9,27 +25,34 @@ const Quizz: NextPage = ({ quizzData }:any) => {
   return (
     <>
       <h2 className={styles.title}>
-        Page de tous les quizz ?
+        Quizz
       </h2>
 
       <section className={styles.container}>
 
         <ul>
-          {/* {quizzData.map()} */}
+          {quizzData.map((quiz: any, index :number) =>
+            <li key={quiz.id}>
+              <Quiz
+                title={quiz.title}
+                image={quiz.image}
+                questions={quiz.questions}
+              />
+            </li>
+          )}
         </ul>
 
         <button className={styles.link}>
 
           <Link href='/quizz/create'>
             <a>
-              Créer
+              Créer un s'Quizz
             </a>
           </Link>
 
         </button>
 
       </section>
-
     </>
   );
 };

@@ -91,7 +91,7 @@ const SignUp = ({ handleToggleForm } : SignUpProps) => {
       const body = { pseudo, email, password };
 
       // & create a new user
-      await fetch(`/api/createOneUser`, {
+      await fetch(`/api/user/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)

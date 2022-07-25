@@ -28,27 +28,28 @@ model Quizz {
   id            Int       @id @default(autoincrement())
   user          User      @relation(fields: [user_id], references: [id])
   user_id       Int       
+  creator       String
   title         String
   category      String
-  difficulty    Int
+  difficulty    String
   lang          String?
   image         String?
   is_visible    Boolean   @default(true)
   date          String
   rate          Int?
-  questions     Questions[]
-  comment       Comment[]
+  questions     Question[]
+  comments      Comment[]
 
   @@unique([title])
 }
 
-model Questions {
+model Question {
   id            Int       @id @default(autoincrement())
   quizz         Quizz     @relation(fields: [quizz_id], references: [id])
-  quizz_id      Int       
+  quizz_id      Int
   question      String
   description   String?
-  proposition   String[]
+  propositions  String[]
   answer        String
 }
 
@@ -56,6 +57,7 @@ model Comment {
   id            Int       @id @default(autoincrement())
   user          User      @relation(fields: [user_id], references: [id])
   user_id       Int       
+  author        String
   quizz         Quizz     @relation(fields: [quizz_id], references: [id])
   quizz_id      Int       
   content       String

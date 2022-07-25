@@ -16,10 +16,10 @@ const CreateQuizz: NextPage = () => {
   const [title, setTitle] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [lang, setLang] = useState<string>('');
-  const [difficulty, setDifficulty] = useState<number>(2);
-
+  const [difficulty, setDifficulty] = useState<string>('Normal');
+  
+  const [difficultyRange, setDifficultyRange] = useState<number>(2);
   const [rangeColor, setRangeColor] = useState<string>(`var(--medium)`);
-  const [difficultyName, setDifficultyName] = useState<string>('Normal');
   const [colorDifficultyName, setColorDifficultyName] = useState<string>('var(--yellow)');
   const [warningMessage, setWarningMessage] = useState<string>('');
 
@@ -34,10 +34,10 @@ const CreateQuizz: NextPage = () => {
     } else if(category.trim() === '' || !categoryList.includes(category)) {
       setWarningMessage('Vous devez choisir une catégorie valide');
 
-    } else if(lang === '' || !langList.includes(lang)) {
+    } else if(lang.trim() === '' || !langList.includes(lang)) {
       setWarningMessage('Vous devez choisir une langue valide');
 
-    } else if(difficulty < 0 || difficulty > 4 ) {
+    } else if(difficultyRange < 0 || difficultyRange > 4 ) {
       setWarningMessage("La difficulté n'est pas valide");
     } else {
       return true;
@@ -74,7 +74,7 @@ const CreateQuizz: NextPage = () => {
       setWarningMessage("La difficulté n'est pas valide");
       setDisableButton(true);
     } else {
-      setDifficulty(newDifficulty);
+      setDifficultyRange(newDifficulty);
 
       if(disableButton) {
         setDisableButton(false);
@@ -83,33 +83,33 @@ const CreateQuizz: NextPage = () => {
       switch (true) {
         case newDifficulty === 0 :
           setRangeColor(`var(--very-easy)`);
-          setDifficultyName('Très facile');
+          setDifficulty('Très facile');
           setColorDifficultyName('var(--text-color)');
           break;
         case newDifficulty === 1 :
           setRangeColor(`var(--easy)`);
-          setDifficultyName('Facile');
+          setDifficulty('Facile');
           setColorDifficultyName('var(--green)');
           break;
         case newDifficulty === 2 :
           setRangeColor(`var(--medium)`);
-          setDifficultyName('Normal');
+          setDifficulty('Normal');
           setColorDifficultyName('var(--yellow)');
           break;
         case newDifficulty === 3 :
           setRangeColor(`var(--hard)`);
-          setDifficultyName('Difficile');
+          setDifficulty('Difficile');
           setColorDifficultyName('var(--orange)');
           break;
         case newDifficulty === 4 :
           setRangeColor(`var(--very-hard)`);
-          setDifficultyName('Très difficile');
+          setDifficulty('Très difficile');
           setColorDifficultyName('var(--red)');
           break;
           
         default:
           setRangeColor(`var(--very-easy)`);
-          setDifficultyName('Normal');
+          setDifficulty('Normal');
           setColorDifficultyName('var(--yellow)');
           break;
         };
@@ -123,26 +123,28 @@ const CreateQuizz: NextPage = () => {
     setShowLoader(true);
 
     const user_id :number = 1;
+    const creator :string = 'Vadrial';
     const is_visible :boolean = true;
     const date :string = new Date().toLocaleDateString();
 
     if(checkForm()) {
 
-      // If everything is ok, set up the body
-      const body = { user_id, title, category, lang, difficulty, is_visible, date };
+        // If everything is ok, set up the body
+        const body = { user_id, creator, title, category, lang, difficulty, is_visible, date };
 
-      // & create a new user
-      await fetch(`/api/createQuizz`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-      });
+        // & create a new user
+        await fetch(`/api/createQuizz`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        })
+        .catch((error) => {
+          console.log(error);
+          
+        })
+      };
 
-      setTitle('');
-      setCategory('');
-      setDifficulty(2);
-    };
-    
+    setTitle('');
     setDisableButton(false);
     setShowLoader(false);
   };
@@ -177,7 +179,7 @@ const CreateQuizz: NextPage = () => {
 
           <SelectField
             name={'Catégorie'}
-            defaultOption={'Choisissez une catégorie...'}
+            defaultOption={'Choisir une catégorie...'}
             options={categoryList}
             isDisabled={false}
             handleFunction={handleChangeCategory}
@@ -185,7 +187,7 @@ const CreateQuizz: NextPage = () => {
 
           <SelectField
             name={'Langue'}
-            defaultOption={'Choisissez une langue...'}
+            defaultOption={'Choisir une langue...'}
             options={langList}
             isDisabled={false}
             handleFunction={handleChangeLang}
@@ -193,11 +195,11 @@ const CreateQuizz: NextPage = () => {
 
           <RangeSlider
             name={'Difficulté'}
-            value={difficulty}
+            value={difficultyRange}
             min={'0'}
             max={'4'}
             gradient={rangeColor}
-            difficultyName={difficultyName}
+            difficulty={difficulty}
             colorDifficultyName={colorDifficultyName}
             handleFunction={handleChangeDifficulty}
           />

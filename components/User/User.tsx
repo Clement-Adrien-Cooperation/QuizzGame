@@ -53,21 +53,12 @@ const User = ({
           <section className={styles.header}>
 
             <div className={styles.avatar}>
-              {avatar === null ?
-                <Image
-                  src={defaultAvatar}
-                  width='32'
-                  height='32'
-                  layout='responsive'
-                />
-              :
-                <Image
-                  src={avatar}
-                  width='32'
-                  height='32'
-                  layout='responsive'
-                />
-              }
+              <Image
+                src={avatar === null ? defaultAvatar : avatar}
+                width='32'
+                height='32'
+                layout='responsive'
+              />
             </div>
 
             <h3 className={styles.pseudo}>

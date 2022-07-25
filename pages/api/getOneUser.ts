@@ -2,17 +2,17 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { prisma } from '../../lib/prisma';
 
-export default async function getAllQuizz (
+export default async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
-    const quizz = await prisma.quizz.findMany({
-      orderBy: [{
-        rate: 'desc'
-      }]
+    const user = await prisma.user.findUnique({
+      where: {
+        id: req.body.user_id
+      }
     });
-    res.status(200).json(quizz);
+    res.status(200).json(user);
     
   } catch (error){
     console.log(error);

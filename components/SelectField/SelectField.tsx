@@ -19,12 +19,6 @@ const SelectField = ({
 
   return (
     <div className={styles.field}>
-      <label
-        className={styles.label}
-        htmlFor={name}
-      >
-        {name}
-      </label>
 
       <select
         className={styles.select}
