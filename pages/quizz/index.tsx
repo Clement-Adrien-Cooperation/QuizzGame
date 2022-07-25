@@ -2,10 +2,13 @@ import { NextPage } from 'next';
 import styles from '../../styles/Quizz.module.scss';
 import Link from 'next/link';
 import Quiz from '../../components/Quiz/Quiz';
+import { useState } from 'react';
+import InputField from '../../components/InputField/InputField';
 
 type QuizProps = {
   id: number,
   user_id: number,
+  creator: string,
   title: string,
   category: string,
   difficulty: string,
@@ -20,37 +23,71 @@ type QuizProps = {
 
 const Quizz: NextPage = ({ quizzData }:any) => {
 
-  console.log(quizzData);
+  const [filter, setFilter] = useState<string>('');
+
+  const handleChangeFilter = (e:React.ChangeEvent<HTMLInputElement>) => {
+    setFilter(e.target.value);
+  };
   
   return (
     <>
-      <h2 className={styles.title}>
-        Quizz
-      </h2>
+      <header className={styles.header}>
+        <h2 className={styles.title}>
+          Quizz
+        </h2>
+
+        <div className={styles.input}>
+          <InputField
+            name={'Rechercher un quiz...'}
+            state={filter}
+            inputID={'filterQuizz'}
+            type={'text'}
+            isDisabled={false}
+            handleFunction={handleChangeFilter}
+          />
+        </div>
+
+        <button className={styles.button}>
+          <Link href='/quizz/create'>
+            <a className={styles.link}>
+              Créer un Quiz
+            </a>
+          </Link>
+        </button>
+
+      </header>
 
       <section className={styles.container}>
 
         <ul>
-          {quizzData.map((quiz: any, index :number) =>
-            <li key={quiz.id}>
-              <Quiz
-                title={quiz.title}
-                image={quiz.image}
-                questions={quiz.questions}
-              />
-            </li>
-          )}
+          {quizzData.map((quiz: QuizProps) => {
+
+            const quizTitle = quiz.title.toLowerCase();
+            const quizCreator = quiz.creator.toLowerCase();
+            const userFilter = filter.toLowerCase();
+            
+            // If quiz doesn't have question, we don't show it
+            // if(quiz.questions !== undefined) {
+              if(quizTitle.includes(userFilter) || quizCreator.includes(userFilter)) {
+
+                return (
+                  <li key={quiz.id}>
+                    <Quiz
+                      creator={quiz.creator}
+                      title={quiz.title}
+                      difficulty={quiz.difficulty}
+                      image={quiz.image}
+                      lang={quiz.lang}
+                      questions={quiz.questions}
+                      date={quiz.date}
+                      rate={quiz.rate}
+                    />
+                  </li>
+                );
+              };
+            // };
+          })}
         </ul>
-
-        <button className={styles.link}>
-
-          <Link href='/quizz/create'>
-            <a>
-              Créer un s'Quizz
-            </a>
-          </Link>
-
-        </button>
 
       </section>
     </>

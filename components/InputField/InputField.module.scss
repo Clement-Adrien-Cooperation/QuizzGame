@@ -9,11 +9,11 @@
 
 .input {
   position: absolute;
-  color: var(--text-color);
   width: 100%;
   background: var(--input-color);
   padding: 9px 16px;
   border-radius: var(--small-radius);
+  border-radius: 50px;
   border: var(--border-transparent);
 
   &:hover {

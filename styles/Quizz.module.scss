@@ -1,18 +1,31 @@
 @import './mixins';
 
+.header {
+  display: flex;
+  align-items: center;
+  gap: 100px;
+  padding: 50px;
+}
+
 .title {
-  text-align: center;
-  margin: 50px 0 0;
-  font-weight: 600;
-  font-size: 2em;
+  font-weight: 700;
+  font-size: 60px;
+}
+
+.input {
+  width: 100%;
+}
+
+.button {
+  cursor: default;
+}
+
+.link {
+  @include mainButton;
+  white-space: nowrap;
 }
 
 .container {
   @include flexCenter;
   flex-direction: column;
-}
-
-.link {
-  @include mainButton;
-  margin-top: 40vh;
 }
