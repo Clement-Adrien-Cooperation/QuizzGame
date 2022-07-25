@@ -31,19 +31,19 @@ const Admin: NextPage = ({ usersData, banishedUsersData }:any) => {
     const body = { user_id, is_banished };
   
     // Fetch our API
-    await fetch(`/api/banUser`, {
+    await fetch(`/api/user/moderate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     })
     .then(async() => {
       // Then, we fetch again our API to get users & bannished users
-      const usersDataFromAPI = await fetch('/api/getAllUsers');
+      const usersDataFromAPI = await fetch('/api/user/getAll');
       const usersData = await usersDataFromAPI.json();
       setUsers(usersData);
       
       // & we update the states
-      const banishedUsersDataFromAPI = await fetch('/api/getBanishedUsers');
+      const banishedUsersDataFromAPI = await fetch('/api/user/getBanishedUsers');
       const banishedUsersData = await banishedUsersDataFromAPI.json();
       setBanishedUsers(banishedUsersData);
     })
@@ -56,19 +56,19 @@ const Admin: NextPage = ({ usersData, banishedUsersData }:any) => {
 
     const body = { user_id, is_admin }
 
-    await fetch('/api/promoteUser', {
+    await fetch('/api/user/promote', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     })
     .then(async() => {
       // Then, we fetch again our API to get users & bannished users
-      const usersDataFromAPI = await fetch('/api/getAllUsers');
+      const usersDataFromAPI = await fetch('/api/user/getAll');
       const usersData = await usersDataFromAPI.json();
       setUsers(usersData);
       
       // & we update the states
-      const banishedUsersDataFromAPI = await fetch('/api/getBanishedUsers');
+      const banishedUsersDataFromAPI = await fetch('/api/user/getBanishedUsers');
       const banishedUsersData = await banishedUsersDataFromAPI.json();
       setBanishedUsers(banishedUsersData);
     })
@@ -107,8 +107,8 @@ export default Admin;
 export async function getStaticProps() {
 
   // Get data from API for users & bannished users
-  const usersDataFromAPI = await fetch('http://localhost:3000/api/getAllUsers');
-  const banishedUsersDataFromAPI = await fetch('http://localhost:3000/api/getBanishedUsers');
+  const usersDataFromAPI = await fetch('http://localhost:3000/api/user/getAll');
+  const banishedUsersDataFromAPI = await fetch('http://localhost:3000/api/user/getBanishedUsers');
 
   // Translate to JSON
   const usersData = await usersDataFromAPI.json();

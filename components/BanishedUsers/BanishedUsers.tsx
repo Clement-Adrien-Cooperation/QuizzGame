@@ -1,4 +1,3 @@
-import handle from '../../pages/api/banUser';
 import User from '../User/User';
 import styles from './BanishedUsers.module.scss';
 

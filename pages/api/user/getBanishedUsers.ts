@@ -1,18 +1,21 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { prisma } from '../../lib/prisma';
+import { prisma } from '../../../lib/prisma';
 
 export default async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
-    const user = await prisma.user.delete({
+    const users = await prisma.user.findMany({
       where: {
-        id: req.body.user_id
-      }
+        is_banished: true
+      },
+      orderBy: [{
+        id: 'asc'
+      }]
     });
-    res.status(200).json(user);
+    res.status(200).json(users);
     
   } catch (error){
     console.log(error);

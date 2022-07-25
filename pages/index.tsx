@@ -11,7 +11,7 @@ const Home: NextPage = () => {
 
     setShowLoader(true);
 
-    await fetch('/api/getAllUsers')
+    await fetch('/api/user/getAll')
     .then((res) => {
       return res.json();
     })

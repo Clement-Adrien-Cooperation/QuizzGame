@@ -23,12 +23,13 @@ const SignIn = ({ handleToggleForm } : SignInProps) => {
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setDisableButton(true);
+    setShowLoader(true);
 
     const body = { pseudo, password }
 
     // console.log(pseudoOrEmail);
   
-    await fetch(`/api/login`, {
+    await fetch(`/api/user/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
@@ -43,6 +44,7 @@ const SignIn = ({ handleToggleForm } : SignInProps) => {
     });
     
     setDisableButton(false);
+    setShowLoader(false);
   };
 
   // const handleChangePseudoOrEmail = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -133,7 +133,7 @@ const CreateQuizz: NextPage = () => {
         const body = { user_id, creator, title, category, lang, difficulty, is_visible, date };
 
         // & create a new user
-        await fetch(`/api/createQuizz`, {
+        await fetch(`/api/quizz/create`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body)
