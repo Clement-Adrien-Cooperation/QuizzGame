@@ -1,16 +1,5 @@
-@import '../styles/mixins';
+@import './mixins';
 
 .admin {
   min-height: 100vh;
-}
-
-.title {
-  text-align: center;
-  font-size: clamp(2rem, 2.5vw, 5rem);
-  margin: 4vh 0 8vh;
-}
-
-.container {
-  @include flexCenter;
-  flex-direction: column;
 }

@@ -1,0 +1,40 @@
+@import '../../styles/mixins';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--main-color-secondary);
+}
+
+.title {
+  margin-left: 30px;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.list {
+  display: flex;
+}
+
+.button {
+  padding: 30px;
+  color: var(--black);
+  opacity: 0.7;
+  transition: transform 0.2s;
+  border-bottom: 3px solid transparent;
+
+  &_active {
+    opacity: 1;
+    border-bottom-color: var(--black);
+  }
+
+  &:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
