@@ -5,6 +5,13 @@ import defaultAvatar from '../../public/icons/defaultAvatar.svg';
 import arrow from '../../public/icons/arrow.svg';
 import UserDetails from '../UserDetails/UserDetails';
 
+type UserLoggedTypes = {
+  id: number,
+  pseudo: string,
+  is_admin: boolean,
+  is_banished: boolean
+};
+
 type UserProps = {
   id: number,
   pseudo: string,
@@ -13,7 +20,8 @@ type UserProps = {
   is_admin: boolean,
   is_banished: boolean,
   handleBanishement: Function,
-  handlePromotion: Function
+  handlePromotion: Function;
+  userLogged: UserLoggedTypes
 };
 
 const User = ({
@@ -24,7 +32,8 @@ const User = ({
   is_admin,
   is_banished,
   handleBanishement,
-  handlePromotion
+  handlePromotion,
+  userLogged
 } : UserProps ) => {
   
   const [showDetails, setShowDetails] = useState<boolean>(false);
@@ -84,6 +93,7 @@ const User = ({
               is_admin={is_admin}
               handleBanishement={handleBanishement}
               handlePromotion={handlePromotion}
+              userLogged={userLogged}
             />
           )}
         </label>

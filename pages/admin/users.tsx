@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import AdminHeader from '../../components/AdminHeader/AdminHeader';
 import styles from '../../styles/admin/AdminUsers.module.scss';
@@ -14,27 +15,29 @@ type UserProps = {
   is_banished: boolean
 };
 
-const AdminUsers: NextPage = ({ usersData, banishedUsersData } :any) => {
+const AdminUsers: NextPage = ({ usersData, banishedUsersData, userLogged } :any) => {
+
+  const router = useRouter();
 
   const [users, setUsers] = useState<UserProps[]>([]);
   const [banishedUsers, setBanishedUsers] = useState<UserProps[]>([]);
-  
-  // A the moment we have our data, we update our states
+
   useEffect(() => {
-    // if(userLogged.is_admin === false) {
-    //   router.push('/');
-    // } else {;
+    // If user is not admin, we redirect him to home page
+    if(!userLogged.is_admin === true) {
+      router.push('/');
+    } else {
       setUsers(usersData);
       setBanishedUsers(banishedUsersData);
-    // };
-  },[]);
+    };
+  }, []);
 
   const getUsers = async() => {
+    // Get users & banished users, then update states
     const usersDataFromAPI = await fetch('/api/user/getAll');
     const usersData = await usersDataFromAPI.json();
     setUsers(usersData);
-    
-    // & we update the states
+
     const banishedUsersDataFromAPI = await fetch('/api/user/getBanishedUsers');
     const banishedUsersData = await banishedUsersDataFromAPI.json();
     setBanishedUsers(banishedUsersData);
@@ -85,12 +88,14 @@ const AdminUsers: NextPage = ({ usersData, banishedUsersData } :any) => {
 
         <Users
           users={users}
+          userLogged={userLogged}
           handleBanishement={handleBanishement}
           handlePromotion={handlePromotion}
         />
 
         <BanishedUsers
           banishedUsers={banishedUsers}
+          userLogged={userLogged}
           handleBanishement={handleBanishement}
           handlePromotion={handlePromotion}
         />

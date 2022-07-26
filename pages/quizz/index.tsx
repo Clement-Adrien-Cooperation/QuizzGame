@@ -29,8 +29,6 @@ const Quizz: NextPage = ({ quizzData, isLogged }: any) => {
     setFilter(e.target.value);
   };
   
-  console.log(isLogged);
-  
   return (
     <>
       <header className={styles.header}>

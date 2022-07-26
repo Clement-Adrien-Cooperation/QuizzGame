@@ -7,10 +7,11 @@ import Loader from '../Loader/Loader';
 
 type SignInProps = {
   handleToggleForm: Function,
-  setIsLogged: Function
+  setIsLogged: Function,
+  setUserLogged: Function
 };
 
-const SignIn = ({ handleToggleForm, setIsLogged } : SignInProps) => {
+const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) => {
 
   const router = useRouter();
 
@@ -22,12 +23,28 @@ const SignIn = ({ handleToggleForm, setIsLogged } : SignInProps) => {
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
   const checkPassword = (data:any) => {
-    console.log(data);
+    
+    // If password is correct
     if(password === data.password) {
+      // update logged state
       setIsLogged(true);
+
+      // Set data from database
+      const userData = {
+        id: data.id,
+        pseudo: data.pseudo,
+        is_admin: data.is_admin,
+        is_banished: data.is_banished
+      };
+
+      // Update state for logged user
+      setUserLogged(userData);
+      
+      // Redirect to home page
       router.push('/');
+
     } else {
-      setWarningMessage(`Le pseudo ou l'email ne correspond pas au mot de passe`);
+      setWarningMessage(`L'identifiant et le mot de passe ne correspondent pas`);
     };
   };
 

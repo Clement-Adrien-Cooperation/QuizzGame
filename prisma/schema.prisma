@@ -19,6 +19,7 @@ model User {
   is_admin      Boolean   @default(false)
   is_banished   Boolean   @default(false)
   reported      Boolean   @default(false)
+  reportMessage String?
   quizz         Quizz[]
   comment       Comment[]
 }
@@ -37,6 +38,7 @@ model Quizz {
   date          String
   rate          Int?
   reported      Boolean    @default(false)
+  reportMessage String?
   questions     Question[]
   comments      Comment[]
 
@@ -52,6 +54,7 @@ model Question {
   propositions  String[]
   answer        String
   reported      Boolean   @default(false)
+  reportMessage String?
 }
 
 model Comment {
@@ -63,4 +66,5 @@ model Comment {
   quizz_id      Int       
   content       String
   reported      Boolean   @default(false)
+  reportMessage String?
 }

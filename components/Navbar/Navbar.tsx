@@ -1,9 +1,32 @@
 import Link from 'next/link';
 import styles from './Navbar.module.scss';
-
 import Theme from '../Theme/Theme';
 
-const Navbar = ({ isLogged }: {isLogged:boolean}) => {
+type UserTypes = {
+  id: number,
+  pseudo: string,
+  is_admin: boolean,
+  is_banished: boolean,
+};
+
+type NavBarProps = {
+  isLogged: boolean,
+  userLogged: UserTypes,
+  setIsLogged: Function,
+  setUserLogged: Function
+};
+
+const Navbar = ({
+  isLogged,
+  userLogged,
+  setIsLogged,
+  setUserLogged
+}: NavBarProps) => {
+
+  const handleDisconnect = () => {
+    setIsLogged(false);
+    setUserLogged(null);
+  };
 
   return (
     <nav className={styles.navbar}>
@@ -55,11 +78,21 @@ const Navbar = ({ isLogged }: {isLogged:boolean}) => {
           </li>
         )}
 
-        {isLogged && (
+        {userLogged?.is_admin && (
           <li className={styles.list__item}>
             <Link href='/admin'>
               <a>
                 Administration
+              </a>
+            </Link>
+          </li>
+        )}
+
+        {isLogged && (
+          <li className={styles.list__item}>
+            <Link href='/'>
+              <a onClick={handleDisconnect}>
+                Se déconnecter
               </a>
             </Link>
           </li>

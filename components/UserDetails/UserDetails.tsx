@@ -1,4 +1,12 @@
+import { useEffect, useState } from 'react';
 import styles from './UserDetails.module.scss';
+
+type UserLoggedTypes = {
+  id: number,
+  pseudo: string,
+  is_admin: boolean,
+  is_banished: boolean
+};
 
 type UserDetailsProps = {
   id: number,
@@ -6,7 +14,8 @@ type UserDetailsProps = {
   is_banished: boolean,
   is_admin: boolean,
   handleBanishement: Function,
-  handlePromotion: Function
+  handlePromotion: Function,
+  userLogged: UserLoggedTypes
 };
 
 const UserDetails = ({
@@ -15,8 +24,17 @@ const UserDetails = ({
   is_banished,
   is_admin,
   handleBanishement,
-  handlePromotion
+  handlePromotion,
+  userLogged
 } :UserDetailsProps) => {
+
+  const [showButtons, setShowButtons] = useState<boolean>(true);
+
+  useEffect(() => {
+    if(userLogged.id === id) {
+      setShowButtons(false);
+    };
+  }, []);
 
   return (
     <section className={styles.details}>
@@ -37,26 +55,29 @@ const UserDetails = ({
 
       </div>
 
-      <div className={styles.footer}>
+      {showButtons && (
 
-        <button
-          className={styles.button}
-          onClick={() => handleBanishement(id, is_banished)}
-        >
-          {is_banished ? "Débannir" : "Bannir"}
-        </button>
+        <div className={styles.footer}>
 
-        {!is_banished && (
-          
           <button
-            className={styles.button__secondary}
-            onClick={() => handlePromotion(id, is_admin)}
+            className={styles.button}
+            onClick={() => handleBanishement(id, is_banished)}
           >
-            {is_admin ? "Rétrograder" : "Promouvoir"}
+            {is_banished ? "Débannir" : "Bannir"}
           </button>
-        )}
 
-      </div>
+          {!is_banished && (
+            
+            <button
+              className={styles.button__secondary}
+              onClick={() => handlePromotion(id, is_admin)}
+            >
+              {is_admin ? "Rétrograder" : "Promouvoir"}
+            </button>
+          )}
+
+        </div>
+      )}
     </section>
   );
 };

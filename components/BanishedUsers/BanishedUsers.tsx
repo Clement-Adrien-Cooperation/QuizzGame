@@ -1,7 +1,7 @@
 import User from '../User/User';
 import styles from './BanishedUsers.module.scss';
 
-type UserProps = {
+type UserTypes = {
   id: number,
   pseudo: string,
   email: string,
@@ -10,16 +10,25 @@ type UserProps = {
   is_banished: boolean
 };
 
+type UserLoggedTypes = {
+  id: number,
+  pseudo: string,
+  is_admin: boolean,
+  is_banished: boolean
+};
+
 type BanishedUsersProps = {
-  banishedUsers: UserProps[],
+  banishedUsers: UserTypes[],
   handleBanishement: Function,
-  handlePromotion: Function
+  handlePromotion: Function,
+  userLogged: UserLoggedTypes
 };
 
 const BanishedUsers = ({ 
   banishedUsers,
   handleBanishement,
-  handlePromotion
+  handlePromotion,
+  userLogged
 } : BanishedUsersProps ) => {
 
   return (
@@ -29,7 +38,7 @@ const BanishedUsers = ({
       </h3>
 
       <ul>
-        {banishedUsers?.map(({id, pseudo, email, avatar, is_admin, is_banished}: UserProps) => {
+        {banishedUsers?.map(({id, pseudo, email, avatar, is_admin, is_banished}: UserTypes) => {
           return (
             <li key={id}>
               <User
@@ -41,6 +50,7 @@ const BanishedUsers = ({
                 is_banished={is_banished}
                 handleBanishement={handleBanishement}
                 handlePromotion={handlePromotion}
+                userLogged={userLogged}
               />
             </li>
           );

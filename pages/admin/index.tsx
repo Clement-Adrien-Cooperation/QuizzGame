@@ -1,17 +1,24 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import styles from '../../styles/Admin.module.scss';
 import AdminHeader from '../../components/AdminHeader/AdminHeader';
 
-const Admin: NextPage = () => {
+type UserTypes = {
+  id: number,
+  pseudo: string,
+  is_admin: boolean,
+  is_banished: boolean,
+};
+
+const Admin: NextPage = ({ userLogged }:any) => {
 
   const router = useRouter();
 
   useEffect(() => {
-    // if(userLogged.is_admin === false) {
-    //   router.push('/');
-    // };
+    if(!userLogged.is_admin === true) {
+      router.push('/');
+    };
   }, []);
 
   return (

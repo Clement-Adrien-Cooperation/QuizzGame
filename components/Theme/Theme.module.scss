@@ -31,11 +31,15 @@
   opacity: 0;
   transform: translateY(120%);
   animation: animApparition 0.3s ease-out forwards;
+
+  &.closed {
+    transform: translateY(120%);
+  }
 }
 
 @keyframes animApparition {
   100% {
     opacity: 1;
-    transform: none;
+    transform: translateY(0);
   }
 }
