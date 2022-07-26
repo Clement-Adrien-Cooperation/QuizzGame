@@ -24,7 +24,7 @@ const AdminUsers: NextPage = ({ usersData, banishedUsersData, userLogged } :any)
 
   useEffect(() => {
     // If user is not admin, we redirect him to home page
-    if(!userLogged.is_admin === true) {
+    if(!userLogged?.is_admin === true) {
       router.push('/');
     } else {
       setUsers(usersData);
@@ -83,22 +83,41 @@ const AdminUsers: NextPage = ({ usersData, banishedUsersData, userLogged } :any)
   return (
     <>
       <AdminHeader />
+
+      <section className={styles.buttons}>
+        <a
+          className={styles.button}
+          href='#users'
+        >
+          Utilisateurs
+        </a>
+
+        <a
+          className={styles.button}
+          href='#banned-users'
+        >
+          Bannis
+        </a>
+      </section>
       
       <section className={styles.container}>
+        <div id='users'>
+          <Users
+            users={users}
+            userLogged={userLogged}
+            handleBanishement={handleBanishement}
+            handlePromotion={handlePromotion}
+          />
+        </div>
 
-        <Users
-          users={users}
-          userLogged={userLogged}
-          handleBanishement={handleBanishement}
-          handlePromotion={handlePromotion}
-        />
-
-        <BanishedUsers
-          banishedUsers={banishedUsers}
-          userLogged={userLogged}
-          handleBanishement={handleBanishement}
-          handlePromotion={handlePromotion}
-        />
+        <div id='banned-users'>
+          <BanishedUsers
+            banishedUsers={banishedUsers}
+            userLogged={userLogged}
+            handleBanishement={handleBanishement}
+            handlePromotion={handlePromotion}
+          />
+        </div>
       </section>
     </>
   );

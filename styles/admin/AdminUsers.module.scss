@@ -5,3 +5,20 @@
   flex-direction: column;
   margin-top: 100px;
 }
+
+// .container {
+//   @include flexCenter;
+//   gap: 100px;
+//   margin-top: 100px;
+// }
+
+.buttons {
+  @include posFixed(100px, 50px , auto, auto);
+  display: flex;
+  gap: 20px;
+}
+
+.button {
+  @include secondaryButton;
+  font-size: 12px;
+}

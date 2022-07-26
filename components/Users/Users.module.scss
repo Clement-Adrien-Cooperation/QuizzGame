@@ -3,11 +3,16 @@
 .container {
   @include flexCenter;
   flex-direction: column;
-  margin-bottom: 50px;
+  margin-bottom: 100px;
 }
 
 .title {
   align-self: flex-start;
   font-size: 1.4em;
   font-weight: 600;
+}
+
+.input {
+  margin-top: 15px;
+  width: 400px;
 }
