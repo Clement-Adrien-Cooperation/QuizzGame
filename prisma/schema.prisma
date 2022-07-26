@@ -18,6 +18,7 @@ model User {
   avatar        String?
   is_admin      Boolean   @default(false)
   is_banished   Boolean   @default(false)
+  reported      Boolean   @default(false)
   quizz         Quizz[]
   comment       Comment[]
 }
@@ -28,13 +29,14 @@ model Quizz {
   user_id       Int       
   creator       String
   title         String
-  category      String
-  difficulty    String
+  category      String?
+  difficulty    String?
   lang          String?
   image         String?
-  is_visible    Boolean   @default(true)
+  is_visible    Boolean?   @default(true)
   date          String
   rate          Int?
+  reported      Boolean    @default(false)
   questions     Question[]
   comments      Comment[]
 
@@ -49,6 +51,7 @@ model Question {
   description   String?
   propositions  String[]
   answer        String
+  reported      Boolean   @default(false)
 }
 
 model Comment {
@@ -59,4 +62,5 @@ model Comment {
   quizz         Quizz     @relation(fields: [quizz_id], references: [id])
   quizz_id      Int       
   content       String
+  reported      Boolean   @default(false)
 }

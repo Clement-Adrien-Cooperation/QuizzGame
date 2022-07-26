@@ -21,13 +21,15 @@ type QuizProps = {
   comments: string[]
 };
 
-const Quizz: NextPage = ({ quizzData }:any) => {
+const Quizz: NextPage = ({ quizzData, isLogged }: any) => {
 
   const [filter, setFilter] = useState<string>('');
 
   const handleChangeFilter = (e:React.ChangeEvent<HTMLInputElement>) => {
     setFilter(e.target.value);
   };
+  
+  console.log(isLogged);
   
   return (
     <>
@@ -47,14 +49,15 @@ const Quizz: NextPage = ({ quizzData }:any) => {
           />
         </div>
 
-        <button className={styles.button}>
-          <Link href='/quizz/create'>
-            <a className={styles.link}>
-              Créer un Quiz
-            </a>
-          </Link>
-        </button>
-
+        {isLogged && (
+          <button className={styles.button}>
+            <Link href='/quizz/create'>
+              <a className={styles.link}>
+                Créer un Quiz
+              </a>
+            </Link>
+          </button>
+        )}
       </header>
 
       <section className={styles.container}>

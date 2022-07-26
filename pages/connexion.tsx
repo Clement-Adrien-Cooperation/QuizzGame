@@ -4,7 +4,7 @@ import styles from '../styles/Connexion.module.scss';
 import SignUp from '../components/SignUp/SignUp';
 import SignIn from '../components/SignIn/SignIn';
 
-const Connexion: NextPage = () => {
+const Connexion: NextPage = ({ setIsLogged }:any) => {
 
   const signInRef = useRef<HTMLDivElement>(null);
   const signUpRef = useRef<HTMLDivElement>(null);
@@ -55,6 +55,7 @@ const Connexion: NextPage = () => {
 
           <SignUp
             handleToggleForm={handleToggleForm}
+            setIsLogged={setIsLogged}
           />
         )}
       </div>
@@ -67,6 +68,7 @@ const Connexion: NextPage = () => {
 
           <SignIn
             handleToggleForm={handleToggleForm}
+            setIsLogged={setIsLogged}
           />
         )}
       </div>

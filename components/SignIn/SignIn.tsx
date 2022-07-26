@@ -1,22 +1,35 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import styles from './SignIn.module.scss';
-
 import InputField from '../InputField/InputField';
 import Warning from '../Warning/Warning';
 import Loader from '../Loader/Loader';
 
 type SignInProps = {
-  handleToggleForm: Function
+  handleToggleForm: Function,
+  setIsLogged: Function
 };
 
-const SignIn = ({ handleToggleForm } : SignInProps) => {
+const SignIn = ({ handleToggleForm, setIsLogged } : SignInProps) => {
+
+  const router = useRouter();
 
   const [pseudoOrEmail, setPseudoOrEmail] = useState<string>('adrienlcp@gmail.com');
-  const [password, setPassword] = useState<string>('');
+  const [password, setPassword] = useState<string>('TDYQCM&S3o!zao6i');
   const [warningMessage, setWarningMessage] = useState<string>('');
 
   const [disableButton, setDisableButton] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(false);
+
+  const checkPassword = (data:any) => {
+    console.log(data);
+    if(password === data.password) {
+      setIsLogged(true);
+      router.push('/');
+    } else {
+      setWarningMessage(`Le pseudo ou l'email ne correspond pas au mot de passe`);
+    };
+  };
 
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,8 +46,8 @@ const SignIn = ({ handleToggleForm } : SignInProps) => {
     .then(async(res) => {
       
       const data = await res.json();
-      console.log(data);
       
+      checkPassword(data);
     })
     .catch((error) => {
       console.log(error);

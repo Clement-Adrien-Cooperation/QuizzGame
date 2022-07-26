@@ -1,15 +1,18 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import styles from './SignUp.module.scss';
-
 import InputField from '../InputField/InputField';
 import Warning from '../Warning/Warning';
 import Loader from '../Loader/Loader';
 
 type SignUpProps = {
-  handleToggleForm: Function
+  handleToggleForm: Function,
+  setIsLogged: Function
 };
 
-const SignUp = ({ handleToggleForm } : SignUpProps) => {
+const SignUp = ({ handleToggleForm, setIsLogged } : SignUpProps) => {
+
+  const router = useRouter();
 
   const [pseudo, setPseudo] = useState<string>('');
   const [email, setEmail]= useState<string>('');
@@ -72,6 +75,7 @@ const SignUp = ({ handleToggleForm } : SignUpProps) => {
       || 
       confirmPassword.length > 1000 && confirmPassword.length < 10) {
 
+
       setWarningMessage('Votre mot de passe doit contenir entre 10 et 1000 caractères');
       setDisableButton(true);
 
@@ -79,6 +83,7 @@ const SignUp = ({ handleToggleForm } : SignUpProps) => {
       return true;
     };
   };
+
 
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     // Prevent the refresh
@@ -112,9 +117,10 @@ const SignUp = ({ handleToggleForm } : SignUpProps) => {
       setConfirmPassword('');
 
       setShowLoader(false);
+      
+      setIsLogged(true);
 
-      // Then, we can show sign in form (to change)
-      handleToggleForm();
+      router.push('/');
     };
 
     setDisableButton(false);

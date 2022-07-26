@@ -3,6 +3,7 @@ import Navbar from '../Navbar/Navbar';
 
 type PropsType = {
   children: JSX.Element,
+  isLogged: boolean
 };
 
 const Container = (props: PropsType) => {
@@ -10,7 +11,9 @@ const Container = (props: PropsType) => {
   return (
     <>
       <Head />
-      <Navbar />
+      <Navbar
+        isLogged={props.isLogged}
+      />
       {props.children}
     </>
   );

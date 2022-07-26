@@ -3,7 +3,7 @@ import styles from './Navbar.module.scss';
 
 import Theme from '../Theme/Theme';
 
-const Navbar = () => {
+const Navbar = ({ isLogged }: {isLogged:boolean}) => {
 
   return (
     <nav className={styles.navbar}>
@@ -25,38 +25,45 @@ const Navbar = () => {
           </Link>
         </li>
 
-        <li className={styles.list__item}>
-          <Link href='/quizz/create'>
-            <a>
-              Créer un quizz
-            </a>
-          </Link>
-        </li>
+        {isLogged && (
+          <>
+            <li className={styles.list__item}>
+              <Link href='/quizz/create'>
+                <a>
+                  Créer un quizz
+                </a>
+              </Link>
+            </li>
 
-        <li className={styles.list__item}>
-          <Link href='/profil'>
-            <a>
-              Profil
-            </a>
-          </Link>
-        </li>
+            <li className={styles.list__item}>
+              <Link href='/profil'>
+                <a>
+                  Profil
+                </a>
+              </Link>
+            </li>
+          </>
+        )}
 
-        <li className={styles.list__item}>
-          <Link href='/connexion'>
-            <a>
-              Se connecter
-            </a>
-          </Link>
-        </li>
+        {!isLogged && (
+          <li className={styles.list__item}>
+            <Link href='/connexion'>
+              <a>
+                Se connecter
+              </a>
+            </Link>
+          </li>
+        )}
 
-        <li className={styles.list__item}>
-          <Link href='/admin'>
-            <a>
-              Administration
-            </a>
-          </Link>
-        </li>
-
+        {isLogged && (
+          <li className={styles.list__item}>
+            <Link href='/admin'>
+              <a>
+                Administration
+              </a>
+            </Link>
+          </li>
+        )}
       </ul>
 
       <Theme />

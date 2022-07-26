@@ -49,6 +49,7 @@
     &:active {
       border-color: var(--main-color-alt);
       transform: scale(0.8);
+      cursor: grabbing;
     }
   }
 
@@ -68,6 +69,7 @@
     &:active {
       border-color: var(--main-color-alt);
       transform: scale(0.9);
+      cursor: grabbing;
     }
   }
 }
