@@ -24,7 +24,6 @@ const Home: NextPage = () => {
   
   return (
     <>
-
       <h1 className={styles.title}>
         s'Quizz Game
       </h1>
@@ -60,7 +59,6 @@ const Home: NextPage = () => {
       { showLoader && (
         <Loader />
       )}
-
     </>
   );
 };

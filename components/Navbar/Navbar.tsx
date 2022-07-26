@@ -32,23 +32,27 @@ const Navbar = ({
     <nav className={styles.navbar}>
       <ul className={styles.list}>
 
-        <li className={styles.list__item}>
-          <Link href='/'>
-            <a>
-              Accueil
-            </a>
-          </Link>
-        </li>
+        {!userLogged?.is_banished && (
+          <>
+            <li className={styles.list__item}>
+              <Link href='/'>
+                <a>
+                  Accueil
+                </a>
+              </Link>
+            </li>
 
-        <li className={styles.list__item}>
-          <Link href='/quizz'>
-            <a>
-              Quizz
-            </a>
-          </Link>
-        </li>
+            <li className={styles.list__item}>
+              <Link href='/quizz'>
+                <a>
+                  Quizz
+                </a>
+              </Link>
+            </li>
+          </>
+        )}
 
-        {isLogged && (
+        {isLogged && !userLogged?.is_banished && (
           <>
             <li className={styles.list__item}>
               <Link href='/quizz/create'>
@@ -68,7 +72,7 @@ const Navbar = ({
           </>
         )}
 
-        {!isLogged && (
+        {!isLogged && !userLogged?.is_banished && (
           <li className={styles.list__item}>
             <Link href='/connexion'>
               <a>
@@ -78,7 +82,7 @@ const Navbar = ({
           </li>
         )}
 
-        {userLogged?.is_admin && (
+        {userLogged?.is_admin && !userLogged?.is_banished && (
           <li className={styles.list__item}>
             <Link href='/admin'>
               <a>
@@ -96,7 +100,7 @@ const Navbar = ({
           </Link>
         </li>
 
-        {isLogged && (
+        {isLogged && !userLogged?.is_banished && (
           <li className={styles.list__item}>
             <Link href='/'>
               <a onClick={handleDisconnect}>
