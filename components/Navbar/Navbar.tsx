@@ -87,6 +87,14 @@ const Navbar = ({
             </Link>
           </li>
         )}
+        
+        <li className={styles.list__item}>
+          <Link href='/contact'>
+            <a>
+              Contact
+            </a>
+          </Link>
+        </li>
 
         {isLogged && (
           <li className={styles.list__item}>

@@ -1,0 +1,85 @@
+@import './mixins';
+
+.title {
+  font-size: 50px;
+  font-weight: 200;
+  margin: 50px 0 0 80px;
+}
+
+.form {
+  @include flexCenter;
+  flex-direction: column;
+  margin-top: 100px;
+}
+
+.input {
+  width: 400px;
+  padding: 9px 16px;
+  background: var(--input-color);
+  border: var(--border-transparent);
+  border-radius: 50px;
+
+  &:hover {
+    border-color: var(--main-color-light);
+  }
+
+  &:focus {
+    border-color: var(--main-color);
+  }
+
+  &:disabled {
+    background: var(--grey);
+
+    &:hover {
+      border-color: transparent;
+    }
+  }
+}
+
+.area {
+  margin: 50px 0;
+  padding: 9px 16px;
+  border: var(--border-transparent);
+  border-radius: var(--medium-radius);
+  background: var(--input-color);
+  width: 400px;
+  max-width: 80%;
+  min-width: 300px;
+  min-height: 150px;
+  max-height: 50vh;
+  font-family: inherit;
+  outline: none;
+
+  &:hover {
+    border-color: var(--main-color-light);
+  }
+
+  &:focus {
+    border-color: var(--main-color);
+  }
+
+  &:disabled {
+    background: var(--grey);
+
+    &:hover {
+      border-color: transparent;
+    }
+  }
+}
+
+.button {
+  @include mainButton;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  font-size: 12px;
+}
+
+.icon {
+  width: 15px;
+  height: 15px;
+}
+
+.span {
+  margin-left: 10px;
+}
