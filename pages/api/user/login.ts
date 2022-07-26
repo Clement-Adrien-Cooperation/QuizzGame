@@ -6,16 +6,33 @@ export default async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  try {
-    const user = await prisma.user.findMany({
-      where: {
-        pseudo: req.body.pseudo,
-        password: req.body.password
-      }
-    });
-    res.status(200).json(user);
-    
-  } catch (error){
-    console.log(error);
+
+  if(req.body.pseudoOrEmail.includes('@') && req.body.pseudoOrEmail.includes('.')) {
+    try {
+      const user = await prisma.user.findUnique({
+        where: {
+          email: req.body.pseudoOrEmail
+        }
+      });
+      res.status(200).json(user);
+      
+    }
+    catch (error){
+      console.log(error);
+    };
+
+  } else {
+    try {
+      const user = await prisma.user.findUnique({
+        where: {
+          pseudo: req.body.pseudoOrEmail
+        }
+      });
+      res.status(200).json(user);
+      
+    }
+    catch (error){
+      console.log(error);
+    };
   };
 };

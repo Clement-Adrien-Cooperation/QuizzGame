@@ -18,6 +18,7 @@ const Theme = () => {
         <button
           className={styles.icon}
           type='button'
+          aria-label='Ouvre les paramètres de couleurs et thème'
           onClick={() => setShowSettings(true)}
         >
           <Image

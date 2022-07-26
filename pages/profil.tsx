@@ -4,9 +4,9 @@ import styles from '../styles/Profil.module.scss';
 const Profil: NextPage = () => {
   return (
     <>
-      <h2 className={styles.title}>
+      <h1 className={styles.title}>
         Ma page de profil
-      </h2>
+      </h1>
     </>
   );
 };

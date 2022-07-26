@@ -2,8 +2,10 @@
 
 .title {
   text-align: center;
-  font-weight: 600;
   margin-top: 4vh;
+  font-family: var(--title-font);
+  font-size: var(--main-title-size);
+  font-weight: 600;
 }
 
 .container {

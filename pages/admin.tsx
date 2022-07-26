@@ -79,9 +79,9 @@ const Admin: NextPage = ({ usersData, banishedUsersData }:any) => {
 
   return (
     <section className={styles.admin}>
-      <h2 className={styles.title}>
+      <h1 className={styles.title}>
         Administration
-      </h2>
+      </h1>
 
       <section className={styles.container}>
 

@@ -39,6 +39,12 @@ const SignUp = ({ handleToggleForm } : SignUpProps) => {
       setWarningMessage('Veuillez entrer un email valide');
       setDisableButton(true);
 
+    // same with pseudo
+    } else if (pseudo.includes('@') && pseudo.includes('.')) {
+
+      setWarningMessage(`Votre pseudo ne doit pas contenir de "@" ou de ".", ces caractères sont réservés au champs "Adresse mail"`);
+      setDisableButton(true);
+
     // If the two passwords are not the same
     } else if (password !== confirmPassword) {
 
@@ -87,8 +93,10 @@ const SignUp = ({ handleToggleForm } : SignUpProps) => {
       // Show loader
       setShowLoader(true);
 
+      const is_admin = true;
+
       // If everything is ok, set up the body
-      const body = { pseudo, email, password };
+      const body = { pseudo, email, password, is_admin };
 
       // & create a new user
       await fetch(`/api/user/create`, {
@@ -118,6 +126,10 @@ const SignUp = ({ handleToggleForm } : SignUpProps) => {
     if(pseudo.length > 30) {
       // We warn user
       setWarningMessage('Votre pseudo ne doit pas excéder 30 caractères');
+      setDisableButton(true);
+    } else if (pseudo.includes('@') && pseudo.includes('.')) {
+
+      setWarningMessage(`Votre pseudo ne doit pas contenir de "@" ou de ".", ces caractères sont réservés au champs "Adresse mail"`);
       setDisableButton(true);
     } else {
       // If not, we update state
@@ -171,9 +183,9 @@ const SignUp = ({ handleToggleForm } : SignUpProps) => {
     <>
       <section className={styles.container}>
 
-        <h2 className={styles.container__title}>
+        <h1 className={styles.container__title}>
           Créer un compte
-        </h2>
+        </h1>
 
         <form
           className={styles.form}

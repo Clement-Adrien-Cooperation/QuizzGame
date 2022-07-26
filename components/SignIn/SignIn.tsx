@@ -11,9 +11,7 @@ type SignInProps = {
 
 const SignIn = ({ handleToggleForm } : SignInProps) => {
 
-  // const [pseudoOrEmail, setPseudoOrEmail] = useState<string>('');
-  const [pseudo, setPseudo] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
+  const [pseudoOrEmail, setPseudoOrEmail] = useState<string>('adrienlcp@gmail.com');
   const [password, setPassword] = useState<string>('');
   const [warningMessage, setWarningMessage] = useState<string>('');
 
@@ -25,9 +23,7 @@ const SignIn = ({ handleToggleForm } : SignInProps) => {
     setDisableButton(true);
     setShowLoader(true);
 
-    const body = { pseudo, password }
-
-    // console.log(pseudoOrEmail);
+    const body = { pseudoOrEmail }
   
     await fetch(`/api/user/login`, {
       method: 'POST',
@@ -35,6 +31,7 @@ const SignIn = ({ handleToggleForm } : SignInProps) => {
       body: JSON.stringify(body)
     })
     .then(async(res) => {
+      
       const data = await res.json();
       console.log(data);
       
@@ -43,20 +40,13 @@ const SignIn = ({ handleToggleForm } : SignInProps) => {
       console.log(error);
     });
     
-    setDisableButton(false);
+    setPassword('');
     setShowLoader(false);
+    setDisableButton(false);
   };
 
-  // const handleChangePseudoOrEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setPseudoOrEmail(e.target.value);
-  // };
-
-  const handleChangePseudo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPseudo(e.target.value);
-  };
-
-  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
+  const handleChangePseudoOrEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPseudoOrEmail(e.target.value);
   };
 
   const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,31 +57,23 @@ const SignIn = ({ handleToggleForm } : SignInProps) => {
     <>
       <section className={styles.container}>
 
-        <h2 className={styles.container__title}>
+        <h1 className={styles.container__title}>
           Se connecter
-        </h2>
+        </h1>
 
         <form
           className={styles.form}
           onSubmit={handleSubmitForm}
         >
-          <InputField
-            name={'Pseudo'}
-            state={pseudo}
-            inputID={'pseudo'}
-            type={'text'}
-            isDisabled={false}
-            handleFunction={handleChangePseudo}
-          />
 
-          {/* <InputField
-            name={'adresse mail'}
-            state={email}
-            inputID={'email'}
+          <InputField
+            name={'Pseudo ou Email'}
+            state={pseudoOrEmail}
+            inputID={'ID'}
             type={'text'}
             isDisabled={false}
-            handleFunction={handleChangeEmail}
-          /> */}
+            handleFunction={handleChangePseudoOrEmail}
+          />
 
           <InputField
             name={'Mot de passe'}

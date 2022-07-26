@@ -10,7 +10,7 @@ import RangeSlider from '../../components/RangeSlider/RangeSlider';
 
 const CreateQuizz: NextPage = () => {
 
-  const categoryList :string[] = ['Cinéma', 'Musique', 'Autres'];
+  const categoryList :string[] = ['Cinéma', 'Séries', 'Musique', 'Art', 'Culture générale', 'Géographie', 'Sciences', 'Autres'];
   const langList :string[] = ['Français', 'Anglais'];
 
   const [title, setTitle] = useState<string>('');
@@ -152,9 +152,9 @@ const CreateQuizz: NextPage = () => {
   return (
     <>
       <div className={styles.container}>
-        <h2 className={styles.title}>
+        <h1 className={styles.title}>
           Créer un s'Quizz
-        </h2>
+        </h1>
 
         { warningMessage && (
           <Warning

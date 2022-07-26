@@ -32,9 +32,9 @@ const Quizz: NextPage = ({ quizzData }:any) => {
   return (
     <>
       <header className={styles.header}>
-        <h2 className={styles.title}>
+        <h1 className={styles.title}>
           Quizz
-        </h2>
+        </h1>
 
         <div className={styles.input}>
           <InputField
@@ -73,6 +73,7 @@ const Quizz: NextPage = ({ quizzData }:any) => {
                 return (
                   <li key={quiz.id}>
                     <Quiz
+                      id={quiz.id}
                       creator={quiz.creator}
                       title={quiz.title}
                       difficulty={quiz.difficulty}

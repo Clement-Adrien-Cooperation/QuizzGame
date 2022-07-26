@@ -31,22 +31,9 @@ h1, h2, h3, h4{
   font-weight: 500;
 }
 
-h1 {
-  font-family: var(--title-font);
-  font-size: var(--main-title-size);
-  font-weight: 600;
-}
-
 @media screen and (min-width: 850px) {
   body {
     margin-left: var(--navbar-width);
-  }
-}
-
-@keyframes animApparition {
-  100% {
-    opacity: 1;
-    transform: none;
   }
 }
 
