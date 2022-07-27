@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../../styles/CreateQuizz.module.scss';
 
 import InputField from '../../components/InputField/InputField';
@@ -10,8 +10,10 @@ import RangeSlider from '../../components/RangeSlider/RangeSlider';
 
 const CreateQuizz: NextPage = () => {
 
-  const categoryList :string[] = ['Cinéma', 'Séries', 'Musique', 'Art', 'Culture générale', 'Géographie', 'Sciences', 'Autres'];
   const langList :string[] = ['Français', 'Anglais'];
+  const categoryList :string[] = [
+    'Art', 'BD / Manga', 'Divertissement', 'Cinéma', 'Culture générale', 'Géographie', 'Histoire', 'Littérature', 'Loisirs', 'Médias', 'Musique', 'Sciences', 'Séries', 'Sport', 'Divers', 'Autres'
+  ];
 
   const [title, setTitle] = useState<string>('');
   const [category, setCategory] = useState<string>('');
@@ -26,6 +28,12 @@ const CreateQuizz: NextPage = () => {
   const [disableButton, setDisableButton] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
+  useEffect(() => {
+
+    document.title = "Créer un quiz - s'Quizz Game";
+
+  }, []);
+
   const checkForm = () => {
 
     if(title.trim() === '') {
@@ -39,6 +47,7 @@ const CreateQuizz: NextPage = () => {
 
     } else if(difficultyRange < 0 || difficultyRange > 4 ) {
       setWarningMessage("La difficulté n'est pas valide");
+      
     } else {
       return true;
     };

@@ -23,12 +23,15 @@ const AdminUsers: NextPage = ({ usersData, banishedUsersData, userLogged } :any)
   const [banishedUsers, setBanishedUsers] = useState<UserProps[]>([]);
 
   useEffect(() => {
+
+    document.title = "Modérer les utilisateurs - s'Quizz Game";
+    
     // If user is not admin, we redirect him to home page
-    if(!userLogged?.is_admin === true) {
-      router.push('/');
-    } else {
+    if(userLogged?.is_admin === true) {
       setUsers(usersData);
       setBanishedUsers(banishedUsersData);
+    } else {
+      router.push('/');
     };
   }, []);
 

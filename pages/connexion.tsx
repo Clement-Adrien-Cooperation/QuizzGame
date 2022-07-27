@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../styles/Connexion.module.scss';
 import SignUp from '../components/SignUp/SignUp';
 import SignIn from '../components/SignIn/SignIn';
@@ -8,6 +8,12 @@ const Connexion: NextPage = ({ setIsLogged, setUserLogged }:any) => {
 
   const [showSignUp, setShowSignUp] = useState<boolean>(true);
   const [showSignIn, setShowSignIn] = useState<boolean>(false);
+
+  useEffect(() => {
+
+    document.title = "Connexion - s'Quizz Game";
+
+  }, []);
 
   const handleToggleForm = () => {
 

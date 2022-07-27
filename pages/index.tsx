@@ -1,11 +1,17 @@
 import type { NextPage } from 'next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Loader from '../components/Loader/Loader';
 import styles from '../styles/Home.module.scss';
 
 const Home: NextPage = () => {
 
   const [showLoader, setShowLoader] = useState<boolean>(false);
+
+  useEffect(() => {
+
+    document.title = "s'Quizz Game";
+
+  }, []);
 
   const getUsers = async () => {
 

@@ -58,7 +58,6 @@ const BanishedUsers = ({
             />
           </div>
 
-
           <ul>
             {banishedUsers?.map(({id, pseudo, email, avatar, is_admin, is_banished}: UserTypes) => {
 

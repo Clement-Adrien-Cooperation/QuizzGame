@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import styles from '../../styles/Quizz.module.scss';
 import Link from 'next/link';
 import Quiz from '../../components/Quiz/Quiz';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import InputField from '../../components/InputField/InputField';
 
 type QuizProps = {
@@ -24,6 +24,12 @@ type QuizProps = {
 const Quizz: NextPage = ({ quizzData, isLogged }: any) => {
 
   const [filter, setFilter] = useState<string>('');
+
+  useEffect(() => {
+    
+    document.title = "Quizz - s'Quizz Game";
+
+  }, []);
 
   const handleChangeFilter = (e:React.ChangeEvent<HTMLInputElement>) => {
     setFilter(e.target.value);
@@ -67,8 +73,8 @@ const Quizz: NextPage = ({ quizzData, isLogged }: any) => {
             const quizCreator = quiz.creator.toLowerCase();
             const userFilter = filter.toLowerCase();
             
-            // If quiz doesn't have question, we don't show it
-            // if(quiz.questions !== undefined) {
+            // If quiz doesn't have question, we don't render it
+            // if(quiz.questions.length !== 0) {
               if(quizTitle.includes(userFilter) || quizCreator.includes(userFilter)) {
 
                 return (

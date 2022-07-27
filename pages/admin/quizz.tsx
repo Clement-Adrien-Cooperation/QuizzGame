@@ -9,10 +9,15 @@ const Quizz: NextPage = ({ userLogged }:any) => {
   const router = useRouter();
 
   useEffect(() => {
+    document.title = "Modérer les Quizz - s'Quizz Game";
+    
     // If user is not admin, we redirect him to home page
-    if(!userLogged.is_admin === true) {
+    if(userLogged?.is_admin === true) {
+      return;
+    } else {
       router.push('/');
     };
+
   }, []);
 
   return (

@@ -12,6 +12,9 @@ const Banned: NextPage = ({ isLogged, userLogged }:any) => {
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
   useEffect(() => {
+  
+    document.title = "Banni";
+  
     if(isLogged) {
       checkUser();
     } else {
