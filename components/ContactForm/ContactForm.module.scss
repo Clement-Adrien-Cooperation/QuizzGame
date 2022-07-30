@@ -4,6 +4,7 @@
   @include flexCenter;
   flex-direction: column;
   margin-top: 100px;
+  width: 500px;
 }
 
 .input {
@@ -31,34 +32,7 @@
 }
 
 .area {
-  margin: 50px 0;
-  padding: 9px 16px;
-  border: var(--border-transparent);
-  border-radius: var(--medium-radius);
-  background: var(--input-color);
-  width: 400px;
-  max-width: 80%;
-  min-width: 300px;
-  min-height: 150px;
-  max-height: 50vh;
-  font-family: inherit;
-  outline: none;
-
-  &:hover {
-    border-color: var(--main-color-light);
-  }
-
-  &:focus {
-    border-color: var(--main-color);
-  }
-
-  &:disabled {
-    background: var(--grey);
-
-    &:hover {
-      border-color: transparent;
-    }
-  }
+  @include areaInput;
 }
 
 .button {

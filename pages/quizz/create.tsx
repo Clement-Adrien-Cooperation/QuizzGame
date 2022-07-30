@@ -1,14 +1,17 @@
 import { NextPage } from 'next';
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import styles from '../../styles/CreateQuizz.module.scss';
-
 import InputField from '../../components/InputField/InputField';
 import SelectField from '../../components/SelectField/SelectField';
 import Warning from '../../components/Warning/Warning';
 import Loader from '../../components/Loader/Loader';
 import RangeSlider from '../../components/RangeSlider/RangeSlider';
+import Questions from '../../components/Questions/Questions';
 
-const CreateQuizz: NextPage = () => {
+const CreateQuizz: NextPage = ({ isLogged }:any) => {
+
+  const router = useRouter();
 
   const langList :string[] = ['Français', 'Anglais'];
   const categoryList :string[] = [
@@ -19,6 +22,8 @@ const CreateQuizz: NextPage = () => {
   const [category, setCategory] = useState<string>('');
   const [lang, setLang] = useState<string>('');
   const [difficulty, setDifficulty] = useState<string>('Normal');
+
+  const [questions, setQuestions] = useState<string[]>([]);
   
   const [difficultyRange, setDifficultyRange] = useState<number>(2);
   const [rangeColor, setRangeColor] = useState<string>(`var(--medium)`);
@@ -31,6 +36,10 @@ const CreateQuizz: NextPage = () => {
   useEffect(() => {
 
     document.title = "Créer un quiz - s'Quizz Game";
+
+    if(!isLogged) {
+      router.push('/');
+    };
 
   }, []);
 
@@ -228,6 +237,11 @@ const CreateQuizz: NextPage = () => {
           />
 
         </form>
+
+        <Questions
+          questions={questions}
+          setQuestions={setQuestions}
+        />
       </div>
 
       {showLoader && (

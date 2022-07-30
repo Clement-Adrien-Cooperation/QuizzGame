@@ -1,0 +1,12 @@
+@import '../../styles/mixins';
+
+.form {
+  @include flexCenter;
+  flex-direction: column;
+  margin-top: 40px;
+  width: 400px;
+}
+
+.area {
+  @include areaInput;
+}

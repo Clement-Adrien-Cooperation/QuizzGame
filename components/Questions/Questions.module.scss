@@ -1,0 +1,12 @@
+@import '../../styles/mixins';
+
+.questions {
+  @include flexCenter;
+  flex-direction: column;
+}
+
+.new_question_button {
+  @include secondaryButton;
+  font-size: 12px;
+  margin-bottom: 40px;
+}

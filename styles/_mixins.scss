@@ -56,6 +56,7 @@
     background: var(--main-color-alt);
     border-color: var(--main-color-alt);
     color: var(--white);
+    opacity: 1;
   }
 
   &:active {
@@ -65,7 +66,7 @@
   &:disabled {
     background: var(--grey);
     border-color: var(--grey);
-    cursor: default;
+    cursor: not-allowed;
 
     &:hover {
       background: var(--grey);
@@ -103,7 +104,7 @@
   &:disabled {
     color: var(--grey);
     border-color: var(--grey);
-    cursor: default;
+    cursor: not-allowed;
 
     &:hover {
       background: transparent;
@@ -139,7 +140,7 @@
     text-decoration: none;
     color: var(--grey);
     border-color: var(--grey);
-    cursor: default;
+    cursor: not-allowed;
 
     &:hover {
       color: var(--grey);
@@ -155,4 +156,36 @@
   width: 0;
   height: 0;
   visibility: hidden;
+}
+
+@mixin areaInput {
+  margin: 50px 0;
+  padding: 9px 16px;
+  border: var(--border-transparent);
+  border-radius: var(--medium-radius);
+  background: var(--input-color);
+  width: 100%;
+  max-width: 800px;
+  min-width: 300px;
+  min-height: 150px;
+  max-height: 50vh;
+  font-family: inherit;
+  outline: none;
+
+  &:hover {
+    border-color: var(--main-color-light);
+  }
+
+  &:focus {
+    border-color: var(--main-color);
+  }
+
+  &:disabled {
+    background: var(--grey);
+    cursor: not-allowed;
+
+    &:hover {
+      border-color: transparent;
+    }
+  }
 }

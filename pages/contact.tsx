@@ -17,7 +17,11 @@ const Contact: NextPage = () => {
         Contact
       </h1>
 
-      <ContactForm />
+      <section className={styles.container}>
+
+        <ContactForm />
+
+      </section>
     </>
   );
 };
