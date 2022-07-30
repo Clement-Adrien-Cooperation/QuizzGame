@@ -4,17 +4,77 @@ const prisma = new PrismaClient()
 
 const userData: Prisma.UserCreateInput[] = [
   {
+    pseudo: 'Vadrial',
+    email: 'adrienlcp@gmail.com',
+    password: 'TDYQCM&S3o!zao6i',
+    is_admin: true
+  },
+  {
     pseudo: 'Penrose',
     email: 'clement.charlesC@gmail.com',
     password: 'admin',
-    avatar: '',
-    is_admin: true,
+    is_admin: true
   },
   {
-    pseudo: 'Vadrial',
-    email: 'adrienlcp@gmail.com',
-    password: 'admin'
+    pseudo: 'Jojo l\'asticot',
+    email: 'fauxuser@gmail.com',
+    password: 'lechienduvoisinabouffémescouilles',
   },
+  {
+    pseudo: 'Victor',
+    email: 'fauxuser@gmail.com',
+    password: 'lechienduvoisinabouffémescouilles',
+  },
+  {
+    pseudo: 'Miriam',
+    email: 'fauxuser@gmail.com',
+    password: 'lechienduvoisinabouffémescouilles',
+  },
+  {
+    pseudo: 'Hagrid',
+    email: 'fauxuser@gmail.com',
+    password: 'lechienduvoisinabouffémescouilles',
+  },
+  {
+    pseudo: 'JUL',
+    email: 'fauxuser@gmail.com',
+    password: 'lechienduvoisinabouffémescouilles',
+  },
+  {
+    pseudo: 'Jorys',
+    email: 'fauxuser@gmail.com',
+    password: 'lechienduvoisinabouffémescouilles',
+  },
+  {
+    pseudo: 'Serious Jane',
+    email: 'fauxuser@gmail.com',
+    password: 'lechienduvoisinabouffémescouilles',
+  },
+  {
+    pseudo: 'Strawberry Newman',
+    email: 'fauxuser@gmail.com',
+    password: 'lechienduvoisinabouffémescouilles',
+  },
+  {
+    pseudo: 'Fièvre jaune',
+    email: 'fauxuser@gmail.com',
+    password: 'lechienduvoisinabouffémescouilles',
+  },
+  {
+    pseudo: 'Laura Ralau',
+    email: 'fauxuser@gmail.com',
+    password: 'lechienduvoisinabouffémescouilles',
+  },
+  {
+    pseudo: 'Benzaming',
+    email: 'fauxuser@gmail.com',
+    password: 'lechienduvoisinabouffémescouilles',
+  },
+  {
+    pseudo: 'Clothilde & Mathilde',
+    email: 'fauxuser@gmail.com',
+    password: 'lechienduvoisinabouffémescouilles',
+  }
 ]
 
 async function main() {

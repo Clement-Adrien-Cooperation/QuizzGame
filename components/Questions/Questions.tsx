@@ -15,22 +15,12 @@ const Questions = ({
   questions,
   setQuestions
 } :QuestionsProps) => {
-  
+
   const [showForm, setShowForm] = useState<boolean>(false);
 
   return (
     <section className={styles.questions}>
-      <button
-        type='button'
-        className={styles.new_question_button}
-        onClick={() => setShowForm(true)}
-      >
-        Ajouter une question
-      </button>
-
-      {showForm && (
-        <QuestionForm />
-      )}
+      
     </section>
   );
 };

@@ -6,12 +6,21 @@
   align-items: center;
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 50px 100px;
+}
+
 .title {
-  text-align: center;
-  margin: 50px 0 0;
-  font-weight: 700;
+  font-weight: 300;
   font-size: 2em;
-  margin-bottom: 50px;
+}
+
+.submit {
+  @include mainButton;
 }
 
 .form {
@@ -19,9 +28,4 @@
   flex-direction: column;
   margin-top: 50px;
   width: 20vw;
-}
-
-.submit {
-  margin: 50px 0;
-  @include mainButton;
 }

@@ -35,6 +35,14 @@
   }
 }
 
+.text {
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 20px;
+  font-style: italic;
+}
+
 @keyframes animApparition {
   100% {
     opacity: 1;

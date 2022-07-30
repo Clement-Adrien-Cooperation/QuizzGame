@@ -55,7 +55,7 @@ const UserDetails = ({
 
       </div>
 
-      {showButtons && (
+      {showButtons ? (
 
         <div className={styles.footer}>
 
@@ -75,7 +75,12 @@ const UserDetails = ({
               {is_admin ? "Rétrograder" : "Promouvoir"}
             </button>
           )}
-
+        </div>
+      ) : (
+        <div className={styles.footer}>
+          <p className={styles.text}>
+            Vous ne pouvez pas vous administrer vous-même
+          </p>
         </div>
       )}
     </section>

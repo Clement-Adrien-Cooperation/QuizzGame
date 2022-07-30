@@ -7,9 +7,8 @@ import SelectField from '../../components/SelectField/SelectField';
 import Warning from '../../components/Warning/Warning';
 import Loader from '../../components/Loader/Loader';
 import RangeSlider from '../../components/RangeSlider/RangeSlider';
-import Questions from '../../components/Questions/Questions';
 
-const CreateQuizz: NextPage = ({ isLogged }:any) => {
+const CreateQuizz: NextPage = ({ isLogged, userLogged }:any) => {
 
   const router = useRouter();
 
@@ -22,8 +21,6 @@ const CreateQuizz: NextPage = ({ isLogged }:any) => {
   const [category, setCategory] = useState<string>('');
   const [lang, setLang] = useState<string>('');
   const [difficulty, setDifficulty] = useState<string>('Normal');
-
-  const [questions, setQuestions] = useState<string[]>([]);
   
   const [difficultyRange, setDifficultyRange] = useState<number>(2);
   const [rangeColor, setRangeColor] = useState<string>(`var(--medium)`);
@@ -67,12 +64,13 @@ const CreateQuizz: NextPage = ({ isLogged }:any) => {
       setWarningMessage('Le titre de votre quizz ne doit pas contenir plus de 50 caractères');
       setDisableButton(true);
     } else {
-      setTitle(e.target.value);
-
+      setWarningMessage('');
       if(disableButton) {
         setDisableButton(false);
       };
     };
+
+    setTitle(e.target.value);
   };
 
   const handleChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -140,27 +138,26 @@ const CreateQuizz: NextPage = ({ isLogged }:any) => {
     setDisableButton(true);
     setShowLoader(true);
 
-    const user_id :number = 1;
-    const creator :string = 'Vadrial';
+    const user_id :number = userLogged.id;
+    const creator :string = userLogged.pseudo;
     const is_visible :boolean = true;
     const date :string = new Date().toLocaleDateString();
 
     if(checkForm()) {
 
-        // If everything is ok, set up the body
-        const body = { user_id, creator, title, category, lang, difficulty, is_visible, date };
+      // If everything is ok, set up the body
+      const body = { user_id, creator, title, category, lang, difficulty, is_visible, date };
 
-        // & create a new user
-        await fetch(`/api/quizz/create`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body)
-        })
-        .catch((error) => {
-          console.log(error);
-          
-        })
-      };
+      // & create a new user
+      await fetch(`/api/quizz/create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    };
 
     setTitle('');
     setDisableButton(false);
@@ -169,10 +166,21 @@ const CreateQuizz: NextPage = ({ isLogged }:any) => {
 
   return (
     <>
-      <div className={styles.container}>
-        <h1 className={styles.title}>
-          Créer un s'Quizz
-        </h1>
+      <form className={styles.container}>
+
+        <header className={styles.header}>
+          <h1 className={styles.title}>
+            Créer un s'Quizz
+          </h1>
+
+          <input
+            className={styles.submit}
+            id='quiz-form'
+            type='submit'
+            value='Sauvegarder'
+            disabled={disableButton}
+          />
+        </header>
 
         { warningMessage && (
           <Warning
@@ -181,8 +189,9 @@ const CreateQuizz: NextPage = ({ isLogged }:any) => {
           />
         )}
 
-        <form
+        <section
           className={styles.form}
+          id='quiz-form'
           onSubmit={handleSubmitForm}
         >
 
@@ -228,21 +237,8 @@ const CreateQuizz: NextPage = ({ isLogged }:any) => {
               setWarningMessage={setWarningMessage}
             />
           )}
-
-          <input
-            className={styles.submit}
-            type='submit'
-            value='Créer'
-            disabled={disableButton}
-          />
-
-        </form>
-
-        <Questions
-          questions={questions}
-          setQuestions={setQuestions}
-        />
-      </div>
+        </section>
+      </form>
 
       {showLoader && (
         <Loader />

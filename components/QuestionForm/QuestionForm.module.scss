@@ -5,8 +5,25 @@
   flex-direction: column;
   margin-top: 40px;
   width: 400px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: animApparition 0.3s ease-in-out forwards;
+  gap: 10px;
 }
 
 .area {
   @include areaInput;
+  margin: 20px 0 40px;
+}
+
+.button {
+  @include secondaryButton;
+  font-size: 12px;
+}
+
+@keyframes animApparition {
+  100% {
+    opacity: 1;
+    transform: none;
+  }
 }
