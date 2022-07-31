@@ -67,6 +67,7 @@ const User = ({
                 width='32'
                 height='32'
                 layout='responsive'
+                alt="Avatar de l'utilisateur"
               />
             </div>
 
@@ -80,6 +81,7 @@ const User = ({
                 width='32'
                 height='32'
                 layout='responsive'
+                alt="Ouvrir les détails de l'utilisateur"
               />
             </div>
 

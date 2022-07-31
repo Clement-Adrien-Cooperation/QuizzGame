@@ -24,8 +24,16 @@ const Navbar = ({
 }: NavBarProps) => {
 
   const handleDisconnect = () => {
+      
+    const unLoggedUser = {
+      id: 0,
+      pseudo: '',
+      is_admin: false,
+      is_banished: false
+    };
+
     setIsLogged(false);
-    setUserLogged(null);
+    setUserLogged(unLoggedUser);
   };
 
   return (

@@ -28,7 +28,7 @@ const Banned: NextPage = ({ isLogged, userLogged }:any) => {
 
     const body = { user_id: userLogged.id };
       
-    await fetch('api/user/getOne', {
+    await fetch('/api/user/getOne', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)

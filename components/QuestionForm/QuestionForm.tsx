@@ -118,6 +118,12 @@ const QuestionForm = ({ questions, setQuestions, setShowForm }:QuestionFormProps
   };
 
   const checkForm = () => {
+
+    const index = question.trim().length;
+
+    const test = question[index];
+    console.log(test);
+    
     
     // If question doesn't includes a '?'
     if(!question.trim().includes('?')) {

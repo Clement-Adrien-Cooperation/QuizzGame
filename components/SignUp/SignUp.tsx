@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from './SignUp.module.scss';
 import InputField from '../InputField/InputField';
@@ -7,22 +7,27 @@ import Loader from '../Loader/Loader';
 
 type SignUpProps = {
   handleToggleForm: Function,
-  setIsLogged: Function
+  setIsLogged: Function,
+  setUserLogged: Function
 };
 
-const SignUp = ({ handleToggleForm, setIsLogged } : SignUpProps) => {
+const SignUp = ({
+  handleToggleForm,
+  setIsLogged,
+  setUserLogged
+} : SignUpProps) => {
 
   const router = useRouter();
-
+  
   const [pseudo, setPseudo] = useState<string>('');
   const [email, setEmail]= useState<string>('');
   const [password, setPassword]= useState<string>('');
   const [confirmPassword, setConfirmPassword]= useState<string>('');
-
+  
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [disableButton, setDisableButton] = useState<boolean>(true);
   const [showLoader, setShowLoader] = useState<boolean>(false);
-
+  
   const checkForm = () => {
 
     // If form is not filled
@@ -84,7 +89,6 @@ const SignUp = ({ handleToggleForm, setIsLogged } : SignUpProps) => {
     };
   };
 
-
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     // Prevent the refresh
     e.preventDefault();
@@ -108,6 +112,35 @@ const SignUp = ({ handleToggleForm, setIsLogged } : SignUpProps) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
+      })
+      .then( async() => {
+
+        const body = { pseudoOrEmail: pseudo }
+
+        await fetch(`/api/user/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        })
+        .then(async(res) => {
+          
+          const data = await res.json();
+
+          const userData = {
+            id: data.id,
+            pseudo: data.pseudo,
+            is_admin: data.is_admin,
+            is_banished: data.is_banished
+          };
+
+          setIsLogged(true);
+          setUserLogged(userData);
+
+          router.push('/');
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       });
 
       // Reset states & hide loader
@@ -117,10 +150,6 @@ const SignUp = ({ handleToggleForm, setIsLogged } : SignUpProps) => {
       setConfirmPassword('');
 
       setShowLoader(false);
-      
-      setIsLogged(true);
-
-      router.push('/');
     };
 
     setDisableButton(false);

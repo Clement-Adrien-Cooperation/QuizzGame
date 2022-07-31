@@ -5,18 +5,32 @@ import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
+type UserLoggedTypes = {
+  id: number,
+  pseudo: string,
+  is_admin: boolean,
+  is_banished: boolean
+};
+
+const unLoggedUser = {
+  id: 0,
+  pseudo: '',
+  is_admin: false,
+  is_banished: false
+};
+
 function MyApp({ Component, pageProps }: AppProps) {
 
   const router = useRouter();
 
   const [isLogged, setIsLogged] = useState<boolean>(false);
-  const [userLogged, setUserLogged] = useState<any>();
-
+  const [userLogged, setUserLogged] = useState<UserLoggedTypes>(unLoggedUser);
+  
   const checkUser = async () => {
 
     const body = { user_id: userLogged.id };
       
-    await fetch('api/user/getOne', {
+    await fetch('/api/user/getOne', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
