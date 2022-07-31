@@ -1,0 +1,8 @@
+@import '../../styles/mixins';
+
+.container {
+  @include flexCenter;
+  flex-direction: column;
+  margin-top: 50px;
+  width: 20vw;
+}

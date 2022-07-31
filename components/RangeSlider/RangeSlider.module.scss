@@ -22,14 +22,6 @@
   margin: 10px 0;
   cursor: pointer;
 
-  &:hover {
-    border-color: var(--main-color-light);
-  }
-
-  &:focus {
-    border-color: var(--main-color);
-  }
-
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;

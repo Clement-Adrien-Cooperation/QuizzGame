@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import QuizEdit from '../../components/QuizEdit/QuizEdit';
 import styles from './QuizGame.module.scss';
 
 const router = useRouter();
@@ -19,12 +20,9 @@ const QuizGame: NextPage = ({ isLogged, userLogged }:any) => {
 
   return (
     <>
-      <header>
-        <h1>
-          Bienvenur sur le quizz {router.query.slug} !
-        </h1>
-      </header>
-
+      <QuizEdit
+        userLogged={userLogged}
+      />
     </>
   );
 };

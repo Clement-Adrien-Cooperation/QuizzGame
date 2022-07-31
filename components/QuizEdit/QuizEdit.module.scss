@@ -1,6 +1,6 @@
-@import './mixins';
+@import '../../styles/mixins';
 
-.container {
+.form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,11 +21,4 @@
 
 .submit {
   @include mainButton;
-}
-
-.form {
-  @include flexCenter;
-  flex-direction: column;
-  margin-top: 50px;
-  width: 20vw;
 }

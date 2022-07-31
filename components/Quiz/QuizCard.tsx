@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import styles from './Quiz.module.scss';
+import styles from './QuizCard.module.scss';
 import defaultImage from '../../public/icons/defaultImage.svg';
 import { useEffect, useState } from 'react';
 
-type QuizProps = {
+type QuizCardProps = {
   id: number,
   creator: string,
   title: string,
@@ -16,7 +16,7 @@ type QuizProps = {
   rate: number;
 };
 
-const Quiz = ({
+const QuizCard = ({
   id,
   creator,
   title,
@@ -26,9 +26,9 @@ const Quiz = ({
   questions,
   date,
   rate
-} :QuizProps) => {
+} :QuizCardProps) => {
 
-  const [difficultyColor, setDifficultyColor] = useState<string>('var(--yellow)');
+  const [backgroundColor, setBackgroundColor] = useState<string>('var(--yellow)')
 
   const link = `/quizz/${id}`;
   
@@ -37,23 +37,23 @@ const Quiz = ({
   useEffect(() => {
     switch (true) {
       case difficulty === 'Très facile' :
-        setDifficultyColor('var(--white)');
+        setBackgroundColor('var(--white)');
         break;
       case difficulty === 'Facile' :
-        setDifficultyColor('var(--green)');
+        setBackgroundColor('var(--green)');
         break;
       case difficulty === 'Normal' :
-        setDifficultyColor('var(--yellow)');
+        setBackgroundColor('var(--yellow)');
         break;
       case difficulty === 'Difficile' :
-        setDifficultyColor('var(--orange)');
+        setBackgroundColor('var(--orange)');
         break;
       case difficulty === 'Très difficile' :
-        setDifficultyColor('var(--red)');
+        setBackgroundColor('var(--red)');
         break;
         
       default:
-        setDifficultyColor('var(--yellow)');
+        setBackgroundColor('var(--yellow)');
         break;
       };
   }, []);
@@ -74,7 +74,7 @@ const Quiz = ({
             />
           </div>
 
-          <div className={styles.header__aside}>
+          <aside className={styles.header__aside}>
 
             <h2 className={styles.header__aside__title}>
               {title}
@@ -82,12 +82,12 @@ const Quiz = ({
 
             <span
               className={styles.header__aside__difficulty}
-              style={{background: `${difficultyColor}`}}
+              style={{background: `${backgroundColor}`}}
             >
               {difficulty}
             </span>
 
-          </div>
+          </aside>
         </section>
 
         <section className={styles.body}>
@@ -121,4 +121,4 @@ const Quiz = ({
   );
 };
 
-export default Quiz;
+export default QuizCard;

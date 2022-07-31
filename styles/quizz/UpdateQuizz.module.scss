@@ -1,0 +1,21 @@
+@import '../mixins';
+
+.form {
+  cursor: pointer;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px 100px;
+}
+
+.title {
+  font-weight: 200;
+  font-size: 40px;
+}
+
+.submit {
+  @include mainButton;
+}

@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import styles from '../../styles/Quizz.module.scss';
 import Link from 'next/link';
-import Quiz from '../../components/Quiz/Quiz';
+import Quiz from '../../components/Quiz/QuizCard';
 import { useEffect, useState } from 'react';
 import InputField from '../../components/InputField/InputField';
 

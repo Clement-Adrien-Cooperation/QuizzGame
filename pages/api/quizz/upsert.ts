@@ -7,19 +7,19 @@ export default async function handle (
   res: NextApiResponse
 ) {
   try {
-    const user = await prisma.user.update({
+    const quiz = await prisma.quizz.upsert({
       where: {
-        id: req.body.user_id
+        title: req.body.title
       },
-      data: {
-        pseudo: req.body.pseudo,
-        email: req.body.email,
-        password: req.body.password,
-        avatar: req.body.avatar
+      update: {
+        ...req.body
+      },
+      create: {
+        ...req.body
       }
     });
 
-    res.status(200).json(user);
+    res.status(201).json(quiz);
     
   } catch (error){
     console.log(error);
