@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import Loader from '../Loader/Loader';
+import Questions from '../Questions/Questions';
 import QuizForm from '../QuizForm/QuizForm';
 import Warning from '../Warning/Warning';
 import styles from './QuizEdit.module.scss';
@@ -15,7 +17,31 @@ type QuizEditProps = {
   userLogged: UserLoggedTypes
 };
 
+type QuizTypes = {
+  user_id: number,
+  creator: string,
+  title: string,
+  category: string,
+  lang: string,
+  difficulty: string,
+  is_visible: boolean,
+  date: string
+};
+
+type QuestionTypes = {
+  id: number,
+  quizz_id: number,
+  question: string,
+  description: string,
+  propositions: string[],
+  answer: string,
+  reported?: boolean,
+  reportMessage?: string
+};
+
 const QuizEdit = ({ userLogged }: QuizEditProps) => {
+
+  const router = useRouter();
 
   const langList :string[] = [
     'Français',
@@ -40,10 +66,14 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
     'Autres'
   ];
 
+  const [pageTitle, setPageTitle] = useState<string>("Éditer un s'Quizz");
+
   const [title, setTitle] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [lang, setLang] = useState<string>('');
   const [difficulty, setDifficulty] = useState<string>('Normal');
+
+  const [questions, setQuestions] = useState<QuestionTypes[]>([]);
   
   const [difficultyRange, setDifficultyRange] = useState<number>(2);
   const [rangeColor, setRangeColor] = useState<string>(`var(--medium)`);
@@ -52,6 +82,36 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
 
   const [disableButton, setDisableButton] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(false);
+
+  useEffect(() => {
+    if(router.query.slug !== undefined) {
+
+      getQuestionsFromQuiz();
+    };
+    
+    if(router.pathname.includes('create')) {
+      setPageTitle("Créer un s'Quizz");
+    };
+  }, []);
+
+  const getQuestionsFromQuiz = async() => {
+    const title = router.query.slug;
+
+    await fetch('/api/quizz/getOne', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(title)
+    })
+    .then(async(res) => {
+      const data = await res.json();
+      
+      setQuestions(data.questions);
+      
+    })
+    .catch((error) => {
+      console.error(error);
+    }); 
+  };
 
   const checkForm = () => {
 
@@ -159,29 +219,88 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
     if(checkForm()) {
 
       // If everything is ok, set up the body
-      const body = { user_id, creator, title, category, lang, difficulty, is_visible, date };
+      const body = {
+        user_id,
+        creator,
+        title,
+        category,
+        lang,
+        difficulty,
+        is_visible,
+        date
+      };
 
       // & create a new user
-      await fetch(`/api/quizz/upsert`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-      })
-      .then(async(res) => {
-        
-        const data = await res.json();
+      await createQuiz(body);
 
-        console.log(data);
-        
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      if(questions.length >= 1) {
+        await createQuestions(title);
+      };
     };
 
     setTitle('');
     setDisableButton(false);
     setShowLoader(false);
+  };
+
+  const createQuiz = async(body: QuizTypes) => {
+    await fetch(`/api/quizz/upsert`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    })
+    .then(async(res) => {
+      
+      const data = await res.json();
+
+      console.log(data);
+
+      if(questions.length >= 1) {
+        await createQuestions(body.title);
+      };
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  };
+
+  const getQuizID = async (title: string) => {
+
+    // Get the quizz ID with the title
+    await fetch('/api/quizz/getOne', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(title)
+    })
+    .then(async(res) => {
+      const data = await res.json();
+      const quiz_id = data.id;
+
+      // Return his ID
+      return quiz_id;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  };
+
+  const createQuestions = async(title: string) => {
+
+    const id = getQuizID(title);
+
+    await fetch('/api/question/upsert', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(id)
+    })
+    .then(async(res) => {
+
+      console.log(res);
+
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   };
 
   return (
@@ -190,10 +309,9 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
         className={styles.form}
         onSubmit={handleSubmitForm}
       >
-
         <header className={styles.header}>
           <h1 className={styles.title}>
-            Créer un s'Quizz
+            {pageTitle}
           </h1>
 
           <input
@@ -225,6 +343,11 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
           />
         )}
       </form>
+
+      <Questions
+        questions={questions}
+        setQuestions={setQuestions}
+      />
 
       {showLoader && (
         <Loader />

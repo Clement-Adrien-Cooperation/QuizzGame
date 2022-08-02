@@ -82,7 +82,7 @@ const UpdateQuiz: NextPage = ({ isLogged, userLogged }:any) => {
       setQuiz(data);
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   };
 

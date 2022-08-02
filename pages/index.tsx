@@ -23,6 +23,9 @@ const Home: NextPage = () => {
     })
     .then((res) => {
       console.log(res);
+    })
+    .catch((error) => {
+      console.error(error);
     });
 
     setShowLoader(false);

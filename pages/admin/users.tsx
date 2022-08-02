@@ -62,7 +62,7 @@ const AdminUsers: NextPage = ({ usersData, banishedUsersData, userLogged } :any)
       getUsers();
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   };
 
@@ -79,7 +79,7 @@ const AdminUsers: NextPage = ({ usersData, banishedUsersData, userLogged } :any)
       getUsers();
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   };
 

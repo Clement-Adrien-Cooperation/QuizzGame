@@ -3,22 +3,27 @@
 .form {
   @include flexCenter;
   flex-direction: column;
-  margin-top: 40px;
   width: 400px;
   opacity: 0;
   transform: translateY(20px);
   animation: animApparition 0.3s ease-in-out forwards;
-  gap: 10px;
+  gap: 5px;
 }
 
 .area {
   @include areaInput;
-  margin: 20px 0 40px;
+  margin: 20px 0;
 }
 
-.button {
+.submit {
   @include secondaryButton;
   font-size: 12px;
+  margin: 20px 0;
+}
+
+.cancel {
+  @include underlineButton;
+  font-size: 11px;
 }
 
 @keyframes animApparition {

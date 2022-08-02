@@ -102,46 +102,7 @@ const SignUp = ({
       // Show loader
       setShowLoader(true);
 
-      const is_admin = true;
-
-      // If everything is ok, set up the body
-      const body = { pseudo, email, password, is_admin };
-
-      // & create a new user
-      await fetch(`/api/user/create`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-      })
-      .then( async() => {
-
-        const body = { pseudoOrEmail: pseudo }
-
-        await fetch(`/api/user/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body)
-        })
-        .then(async(res) => {
-          
-          const data = await res.json();
-
-          const userData = {
-            id: data.id,
-            pseudo: data.pseudo,
-            is_admin: data.is_admin,
-            is_banished: data.is_banished
-          };
-
-          setIsLogged(true);
-          setUserLogged(userData);
-
-          router.push('/');
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      });
+      await createUser();
 
       // Reset states & hide loader
       setPseudo('');
@@ -153,6 +114,49 @@ const SignUp = ({
     };
 
     setDisableButton(false);
+  };
+
+  const createUser = async() => {
+    const is_admin = true;
+
+    // If everything is ok, set up the body
+    const body = { pseudo, email, password, is_admin };
+
+    // & create a new user
+    await fetch(`/api/user/upsert`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    })
+    .then( async() => {
+
+      const body = { pseudoOrEmail: pseudo }
+
+      await fetch(`/api/user/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      })
+      .then(async(res) => {
+        
+        const data = await res.json();
+
+        const userData = {
+          id: data.id,
+          pseudo: data.pseudo,
+          is_admin: data.is_admin,
+          is_banished: data.is_banished
+        };
+
+        setIsLogged(true);
+        setUserLogged(userData);
+
+        router.push('/');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    });
   };
 
   const handleChangePseudo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -275,7 +279,6 @@ const SignUp = ({
             value='Inscription'
             disabled={disableButton}
           />
-
         </form>
 
         <button

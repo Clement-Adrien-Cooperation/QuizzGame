@@ -4,7 +4,14 @@ import Warning from '../Warning/Warning';
 import styles from './QuestionForm.module.scss';
 
 type QuestionTypes = {
-
+  id: number,
+  quizz_id: number,
+  question: string,
+  description: string,
+  propositions: string[],
+  answer: string,
+  reported?: boolean,
+  reportMessage?: string
 };
 
 type QuestionFormProps = {
@@ -34,7 +41,10 @@ const QuestionForm = ({ questions, setQuestions, setShowForm }:QuestionFormProps
 
     } else {
       setWarningMessage('');
-      setDisableButton(false);
+
+      if(disableButton) {
+        setDisableButton(false);
+      };
     };
 
     setQuestion(e.target.value);
@@ -49,7 +59,10 @@ const QuestionForm = ({ questions, setQuestions, setShowForm }:QuestionFormProps
 
     } else {
       setWarningMessage('');
-      setDisableButton(false);
+      
+      if(disableButton) {
+        setDisableButton(false);
+      };
     };
 
     setAnswer(e.target.value);
@@ -64,7 +77,10 @@ const QuestionForm = ({ questions, setQuestions, setShowForm }:QuestionFormProps
 
     } else {
       setWarningMessage('');
-      setDisableButton(false);
+
+      if(disableButton) {
+        setDisableButton(false);
+      };
     };
 
     setProposition1(e.target.value);
@@ -79,7 +95,10 @@ const QuestionForm = ({ questions, setQuestions, setShowForm }:QuestionFormProps
 
     } else {
       setWarningMessage('');
-      setDisableButton(false);
+
+      if(disableButton) {
+        setDisableButton(false);
+      };
     };
 
     setProposition2(e.target.value);
@@ -94,7 +113,10 @@ const QuestionForm = ({ questions, setQuestions, setShowForm }:QuestionFormProps
 
     } else {
       setWarningMessage('');
-      setDisableButton(false);
+
+      if(disableButton) {
+        setDisableButton(false);
+      };
     };
 
     setProposition3(e.target.value);
@@ -118,20 +140,14 @@ const QuestionForm = ({ questions, setQuestions, setShowForm }:QuestionFormProps
   };
 
   const checkForm = () => {
-
-    const index = question.trim().length;
-
-    const test = question[index];
-    console.log(test);
-    
     
     // If question doesn't includes a '?'
-    if(!question.trim().includes('?')) {
+    if(!question.includes('?')) {
 
       // We add it
       setQuestion(question + ' ?');
 
-    } else if (question.length > 100) {
+    } else if (question.trim().length > 100) {
 
       setWarningMessage('La question ne doit pas excéder 100 caractères');
 
@@ -217,17 +233,25 @@ const QuestionForm = ({ questions, setQuestions, setShowForm }:QuestionFormProps
 
         <textarea
           className={styles.area}
-          placeholder="Vous pouvez ajouter des précisions ou anecdotes concernant votre question. Elle n'apparaitront qu'après que le joueur ai répondu"
+          placeholder="Vous pouvez ajouter des précisions ou anecdotes concernant votre question. Elle n'apparaitront qu'après que le joueur ai répondu."
           value={description}
           onChange={handleChangeDescription}
         />
 
         <button
-          className={styles.button}
+          className={styles.submit}
           type='submit'
           disabled={disableButton}
         >
           Ajouter cette question
+        </button>
+
+        <button
+          className={styles.cancel}
+          type='button'
+          onClick={() => setShowForm(false)}
+        >
+          Annuler
         </button>
       </form>
     </>

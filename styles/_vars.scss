@@ -77,5 +77,6 @@
   --hard: linear-gradient(90deg, var(--orange) 75%, var(--input-color) 75%);
   --very-hard: linear-gradient(90deg, var(--red) 100%, var(--input-color) 100%);
 
-  --card-gradient: linear-gradient(90deg,  var(--main-color), var(--main-color-lighter), var(--main-color));
+  --card-gradient: linear-gradient(45deg,  var(--main-color), var(--main-color-lighter), var(--main-color));
+  // --card-gradient: linear-gradient(45deg,  var(--main-color-light), var(--main-color-lighter), var(--main-color-light));
 }

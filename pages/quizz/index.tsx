@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
+import { useEffect, useState } from 'react';
 import styles from '../../styles/Quizz.module.scss';
 import Link from 'next/link';
-import Quiz from '../../components/Quiz/QuizCard';
-import { useEffect, useState } from 'react';
+import QuizCard from '../../components/QuizCard/QuizCard';
 import InputField from '../../components/InputField/InputField';
 
 type QuizProps = {
@@ -79,7 +79,7 @@ const Quizz: NextPage = ({ quizzData, isLogged }: any) => {
 
                 return (
                   <li key={quiz.id}>
-                    <Quiz
+                    <QuizCard
                       id={quiz.id}
                       creator={quiz.creator}
                       title={quiz.title}
