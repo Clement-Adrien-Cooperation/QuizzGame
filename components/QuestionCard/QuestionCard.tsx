@@ -29,6 +29,20 @@ const QuestionCard = ({
           {answer}
         </p>
       </header>
+
+
+
+      <footer>
+
+        <button>
+          Éditer
+        </button>
+
+        <button>
+          Supprimer
+        </button>
+
+      </footer>
     </section>
   );
 };

@@ -17,10 +17,14 @@ type QuestionTypes = {
 type QuestionFormProps = {
   questions: QuestionTypes[],
   setQuestions: Function
-  setShowForm: Function,
+  setShowForm: Function
 };
 
-const QuestionForm = ({ questions, setQuestions, setShowForm }:QuestionFormProps) => {
+const QuestionForm = ({
+  questions,
+  setQuestions,
+  setShowForm
+}:QuestionFormProps) => {
 
   const [question, setQuestion] = useState<string>('');
   const [answer, setAnswer] = useState<string>('');
@@ -141,13 +145,7 @@ const QuestionForm = ({ questions, setQuestions, setShowForm }:QuestionFormProps
 
   const checkForm = () => {
     
-    // If question doesn't includes a '?'
-    if(!question.includes('?')) {
-
-      // We add it
-      setQuestion(question + ' ?');
-
-    } else if (question.trim().length > 100) {
+    if (question.length > 100) {
 
       setWarningMessage('La question ne doit pas excéder 100 caractères');
 
@@ -166,9 +164,24 @@ const QuestionForm = ({ questions, setQuestions, setShowForm }:QuestionFormProps
     if(checkForm()) {
 
       setShowForm(false);
-
-      console.log(questions);
       
+      const previousQuestions = questions;
+      
+      let propositions = [];
+
+      propositions.push(proposition1, proposition2, proposition3);
+
+      const newQuestion = {
+        quizz_id: 0,
+        question,
+        answer,
+        propositions,
+        description
+      };
+
+      const newQuestions = [...previousQuestions, newQuestion];
+      
+      setQuestions(newQuestions);
     };
   };
 

@@ -43,6 +43,8 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
 
   const router = useRouter();
 
+  let questionsToSave:QuestionTypes[] = [];
+
   const langList :string[] = [
     'Français',
     'Anglais'
@@ -68,44 +70,44 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
 
   const [pageTitle, setPageTitle] = useState<string>("Éditer un s'Quizz");
 
+  const [quizID, setQuizID] = useState<number>(0);
+
   const [title, setTitle] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [lang, setLang] = useState<string>('');
   const [difficulty, setDifficulty] = useState<string>('Normal');
-
-  const [questions, setQuestions] = useState<QuestionTypes[]>([]);
   
   const [difficultyRange, setDifficultyRange] = useState<number>(2);
   const [rangeColor, setRangeColor] = useState<string>(`var(--medium)`);
   const [colorDifficultyName, setColorDifficultyName] = useState<string>('var(--yellow)');
   const [warningMessage, setWarningMessage] = useState<string>('');
 
+  const [questions, setQuestions] = useState<QuestionTypes[]>([]);
+
   const [disableButton, setDisableButton] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
   useEffect(() => {
-    if(router.query.slug !== undefined) {
-
-      getQuestionsFromQuiz();
-    };
     
     if(router.pathname.includes('create')) {
       setPageTitle("Créer un s'Quizz");
+    } else {
+      getQuestionsFromQuiz();
     };
   }, []);
 
   const getQuestionsFromQuiz = async() => {
-    const title = router.query.slug;
+    const quizTitle = router.query.slug;
 
     await fetch('/api/quizz/getOne', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(title)
+      body: JSON.stringify({quizTitle})
     })
     .then(async(res) => {
       const data = await res.json();
       
-      setQuestions(data.questions);
+      setQuestions(data);
       
     })
     .catch((error) => {
@@ -231,10 +233,10 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
       };
 
       // & create a new user
-      await createQuiz(body);
+      await saveQuiz(body);
 
-      if(questions.length >= 1) {
-        await createQuestions(title);
+      if(questions.length > 0) {
+        await saveQuestions(body.title);
       };
     };
 
@@ -243,7 +245,7 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
     setShowLoader(false);
   };
 
-  const createQuiz = async(body: QuizTypes) => {
+  const saveQuiz = async(body: QuizTypes) => {
     await fetch(`/api/quizz/upsert`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -254,51 +256,53 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
       const data = await res.json();
 
       console.log(data);
-
-      if(questions.length >= 1) {
-        await createQuestions(body.title);
-      };
     })
     .catch((error) => {
       console.error(error);
     });
   };
 
-  const getQuizID = async (title: string) => {
-
+  const saveQuestions = async(title: string) => {
+    
     // Get the quizz ID with the title
     await fetch('/api/quizz/getOne', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(title)
+      body: JSON.stringify({title})
     })
     .then(async(res) => {
+
       const data = await res.json();
-      const quiz_id = data.id;
 
-      // Return his ID
-      return quiz_id;
+      questionsToSave = [...questions];
+      
+      questionsToSave.forEach(question => {
+        question.quizz_id = data.id;
+      });
+
+      console.log(questionsToSave);
+      
+    })
+    .then(async() => {
+      
+      await fetch('/api/question/createMany', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(questionsToSave)
+      })
+      .then(async(res) => {
+
+        const data = await res.json();
+        console.log(data);
+
+      })
+      .catch((error) => {
+
+        console.error(error);
+      });
     })
     .catch((error) => {
-      console.error(error);
-    });
-  };
 
-  const createQuestions = async(title: string) => {
-
-    const id = getQuizID(title);
-
-    await fetch('/api/question/upsert', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(id)
-    })
-    .then(async(res) => {
-
-      console.log(res);
-
-    })
-    .catch((error) => {
       console.error(error);
     });
   };

@@ -32,9 +32,9 @@ const Questions = ({
       {questions.length < 1 ? '' : (
 
         <ul className={styles.list}>
-          {questions.map(question => 
+          {questions.map((question, index) => 
 
-            <li key={question.id}>
+            <li key={index}>
               <QuestionCard
                 id={question.id}
                 quizz_id={question.quizz_id}
