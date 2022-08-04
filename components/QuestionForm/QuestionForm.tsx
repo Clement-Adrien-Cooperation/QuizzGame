@@ -38,7 +38,7 @@ const QuestionForm = ({
 
   const handleChangeQuestion = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    if (question.trim().length > 100) {
+    if(question.trim().length > 100) {
 
       setWarningMessage('La question ne doit pas excéder 100 caractères');
       setDisableButton(true);
@@ -56,7 +56,7 @@ const QuestionForm = ({
 
   const handleChangeAnswer = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    if (answer.trim().length > 50) {
+    if(answer.trim().length > 50) {
 
       setWarningMessage('La réponse ne doit pas excéder 50 caractères');
       setDisableButton(true);
@@ -74,7 +74,7 @@ const QuestionForm = ({
 
   const handleChangeProposition1 = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    if (proposition1.trim().length > 50) {
+    if(proposition1.trim().length > 50) {
 
       setWarningMessage('Les propositions ne doivent pas excéder 50 caractères');
       setDisableButton(true);
@@ -92,7 +92,7 @@ const QuestionForm = ({
 
   const handleChangeProposition2 = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    if (proposition2.trim().length > 50) {
+    if(proposition2.trim().length > 50) {
 
       setWarningMessage('Les propositions ne doivent pas excéder 50 caractères');
       setDisableButton(true);
@@ -110,7 +110,7 @@ const QuestionForm = ({
 
   const handleChangeProposition3 = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    if (proposition3.trim().length > 50) {
+    if(proposition3.trim().length > 50) {
 
       setWarningMessage('Les propositions ne doivent pas excéder 50 caractères');
       setDisableButton(true);
@@ -128,7 +128,7 @@ const QuestionForm = ({
 
   const handleChangeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 
-    if (description.trim().length > 500) {
+    if(description.trim().length > 500) {
 
       setWarningMessage('La description ne doit pas excéder 500 caractères');
       setDisableButton(true);
@@ -148,11 +148,22 @@ const QuestionForm = ({
     if (question.length > 100) {
 
       setWarningMessage('La question ne doit pas excéder 100 caractères');
+      setDisableButton(true);
 
     } else if (description.length > 500) {
 
       setWarningMessage('La description ne doit pas excéder 500 caractères');
-      
+      setDisableButton(true);
+
+    } else if(
+      answer.length > 100 ||
+      proposition1.length > 100 ||
+      proposition2.length > 100 ||
+      proposition3.length > 100
+    ) {
+      setWarningMessage('Les propositions et la réponse ne doivent pas excéder 100 caractères');
+      setDisableButton(true);
+
     } else {
       return true;
     };
@@ -162,17 +173,15 @@ const QuestionForm = ({
     e.preventDefault();
 
     if(checkForm()) {
-
-      setShowForm(false);
       
-      const previousQuestions = questions;
+      const previousQuestions = [...questions];
       
       let propositions = [];
 
       propositions.push(proposition1, proposition2, proposition3);
 
       const newQuestion = {
-        quizz_id: 0,
+        quizz_id: null,
         question,
         answer,
         propositions,
@@ -182,6 +191,8 @@ const QuestionForm = ({
       const newQuestions = [...previousQuestions, newQuestion];
       
       setQuestions(newQuestions);
+
+      setShowForm(false);
     };
   };
 

@@ -18,14 +18,17 @@ type QuizEditProps = {
 };
 
 type QuizTypes = {
+  id?: number,
   user_id: number,
   creator: string,
   title: string,
   category: string,
   lang: string,
   difficulty: string,
-  is_visible: boolean,
-  date: string
+  is_visible?: boolean,
+  date?: string,
+  reported?: boolean,
+  reportMessage?: string
 };
 
 type QuestionTypes = {
@@ -69,8 +72,6 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
   ];
 
   const [pageTitle, setPageTitle] = useState<string>("Éditer un s'Quizz");
-
-  const [quizID, setQuizID] = useState<number>(0);
 
   const [title, setTitle] = useState<string>('');
   const [category, setCategory] = useState<string>('');
@@ -215,8 +216,6 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
 
     const user_id :number = userLogged.id;
     const creator :string = userLogged.pseudo;
-    const is_visible :boolean = true;
-    const date :string = new Date().toLocaleDateString();
 
     if(checkForm()) {
 
@@ -227,9 +226,7 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
         title,
         category,
         lang,
-        difficulty,
-        is_visible,
-        date
+        difficulty
       };
 
       // & create a new user

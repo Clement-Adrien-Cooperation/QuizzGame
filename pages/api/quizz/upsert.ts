@@ -7,15 +7,20 @@ export default async function handle (
   res: NextApiResponse
 ) {
   try {
+
+    const newDate :string = new Date().toLocaleDateString();
+
     const quiz = await prisma.quizz.upsert({
       where: {
         title: req.body.title
       },
       update: {
-        ...req.body
+        ...req.body,
+        date: newDate
       },
       create: {
-        ...req.body
+        ...req.body,
+        date: newDate
       }
     });
 

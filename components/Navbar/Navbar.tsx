@@ -71,7 +71,7 @@ const Navbar = ({
             </li>
 
             <li className={styles.list__item}>
-              <Link href='/profil'>
+              <Link href='/profile'>
                 <a>
                   Profil
                 </a>
