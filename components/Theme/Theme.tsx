@@ -8,39 +8,40 @@ import CloseButton from '../CloseButton/CloseButton';
 
 const Theme = () => {
 
-  const [showSettings, setShowSettings] = useState<boolean>(false);
+  const [showSettings, setShowSettings] = useState<Boolean>(false);
 
   return (
-
     <div className={styles.container}>
 
-      {!showSettings && (
-        <button
-          className={styles.icon}
-          type='button'
-          aria-label='Ouvrir les paramètres de couleurs et thème'
-          onClick={() => setShowSettings(true)}
-        >
-          <Image
-            src={settings}
-            width='32px'
-            height='32px'
-            layout="responsive"
-            alt='Ouvrir les paramètres'
-          />
-        </button>
-      )}
-      
-      {showSettings && (
-        <section className={styles.settings}>
-          <ColorsPicker/>
-          <DarkMode />
+      <button
+        className={styles.icon}
+        type='button'
+        aria-label='Ouvrir les paramètres de couleurs et thème'
+        onClick={() => setShowSettings(true)}
+      >
+        <Image
+          src={settings}
+          width='32px'
+          height='32px'
+          layout="responsive"
+          alt='Ouvrir les paramètres'
+        />
+      </button>
 
-          <CloseButton
-            handleFunction={setShowSettings}
-          />
-        </section>
-      )}
+      <section
+        className={showSettings ?
+          `${styles.settings} ${styles.opened}` 
+        : 
+          `${styles.settings}`
+        }
+      >
+        <ColorsPicker/>
+        <DarkMode />
+
+        <CloseButton
+          handleFunction={() => setShowSettings(false)}
+        />
+      </section>
     </div>
   );
 };

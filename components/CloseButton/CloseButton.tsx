@@ -11,7 +11,7 @@ const CloseButton = ({ handleFunction } :CloseButtonProps) => {
       className={styles.close_button}
       type='button'
       aria-label='Fermer'
-      onClick={() => handleFunction(false)}
+      onClick={() => handleFunction()}
     >
       &times;
     </button>

@@ -6,40 +6,39 @@
 }
 
 .icon {
+  z-index: 1;
   cursor: pointer;
   width: 30px;
   height: 30px;
   transition: 0.8s;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 
   &:hover {
-    transform: rotate(180deg);
+    transform: translateX(-50%) rotate(180deg);
   }
 
   &:active {
-    transform: rotate(180deg) scale(0.9);
+    transform: translateX(-50%) rotate(180deg) scale(0.9);
   }
 }
 
 .settings {
   @include flexCenter;
+  position: absolute;
+  z-index: 2;
   flex-wrap: wrap;
   background: var(--main-color-light);
   padding: 10px;
   border-radius: 5px;
   box-shadow: var(--box-shadow);
   width: 250px;
-  opacity: 0;
-  transform: translateY(120%);
-  animation: animApparition 0.3s ease-out forwards;
+  transform: translate(-50%, 120%);
+  transition: .3s;
 
-  &.closed {
-    transform: translateY(120%);
-  }
-}
-
-@keyframes animApparition {
-  100% {
-    opacity: 1;
-    transform: translateY(0);
+  &.opened {
+    transform: translate(-50%, -100%);
   }
 }
