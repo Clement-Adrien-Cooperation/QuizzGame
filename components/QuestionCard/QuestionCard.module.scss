@@ -1,0 +1,12 @@
+@import '../../styles//mixins';
+
+.card {
+  display: flex;
+  margin: 5px 0;
+  box-shadow: var(--box-shadow);
+}
+
+.icon {
+  height: 25px;
+  width: 25px;
+}

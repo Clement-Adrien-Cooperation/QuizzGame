@@ -1,8 +1,8 @@
-import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styles from './QuizCard.module.scss';
 import defaultImage from '../../public/icons/defaultImage.svg';
-import { useEffect, useState } from 'react';
 
 type QuizCardProps = {
   id: number,
@@ -11,7 +11,6 @@ type QuizCardProps = {
   difficulty: string,
   image: string,
   lang: string,
-  questions: string[],
   date: string;
   rate: number;
 };
@@ -23,14 +22,13 @@ const QuizCard = ({
   difficulty,
   image,
   lang,
-  questions,
   date,
   rate
 } :QuizCardProps) => {
 
-  const [backgroundColor, setBackgroundColor] = useState<string>('var(--yellow)')
+  const router = useRouter();
 
-  const link = `/quizz/${id}`;
+  const [backgroundColor, setBackgroundColor] = useState<string>('var(--yellow)');
   
   rate = 4;
 
@@ -55,69 +53,65 @@ const QuizCard = ({
       default:
         setBackgroundColor('var(--yellow)');
         break;
-      };
+    };
   }, []);
 
   return (
-    <Link href={link}>
-      <a className={styles.card}>
+    <section
+      className={styles.card}
+      onClick={() => router.push(`/quizz/${title}`)}
+    >
+      <header className={styles.header}>
 
-        <section className={styles.header}>
+        <div className={styles.header__icon}>
+          <Image
+            src={image === null ? defaultImage : image}
+            width='32px'
+            height='32px'
+            layout="responsive"
+            alt='Image du quiz'
+          />
+        </div>
 
-          <div className={styles.header__icon}>
-            <Image
-              src={image === null ? defaultImage : image}
-              width='32px'
-              height='32px'
-              layout="responsive"
-              alt='Image du quiz'
-            />
-          </div>
+        <aside className={styles.header__aside}>
 
-          <aside className={styles.header__aside}>
+          <h2 className={styles.header__aside__title}>
+            {title}
+          </h2>
 
-            <h2 className={styles.header__aside__title}>
-              {title}
-            </h2>
-
-            <span
-              className={styles.header__aside__difficulty}
-              style={{background: `${backgroundColor}`}}
-            >
-              {difficulty}
-            </span>
-
-          </aside>
-        </section>
-
-        <section className={styles.body}>
-          <span className={styles.body__content}>
-            {/* {questions === undefined ? '' : `${questions?.length} + questions`}*/}
-            24 questions
+          <span
+            className={styles.header__aside__difficulty}
+            style={{background: `${backgroundColor}`}}
+          >
+            {difficulty}
           </span>
 
-          <span className={styles.body__content}>
-            Langue : {lang}
-          </span>
+        </aside>
+      </header>
 
-          <span className={styles.body__content}>
-            {rate === null ? '' : `${rate}/5`}
-          </span>
-        </section>
+      <div className={styles.body}>
 
-        <section className={styles.footer}>
+        <span className={styles.body__content}>
+          Langue : {lang}
+        </span>
 
-          <p className={styles.creator}>
-            {creator === null ? '' : `Créé par ${creator}`}
-          </p>
+        <span className={styles.body__content}>
+          {rate === null ? '' : `${rate}/5`}
+        </span>
+      </div>
 
-          <p className={styles.date}>
-            {date === null ? '' : date}
-          </p>
-        </section>
-        
-      </a>
-    </Link>
+      <footer className={styles.footer}>
+
+        <p className={styles.creator}>
+          {creator === null ? '' : `Créé par ${creator}`}
+        </p>
+
+        <p className={styles.date}>
+          {date === null ? '' : date}
+        </p>
+      </footer>
+      
+    </section>
   );
 };
 

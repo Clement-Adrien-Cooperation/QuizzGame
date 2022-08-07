@@ -7,23 +7,14 @@ export default async function handle (
   res: NextApiResponse
 ) {
   try {
-
-    const newDate :string = new Date().toLocaleDateString();
-
-    const quiz = await prisma.quizz.upsert({
+    
+    const questions = await prisma.question.findMany({
       where: {
-        title: req.body.title
-      },
-      update: {
-        ...req.body
-      },
-      create: {
-        ...req.body,
-        date: newDate
+        quizz_id: req.body.quizz_id
       }
     });
 
-    res.status(201).json(quiz);
+    res.status(201).json(questions);
     
   } catch (error){
     console.log(error);

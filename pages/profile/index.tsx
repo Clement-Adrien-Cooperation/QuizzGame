@@ -30,11 +30,13 @@ const Profil: NextPage = ({ isLogged, userLogged }:any) => {
       router.push('/');
     } else {
       document.title = "Mon profil - s'Quizz Game";
-      getQuizzFromUser(userLogged.id);
+      getQuizzFromUser();
     };
   }, []);
 
-  const getQuizzFromUser = async(user_id: number) => {
+  const getQuizzFromUser = async() => {
+    
+    const user_id = userLogged.id;
 
     await fetch('api/quizz/getUserQuizz', {
       method: 'POST',
@@ -80,6 +82,7 @@ const Profil: NextPage = ({ isLogged, userLogged }:any) => {
                 date={quiz.date}
                 reported={quiz.reported}
                 reportMessage={quiz.reportMessage}
+                getQuizzFromUser={getQuizzFromUser}
               />
             </li>
           )}

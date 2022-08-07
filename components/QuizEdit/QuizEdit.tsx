@@ -72,6 +72,7 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
   ];
 
   const [pageTitle, setPageTitle] = useState<string>("Éditer un s'Quizz");
+  const [currentTitle, setCurrentTitle] = useState<string>('');
 
   const [title, setTitle] = useState<string>('');
   const [category, setCategory] = useState<string>('');
@@ -93,27 +94,53 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
     if(router.pathname.includes('create')) {
       setPageTitle("Créer un s'Quizz");
     } else {
-      getQuestionsFromQuiz();
+      getQuiz();
     };
   }, []);
 
-  const getQuestionsFromQuiz = async() => {
+  const getQuiz = async () => {
+    
     const quizTitle = router.query.slug;
 
     await fetch('/api/quizz/getOne', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({quizTitle})
+      body: JSON.stringify({ title: quizTitle })
     })
     .then(async(res) => {
       const data = await res.json();
       
+      console.log(data);
+      getQuestionsFromQuiz(data.id);
+
+      setTitle(data.title);
+      setCategory(data.category);
+      setDifficulty(data.difficulty);
+      setLang(data.lang);
+      
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  };
+
+  const getQuestionsFromQuiz = async(quizz_id: number) => {
+
+    await fetch('/api/question/getAllFromQuiz', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ quizz_id })
+    })
+    .then(async(res) => {
+      const data = await res.json();
+      
+      console.log(data);
       setQuestions(data);
       
     })
     .catch((error) => {
       console.error(error);
-    }); 
+    });
   };
 
   const checkForm = () => {

@@ -10,14 +10,16 @@
   cursor: pointer;
   width: 30px;
   height: 30px;
-  transition: 0.8s;
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
+  opacity: 0.7;
+  transition: transform 0.8s;
 
   &:hover {
     transform: translateX(-50%) rotate(180deg);
+    opacity: 1;
   }
 
   &:active {
@@ -36,9 +38,11 @@
   box-shadow: var(--box-shadow);
   width: 250px;
   transform: translate(-50%, 120%);
-  transition: .3s;
+  opacity: 0;
+  transition: .5s;
 
   &.opened {
     transform: translate(-50%, -100%);
+    opacity: 1;
   }
 }

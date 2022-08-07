@@ -1,7 +1,6 @@
 @import '../../styles/mixins';
 
 .card {
-  padding: 18px 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -12,6 +11,38 @@
   }
 }
 
+.header {
+  padding: 18px 32px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
 .title {
-  pointer-events: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+  white-space: nowrap;
+  line-height: 130%;
+}
+
+.category {
+  color: var(--grey);
+  font-size: 12px;
+}
+
+.button {
+  padding: 18px 24px;
+  border-radius: var(--small-radius);
+  opacity: 0.5;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+    opacity: 1;
+  }
+}
+
+.icon {
+  height: 25px;
+  width: 25px;
 }

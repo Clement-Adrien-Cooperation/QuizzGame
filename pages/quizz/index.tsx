@@ -16,9 +16,7 @@ type QuizProps = {
   image: string,
   is_visible: boolean,
   date: string,
-  rate: number,
-  questions: string[],
-  comments: string[]
+  rate: number
 };
 
 const Quizz: NextPage = ({ quizzData, isLogged }: any) => {
@@ -26,6 +24,9 @@ const Quizz: NextPage = ({ quizzData, isLogged }: any) => {
   const [filter, setFilter] = useState<string>('');
 
   useEffect(() => {
+
+    console.log(quizzData);
+    
     
     document.title = "Quizz - s'Quizz Game";
 
@@ -86,7 +87,6 @@ const Quizz: NextPage = ({ quizzData, isLogged }: any) => {
                       difficulty={quiz.difficulty}
                       image={quiz.image}
                       lang={quiz.lang}
-                      questions={quiz.questions}
                       date={quiz.date}
                       rate={quiz.rate}
                     />

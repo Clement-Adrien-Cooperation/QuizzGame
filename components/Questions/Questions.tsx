@@ -29,7 +29,7 @@ const Questions = ({
   return (
     <section className={styles.container}>
 
-      {questions.length < 1 ? '' : (
+      {questions.length < 1 && (
 
         <ul className={styles.list}>
           {questions.map((question, index) => 
@@ -42,6 +42,7 @@ const Questions = ({
                 answer={question.answer}
                 propositions={question.propositions}
                 description={question.description}
+                setQuestions={setQuestions}
               />
             </li>
           )}
