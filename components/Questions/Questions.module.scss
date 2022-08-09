@@ -6,6 +6,10 @@
   margin-top: 70px;
 }
 
+.list {
+  margin: 0 0 50px;
+}
+
 .button {
   @include secondaryButton;
   font-size: 12px;

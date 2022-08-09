@@ -6,7 +6,9 @@ import styles from './QuizForm.module.scss';
 type QuizFormProps = {
   title: string,
   categoryList: string[],
+  defaultCategory: string,
   langList: string[],
+  defaultLang: string,
   difficulty: string,
   difficultyRange: number,
   rangeColor: string,
@@ -20,7 +22,9 @@ type QuizFormProps = {
 const QuizForm = ({
   title,
   categoryList,
+  defaultCategory,
   langList,
+  defaultLang,
   difficulty,
   difficultyRange,
   rangeColor,
@@ -44,7 +48,7 @@ const QuizForm = ({
 
       <SelectField
         name={'Catégorie'}
-        defaultOption={'Choisir une catégorie...'}
+        defaultOption={defaultCategory}
         options={categoryList}
         isDisabled={false}
         handleFunction={(e) => handleChangeCategory(e)}
@@ -52,7 +56,7 @@ const QuizForm = ({
 
       <SelectField
         name={'Langue'}
-        defaultOption={'Choisir une langue...'}
+        defaultOption={defaultLang}
         options={langList}
         isDisabled={false}
         handleFunction={(e) => handleChangeLang(e)}

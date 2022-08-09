@@ -73,19 +73,21 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
 
   const [pageTitle, setPageTitle] = useState<string>("Éditer un s'Quizz");
   const [currentTitle, setCurrentTitle] = useState<string>('');
-
   const [title, setTitle] = useState<string>('');
+
   const [category, setCategory] = useState<string>('');
+  const [defaultCategory, setDefaultCategory] = useState<string>('Choisir une catégorie...');
   const [lang, setLang] = useState<string>('');
-  const [difficulty, setDifficulty] = useState<string>('Normal');
+  const [defaultLang, setDefaultLang] = useState<string>('Choisir une langue...');
   
+  const [difficulty, setDifficulty] = useState<string>('Normal');
   const [difficultyRange, setDifficultyRange] = useState<number>(2);
   const [rangeColor, setRangeColor] = useState<string>(`var(--medium)`);
   const [colorDifficultyName, setColorDifficultyName] = useState<string>('var(--yellow)');
-  const [warningMessage, setWarningMessage] = useState<string>('');
 
   const [questions, setQuestions] = useState<QuestionTypes[]>([]);
-
+  
+  const [warningMessage, setWarningMessage] = useState<string>('');
   const [disableButton, setDisableButton] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
@@ -109,19 +111,60 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
     })
     .then(async(res) => {
       const data = await res.json();
-      
-      console.log(data);
+
       getQuestionsFromQuiz(data.id);
 
+      setCurrentTitle(data.title);
       setTitle(data.title);
+
       setCategory(data.category);
-      setDifficulty(data.difficulty);
+      setDefaultCategory(data.category);
+
       setLang(data.lang);
-      
+      setDefaultLang(data.lang);
+
+      setDifficulty(data.difficulty);
+      setPreviousDifficulty(data.difficulty);
     })
     .catch((error) => {
       console.error(error);
     });
+  };
+
+  const setPreviousDifficulty = (previousDifficulty: string) => {
+    switch (true) {
+      case previousDifficulty === 'Très facile' :
+        setRangeColor(`var(--very-easy)`);
+        setDifficultyRange(0);
+        setColorDifficultyName('var(--text-color)');
+        break;
+      case previousDifficulty === 'Facile' :
+        setRangeColor(`var(--easy)`);
+        setDifficultyRange(1);
+        setColorDifficultyName('var(--green)');
+        break;
+      case previousDifficulty === 'Normal' :
+        setRangeColor(`var(--medium)`);
+        setDifficultyRange(2);
+        setColorDifficultyName('var(--yellow)');
+        break;
+      case previousDifficulty === 'Difficile' :
+        setRangeColor(`var(--hard)`);
+        setDifficultyRange(3);
+        setColorDifficultyName('var(--orange)');
+        break;
+      case previousDifficulty === 'Très difficile' :
+        setRangeColor(`var(--very-hard)`);
+        setDifficultyRange(4);
+        setColorDifficultyName('var(--red)');
+        break;
+        
+      default:
+        setRangeColor(`var(--medium)`);
+        setDifficultyRange(2);
+        setColorDifficultyName('var(--yellow)');
+        break;
+    };
   };
 
   const getQuestionsFromQuiz = async(quizz_id: number) => {
@@ -227,11 +270,11 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
           break;
           
         default:
-          setRangeColor(`var(--very-easy)`);
+          setRangeColor(`var(--medium)`);
           setDifficulty('Normal');
           setColorDifficultyName('var(--yellow)');
           break;
-        };
+      };
     };
   };
 
@@ -245,9 +288,8 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
     const creator :string = userLogged.pseudo;
 
     if(checkForm()) {
-
-      // If everything is ok, set up the body
-      const body = {
+      // If everything is ok, setup the body
+      let body = {
         user_id,
         creator,
         title,
@@ -256,15 +298,21 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
         difficulty
       };
 
+      // If this is an update, user can change title
+      // It can be a problem, because API wait title as a unique ID
+      if(router.pathname.includes('update')) {
+        body.title = currentTitle;
+      };
+
       // & create a new user
       await saveQuiz(body);
 
+      // If there are questions in state, save it.
       if(questions.length > 0) {
         await saveQuestions(body.title);
       };
     };
 
-    setTitle('');
     setDisableButton(false);
     setShowLoader(false);
   };
@@ -353,7 +401,9 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
         <QuizForm
           title={title}
           categoryList={categoryList}
+          defaultCategory={defaultCategory}
           langList={langList}
+          defaultLang={defaultLang}
           difficulty={difficulty}
           difficultyRange={difficultyRange}
           rangeColor={rangeColor}

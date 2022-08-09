@@ -29,10 +29,10 @@ const Questions = ({
   return (
     <section className={styles.container}>
 
-      {questions.length < 1 && (
+      {questions.length > 0 && (
 
         <ul className={styles.list}>
-          {questions.map((question, index) => 
+          {questions.map((question, index) =>
 
             <li key={index}>
               <QuestionCard

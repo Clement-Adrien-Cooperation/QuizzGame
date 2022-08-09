@@ -81,7 +81,7 @@ const QuestionCard = ({
           </p>
         </header>
 
-        <section>
+        <section className={styles.propositions}>
           <ul className={styles.propositions}>
             {propositions.map((proposition, index) =>
               <li key={index}>
@@ -99,7 +99,7 @@ const QuestionCard = ({
           </section>
         )}
 
-        <footer>
+        <footer className={styles.footer}>
           <button
             className={styles.button}
             onClick={() => router.push(`/question/update/${id}`)}

@@ -29,25 +29,21 @@ const SelectField = ({
       >
         <option
           className={styles.option}
-          value=''
+          // value=''
+          value={defaultOption}
         >
           {defaultOption}
         </option>
 
-        {options.map((option: string, index) => {
-          return (
-          
-            <option
-              key={index}
-              value={option}
-              className={styles.option}
-            >
-              {option}
-            </option>
-
-          );
-        })}
-
+        {options.map((option: string, index: number) =>
+          <option
+            key={index}
+            value={option}
+            className={styles.option}
+          >
+            {option}
+          </option>
+        )}
       </select>
     </div>
   );
