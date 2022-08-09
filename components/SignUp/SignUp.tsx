@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from './SignUp.module.scss';
 import InputField from '../InputField/InputField';
@@ -29,7 +29,7 @@ const SignUp = ({
   const [showLoader, setShowLoader] = useState<boolean>(false);
   
   const checkForm = () => {
-
+    
     // If form is not filled
     if(pseudo.trim() === ''
     || email.trim() === ''

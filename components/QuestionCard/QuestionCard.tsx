@@ -14,7 +14,10 @@ type QuestionCardProps = {
   propositions: string[],
   description?: string,
   setQuestions: Function,
-  updateQuestion: Function
+  updateQuestion: Function,
+  setUpdating: Function,
+  questionIndex: number,
+  setUpdateIndex: Function
 };
 
 const QuestionCard = ({
@@ -26,6 +29,9 @@ const QuestionCard = ({
   description,
   setQuestions,
   updateQuestion,
+  setUpdating,
+  questionIndex,
+  setUpdateIndex
 }: QuestionCardProps) => {
 
   const [showLoader, setShowLoader] = useState(false);
@@ -39,11 +45,9 @@ const QuestionCard = ({
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id })
     })
-    .then(async(res) => {
-      const data = await res.json();
+    .then(() => {
 
-      console.log(data);
-      await getQuestionsFromQuiz();
+      getQuestionsFromQuiz();
     })
     .catch((error) => {
       console.error(error);
@@ -69,6 +73,10 @@ const QuestionCard = ({
   };
 
   const handleUpdateQuestion = () => {
+
+    setUpdating(true);
+    setUpdateIndex(questionIndex);
+    
     const questionData = {
       id,
       quizz_id,

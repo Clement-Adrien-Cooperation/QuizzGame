@@ -33,7 +33,13 @@ const Questions = ({
   const [proposition3, setProposition3] = useState<string>('');
   const [description, setDescription] = useState<string>('');
 
+  // State to know if user want to create or update a question
+  const [updating, setUpdating] = useState<boolean>(false);
+  const [updateIndex, setUpdateIndex] = useState<number>(0);
+  const [questionID, setQuestionID] = useState<number>(0);
+
   const updateQuestion = (questionData: QuestionTypes) => {
+    setQuestionID(questionData.id);
     setQuestion(questionData.question);
     setAnswer(questionData.answer);
     setProposition1(questionData.propositions[0]);
@@ -79,6 +85,9 @@ const Questions = ({
           setDescription={setDescription}
           setQuestions={setQuestions}
           handleToggleForm={handleToggleForm}
+          updating={updating}
+          updateIndex={updateIndex}
+          questionID={questionID}
         />
       ) : (
         <>
@@ -97,6 +106,9 @@ const Questions = ({
                     description={question.description}
                     setQuestions={setQuestions}
                     updateQuestion={updateQuestion}
+                    setUpdating={setUpdating}
+                    questionIndex={index}
+                    setUpdateIndex={setUpdateIndex}
                   />
                 </li>
               )}
@@ -105,7 +117,10 @@ const Questions = ({
           <button
             className={styles.button}
             type='button'
-            onClick={handleToggleForm}
+            onClick={() => {
+              setUpdating(false);
+              handleToggleForm();
+            }}
           >
             Ajouter une question
           </button>

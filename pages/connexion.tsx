@@ -4,10 +4,10 @@ import styles from '../styles/Connexion.module.scss';
 import SignUp from '../components/SignUp/SignUp';
 import SignIn from '../components/SignIn/SignIn';
 
-const Connexion: NextPage = ({ setIsLogged, setUserLogged, userLogged }:any) => {
+const Connexion: NextPage = ({ setIsLogged, setUserLogged }:any) => {
 
-  const [showSignUp, setShowSignUp] = useState<boolean>(true);
-  const [showSignIn, setShowSignIn] = useState<boolean>(false);
+  const [showSignUp, setShowSignUp] = useState<boolean>(false);
+  const [showSignIn, setShowSignIn] = useState<boolean>(true);
 
   useEffect(() => {
 
@@ -17,13 +17,8 @@ const Connexion: NextPage = ({ setIsLogged, setUserLogged, userLogged }:any) => 
 
   const handleToggleForm = () => {
 
-    if(showSignUp) {
-      setShowSignUp(false);
-      setShowSignIn(true);
-    } else {
-      setShowSignIn(false);
-      setShowSignUp(true);
-    };
+    setShowSignIn(!showSignIn);
+    setShowSignUp(!showSignUp);
   };
 
   return (
@@ -36,7 +31,6 @@ const Connexion: NextPage = ({ setIsLogged, setUserLogged, userLogged }:any) => 
             handleToggleForm={handleToggleForm}
             setIsLogged={setIsLogged}
             setUserLogged={setUserLogged}
-            userLogged={userLogged}
           />
         )}
       </div>

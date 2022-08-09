@@ -102,13 +102,15 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
   }, []);
 
   const getQuiz = async () => {
-    
-    const quizTitle = router.query.slug;
+
+    const body = {
+      title: router.query.slug
+    }
 
     await fetch('/api/quizz/getOne', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title: quizTitle })
+      body: JSON.stringify(body)
     })
     .then(async(res) => {
       const data = await res.json();
@@ -342,7 +344,7 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
     await fetch('/api/quizz/getOne', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({title})
+      body: JSON.stringify({ title })
     })
     .then(async(res) => {
 

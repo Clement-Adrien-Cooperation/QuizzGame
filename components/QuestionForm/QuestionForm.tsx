@@ -29,7 +29,10 @@ type QuestionFormProps = {
   setProposition3:Function,
   setDescription:Function,
   setQuestions: Function
-  handleToggleForm: Function
+  handleToggleForm: Function,
+  updating: boolean,
+  updateIndex: number,
+  questionID: number
 };
 
 const QuestionForm = ({
@@ -47,7 +50,10 @@ const QuestionForm = ({
   setProposition3,
   setDescription,
   setQuestions,
-  handleToggleForm
+  handleToggleForm,
+  updating,
+  updateIndex,
+  questionID
 }:QuestionFormProps) => {
 
   const [warningMessage, setWarningMessage] = useState<string>('');
@@ -188,26 +194,47 @@ const QuestionForm = ({
 
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+      
 
     if(checkForm()) {
       
+      // Copy array from state
       const previousQuestions = [...questions];
-      
-      let propositions = [];
 
-      propositions.push(proposition1, proposition2, proposition3);
+      // push updated propositions in a new array
+      const propositions = [proposition1, proposition2, proposition3];
 
-      const newQuestion = {
-        quizz_id: null,
-        question,
-        answer,
-        propositions,
-        description
+      if(updating) {
+        // set up the new question
+        const newQuestion = {
+          id: questionID,
+          quizz_id: 0,
+          question,
+          answer,
+          propositions,
+          description
+        };
+
+        // If user is currently updating a question, update the good one
+        previousQuestions[updateIndex] = newQuestion;
+
+        setQuestions(previousQuestions);
+
+      } else {
+        // set up the new question
+        const newQuestion = {
+          quizz_id: null,
+          question,
+          answer,
+          propositions,
+          description
+        };
+        // If user is creating a new question, add it to previous questions
+        const newQuestions = [...previousQuestions, newQuestion];
+        
+        // Then update the state
+        setQuestions(newQuestions);
       };
-
-      const newQuestions = [...previousQuestions, newQuestion];
-      
-      setQuestions(newQuestions);
 
       handleToggleForm();
     };
@@ -284,7 +311,7 @@ const QuestionForm = ({
           type='submit'
           disabled={disableButton}
         >
-          Ajouter cette question
+          {updating ? 'Mettre à jour' : 'Ajouter cette question'}
         </button>
 
         <button
