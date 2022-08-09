@@ -11,6 +11,16 @@ type SignInProps = {
   setUserLogged: Function
 };
 
+type UserTypes = {
+  id: number,
+  pseudo: string,
+  password: string,
+  email: string,
+  avatar?: string,
+  is_admin: boolean,
+  is_banished: boolean
+};
+
 const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) => {
 
   const router = useRouter();
@@ -22,7 +32,7 @@ const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) 
   const [disableButton, setDisableButton] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
-  const checkPassword = (data:any) => {
+  const checkPassword = (data: UserTypes) => {
     
     // If password is correct
     if(password === data.password) {
@@ -40,10 +50,14 @@ const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) 
       // Update state for logged user
       setUserLogged(userData);
       
-      // Redirect to home page
+      // Hide loader
+      setShowLoader(false);
+
+      // & redirect to home page
       router.push('/');
 
     } else {
+      setShowLoader(false);
       setWarningMessage(`L'identifiant et le mot de passe ne correspondent pas`);
     };
   };
@@ -71,7 +85,6 @@ const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) 
     });
     
     setPassword('');
-    setShowLoader(false);
     setDisableButton(false);
   };
 

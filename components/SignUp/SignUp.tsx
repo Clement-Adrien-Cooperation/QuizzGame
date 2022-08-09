@@ -109,15 +109,13 @@ const SignUp = ({
       setEmail('');
       setPassword('');
       setConfirmPassword('');
-
-      setShowLoader(false);
     };
 
     setDisableButton(false);
   };
 
   const createUser = async() => {
-    const is_admin = true;
+    const is_admin = false;
 
     // If everything is ok, set up the body
     const body = { pseudo, email, password, is_admin };
@@ -150,7 +148,8 @@ const SignUp = ({
 
         setIsLogged(true);
         setUserLogged(userData);
-
+        setShowLoader(false);
+        
         router.push('/');
       })
       .catch((error) => {

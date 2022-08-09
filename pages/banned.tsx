@@ -9,7 +9,7 @@ const Banned: NextPage = ({ isLogged, userLogged }:any) => {
 
   const router = useRouter();
 
-  const [showLoader, setShowLoader] = useState<boolean>(false);
+  const [showLoader, setShowLoader] = useState<boolean>(true);
 
   useEffect(() => {
   
@@ -23,8 +23,6 @@ const Banned: NextPage = ({ isLogged, userLogged }:any) => {
   }, []);
 
   const checkUser = async () => {
-
-    setShowLoader(true);
 
     const body = { user_id: userLogged.id };
       

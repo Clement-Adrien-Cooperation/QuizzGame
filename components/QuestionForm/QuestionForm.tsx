@@ -15,23 +15,40 @@ type QuestionTypes = {
 };
 
 type QuestionFormProps = {
+  question: string,
+  answer: string,
+  proposition1: string,
+  proposition2: string,
+  proposition3: string,
+  description: string,
   questions: QuestionTypes[],
+  setQuestion:Function,
+  setAnswer:Function,
+  setProposition1:Function,
+  setProposition2:Function,
+  setProposition3:Function,
+  setDescription:Function,
   setQuestions: Function
-  setShowForm: Function
+  handleToggleForm: Function
 };
 
 const QuestionForm = ({
+  question,
+  answer,
+  proposition1,
+  proposition2,
+  proposition3,
+  description,
   questions,
+  setQuestion,
+  setAnswer,
+  setProposition1,
+  setProposition2,
+  setProposition3,
+  setDescription,
   setQuestions,
-  setShowForm
+  handleToggleForm
 }:QuestionFormProps) => {
-
-  const [question, setQuestion] = useState<string>('');
-  const [answer, setAnswer] = useState<string>('');
-  const [proposition1, setProposition1] = useState<string>('');
-  const [proposition2, setProposition2] = useState<string>('');
-  const [proposition3, setProposition3] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
 
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [disableButton, setDisableButton] = useState<boolean>(false);
@@ -192,7 +209,7 @@ const QuestionForm = ({
       
       setQuestions(newQuestions);
 
-      setShowForm(false);
+      handleToggleForm();
     };
   };
 
@@ -273,7 +290,7 @@ const QuestionForm = ({
         <button
           className={styles.cancel}
           type='button'
-          onClick={() => setShowForm(false)}
+          onClick={() => handleToggleForm()}
         >
           Annuler
         </button>

@@ -4,6 +4,8 @@ import styles from './UserQuizCard.module.scss';
 import playIcon from '../../public/icons/play.svg';
 import editIcon from '../../public/icons/edit.svg';
 import deleteIcon from '../../public/icons/delete.svg';
+import { useState } from 'react';
+import Loader from '../Loader/Loader';
 
 type UserQuizCardProps = {
   id: number,
@@ -34,6 +36,8 @@ const UserQuizCard = ({
 }: UserQuizCardProps) => {
 
   const router = useRouter();
+  
+  const [showLoader, setShowLoader] = useState<boolean>(false);
 
   const handleDeleteQuiz = async (id: number) => {
 
@@ -54,62 +58,68 @@ const UserQuizCard = ({
   };
 
   return (
-    <section className={styles.card} key={id}>
-      <header className={styles.header}>
-        <h3 className={styles.title}>
-          {title}
-        </h3>
-      
-        <span className={styles.category}>
-          {category}
-        </span>
-      </header>
+    <>
+      <section className={styles.card} key={id}>
+        <header className={styles.header}>
+          <h3 className={styles.title}>
+            {title}
+          </h3>
+        
+          <span className={styles.category}>
+            {category}
+          </span>
+        </header>
 
-      <footer className={styles.footer}>
-        <button
-          className={styles.button}
-          onClick={() => router.push(`/quizz/${title}`)}
-        >
-          <div className={styles.icon}>
-            <Image
-              src={playIcon}
-              width='32px'
-              height='32px'
-              layout='responsive'
-              alt='Jouer'
-            />
-          </div>
-        </button>
-        <button
-          className={styles.button}
-          onClick={() => router.push(`/quizz/update/${title}`)}
-        >
-          <div className={styles.icon}>
-            <Image
-              src={editIcon}
-              width='32px'
-              height='32px'
-              layout='responsive'
-              alt='Modifier'
-            />
-          </div>
-        </button>
-        <button
-          className={styles.button}
-          onClick={() => handleDeleteQuiz(id)}
-        >
-          <div className={styles.icon}>
-            <Image
-              src={deleteIcon}
-              width='32px'
-              height='32px'
-              layout='responsive'
-              alt='Supprimer'
-            />
-          </div>
-        </button>
-      </footer>
-    </section>
+        <footer className={styles.footer}>
+          <button
+            className={styles.button}
+            onClick={() => router.push(`/quizz/${title}`)}
+          >
+            <div className={styles.icon}>
+              <Image
+                src={playIcon}
+                width='32px'
+                height='32px'
+                layout='responsive'
+                alt='Jouer'
+              />
+            </div>
+          </button>
+          <button
+            className={styles.button}
+            onClick={() => router.push(`/quizz/update/${title}`)}
+          >
+            <div className={styles.icon}>
+              <Image
+                src={editIcon}
+                width='32px'
+                height='32px'
+                layout='responsive'
+                alt='Modifier'
+              />
+            </div>
+          </button>
+          <button
+            className={styles.button}
+            onClick={() => handleDeleteQuiz(id)}
+          >
+            <div className={styles.icon}>
+              <Image
+                src={deleteIcon}
+                width='32px'
+                height='32px'
+                layout='responsive'
+                alt='Supprimer'
+              />
+            </div>
+          </button>
+        </footer>
+      </section>
+
+      {showLoader && (
+        <Loader />
+      )}
+    </>
   );
 };
 

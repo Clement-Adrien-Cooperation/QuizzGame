@@ -2,6 +2,8 @@
 
 .container {
   @include posFixed(0, auto, auto, 0);
+  @include flexCenter;
+  flex-direction: column;
   width: 100vw;
   min-height: 100vh;
   background: var(--black);
@@ -11,7 +13,6 @@
 
 .title {
   text-align: center;
-  margin-top: 20vh;
   font-size: 80px;
   font-weight: 500;
   color: var(--warning);

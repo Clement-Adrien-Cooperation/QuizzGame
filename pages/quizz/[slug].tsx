@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Loader from '../../components/Loader/Loader';
 import styles from '../../styles/quizz/QuizGame.module.scss';
 
 type QuizTypes = {
@@ -37,6 +38,7 @@ const QuizGame: NextPage = ({ isLogged, userLogged }:any) => {
   const title = router.query.slug;
 
   const [quiz, setQuiz] = useState<QuizTypes>(emptyQuiz);
+  const [showLoader, setShowLoader] = useState<boolean>(true);
 
   useEffect(() => {
 
@@ -58,6 +60,9 @@ const QuizGame: NextPage = ({ isLogged, userLogged }:any) => {
 
       setQuiz(data);
     })
+    .then(() => {
+      setShowLoader(false);
+    })
     .catch((error) => {
       console.error(error);
     }); 
@@ -70,6 +75,10 @@ const QuizGame: NextPage = ({ isLogged, userLogged }:any) => {
           {quiz.title}
         </h1>
       </header>
+
+      {showLoader && (
+        <Loader />
+      )}
     </>
   );
 };

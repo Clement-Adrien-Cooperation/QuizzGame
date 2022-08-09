@@ -1,11 +1,13 @@
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import styles from '../../styles/Quizz.module.scss';
 import Link from 'next/link';
 import QuizCard from '../../components/QuizCard/QuizCard';
 import InputField from '../../components/InputField/InputField';
+import Loader from '../../components/Loader/Loader';
 
-type QuizProps = {
+type QuizTypes = {
   id: number,
   user_id: number,
   creator: string,
@@ -19,16 +21,25 @@ type QuizProps = {
   rate: number
 };
 
-const Quizz: NextPage = ({ quizzData, isLogged }: any) => {
+const Quizz: NextPage = ({ quizzData, isLogged, userLogged }: any) => {
+
+  const router = useRouter();
 
   const [filter, setFilter] = useState<string>('');
+  const [quizz, setQuizz] = useState<QuizTypes[]>([]);
+
+  const [showLoader, setShowLoader] = useState<boolean>(true);
 
   useEffect(() => {
 
-    console.log(quizzData);
-    
-    
-    document.title = "Quizz - s'Quizz Game";
+    if(userLogged.is_banished === true) {
+      router.push('/banned');
+    } else {
+      document.title = "Quizz - s'Quizz Game";
+
+      setQuizz(quizzData);
+      setShowLoader(false);
+    };
 
   }, []);
 
@@ -47,7 +58,7 @@ const Quizz: NextPage = ({ quizzData, isLogged }: any) => {
           <InputField
             name={'Rechercher un quiz...'}
             state={filter}
-            inputID={'filterQuizz'}
+            inputID={'quizz-filter'}
             type={'text'}
             isDisabled={false}
             handleFunction={handleChangeFilter}
@@ -68,7 +79,7 @@ const Quizz: NextPage = ({ quizzData, isLogged }: any) => {
       <section className={styles.container}>
 
         <ul>
-          {quizzData.map((quiz: QuizProps) => {
+          {quizz?.map((quiz: QuizTypes) => {
 
             const quizTitle = quiz.title.toLowerCase();
             const quizCreator = quiz.creator.toLowerCase();
@@ -96,8 +107,11 @@ const Quizz: NextPage = ({ quizzData, isLogged }: any) => {
             // };
           })}
         </ul>
-
       </section>
+
+      {showLoader && (
+        <Loader />
+      )}
     </>
   );
 };

@@ -25,7 +25,6 @@ const Admin: NextPage = ({ userLogged }:any) => {
 
       <AdminHeader/>
 
-
     </section>
   );
 };

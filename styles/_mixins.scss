@@ -128,11 +128,12 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 500;
+  opacity: 0.8;
   transition: transform .2s;
 
   &:hover {
+    opacity: 1;
     color: var(--main-color-alt);
-    text-decoration: none;
   }
 
   &:active {

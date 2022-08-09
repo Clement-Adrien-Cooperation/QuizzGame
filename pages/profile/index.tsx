@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Loader from '../../components/Loader/Loader';
 import UserQuizCard from '../../components/UserQuizCard/UserQuizCard';
 import styles from '../../styles/Profile.module.scss';
 
@@ -23,6 +24,7 @@ const Profil: NextPage = ({ isLogged, userLogged }:any) => {
   const router = useRouter();
 
   const [userQuizz, setUserQuizz] = useState<QuizTypes[]>([]);
+  const [showLoader, setShowLoader] = useState<boolean>(true);
 
   useEffect(() => {
 
@@ -47,6 +49,9 @@ const Profil: NextPage = ({ isLogged, userLogged }:any) => {
       const data = await res.json();
 
       setUserQuizz(data);
+    })
+    .then(() => {
+      setShowLoader(false);
     })
     .catch((error) => {
       console.error(error);
@@ -89,6 +94,10 @@ const Profil: NextPage = ({ isLogged, userLogged }:any) => {
 
         </ul>
       </section>
+
+      {showLoader && (
+        <Loader />
+      )}
     </>
   );
 };

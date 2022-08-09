@@ -13,7 +13,8 @@ type QuestionCardProps = {
   answer: string,
   propositions: string[],
   description?: string,
-  setQuestions: Function
+  setQuestions: Function,
+  updateQuestion: Function
 };
 
 const QuestionCard = ({
@@ -23,10 +24,9 @@ const QuestionCard = ({
   answer,
   propositions,
   description,
-  setQuestions
+  setQuestions,
+  updateQuestion,
 }: QuestionCardProps) => {
-
-  const router = useRouter();
 
   const [showLoader, setShowLoader] = useState(false);
 
@@ -68,6 +68,19 @@ const QuestionCard = ({
     });
   };
 
+  const handleUpdateQuestion = () => {
+    const questionData = {
+      id,
+      quizz_id,
+      question,
+      answer,
+      propositions,
+      description
+    };
+
+    updateQuestion(questionData);
+  };
+
   return (
     <>
       <section className={styles.card}>
@@ -101,34 +114,29 @@ const QuestionCard = ({
 
         <footer className={styles.footer}>
           <button
-            className={styles.button}
-            onClick={() => router.push(`/question/update/${id}`)}
+            className={styles.icon}
+            onClick={handleUpdateQuestion}
           >
-            <div className={styles.icon}>
-              <Image
-                src={editIcon}
-                width='32px'
-                height='32px'
-                layout='responsive'
-                alt='Modifier'
-              />
-            </div>
+            <Image
+              src={editIcon}
+              width='32px'
+              height='32px'
+              layout='responsive'
+              alt='Modifier'
+            />
           </button>
 
           <button
             className={styles.icon}
-            // className={styles.button}
             onClick={handleDeleteQuestion}
           >
-            {/* <div className={styles.icon}> */}
-              <Image
-                src={deleteIcon}
-                width='32px'
-                height='32px'
-                layout='responsive'
-                alt='Supprimer'
-              />
-            {/* </div> */}
+            <Image
+              src={deleteIcon}
+              width='32px'
+              height='32px'
+              layout='responsive'
+              alt='Supprimer'
+            />
           </button>
         </footer>
       </section>

@@ -5,6 +5,7 @@ import AdminHeader from '../../components/AdminHeader/AdminHeader';
 import styles from '../../styles/admin/AdminUsers.module.scss';
 import Users from '../../components/Users/Users';
 import BanishedUsers from '../../components/BanishedUsers/BanishedUsers';
+import Loader from '../../components/Loader/Loader';
 
 type UserProps = {
   id: number,
@@ -22,6 +23,8 @@ const AdminUsers: NextPage = ({ usersData, banishedUsersData, userLogged } :any)
   const [users, setUsers] = useState<UserProps[]>([]);
   const [banishedUsers, setBanishedUsers] = useState<UserProps[]>([]);
 
+  const [showLoader, setShowLoader] = useState<boolean>(true);
+
   useEffect(() => {
 
     document.title = "Modérer les utilisateurs - s'Quizz Game";
@@ -30,24 +33,44 @@ const AdminUsers: NextPage = ({ usersData, banishedUsersData, userLogged } :any)
     if(userLogged?.is_admin === true) {
       setUsers(usersData);
       setBanishedUsers(banishedUsersData);
+      setShowLoader(false);
     } else {
       router.push('/');
     };
   }, []);
 
   const getUsers = async() => {
-    // Get users & banished users, then update states
-    const usersDataFromAPI = await fetch('/api/user/getAll');
-    const usersData = await usersDataFromAPI.json();
-    setUsers(usersData);
 
-    const banishedUsersDataFromAPI = await fetch('/api/user/getBanishedUsers');
-    const banishedUsersData = await banishedUsersDataFromAPI.json();
-    setBanishedUsers(banishedUsersData);
+    // Get users & banished users, then update states
+    await fetch('/api/user/getAll')
+    .then(async(res) => {
+      const usersDataFromAPI = await res.json();
+      setUsers(usersDataFromAPI);
+    })
+    .then(() => {
+      setShowLoader(false);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+    await fetch('/api/user/getBanishedUsers')
+    .then(async(res) => {
+      const banishedUsersDataFromAPI = await res.json();
+      setBanishedUsers(banishedUsersDataFromAPI);
+    })
+    .then(() => {
+      setShowLoader(false);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   };
 
   // Function for bann a user
   const handleBanishement = async (user_id:number, is_banished :boolean) => {
+
+    setShowLoader(true);
 
     // Set up the body for the request with user ID & new status of bannishement
     const body = { user_id, is_banished };
@@ -67,6 +90,8 @@ const AdminUsers: NextPage = ({ usersData, banishedUsersData, userLogged } :any)
   };
 
   const handlePromotion = async (user_id :number, is_admin :boolean) => {
+
+    setShowLoader(true);
 
     const body = { user_id, is_admin }
 
@@ -122,6 +147,10 @@ const AdminUsers: NextPage = ({ usersData, banishedUsersData, userLogged } :any)
           />
         </div>
       </section>
+
+      {showLoader && (
+        <Loader />
+      )}
     </>
   );
 };

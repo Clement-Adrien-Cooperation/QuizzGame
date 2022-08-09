@@ -89,12 +89,13 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
   
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [disableButton, setDisableButton] = useState<boolean>(false);
-  const [showLoader, setShowLoader] = useState<boolean>(false);
+  const [showLoader, setShowLoader] = useState<boolean>(true);
 
   useEffect(() => {
     
     if(router.pathname.includes('create')) {
       setPageTitle("Créer un s'Quizz");
+      setShowLoader(false);
     } else {
       getQuiz();
     };
@@ -125,6 +126,26 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
 
       setDifficulty(data.difficulty);
       setPreviousDifficulty(data.difficulty);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  };
+
+  const getQuestionsFromQuiz = async(quizz_id: number) => {
+
+    await fetch('/api/question/getAllFromQuiz', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ quizz_id })
+    })
+    .then(async(res) => {
+      const data = await res.json();
+
+      setQuestions(data);
+    })
+    .then(() => {
+      setShowLoader(false);
     })
     .catch((error) => {
       console.error(error);
@@ -166,26 +187,7 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
         break;
     };
   };
-
-  const getQuestionsFromQuiz = async(quizz_id: number) => {
-
-    await fetch('/api/question/getAllFromQuiz', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ quizz_id })
-    })
-    .then(async(res) => {
-      const data = await res.json();
-      
-      console.log(data);
-      setQuestions(data);
-      
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  };
-
+  
   const checkForm = () => {
 
     if(title.trim() === '') {
