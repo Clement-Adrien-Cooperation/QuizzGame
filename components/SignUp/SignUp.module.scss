@@ -12,23 +12,6 @@
   }
 }
 
-.title {
-  text-align: center;
-  font-size: 4em;
-  font-weight: 600;
-}
-
-.form {
-  @include flexCenter;
-  flex-direction: column;
-  width: 250px;
-}
-
-.submit_button {
-  margin-top: 20px;
-  @include mainButton;
-}
-
 .secondary_button {
   font-size: 12px;
   margin-top: 30px;

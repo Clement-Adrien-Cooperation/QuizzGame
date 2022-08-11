@@ -1,20 +1,26 @@
 @import '../../styles/mixins';
 
 .card {
-  cursor: pointer;
-  padding: 20px 25px 30px;
   margin: 20px 0;
   border-radius: var(--medium-radius);
-  background: var(--card-gradient);
-  background-size: 200%;
   width: 500px;
   color: var(--white);
   box-shadow: var(--box-shadow);
-  transition: background-position 0.3s;
 
-  &:hover {
+  &:hover .container {
     background-position: 100%;
   }
+}
+
+.container {
+  cursor: pointer;
+  border-top-left-radius: var(--medium-radius);
+  border-top-right-radius: var(--medium-radius);
+  background: var(--card-gradient);
+  padding: 20px 25px 30px;
+  width: 100%;
+  background-size: 200%;
+  transition: background-position 0.3s;
 }
 
 .header {
@@ -39,6 +45,7 @@
     &__title {
       color: var(--white);
       font-size: 18px;
+      line-height: 120%;
     }
 
     &__difficulty {
@@ -49,9 +56,6 @@
       white-space: nowrap;
       color: var(--black);
       border: 2px solid var(--black);
-      // height: 20px;
-      // width: 20px;
-      // border-radius: 50%;
     }
   }
 }
@@ -68,9 +72,19 @@
 }
 
 .footer {
-  font-size: 0.9em;
-  margin-top: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 0.9em;
+  padding: 20px 25px;
+  background: var(--main-color-light);
+  border-bottom-left-radius: var(--medium-radius);
+  border-bottom-right-radius: var(--medium-radius);
+  color: var(--black);
+}
+
+.link {
+  @include underlineButton;
+  margin-left: 0.4em;
+  letter-spacing: 0;
 }

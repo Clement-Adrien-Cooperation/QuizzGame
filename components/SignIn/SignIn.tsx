@@ -115,6 +115,7 @@ const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) 
             inputID={'ID'}
             type={'text'}
             isDisabled={false}
+            required={true}
             handleFunction={handleChangePseudoOrEmail}
           />
 
@@ -124,6 +125,7 @@ const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) 
             inputID={'password'}
             type={'password'}
             isDisabled={false}
+            required={true}
             handleFunction={handleChangePassword}
           />
 

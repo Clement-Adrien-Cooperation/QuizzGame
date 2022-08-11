@@ -43,6 +43,7 @@ const QuizForm = ({
         inputID={'title'}
         type={'text'}
         isDisabled={false}
+        required={true}
         handleFunction={(e) => handleChangeTitle(e)}
       />
 

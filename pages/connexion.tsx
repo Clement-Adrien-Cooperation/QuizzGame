@@ -1,50 +1,52 @@
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import styles from '../styles/Connexion.module.scss';
 import SignUp from '../components/SignUp/SignUp';
 import SignIn from '../components/SignIn/SignIn';
 
-const Connexion: NextPage = ({ setIsLogged, setUserLogged }:any) => {
+const Connexion: NextPage = ({ setIsLogged, setUserLogged, isLogged, userLogged }:any) => {
 
-  const [showSignUp, setShowSignUp] = useState<boolean>(false);
-  const [showSignIn, setShowSignIn] = useState<boolean>(true);
+  const router = useRouter();
+  
+  const [toggleForm, setToggleForm] = useState(false);
 
   useEffect(() => {
 
-    document.title = "Connexion - s'Quizz Game";
-
+    if(isLogged) {
+      router.push('/');
+    } else {
+      document.title = "Connexion - s'Quizz Game";
+    };
   }, []);
 
   const handleToggleForm = () => {
-
-    setShowSignIn(!showSignIn);
-    setShowSignUp(!showSignUp);
+    setToggleForm(!toggleForm);
   };
 
   return (
     <section className={styles.container}>
 
-      <div className={styles.sign_up}>
-        {showSignUp && (
+        {toggleForm ? (
+          <div className={styles.sign_up}>
 
-          <SignUp
-            handleToggleForm={handleToggleForm}
-            setIsLogged={setIsLogged}
-            setUserLogged={setUserLogged}
-          />
+            <SignUp
+              handleToggleForm={handleToggleForm}
+              setIsLogged={setIsLogged}
+              setUserLogged={setUserLogged}
+              isLogged={isLogged}
+              userLogged={userLogged}
+            />
+          </div>
+        ) : (
+          <div className={styles.sign_in}>
+            <SignIn
+              handleToggleForm={handleToggleForm}
+              setIsLogged={setIsLogged}
+              setUserLogged={setUserLogged}
+            />
+          </div>
         )}
-      </div>
-      
-      <div className={styles.sign_in}>
-        {showSignIn && (
-
-          <SignIn
-            handleToggleForm={handleToggleForm}
-            setIsLogged={setIsLogged}
-            setUserLogged={setUserLogged}
-          />
-        )}
-      </div>
     </section>
   );
 };

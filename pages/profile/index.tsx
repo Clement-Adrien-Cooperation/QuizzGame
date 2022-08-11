@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import EditProfile from '../../components/EditProfile/EditProfile';
 import Loader from '../../components/Loader/Loader';
 import UserQuizCard from '../../components/UserQuizCard/UserQuizCard';
 import styles from '../../styles/Profile.module.scss';
@@ -19,7 +20,7 @@ type QuizTypes = {
   reportMessage?: string
 };
 
-const Profil: NextPage = ({ isLogged, userLogged }:any) => {
+const Profile: NextPage = ({ isLogged, userLogged, setIsLogged, setUserLogged }:any) => {
 
   const router = useRouter();
 
@@ -68,7 +69,21 @@ const Profil: NextPage = ({ isLogged, userLogged }:any) => {
       </header>
 
       <section className={styles.container}>
-        <h2>
+        <h2 className={styles.container__title}>
+          Modifier mon profil
+        </h2>
+
+        <EditProfile
+          isLogged={isLogged}
+          userLogged={userLogged}
+          setIsLogged={setIsLogged}
+          setUserLogged={setUserLogged}
+        />
+
+      </section>
+
+      <section className={styles.container}>
+        <h2 className={styles.container__title}>
           Mes Quizz
         </h2>
 
@@ -91,7 +106,6 @@ const Profil: NextPage = ({ isLogged, userLogged }:any) => {
               />
             </li>
           )}
-
         </ul>
       </section>
 
@@ -102,4 +116,4 @@ const Profil: NextPage = ({ isLogged, userLogged }:any) => {
   );
 };
 
-export default Profil;
+export default Profile;

@@ -41,6 +41,8 @@ const UserQuizCard = ({
 
   const handleDeleteQuiz = async (id: number) => {
 
+    setShowLoader(true);
+
     await fetch('api/quizz/delete', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -55,6 +57,8 @@ const UserQuizCard = ({
     .catch((error) => {
       console.error(error);
     });
+
+    setShowLoader(false);
   };
 
   return (

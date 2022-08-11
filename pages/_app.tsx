@@ -8,6 +8,9 @@ import { useRouter } from 'next/router';
 type UserLoggedTypes = {
   id: number,
   pseudo: string,
+  email: string,
+  password: string,
+  avatar: string,
   is_admin: boolean,
   is_banished: boolean
 };
@@ -15,6 +18,9 @@ type UserLoggedTypes = {
 const unLoggedUser = {
   id: 1,
   pseudo: 'Vadrial',
+  email: 'adrienlcp@gmail.com',
+  password: 'TDYQCM&S3o!zao6i',
+  avatar: '',
   is_admin: true,
   is_banished: false
 };

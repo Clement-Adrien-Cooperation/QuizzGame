@@ -43,18 +43,20 @@ const emptyUser: UserTypes = {
   reportMessage: []
 };
 
-const UserProfile: NextPage = () => {
+const UserProfile: NextPage = ({ isLogged, userLogged }: any) => {
 
   const router = useRouter();
-
-  console.log(router.query.slug);
-  
 
   const [showLoader, setShowLoader] = useState<boolean>(true);
   const [user, setUser] = useState<UserTypes>(emptyUser);
   const [userQuizz, setUserQuizz] = useState<QuizTypes[]>([]);
 
   useEffect(() => {
+    if(isLogged) {
+      if(userLogged.is_banished === true) {
+        router.push('/banned');
+      };
+    };
 
     getUser();
   }, []);
@@ -70,9 +72,6 @@ const UserProfile: NextPage = () => {
     })
     .then(async(res) => {
       const data = await res.json();
-
-      console.log(data);
-      
 
       setUser(data);
       getQuizFromUser(data.id);

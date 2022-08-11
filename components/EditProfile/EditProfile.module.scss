@@ -1,0 +1,12 @@
+@import '../../styles/mixins';
+
+.form {
+  @include flexCenter;
+  flex-direction: column;
+  width: 250px;
+}
+
+.submit_button {
+  margin-top: 20px;
+  @include mainButton;
+}

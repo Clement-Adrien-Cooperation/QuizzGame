@@ -27,7 +27,6 @@ const Quizz: NextPage = ({ quizzData, isLogged, userLogged }: any) => {
 
   const [filter, setFilter] = useState<string>('');
   const [quizz, setQuizz] = useState<QuizTypes[]>([]);
-
   const [showLoader, setShowLoader] = useState<boolean>(true);
 
   useEffect(() => {
@@ -40,7 +39,6 @@ const Quizz: NextPage = ({ quizzData, isLogged, userLogged }: any) => {
       setQuizz(quizzData);
       setShowLoader(false);
     };
-
   }, []);
 
   const handleChangeFilter = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -61,6 +59,7 @@ const Quizz: NextPage = ({ quizzData, isLogged, userLogged }: any) => {
             inputID={'quizz-filter'}
             type={'text'}
             isDisabled={false}
+            required={false}
             handleFunction={handleChangeFilter}
           />
         </div>
@@ -97,7 +96,7 @@ const Quizz: NextPage = ({ quizzData, isLogged, userLogged }: any) => {
                       title={quiz.title}
                       difficulty={quiz.difficulty}
                       image={quiz.image}
-                      lang={quiz.lang}
+                      category={quiz.category}
                       date={quiz.date}
                       rate={quiz.rate}
                     />

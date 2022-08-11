@@ -260,6 +260,7 @@ const QuestionForm = ({
           inputID={'question'}
           type={'text'}
           isDisabled={false}
+          required={true}
           handleFunction={handleChangeQuestion}
         />
 
@@ -269,6 +270,7 @@ const QuestionForm = ({
           inputID={'answer'}
           type={'text'}
           isDisabled={false}
+          required={true}
           handleFunction={handleChangeAnswer}
         />
 
@@ -278,6 +280,7 @@ const QuestionForm = ({
           inputID={'answer'}
           type={'text'}
           isDisabled={false}
+          required={true}
           handleFunction={handleChangeProposition1}
         />
 
@@ -287,6 +290,7 @@ const QuestionForm = ({
           inputID={'answer'}
           type={'text'}
           isDisabled={false}
+          required={true}
           handleFunction={handleChangeProposition2}
         />
 
@@ -296,6 +300,7 @@ const QuestionForm = ({
           inputID={'answer'}
           type={'text'}
           isDisabled={false}
+          required={true}
           handleFunction={handleChangeProposition3}
         />
 

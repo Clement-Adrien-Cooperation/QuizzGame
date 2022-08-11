@@ -10,7 +10,7 @@ type QuizCardProps = {
   title: string,
   difficulty: string,
   image: string,
-  lang: string,
+  category: string,
   date: string;
   rate: number;
 };
@@ -21,7 +21,7 @@ const QuizCard = ({
   title,
   difficulty,
   image,
-  lang,
+  category,
   date,
   rate
 } :QuizCardProps) => {
@@ -57,53 +57,63 @@ const QuizCard = ({
   }, []);
 
   return (
-    <section
-      className={styles.card}
-      onClick={() => router.push(`/quizz/${title}`)}
-    >
-      <header className={styles.header}>
+    <article className={styles.card}>
+      <section
+        className={styles.container}
+        onClick={() => router.push(`/quizz/${title}`)}
+      >
+        <header className={styles.header}>
 
-        <div className={styles.header__icon}>
-          <Image
-            src={image === null ? defaultImage : image}
-            width='32px'
-            height='32px'
-            layout="responsive"
-            alt='Image du quiz'
-          />
-        </div>
+          <div className={styles.header__icon}>
+            <Image
+              src={image === null ? defaultImage : image}
+              width='32px'
+              height='32px'
+              layout="responsive"
+              alt='Image du quiz'
+            />
+          </div>
 
-        <aside className={styles.header__aside}>
+          <aside className={styles.header__aside}>
 
-          <h2 className={styles.header__aside__title}>
-            {title}
-          </h2>
+            <h2 className={styles.header__aside__title}>
+              {title}
+            </h2>
 
-          <span
-            className={styles.header__aside__difficulty}
-            style={{background: `${backgroundColor}`}}
-          >
-            {difficulty}
+            <span
+              className={styles.header__aside__difficulty}
+              style={{background: `${backgroundColor}`}}
+            >
+              {difficulty}
+            </span>
+
+          </aside>
+        </header>
+
+        <div className={styles.body}>
+
+          <span className={styles.body__content}>
+            {category}
           </span>
 
-        </aside>
-      </header>
+          <span className={styles.body__content}>
+            {rate === null ? '' : `${rate}/5`}
+          </span>
+        </div>
 
-      <div className={styles.body}>
-
-        <span className={styles.body__content}>
-          Langue : {lang}
-        </span>
-
-        <span className={styles.body__content}>
-          {rate === null ? '' : `${rate}/5`}
-        </span>
-      </div>
+      </section>
 
       <footer className={styles.footer}>
 
         <p className={styles.creator}>
-          {creator === null ? '' : `Créé par ${creator}`}
+          Créé par
+
+          <button
+            className={styles.link}
+
+          >
+            {creator}
+          </button>
         </p>
 
         <p className={styles.date}>
@@ -111,7 +121,7 @@ const QuizCard = ({
         </p>
       </footer>
       
-    </section>
+    </article>
   );
 };
 
