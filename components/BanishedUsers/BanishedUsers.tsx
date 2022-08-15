@@ -54,7 +54,7 @@ const BanishedUsers = ({
               inputID={'banished-users-filter'}
               type={'text'}
               isDisabled={false}
-              required={false}
+              required={true}
               handleFunction={handleChangeFilter}
             />
           </div>

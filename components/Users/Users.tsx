@@ -56,7 +56,7 @@ const Users = ({
               inputID={'users-filter'}
               type={'text'}
               isDisabled={false}
-              required={false}
+              required={true}
               handleFunction={handleChangeFilter}
             />
           </div>

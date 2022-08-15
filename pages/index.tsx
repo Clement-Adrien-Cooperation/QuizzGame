@@ -21,11 +21,13 @@ const Home: NextPage = () => {
     .then((res) => {
       return res.json();
     })
-    .then((res) => {
-      console.log(res);
+    .then(async(res) => {
+      console.log(res.quizz);
+      console.log(res)
+      
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
     });
 
     setShowLoader(false);

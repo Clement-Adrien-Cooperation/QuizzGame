@@ -21,34 +21,11 @@ type QuizTypes = {
   reportMessage?: string[]
 };
 
-type UserTypes = {
-  id: number,
-  pseudo: string,
-  email?: string,
-  avatar?: string,
-  is_admin: boolean,
-  is_banished: boolean,
-  reported: boolean,
-  reportMessage?: string[]
-};
-
-const emptyUser: UserTypes = {
-  id: 0,
-  pseudo: '',
-  email: '',
-  avatar: '',
-  is_admin: false,
-  is_banished: false,
-  reported: false,
-  reportMessage: []
-};
-
 const UserProfile: NextPage = ({ isLogged, userLogged }: any) => {
 
   const router = useRouter();
 
   const [showLoader, setShowLoader] = useState<boolean>(true);
-  const [user, setUser] = useState<UserTypes>(emptyUser);
   const [userQuizz, setUserQuizz] = useState<QuizTypes[]>([]);
 
   useEffect(() => {
@@ -56,34 +33,14 @@ const UserProfile: NextPage = ({ isLogged, userLogged }: any) => {
       if(userLogged.is_banished === true) {
         router.push('/banned');
       };
+    } else {
+      router.push('/');
     };
 
-    getUser();
+    getQuizzFromUser(userLogged.id);
   }, []);
 
-  const getUser = async () => {
-
-    const pseudo = router.query.slug;
-
-    await fetch('/api/user/getOneByPseudo', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ pseudo })
-    })
-    .then(async(res) => {
-      const data = await res.json();
-
-      setUser(data);
-      getQuizFromUser(data.id);
-    })
-    .catch((error) => {
-      console.error(error);
-      
-      router.push('/');
-    });
-  };
-
-  const getQuizFromUser = async (user_id: number) => {
+  const getQuizzFromUser = async (user_id: number) => {
 
     await fetch('/api/quizz/getUserQuizz', {
       method: 'POST',
@@ -98,7 +55,7 @@ const UserProfile: NextPage = ({ isLogged, userLogged }: any) => {
       setShowLoader(false);
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
     });
   };
 
@@ -106,7 +63,7 @@ const UserProfile: NextPage = ({ isLogged, userLogged }: any) => {
     <>
       <header className={styles.header}>
         <h1 className={styles.title}>
-          Page de {user.pseudo}
+          Page de {userLogged.pseudo}
         </h1>
       </header>
 

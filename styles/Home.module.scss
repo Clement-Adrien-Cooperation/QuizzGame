@@ -12,6 +12,7 @@
   @include flexCenter;
   flex-direction: column;
   margin-top: 10vh;
+  gap: 30px;
 }
 
 .button1 {
@@ -20,7 +21,6 @@
 
 .button2 {
   @include secondaryButton;
-  margin: 30px 0;
 }
 
 .button3 {

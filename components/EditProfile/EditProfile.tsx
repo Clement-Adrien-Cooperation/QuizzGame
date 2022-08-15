@@ -25,8 +25,7 @@ type EditProfileProps = {
 const EditProfile = ({ isLogged, userLogged, setIsLogged, setUserLogged } :EditProfileProps) => {
 
   const router = useRouter();
-
-  const [currentPseudo, setCurrentPseudo] = useState<string>('');
+  
   const [previousPassword, setPreviousPassword] = useState<string>('');
   
   const [pseudo, setPseudo] = useState<string>('');
@@ -40,78 +39,78 @@ const EditProfile = ({ isLogged, userLogged, setIsLogged, setUserLogged } :EditP
 
   useEffect(() => {
     if(isLogged) {
-      setCurrentPseudo(userLogged.pseudo);
       setPseudo(userLogged.pseudo);
       setEmail(userLogged.email);
     };
   }, []);
   
   const checkForm = () => {
-    
-    // If form is not filled
-    if(pseudo.trim() === ''
-    || email.trim() === ''
-    || password.trim() === ''
-    || confirmPassword.trim() === '') {
 
-      // We warn user
-      setWarningMessage('Veuillez remplir tous les champs');
-      setDisableButton(true);
-
-    // If email is not valid
-    } else if (!email.includes('@') && !email.includes('.')) {
-
-      // We warn him too
+    if(!email.includes('@') && !email.includes('.')) {
+      
       setWarningMessage('Veuillez entrer un email valide');
       setDisableButton(true);
 
-    // same with pseudo
     } else if (pseudo.includes('@') && pseudo.includes('.')) {
 
       setWarningMessage(`Votre pseudo ne doit pas contenir de "@" ou de ".", ces caractères sont réservés au champs "Adresse mail"`);
       setDisableButton(true);
 
-    // If the two passwords are not the same
     } else if (password !== confirmPassword) {
 
-      // Same routine..
       setWarningMessage('Les deux mots de passe ne correspondent pas');
       setDisableButton(true);
-    
-    } else if (password.length < 10 || password.length > 1000) {
 
-      setWarningMessage('Votre mot de passe doit contenir entre 10 et 1000 caractères');
-      setDisableButton(true);
-
-    } else if (pseudo.length > 30) {
+    } else if (pseudo.length < 3|| pseudo.length > 30) {
       
-      setWarningMessage('Votre pseudo ne doit pas excéder 30 caractères');
+      setWarningMessage('Votre pseudo doit contenir entre 3 et 30 caractères');
       setDisableButton(true);
 
-    } else if (email.length > 100) {
+    } else if (email.length < 7 || email.length > 100) {
 
-      setWarningMessage('Votre adresse mail ne doit pas excéder 100 caractères');
+      setWarningMessage('Entrez une adresse mail valide');
       setDisableButton(true);
 
-    } else if (
-      password.length > 1000 && password.length < 10
-      || 
-      confirmPassword.length > 1000 && confirmPassword.length < 10) {
-
-
-      setWarningMessage('Votre mot de passe doit contenir entre 10 et 1000 caractères');
-      setDisableButton(true);
-
-    } else if (previousPassword !== '' || password !== '' || confirmPassword !== '') {
-
-      if(previousPassword !== userLogged.password
-        && password !== confirmPassword) {
-          setWarningMessage("L'ancien mot de passe et/ou les nouveaux ne correspondent pas");
-          setDisableButton(true);
-      };
-    } else {
-      return true;
     };
+
+    if(isLogged) {
+      if(pseudo.trim() === ''
+      || email.trim() === '') {
+
+        setWarningMessage("C'est pô bien d'effacer des champs utiles");
+      } else if(previousPassword !== ''
+      && password !== ''
+      && confirmPassword !== '') {
+        if(password !== confirmPassword) {
+
+          setWarningMessage('Les nouveaux mots de passe ne correspondent pas');
+          setDisableButton(true);
+
+        } else if(previousPassword !== userLogged.password) {
+
+          setWarningMessage("L'ancien mot de passe ne correspond pas");
+          setDisableButton(true);
+        };
+      };
+
+    } else {
+      if(password.length < 10 || password.length > 1000) {
+
+        setWarningMessage('Votre mot de passe doit contenir entre 10 et 1000 caractères');
+        setDisableButton(true);
+
+      } else if (password.length < 10
+        || password.length > 1000
+        || confirmPassword.length < 10
+        || confirmPassword.length > 1000) {
+
+        setWarningMessage('Votre mot de passe doit contenir entre 10 et 1000 caractères');
+        setDisableButton(true);
+    
+      };
+    };
+
+    return true;
   };
 
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -141,13 +140,14 @@ const EditProfile = ({ isLogged, userLogged, setIsLogged, setUserLogged } :EditP
 
   const editUser = async() => {
 
-    // If user is logged, this is a update
+    // If user is logged, this is an update
     if(isLogged) {
 
       let body = {
+        currentPseudo: userLogged.pseudo,
         pseudo,
         email,
-        password,
+        password: userLogged.password,
         is_admin: userLogged.is_admin
       };
 
@@ -157,6 +157,7 @@ const EditProfile = ({ isLogged, userLogged, setIsLogged, setUserLogged } :EditP
         body.password = password;
       };
 
+      // update user
       await fetch(`/api/user/upsert`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -172,11 +173,20 @@ const EditProfile = ({ isLogged, userLogged, setIsLogged, setUserLogged } :EditP
       });
 
 
+    // If he's not logged, this is a creation
     } else {
+
       const is_admin = false;
+      const currentPseudo = pseudo;
 
       // If everything is ok, set up the body
-      const body = { pseudo, email, password, is_admin };
+      const body = {
+        currentPseudo,
+        pseudo,
+        email,
+        password,
+        is_admin
+      };
 
       // & create a new user
       await fetch(`/api/user/upsert`, {
@@ -184,9 +194,11 @@ const EditProfile = ({ isLogged, userLogged, setIsLogged, setUserLogged } :EditP
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
       })
-      .then(async() => {
+      .then(async(res) => {
 
-        const body = { pseudoOrEmail: pseudo }
+        const data = await res.json();
+
+        const body = { pseudoOrEmail: data.pseudo }
 
         await fetch(`/api/user/login`, {
           method: 'POST',
@@ -197,9 +209,12 @@ const EditProfile = ({ isLogged, userLogged, setIsLogged, setUserLogged } :EditP
           
           const data = await res.json();
 
-          const userData = {
+          const userData: UserTypes = {
             id: data.id,
             pseudo: data.pseudo,
+            email: data.email,
+            password: data.password,
+            avatar: data.avatar,
             is_admin: data.is_admin,
             is_banished: data.is_banished
           };
@@ -215,7 +230,7 @@ const EditProfile = ({ isLogged, userLogged, setIsLogged, setUserLogged } :EditP
         });
       })
       .catch((error) => {
-        console.error(error);
+        console.log(error);
       });
     };
   };

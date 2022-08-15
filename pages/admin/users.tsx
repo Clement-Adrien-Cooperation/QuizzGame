@@ -51,7 +51,7 @@ const AdminUsers: NextPage = ({ usersData, banishedUsersData, userLogged } :any)
       setShowLoader(false);
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
     });
 
     await fetch('/api/user/getBanishedUsers')
@@ -63,7 +63,7 @@ const AdminUsers: NextPage = ({ usersData, banishedUsersData, userLogged } :any)
       setShowLoader(false);
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
     });
   };
 
@@ -85,7 +85,7 @@ const AdminUsers: NextPage = ({ usersData, banishedUsersData, userLogged } :any)
       getUsers();
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
     });
   };
 
@@ -104,7 +104,7 @@ const AdminUsers: NextPage = ({ usersData, banishedUsersData, userLogged } :any)
       getUsers();
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
     });
   };
 

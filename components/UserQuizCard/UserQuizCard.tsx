@@ -55,7 +55,7 @@ const UserQuizCard = ({
       await getQuizzFromUser();
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
     });
 
     setShowLoader(false);

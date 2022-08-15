@@ -81,7 +81,7 @@ const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) 
       checkPassword(data);
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
     });
     
     setPassword('');

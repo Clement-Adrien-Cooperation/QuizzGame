@@ -50,7 +50,7 @@ const QuestionCard = ({
       getQuestionsFromQuiz();
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
     });
   };
 
@@ -68,7 +68,7 @@ const QuestionCard = ({
       setShowLoader(false);
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
     });
   };
 

@@ -20,7 +20,12 @@ type QuizTypes = {
   reportMessage?: string
 };
 
-const Profile: NextPage = ({ isLogged, userLogged, setIsLogged, setUserLogged }:any) => {
+const Profile: NextPage = ({
+  isLogged,
+  userLogged,
+  setIsLogged,
+  setUserLogged
+}: any) => {
 
   const router = useRouter();
 
@@ -55,7 +60,7 @@ const Profile: NextPage = ({ isLogged, userLogged, setIsLogged, setUserLogged }:
       setShowLoader(false);
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
     });
   };
 

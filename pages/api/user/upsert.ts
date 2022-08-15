@@ -9,13 +9,18 @@ export default async function handle (
   try {
     const user = await prisma.user.upsert({
       where: {
-        id: req.body.user_id
+        pseudo: req.body.currentPseudo
       },
       update: {
-        ...req.body
+        pseudo: req.body.pseudo,
+        email: req.body.email,
+        password: req.body.password,
+        avatar: req.body.avatar
       },
       create: {
-        ...req.body
+        pseudo: req.body.pseudo,
+        email: req.body.email,
+        password: req.body.password,
       }
     });
 

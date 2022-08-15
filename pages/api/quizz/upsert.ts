@@ -8,7 +8,7 @@ export default async function handle (
 ) {
   try {
 
-    const newDate :string = new Date().toLocaleDateString();
+    const newDate: string = new Date().toLocaleDateString();
 
     const quiz = await prisma.quizz.upsert({
       where: {

@@ -130,7 +130,7 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
       setPreviousDifficulty(data.difficulty);
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
     });
   };
 
@@ -150,7 +150,7 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
       setShowLoader(false);
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
     });
   };
 
@@ -334,7 +334,7 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
       console.log(data);
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
     });
   };
 
@@ -374,12 +374,12 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
       })
       .catch((error) => {
 
-        console.error(error);
+        console.log(error);
       });
     })
     .catch((error) => {
 
-      console.error(error);
+      console.log(error);
     });
   };
 

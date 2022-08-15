@@ -16,6 +16,16 @@ type UserLoggedTypes = {
 };
 
 const unLoggedUser = {
+  id: 0,
+  pseudo: '',
+  email: '',
+  password: '',
+  avatar: '',
+  is_admin: false,
+  is_banished: false
+};
+
+const vadrial = {
   id: 1,
   pseudo: 'Vadrial',
   email: 'adrienlcp@gmail.com',
@@ -29,7 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const router = useRouter();
 
-  const [isLogged, setIsLogged] = useState<boolean>(true);
+  const [isLogged, setIsLogged] = useState<boolean>(false);
   const [userLogged, setUserLogged] = useState<UserLoggedTypes>(unLoggedUser);
   
   const checkUser = async () => {

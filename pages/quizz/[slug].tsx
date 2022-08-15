@@ -64,7 +64,7 @@ const QuizGame: NextPage = ({ isLogged, userLogged }:any) => {
       setShowLoader(false);
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
     }); 
   };
 
