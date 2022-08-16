@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import InputField from '../InputField/InputField';
 import Loader from '../Loader/Loader';
 import Warning from '../Warning/Warning';
-import styles from './EditProfile.module.scss';
+import styles from './EditUser.module.scss';
 
 type UserTypes = {
   id: number,
@@ -22,17 +22,21 @@ type EditProfileProps = {
   setUserLogged: Function
 };
 
-const EditProfile = ({ isLogged, userLogged, setIsLogged, setUserLogged } :EditProfileProps) => {
+const EditUser = ({
+  isLogged,
+  userLogged,
+  setIsLogged,  
+  setUserLogged
+}: EditProfileProps) => {
 
   const router = useRouter();
-  
-  const [previousPassword, setPreviousPassword] = useState<string>('');
-  
+
   const [pseudo, setPseudo] = useState<string>('');
-  const [email, setEmail]= useState<string>('');
-  const [password, setPassword]= useState<string>('');
-  const [confirmPassword, setConfirmPassword]= useState<string>('');
-  
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [previousPassword, setPreviousPassword] = useState<string>('');
+
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [disableButton, setDisableButton] = useState<boolean>(true);
   const [showLoader, setShowLoader] = useState<boolean>(false);
@@ -306,7 +310,6 @@ const EditProfile = ({ isLogged, userLogged, setIsLogged, setUserLogged } :EditP
 
     setPreviousPassword(e.target.value);
   };
-  
 
   return (    
     <>
@@ -320,7 +323,7 @@ const EditProfile = ({ isLogged, userLogged, setIsLogged, setUserLogged } :EditP
           inputID={'pseudo'}
           type={'text'}
           isDisabled={false}
-          required={isLogged ? false : true}
+          required={true}
           handleFunction={handleChangePseudo}
         />
 
@@ -330,7 +333,7 @@ const EditProfile = ({ isLogged, userLogged, setIsLogged, setUserLogged } :EditP
           inputID={'email'}
           type={'text'}
           isDisabled={false}
-          required={isLogged ? false : true}
+          required={true}
           handleFunction={handleChangeEmail}
         />
         
@@ -388,4 +391,4 @@ const EditProfile = ({ isLogged, userLogged, setIsLogged, setUserLogged } :EditP
   );
 };
 
-export default EditProfile;
+export default EditUser;

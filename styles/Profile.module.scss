@@ -22,6 +22,10 @@
   }
 }
 
+.button {
+  @include secondaryButton;
+}
+
 .list {
   max-width: 800px;
 }

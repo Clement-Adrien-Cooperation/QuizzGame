@@ -22,9 +22,7 @@ const Home: NextPage = () => {
       return res.json();
     })
     .then(async(res) => {
-      console.log(res.quizz);
-      console.log(res)
-      
+      console.log(res);
     })
     .catch((error) => {
       console.log(error);

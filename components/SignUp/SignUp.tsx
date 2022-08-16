@@ -1,5 +1,5 @@
 import styles from './SignUp.module.scss';
-import EditProfile from '../EditProfile/EditProfile';
+import EditUser from '../EditUser/EditUser';
 
 type UserTypes = {
   id: number,
@@ -34,7 +34,7 @@ const SignUp = ({
         Créer un compte
       </h1>
 
-      <EditProfile
+      <EditUser
         userLogged={userLogged}
         isLogged={isLogged}
         setIsLogged={setIsLogged}

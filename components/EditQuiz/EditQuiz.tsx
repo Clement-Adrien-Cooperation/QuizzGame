@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Loader from '../Loader/Loader';
+import Notification from '../Notification/Notification';
 import Questions from '../Questions/Questions';
 import QuizForm from '../QuizForm/QuizForm';
 import Warning from '../Warning/Warning';
-import styles from './QuizEdit.module.scss';
+import styles from './EditQuiz.module.scss';
 
 type UserLoggedTypes = {
   id: number,
@@ -42,7 +43,7 @@ type QuestionTypes = {
   reportMessage?: string
 };
 
-const QuizEdit = ({ userLogged }: QuizEditProps) => {
+const EditQuiz = ({ userLogged }: QuizEditProps) => {
 
   const router = useRouter();
 
@@ -53,13 +54,16 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
     'Anglais'
   ];
   const categoryList :string[] = [
+    'Actualités',
     'Art',
     'BD / Manga',
     'Divertissement',
     'Cinéma',
     'Culture générale',
+    'Dessins animés',
     'Géographie',
     'Histoire',
+    'Jeux vidéo',
     'Littérature',
     'Loisirs',
     'Médias',
@@ -91,6 +95,9 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
   const [disableButton, setDisableButton] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(true);
 
+  const [notification, setNotification] = useState<string>('');
+  const [showNotification, setShowNotification] = useState<boolean>(false);
+
   useEffect(() => {
     
     if(router.pathname.includes('create')) {
@@ -115,8 +122,6 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
     .then(async(res) => {
       const data = await res.json();
 
-      getQuestionsFromQuiz(data.id);
-
       setCurrentTitle(data.title);
       setTitle(data.title);
 
@@ -128,6 +133,8 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
 
       setDifficulty(data.difficulty);
       setPreviousDifficulty(data.difficulty);
+
+      getQuestionsFromQuiz(data.id);
     })
     .catch((error) => {
       console.log(error);
@@ -294,18 +301,17 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
     if(checkForm()) {
       // If everything is ok, setup the body
       let body = {
+        // currentTitle is empty if this is a creation
+        // if not, useEffect updated it & we enter in "update"
+        // in prisma/quiz/upsert
+        // We need this double title if user change title of quiz
+        currentTitle,
         user_id,
         creator,
         title,
         category,
         lang,
         difficulty
-      };
-
-      // If this is an update, user can change title
-      // It can be a problem, because API wait title as a unique ID
-      if(router.pathname.includes('update')) {
-        body.title = currentTitle;
       };
 
       // & create a new user
@@ -330,6 +336,13 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
     .then(async(res) => {
       
       const data = await res.json();
+
+      if(router.pathname.includes('create')) {
+        router.push(`/quizz/update/${data.title}`);
+      } else {
+        setNotification('✅ Quiz enregistré');
+        setShowNotification(true);
+      };
 
       console.log(data);
     })
@@ -370,6 +383,9 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
 
         const data = await res.json();
         console.log(data);
+      
+        setNotification('✅ Quiz enregistré');
+        setShowNotification(true);
 
       })
       .catch((error) => {
@@ -434,8 +450,15 @@ const QuizEdit = ({ userLogged }: QuizEditProps) => {
       {showLoader && (
         <Loader />
       )}
+
+      {showNotification && (
+        <Notification
+          notification={notification}
+          setShowNotification={setShowNotification}
+        />
+      )}
     </>
   );
 };
 
-export default QuizEdit;
+export default EditQuiz;

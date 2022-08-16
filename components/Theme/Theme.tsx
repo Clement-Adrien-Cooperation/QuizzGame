@@ -30,8 +30,8 @@ const Theme = () => {
 
       <section
         className={showSettings ?
-          `${styles.settings} ${styles.opened}` 
-        : 
+          `${styles.settings} ${styles.opened}`
+        :
           `${styles.settings}`
         }
       >

@@ -43,6 +43,9 @@ const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) 
       const userData = {
         id: data.id,
         pseudo: data.pseudo,
+        email: data.email,
+        password: data.password,
+        avatar: data.avatar,
         is_admin: data.is_admin,
         is_banished: data.is_banished
       };

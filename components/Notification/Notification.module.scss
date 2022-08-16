@@ -1,0 +1,47 @@
+@import '../../styles/mixins';
+
+.card {
+  @include posFixed(auto, 20px, 0, auto);
+  aspect-ratio: 16/9;
+  padding: 50px;
+  background: var(--main-color-secondary);
+  opacity: 0;
+  border-radius: var(--small-radius) var(--small-radius) 0 0;
+  transform: translateY(100%);
+  transition: .3s;
+  animation: animApparition .3s ease-out;
+
+  &.opened {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.body {
+  @include flexCenter;
+  height: 100%;
+}
+
+.text {
+  margin-top: 15px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+@keyframes animApparition {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

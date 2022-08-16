@@ -59,7 +59,7 @@ const Quizz: NextPage = ({ quizzData, isLogged, userLogged }: any) => {
             inputID={'quizz-filter'}
             type={'text'}
             isDisabled={false}
-            required={false}
+            required={true}
             handleFunction={handleChangeFilter}
           />
         </div>

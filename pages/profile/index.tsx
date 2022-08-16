@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import EditProfile from '../../components/EditProfile/EditProfile';
+import EditUser from '../../components/EditUser/EditUser';
 import Loader from '../../components/Loader/Loader';
 import UserQuizCard from '../../components/UserQuizCard/UserQuizCard';
 import styles from '../../styles/Profile.module.scss';
@@ -78,41 +78,58 @@ const Profile: NextPage = ({
           Modifier mon profil
         </h2>
 
-        <EditProfile
+        <EditUser
           isLogged={isLogged}
           userLogged={userLogged}
           setIsLogged={setIsLogged}
           setUserLogged={setUserLogged}
         />
-
       </section>
 
-      <section className={styles.container}>
-        <h2 className={styles.container__title}>
-          Mes Quizz
-        </h2>
+      {userQuizz.length === 0 ? (
 
-        <ul className={styles.list}>
+        <section className={styles.container}>
+          <h2 className={styles.container__title}>
+            Vous n'avez aucun quiz
+          </h2>
 
-          {userQuizz?.map(quiz =>
+          <button
+            className={styles.button}
+            onClick={() => router.push('/quizz/create')}
+          >
+            Créer un quiz
+          </button>
+        </section>
 
-            <li key={quiz.id}>
-              <UserQuizCard
-                id={quiz.id}
-                title={quiz.title}
-                category={quiz.category}
-                lang={quiz.lang}
-                difficulty={quiz.difficulty}
-                is_visible={quiz.is_visible}
-                date={quiz.date}
-                reported={quiz.reported}
-                reportMessage={quiz.reportMessage}
-                getQuizzFromUser={getQuizzFromUser}
-              />
-            </li>
-          )}
-        </ul>
-      </section>
+      ) : (
+
+        <section className={styles.container}>
+          <h2 className={styles.container__title}>
+            Mes Quizz
+          </h2>
+
+          <ul className={styles.list}>
+
+            {userQuizz.map(quiz =>
+
+              <li key={quiz.id}>
+                <UserQuizCard
+                  id={quiz.id}
+                  title={quiz.title}
+                  category={quiz.category}
+                  lang={quiz.lang}
+                  difficulty={quiz.difficulty}
+                  is_visible={quiz.is_visible}
+                  date={quiz.date}
+                  reported={quiz.reported}
+                  reportMessage={quiz.reportMessage}
+                  getQuizzFromUser={getQuizzFromUser}
+                />
+              </li>
+            )}
+          </ul>
+        </section>
+      )}
 
       {showLoader && (
         <Loader />

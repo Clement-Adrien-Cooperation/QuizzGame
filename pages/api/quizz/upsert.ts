@@ -8,18 +8,24 @@ export default async function handle (
 ) {
   try {
 
-    const newDate: string = new Date().toLocaleDateString();
-
     const quiz = await prisma.quizz.upsert({
       where: {
-        title: req.body.title
+        title: req.body.currentTitle
       },
       update: {
-        ...req.body
+        title: req.body.title,
+        category: req.body.category,
+        lang: req.body.lang,
+        difficulty: req.body.category
       },
       create: {
-        ...req.body,
-        date: newDate
+        user_id: req.body.user_id,
+        creator: req.body.creator,
+        title: req.body.title,
+        category: req.body.category,
+        lang: req.body.lang,
+        difficulty: req.body.difficulty,
+        date: new Date().toLocaleDateString()
       }
     });
 

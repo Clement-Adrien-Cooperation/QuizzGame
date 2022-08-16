@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Loader from '../../../components/Loader/Loader';
-import QuizEdit from '../../../components/QuizEdit/QuizEdit';
+import EditQuiz from '../../../components/EditQuiz/EditQuiz';
 
 const UpdateQuiz: NextPage = ({ isLogged, userLogged }:any) => {
   
@@ -45,7 +45,7 @@ const UpdateQuiz: NextPage = ({ isLogged, userLogged }:any) => {
 
   return (
     <>
-      <QuizEdit
+      <EditQuiz
         userLogged={userLogged}
       />
 
