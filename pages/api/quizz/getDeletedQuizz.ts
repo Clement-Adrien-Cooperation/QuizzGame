@@ -9,11 +9,8 @@ export default async function handle (
   try {
     const quizz = await prisma.quizz.findMany({
       where: {
-        is_visible: true
-      },
-      orderBy: [{
-        rate: 'desc'
-      }]
+        is_visible: false
+      }
     });
     res.status(200).json(quizz);
     

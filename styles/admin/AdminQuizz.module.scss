@@ -1,0 +1,19 @@
+@import '../mixins';
+
+.buttons {
+  @include posAbsolute(100px, 20px, auto, auto);
+  display: flex;
+ 
+  &__item {
+    @include secondaryButton;
+  }
+}
+
+.container {
+  @include flexCenter;
+  margin-top: 100px;
+}
+
+.quizz {
+  width: 800px;
+}

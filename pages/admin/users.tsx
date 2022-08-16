@@ -113,19 +113,26 @@ const AdminUsers: NextPage = ({ usersData, banishedUsersData, userLogged } :any)
       <AdminHeader />
 
       <section className={styles.buttons}>
-        <a
-          className={styles.button}
-          href='#users'
-        >
-          Utilisateurs
-        </a>
 
-        <a
-          className={styles.button}
-          href='#banned-users'
-        >
-          Bannis
-        </a>
+        {users.length === 0 ? '' : (
+          <a
+            className={styles.button}
+            href='#users'
+          >
+            Utilisateurs
+          </a>
+        )}
+
+
+
+        {banishedUsers.length === 0 ? '' : (
+          <a
+            className={styles.button}
+            href='#banned-users'
+          >
+            Bannis
+          </a>
+        )}
       </section>
       
       <section className={styles.container}>
