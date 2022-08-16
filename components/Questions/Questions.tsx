@@ -92,27 +92,32 @@ const Questions = ({
       ) : (
         <>
           {questions.length > 0 && (
+            <>
+              <h2 className={styles.title}>
+                Questions
+              </h2>
 
-            <ul className={styles.list}>
-              {questions.map((question, index) =>
+              <ul className={styles.list}>
+                {questions.map((question, index) =>
 
-                <li key={index}>
-                  <QuestionCard
-                    id={question.id}
-                    quizz_id={question.quizz_id}
-                    question={question.question}
-                    answer={question.answer}
-                    propositions={question.propositions}
-                    description={question.description}
-                    setQuestions={setQuestions}
-                    updateQuestion={updateQuestion}
-                    setUpdating={setUpdating}
-                    questionIndex={index}
-                    setUpdateIndex={setUpdateIndex}
-                  />
-                </li>
-              )}
-            </ul>
+                  <li key={index}>
+                    <QuestionCard
+                      id={question.id}
+                      quizz_id={question.quizz_id}
+                      question={question.question}
+                      answer={question.answer}
+                      propositions={question.propositions}
+                      description={question.description}
+                      setQuestions={setQuestions}
+                      updateQuestion={updateQuestion}
+                      setUpdating={setUpdating}
+                      questionIndex={index}
+                      setUpdateIndex={setUpdateIndex}
+                    />
+                  </li>
+                )}
+              </ul>
+            </>
           )}
           <button
             className={styles.button}

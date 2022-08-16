@@ -5,10 +5,8 @@
   align-items: center;
   justify-content: space-between;
   border-radius: var(--small-radius);
-  
-  &:hover {
-    background: rgba(0, 0, 0, 0.08);
-  }
+  box-shadow: var(--box-shadow);
+  margin: 10px 0;
 }
 
 .header {

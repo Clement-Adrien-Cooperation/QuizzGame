@@ -3,8 +3,10 @@ import { useRouter } from 'next/router';
 import styles from './QuestionCard.module.scss';
 import editIcon from '../../public/icons/edit.svg';
 import deleteIcon from '../../public/icons/delete.svg';
+import arrow from '../../public/icons/arrow.svg';
 import Loader from '../Loader/Loader';
 import { useState } from 'react';
+import QuestionDetails from '../QuestionDetails/QuestionDetails';
 
 type QuestionCardProps = {
   id: number,
@@ -12,7 +14,7 @@ type QuestionCardProps = {
   question: string,
   answer: string,
   propositions: string[],
-  description?: string,
+  description: string,
   setQuestions: Function,
   updateQuestion: Function,
   setUpdating: Function,
@@ -35,6 +37,7 @@ const QuestionCard = ({
 }: QuestionCardProps) => {
 
   const [showLoader, setShowLoader] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
   const handleDeleteQuestion = async () => {
 
@@ -91,62 +94,70 @@ const QuestionCard = ({
 
   return (
     <>
-      <section className={styles.card}>
+      <section
+        className={showDetails ?
+          `${styles.card} ${styles.opened}`
+        :
+          `${styles.card}`}
+      >
         <header className={styles.header}>
           <h3 className={styles.question}>
             {question}
           </h3>
 
-          <p className={styles.answer}>
-            {answer}
-          </p>
+          <aside className={styles.buttons}>
+            <button
+              className={showDetails ?
+                `${styles.icon} ${styles.rotated}`
+              :
+                `${styles.icon}`
+              }
+              onClick={() => setShowDetails(!showDetails)}
+            >
+              <Image
+                src={arrow}
+                width='32px'
+                height='32px'
+                layout='responsive'
+                alt='Voir les détails'
+              />
+            </button>
+
+            <button
+              className={styles.icon}
+              onClick={handleUpdateQuestion}
+            >
+              <Image
+                src={editIcon}
+                width='32px'
+                height='32px'
+                layout='responsive'
+                alt='Modifier'
+              />
+            </button>
+
+            <button
+              className={styles.icon}
+              onClick={handleDeleteQuestion}
+            >
+              <Image
+                src={deleteIcon}
+                width='32px'
+                height='32px'
+                layout='responsive'
+                alt='Supprimer'
+              />
+            </button>
+          </aside>
         </header>
 
-        <section className={styles.propositions}>
-          <ul className={styles.propositions}>
-            {propositions.map((proposition, index) =>
-              <li key={index}>
-                {proposition}
-              </li>  
-            )}
-          </ul>
-        </section>
-
-        {description && (
-          <section>
-            <p>
-              {description}
-            </p>
-          </section>
+        {showDetails && (
+          <QuestionDetails
+            answer={answer}
+            propositions={propositions}
+            description={description}
+          />
         )}
-
-        <footer className={styles.footer}>
-          <button
-            className={styles.icon}
-            onClick={handleUpdateQuestion}
-          >
-            <Image
-              src={editIcon}
-              width='32px'
-              height='32px'
-              layout='responsive'
-              alt='Modifier'
-            />
-          </button>
-
-          <button
-            className={styles.icon}
-            onClick={handleDeleteQuestion}
-          >
-            <Image
-              src={deleteIcon}
-              width='32px'
-              height='32px'
-              layout='responsive'
-              alt='Supprimer'
-            />
-          </button>
-        </footer>
       </section>
 
       {showLoader && (
