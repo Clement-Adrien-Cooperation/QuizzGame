@@ -61,6 +61,9 @@ const UserDetails = ({
 
           <button
             className={styles.button}
+            type='button'
+            title={is_banished ? 'Débannir cet utilisateur' : 'Bannir cet utilisateur'}
+            aria-label={is_banished ? 'Débannir cet utilisateur' : 'Bannir cet utilisateur'}
             onClick={() => handleBanishement(id, is_banished)}
           >
             {is_banished ? "Débannir" : "Bannir"}
@@ -70,6 +73,9 @@ const UserDetails = ({
             
             <button
               className={styles.button__secondary}
+              type='button'
+              title={is_admin ? 'Rétrograder cet utilisateur' : 'Promouvoir cet utilisateur'}
+              aria-label={is_admin ? 'Rétrograder cet utilisateur' : 'Promouvoir cet utilisateur'}
               onClick={() => handlePromotion(id, is_admin)}
             >
               {is_admin ? "Rétrograder" : "Promouvoir"}

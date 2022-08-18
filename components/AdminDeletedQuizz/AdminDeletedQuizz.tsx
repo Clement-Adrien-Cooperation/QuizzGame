@@ -37,7 +37,7 @@ const AdminDeletedQuizz = ({ deletedQuizzData }: AdminQuizzProps) => {
     };
   }, []);
 
-  const handleChangeDeletedQuizzFilter = (e:React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeDeletedQuizzFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDeletedQuizzFilter(e.target.value);
   };
 

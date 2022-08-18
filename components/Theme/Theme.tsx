@@ -16,7 +16,8 @@ const Theme = () => {
       <button
         className={styles.icon}
         type='button'
-        aria-label='Ouvrir les paramètres de couleurs et thème'
+        title='Ouvrir les paramètres du thème et couleurs'
+        aria-label='Ouvrir les paramètres de thème et couleurs'
         onClick={() => setShowSettings(true)}
       >
         <Image
@@ -24,7 +25,7 @@ const Theme = () => {
           width='32px'
           height='32px'
           layout="responsive"
-          alt='Ouvrir les paramètres'
+          alt='Engrenage'
         />
       </button>
 

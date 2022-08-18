@@ -17,6 +17,7 @@ const Warning = ({ warningMessage, setWarningMessage }: WarningProps) => {
       <button
         className={styles.warning__button}
         type='button'
+        title='Fermer'
         aria-label='Fermer'
         onClick={() => setWarningMessage('')}
       >

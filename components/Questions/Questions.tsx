@@ -122,6 +122,8 @@ const Questions = ({
           <button
             className={styles.button}
             type='button'
+            title='Ajouter une nouvelle question'
+            aria-label='Ajouter une nouvelle question'
             onClick={() => {
               setUpdating(false);
               handleToggleForm();

@@ -1,1 +1,9 @@
 @import '../../styles/mixins';
+
+.card {
+  display: flex;
+  margin: 5px 0;
+  padding: 15px 20px;
+  border-radius: var(--small-radius);
+  box-shadow: var(--box-shadow);
+}

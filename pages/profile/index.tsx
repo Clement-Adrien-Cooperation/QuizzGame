@@ -34,11 +34,11 @@ const Profile: NextPage = ({
 
   useEffect(() => {
 
-    if(!isLogged) {
-      router.push('/');
-    } else {
+    if(isLogged) {
       document.title = "Mon profil - s'Quizz Game";
       getQuizzFromUser();
+    } else {
+      router.push('/');
     };
   }, []);
 
@@ -95,6 +95,9 @@ const Profile: NextPage = ({
 
           <button
             className={styles.button}
+            type='button'
+            title='Créer un nouveau quiz'
+            aria-label='Créer un nouveau quiz'
             onClick={() => router.push('/quizz/create')}
           >
             Créer un quiz

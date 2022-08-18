@@ -110,14 +110,17 @@ const QuizCard = ({
 
           <button
             className={styles.link}
-
+            type='button'
+            title={`Voir tous les quizz de ${creator}`}
+            aria-label={`Voir tous les quizz de ${creator}`}
+            onClick={() => router.push(`/profile/${creator}`)}
           >
             {creator}
           </button>
         </p>
 
         <p className={styles.date}>
-          {date === null ? '' : date}
+          {date}
         </p>
       </footer>
       

@@ -77,6 +77,9 @@ const UserQuizCard = ({
         <footer className={styles.footer}>
           <button
             className={styles.button}
+            type='button'
+            title='Jouer à ce quiz'
+            aria-label='Jouer à ce quiz'
             onClick={() => router.push(`/quizz/${title}`)}
           >
             <div className={styles.icon}>
@@ -91,6 +94,9 @@ const UserQuizCard = ({
           </button>
           <button
             className={styles.button}
+            type='button'
+            title='Modifier ce quiz'
+            aria-label='Modifier ce quiz'
             onClick={() => router.push(`/quizz/update/${title}`)}
           >
             <div className={styles.icon}>
@@ -105,6 +111,9 @@ const UserQuizCard = ({
           </button>
           <button
             className={styles.button}
+            type='button'
+            title='Supprimer ce quiz'
+            aria-label='Supprimer ce quiz'
             onClick={() => handleDeleteQuiz(id)}
           >
             <div className={styles.icon}>

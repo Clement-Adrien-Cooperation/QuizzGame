@@ -33,8 +33,6 @@ const UserProfile: NextPage = ({ isLogged, userLogged }: any) => {
       if(userLogged.is_banished === true) {
         router.push('/banned');
       };
-    } else {
-      router.push('/');
     };
 
     getQuizzFromUser(userLogged.id);
@@ -72,17 +70,17 @@ const UserProfile: NextPage = ({ isLogged, userLogged }: any) => {
         <ul className={styles.list}>
 
           {userQuizz.map((quiz: QuizTypes, index: number) =>
-              <li key={index}>
-                <UserProfileQuizCard
-                  title={quiz.title}
-                  category={quiz.category}
-                  difficulty={quiz.difficulty}
-                  lang={quiz.lang}
-                  image={quiz.image}
-                  date={quiz.date}
-                  rate={quiz.rate}
-                />
-              </li>
+            <li key={index}>
+              <UserProfileQuizCard
+                title={quiz.title}
+                category={quiz.category}
+                difficulty={quiz.difficulty}
+                lang={quiz.lang}
+                image={quiz.image}
+                date={quiz.date}
+                rate={quiz.rate}
+              />
+            </li>
           )}
 
         </ul>

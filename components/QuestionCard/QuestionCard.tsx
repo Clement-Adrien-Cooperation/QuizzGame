@@ -112,6 +112,9 @@ const QuestionCard = ({
               :
                 `${styles.icon}`
               }
+              type='button'
+              title='Détails de la question'
+              aria-label='Détails de la question'
               onClick={() => setShowDetails(!showDetails)}
             >
               <Image
@@ -125,6 +128,9 @@ const QuestionCard = ({
 
             <button
               className={styles.icon}
+              type='button'
+              title='Modifier la question'
+              aria-label='Modifier la question'
               onClick={handleUpdateQuestion}
             >
               <Image
@@ -138,6 +144,9 @@ const QuestionCard = ({
 
             <button
               className={styles.icon}
+              type='button'
+              title='Supprimer la question'
+              aria-label='Supprimer la question'
               onClick={handleDeleteQuestion}
             >
               <Image

@@ -20,6 +20,8 @@ const ConfirmModal = ({ message, handleFunction, closeModal } :ConfirmModalProps
 
           <button
             className={styles.buttons__confirm}
+            title='Accepter'
+            aria-label='Accepter'
             onClick={() => handleFunction}
           >
             Confirmer
@@ -27,6 +29,8 @@ const ConfirmModal = ({ message, handleFunction, closeModal } :ConfirmModalProps
 
           <button
             className={styles.buttons__cancel}
+            title='Fermer'
+            aria-label='Fermer'
             onClick={() => closeModal}
           >
             Annuler

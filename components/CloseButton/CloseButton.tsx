@@ -10,6 +10,7 @@ const CloseButton = ({ handleFunction } :CloseButtonProps) => {
     <button
       className={styles.close_button}
       type='button'
+      title='Fermer'
       aria-label='Fermer'
       onClick={() => handleFunction()}
     >

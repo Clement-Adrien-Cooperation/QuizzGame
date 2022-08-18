@@ -43,6 +43,9 @@ const SignUp = ({
 
       <button
         className={styles.secondary_button}
+        type='button'
+        title='Se connecter à un compte'
+        aria-label='Se connecter à un compte'
         onClick={() => handleToggleForm()}
       >
         Déjà un compte ?

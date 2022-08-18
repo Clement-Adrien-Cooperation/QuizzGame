@@ -141,17 +141,22 @@ const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) 
           
           <input
             className={styles.submit_button}
+            title='Se connecter'
             type='submit'
             value='Connexion'
             disabled={disableButton}
           />
-
         </form>
 
         <button
           className={styles.secondary_button}
+          type='button'
+          title='Créer un nouveau compte'
+          aria-label='Créer un nouveau compte'
           onClick={() => handleToggleForm()}
         >
+          Nouveau ?
+          <br/>
           Se créer un compte
         </button>
 

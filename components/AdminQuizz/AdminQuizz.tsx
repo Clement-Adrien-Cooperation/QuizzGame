@@ -26,7 +26,7 @@ type AdminQuizzProps = {
 const AdminQuizz = ({ quizzData }: AdminQuizzProps) => {
 
   const [quizz, setQuizz] = useState<QuizTypes[]>([]);
-  const [quizzFilter, setQuizFilter] = useState<string>('');
+  const [quizzFilter, setQuizzFilter] = useState<string>('');
 
   const [showLoader, setShowLoader] = useState<boolean>(true);
 
@@ -37,8 +37,8 @@ const AdminQuizz = ({ quizzData }: AdminQuizzProps) => {
     };
   }, []);
 
-  const handleChangeQuizzFilter = (e:React.ChangeEvent<HTMLInputElement>) => {
-    setQuizFilter(e.target.value);
+  const handleChangeQuizzFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuizzFilter(event.target.value);
   };
 
   return (

@@ -65,7 +65,12 @@ const Quizz: NextPage = ({ quizzData, isLogged, userLogged }: any) => {
         </div>
 
         {isLogged && (
-          <button className={styles.button}>
+          <button
+            className={styles.button}
+            type='button'
+            title='Créer un nouveau quiz'
+            aria-label='Créer un nouveau quiz'
+          >
             <Link href='/quizz/create'>
               <a className={styles.link}>
                 Créer un Quiz

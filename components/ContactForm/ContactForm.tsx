@@ -50,6 +50,8 @@ const ContactForm = () => {
       <button
         className={styles.button}
         type='submit'
+        title='Envoyer le message'
+        aria-label='Envoyer le message'
         disabled={state.submitting}
       >
         <div className={styles.icon}>

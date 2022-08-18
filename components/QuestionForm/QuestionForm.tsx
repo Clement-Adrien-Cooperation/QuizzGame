@@ -314,6 +314,8 @@ const QuestionForm = ({
         <button
           className={styles.submit}
           type='submit'
+          title='Sauvegarder la question'
+          aria-label='Sauvegarder la question'
           disabled={disableButton}
         >
           {updating ? 'Mettre à jour' : 'Ajouter cette question'}
@@ -322,6 +324,8 @@ const QuestionForm = ({
         <button
           className={styles.cancel}
           type='button'
+          title='Revenir aux questions'
+          aria-label='Revenir aux questions'
           onClick={() => handleToggleForm()}
         >
           Annuler
