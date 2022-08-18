@@ -58,8 +58,11 @@ const QuizCard = ({
 
   return (
     <article className={styles.card}>
+
       <section
         className={styles.container}
+        title='Jouer à ce quiz'
+        aria-label='Jouer à ce quiz'
         onClick={() => router.push(`/quizz/${title}`)}
       >
         <header className={styles.header}>

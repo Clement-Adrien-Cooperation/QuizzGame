@@ -51,6 +51,7 @@ const DarkMode = () => {
 
       <CheckButton
         state={darkMode}
+        title={darkMode ? 'Activer le mode clair' : 'Activer mode sombre'}
         clickFunction={toggleTheme}
       />
 

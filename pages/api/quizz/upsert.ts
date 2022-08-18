@@ -14,14 +14,16 @@ export default async function handle (
       },
       update: {
         title: req.body.title,
+        nbOfQuestions: req.body.nbOfQuestions,
         category: req.body.category,
         lang: req.body.lang,
-        difficulty: req.body.category
+        difficulty: req.body.difficulty
       },
       create: {
         user_id: req.body.user_id,
         creator: req.body.creator,
         title: req.body.title,
+        nbOfQuestions: req.body.nbOfQuestions,
         category: req.body.category,
         lang: req.body.lang,
         difficulty: req.body.difficulty,

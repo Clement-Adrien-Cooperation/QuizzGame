@@ -7,7 +7,11 @@ type ConfirmModalProps = {
   closeModal: Function
 };
 
-const ConfirmModal = ({ message, handleFunction, closeModal } :ConfirmModalProps) => {
+const ConfirmModal = ({
+  message,
+  handleFunction,
+  closeModal
+}: ConfirmModalProps) => {
 
   return (
     <div className={styles.container}>

@@ -37,6 +37,7 @@ const ColorsPicker = () => {
         hue={hue}
         colorName={'purple'}
         hueColor={'250'}
+        title={'Thème violet'}
         changeColor={changeColor}
       >
         <span className={styles.picker_purple}/>
@@ -46,6 +47,7 @@ const ColorsPicker = () => {
         hue={hue}
         colorName={'blue'}
         hueColor={'230'}
+        title={'Thème bleu'}
         changeColor={changeColor}
       >
         <span className={styles.picker_blue}/>
@@ -55,6 +57,7 @@ const ColorsPicker = () => {
         hue={hue}
         colorName={'pink'}
         hueColor={'340'}
+        title={'Thème rose'}
         changeColor={changeColor}
       >
         <span className={styles.picker_pink}/>
@@ -64,6 +67,7 @@ const ColorsPicker = () => {
         hue={hue}
         colorName={'red'}
         hueColor={'360'}
+        title={'Thème rouge'}
         changeColor={changeColor}
       >
         <span className={styles.picker_red}/>
@@ -73,6 +77,7 @@ const ColorsPicker = () => {
         hue={hue}
         colorName={'orange'}
         hueColor={'25'}
+        title={'Thème orange'}
         changeColor={changeColor}
       >
         <span className={styles.picker_orange}/>

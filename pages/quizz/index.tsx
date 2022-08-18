@@ -90,7 +90,7 @@ const Quizz: NextPage = ({ quizzData, isLogged, userLogged }: any) => {
             const userFilter = filter.toLowerCase();
             
             // If quiz doesn't have question, we don't render it
-            // if(quiz.questions.length !== 0) {
+            // if(quiz.nbOfQuestions !== 0) {
               if(quizTitle.includes(userFilter) || quizCreator.includes(userFilter)) {
 
                 return (

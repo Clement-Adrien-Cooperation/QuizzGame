@@ -30,6 +30,7 @@ model Quizz {
   user_id       Int       
   creator       String
   title         String    @unique
+  nbOfQuestions Int
   category      String?
   difficulty    String?
   lang          String?

@@ -15,7 +15,7 @@ export default async function handle (
         pseudo: req.body.pseudo,
         email: req.body.email,
         password: req.body.password,
-        avatar: req.body.avatar
+        // avatar: req.body.avatar
       },
       create: {
         pseudo: req.body.pseudo,

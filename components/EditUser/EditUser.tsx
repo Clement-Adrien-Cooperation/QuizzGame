@@ -47,7 +47,7 @@ const EditUser = ({
       setEmail(userLogged.email);
     };
   }, []);
-  
+
   const checkForm = () => {
 
     if(!email.includes('@') && !email.includes('.')) {
@@ -175,7 +175,6 @@ const EditUser = ({
       .catch((error) => {
         console.log(error);
       });
-
 
     // If he's not logged, this is a creation
     } else {

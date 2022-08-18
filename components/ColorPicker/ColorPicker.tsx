@@ -5,6 +5,7 @@ type ColorPickerProps = {
   hue: string,
   colorName: string,
   hueColor: string,
+  title: string,
   changeColor: Function
 };
 
@@ -13,6 +14,7 @@ const ColorPicker = ({
   hue,
   colorName,
   hueColor,
+  title,
   changeColor
 } : ColorPickerProps) => {
 
@@ -23,6 +25,8 @@ const ColorPicker = ({
         type='radio'
         name='color'
         id={colorName}
+        title={title}
+        aria-label={title}
         defaultChecked={hue === hueColor ? true : false}
         readOnly
       />
@@ -30,6 +34,8 @@ const ColorPicker = ({
       <label
         className={styles.picker}
         htmlFor={colorName}
+        title={title}
+        aria-label={title}
         onClick={() => {changeColor(hueColor)}}
       >
         {children}

@@ -23,6 +23,7 @@ type QuizTypes = {
   user_id: number,
   creator: string,
   title: string,
+  nbOfQuestions: number,
   category: string,
   lang: string,
   difficulty: string,
@@ -47,7 +48,7 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
 
   const router = useRouter();
 
-  let questionsToSave:QuestionTypes[] = [];
+  let questionsToSave: QuestionTypes[] = [];
 
   const langList :string[] = [
     'Français',
@@ -297,7 +298,7 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
 
     const user_id :number = userLogged.id;
     const creator :string = userLogged.pseudo;
-
+    
     if(checkForm()) {
       // If everything is ok, setup the body
       let body = {
@@ -308,6 +309,7 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
         currentTitle,
         user_id,
         creator,
+        nbOfQuestions: questions.length,
         title,
         category,
         lang,
@@ -434,7 +436,7 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
           handleChangeLang={handleChangeLang}
         />
 
-        { warningMessage && (
+        {warningMessage && (
           <Warning
             warningMessage={warningMessage}
             setWarningMessage={setWarningMessage}
