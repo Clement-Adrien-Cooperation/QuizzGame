@@ -8,6 +8,7 @@ type QuizCardProps = {
   id: number,
   creator: string,
   title: string,
+  nbOfQuestions: number,
   difficulty: string,
   image: string,
   category: string,
@@ -19,6 +20,7 @@ const QuizCard = ({
   id,
   creator,
   title,
+  nbOfQuestions,
   difficulty,
   image,
   category,
@@ -29,8 +31,6 @@ const QuizCard = ({
   const router = useRouter();
 
   const [backgroundColor, setBackgroundColor] = useState<string>('var(--yellow)');
-  
-  rate = 4;
 
   useEffect(() => {
     switch (true) {
@@ -97,6 +97,10 @@ const QuizCard = ({
 
           <span className={styles.body__content}>
             {category}
+          </span>
+
+          <span className={styles.body__content}>
+            {nbOfQuestions} {nbOfQuestions <= 1 ? 'question' : 'questions'}
           </span>
 
           <span className={styles.body__content}>

@@ -12,6 +12,7 @@ type QuizTypes = {
   user_id: number,
   creator: string,
   title: string,
+  nbOfQuestions: number,
   category: string,
   difficulty: string,
   lang: string,
@@ -99,6 +100,7 @@ const Quizz: NextPage = ({ quizzData, isLogged, userLogged }: any) => {
                       id={quiz.id}
                       creator={quiz.creator}
                       title={quiz.title}
+                      nbOfQuestions={quiz.nbOfQuestions}
                       difficulty={quiz.difficulty}
                       image={quiz.image}
                       category={quiz.category}

@@ -1,0 +1,7 @@
+@import './mixins';
+
+.container {
+  @include flexCenter;
+  flex-direction: column;
+  padding-bottom: 40vh;
+}

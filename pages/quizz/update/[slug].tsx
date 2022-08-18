@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Loader from '../../../components/Loader/Loader';
 import EditQuiz from '../../../components/EditQuiz/EditQuiz';
+import styles from '../../../styles/UpdateQuizz.module.scss';
 
 const UpdateQuiz: NextPage = ({ isLogged, userLogged }:any) => {
   
@@ -45,9 +46,13 @@ const UpdateQuiz: NextPage = ({ isLogged, userLogged }:any) => {
 
   return (
     <>
-      <EditQuiz
-        userLogged={userLogged}
-      />
+      <div className={styles.container}>
+
+        <EditQuiz
+          userLogged={userLogged}
+        />
+        
+      </div>
 
       {showLoader && (
         <Loader />

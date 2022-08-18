@@ -26,7 +26,7 @@ const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) 
   const router = useRouter();
 
   const [pseudoOrEmail, setPseudoOrEmail] = useState<string>('adrienlcp@gmail.com');
-  const [password, setPassword] = useState<string>('TDYQCM&S3o!zao6i');
+  const [password, setPassword] = useState<string>('!xJeLth!P4!psnjT');
   const [warningMessage, setWarningMessage] = useState<string>('');
 
   const [disableButton, setDisableButton] = useState<boolean>(false);

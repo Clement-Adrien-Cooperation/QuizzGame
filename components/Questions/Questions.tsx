@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import InputField from '../InputField/InputField';
 import QuestionCard from '../QuestionCard/QuestionCard';
 import QuestionForm from '../QuestionForm/QuestionForm';
 import styles from './Questions.module.scss';
@@ -38,6 +39,8 @@ const Questions = ({
   const [updateIndex, setUpdateIndex] = useState<number>(0);
   const [questionID, setQuestionID] = useState<number>(0);
 
+  const [questionFilter, setQuestionFilter] = useState<string>('');
+
   const updateQuestion = (questionData: QuestionTypes) => {
     setQuestionID(questionData.id);
     setQuestion(questionData.question);
@@ -65,6 +68,10 @@ const Questions = ({
     };
   };
 
+  const handleChangeQuestionFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuestionFilter(e.target.value);
+  };
+
   return (
     <section className={styles.container}>
 
@@ -90,32 +97,59 @@ const Questions = ({
           questionID={questionID}
         />
       ) : (
-        <>
+        <section className={styles.questions}>
           {questions.length > 0 && (
             <>
               <h2 className={styles.title}>
                 Questions
               </h2>
 
-              <ul className={styles.list}>
-                {questions.map((question, index) =>
+              {questions.length > 5 && (
+                <div
+                  className={styles.input}
+                  title='Vous pouvez filtrer avec la questions en elle-même ou avec la bonne réponse'
+                  aria-label='Vous pouvez filtrer avec la questions en elle-même ou avec la bonne réponse'
+                >
+                  <InputField
+                    name={'Filtrer les questions'}
+                    state={questionFilter}
+                    inputID={'question-filter'}
+                    type={'text'}
+                    isDisabled={false}
+                    required={true}
+                    handleFunction={handleChangeQuestionFilter}
+                  />
+                </div>
+              )}
 
-                  <li key={index}>
-                    <QuestionCard
-                      id={question.id}
-                      quizz_id={question.quizz_id}
-                      question={question.question}
-                      answer={question.answer}
-                      propositions={question.propositions}
-                      description={question.description}
-                      setQuestions={setQuestions}
-                      updateQuestion={updateQuestion}
-                      setUpdating={setUpdating}
-                      questionIndex={index}
-                      setUpdateIndex={setUpdateIndex}
-                    />
-                  </li>
-                )}
+              <ul className={styles.list}>
+                {questions.map((question, index) => {
+
+                  const filteredQuestion = question.question.toLowerCase();
+                  const filteredAnswer = question.answer.toLowerCase();
+                  const filter = questionFilter.toLocaleLowerCase();
+
+                  if(filteredQuestion.includes(filter) || filteredAnswer.includes(filter)) {
+
+                    return (
+                      <li key={index}>
+                        <QuestionCard
+                          id={question.id}
+                          quizz_id={question.quizz_id}
+                          question={question.question}
+                          answer={question.answer}
+                          propositions={question.propositions}
+                          description={question.description}
+                          setQuestions={setQuestions}
+                          updateQuestion={updateQuestion}
+                          setUpdating={setUpdating}
+                          questionIndex={index}
+                          setUpdateIndex={setUpdateIndex}
+                        />
+                      </li>
+                    );
+                  };
+                })}
               </ul>
             </>
           )}
@@ -131,7 +165,7 @@ const Questions = ({
           >
             Ajouter une question
           </button>
-        </>
+        </section>
       )}
     </section>
   );

@@ -3,7 +3,7 @@
 .card {
   @include posFixed(auto, 20px, 0, auto);
   aspect-ratio: 16/9;
-  padding: 50px;
+  padding: 30px 60px;
   background: var(--main-color-secondary);
   opacity: 0;
   border-radius: var(--small-radius) var(--small-radius) 0 0;

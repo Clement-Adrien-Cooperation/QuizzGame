@@ -4,12 +4,22 @@
   @include flexCenter;
   flex-direction: column;
   margin-top: 70px;
+  max-width: 800px;
 }
 
 .title {
   font-size: 20px;
   font-weight: 300;
   margin: 0 0 20px;
+}
+
+.input {
+  width: 400px;
+}
+
+.questions {
+  @include flexCenter;
+  flex-direction: column;
 }
 
 .list {

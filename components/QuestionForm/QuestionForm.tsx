@@ -195,7 +195,6 @@ const QuestionForm = ({
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
       
-
     if(checkForm()) {
       
       // Copy array from state

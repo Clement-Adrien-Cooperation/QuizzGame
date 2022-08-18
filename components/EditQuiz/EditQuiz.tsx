@@ -72,6 +72,7 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
     'Sciences',
     'Séries',
     'Sport',
+    'Technologies',
     'Divers',
     'Autres'
   ];
@@ -105,6 +106,7 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
       setPageTitle("Créer un s'Quizz");
       setShowLoader(false);
     } else {
+      setPageTitle(`Modifier le quiz ${router.query.slug}`)
       getQuiz();
     };
   }, []);
@@ -122,20 +124,26 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
     })
     .then(async(res) => {
       const data = await res.json();
+      
+      if(userLogged.id !== data.user_id) {
+        router.push('/');
+      } else {
 
-      setCurrentTitle(data.title);
-      setTitle(data.title);
+        setCurrentTitle(data.title);
+        setTitle(data.title);
 
-      setCategory(data.category);
-      setDefaultCategory(data.category);
+        setCategory(data.category);
+        setDefaultCategory(data.category);
 
-      setLang(data.lang);
-      setDefaultLang(data.lang);
+        setLang(data.lang);
+        setDefaultLang(data.lang);
 
-      setDifficulty(data.difficulty);
-      setPreviousDifficulty(data.difficulty);
+        setDifficulty(data.difficulty);
+        setPreviousDifficulty(data.difficulty);
 
-      getQuestionsFromQuiz(data.id);
+        getQuestionsFromQuiz(data.id);
+
+      };
     })
     .catch((error) => {
       console.log(error);
@@ -419,6 +427,10 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
             disabled={disableButton}
           />
         </header>
+
+        <section>
+          
+        </section>
 
         <QuizForm
           title={title}
