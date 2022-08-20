@@ -106,7 +106,7 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
       setPageTitle("Créer un s'Quizz");
       setShowLoader(false);
     } else {
-      setPageTitle(`Modifier le quiz ${router.query.slug}`)
+      setPageTitle(`Modifier le quiz "${router.query.slug}"`);
       getQuiz();
     };
   }, []);
@@ -331,10 +331,14 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
       if(questions.length > 0) {
         await saveQuestions(body.title);
       };
-    };
 
-    setDisableButton(false);
-    setShowLoader(false);
+      setDisableButton(false);
+      setShowLoader(false);
+    } else {
+
+      setDisableButton(false);
+      setShowLoader(false);
+    };
   };
 
   const saveQuiz = async(body: QuizTypes) => {

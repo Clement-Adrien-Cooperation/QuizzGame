@@ -122,7 +122,7 @@ const QuestionCard = ({
                 width='32px'
                 height='32px'
                 layout='responsive'
-                alt='Voir les détails'
+                alt='Une flèche vers le bas'
               />
             </button>
 
@@ -135,10 +135,10 @@ const QuestionCard = ({
             >
               <Image
                 src={editIcon}
-                width='32px'
-                height='32px'
+                width='32'
+                height='32'
                 layout='responsive'
-                alt='Modifier'
+                alt='Un crayon avec une gomme'
               />
             </button>
 
@@ -151,10 +151,10 @@ const QuestionCard = ({
             >
               <Image
                 src={deleteIcon}
-                width='32px'
-                height='32px'
+                width='32'
+                height='32'
                 layout='responsive'
-                alt='Supprimer'
+                alt='Une poubelle avec une choix dessinée dessus'
               />
             </button>
           </aside>

@@ -100,9 +100,25 @@ const Questions = ({
         <section className={styles.questions}>
           {questions.length > 0 && (
             <>
-              <h2 className={styles.title}>
-                Questions
-              </h2>
+              <section className={styles.header}>
+                
+                <h2 className={styles.title}>
+                  Questions
+                </h2>
+
+                <button
+                  className={styles.button}
+                  type='button'
+                  title='Ajouter une nouvelle question'
+                  aria-label='Ajouter une nouvelle question'
+                  onClick={() => {
+                    setUpdating(false);
+                    handleToggleForm();
+                  }}
+                >
+                  Ajouter une question
+                </button>
+              </section>
 
               {questions.length > 5 && (
                 <div

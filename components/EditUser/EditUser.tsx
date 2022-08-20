@@ -81,7 +81,7 @@ const EditUser = ({
       if(pseudo.trim() === ''
       || email.trim() === '') {
 
-        setWarningMessage("C'est pô bien d'effacer des champs utiles");
+        setWarningMessage("Veuillez remplir tous les champs");
       } else if(previousPassword !== ''
       && password !== ''
       && confirmPassword !== '') {

@@ -1,0 +1,38 @@
+@import './mixins';
+
+.container {
+  @include posFixed(0, auto, auto, 0);
+  @include flexCenter;
+  flex-direction: column;
+  background: var(--body-color);
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 100000;
+}
+
+.title {
+  color: var(--white);
+  font-size: 25px;
+  font-weight: 200;
+  animation: animApparition 3s ease-in-out infinite;
+}
+
+.link {
+  @include mainButton;
+  margin: 50px 0;
+}
+
+@keyframes animApparition {
+  0% {
+    opacity: 0.1;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.1;
+  }
+}
