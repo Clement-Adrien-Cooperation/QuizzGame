@@ -38,7 +38,7 @@ type QuestionTypes = {
   quizz_id: number,
   question: string,
   description: string,
-  propositions: string[],
+  proposals: string[],
   answer: string,
   reported?: boolean,
   reportMessage?: string
@@ -427,14 +427,12 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
           <input
             className={styles.submit}
             type='submit'
+            title='Sauvegarder ce quiz'
+            aria-label='Sauvegarder ce quiz'
             value='Sauvegarder'
             disabled={disableButton}
           />
         </header>
-
-        <section>
-          
-        </section>
 
         <QuizForm
           title={title}

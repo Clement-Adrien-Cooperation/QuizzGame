@@ -2,13 +2,13 @@ import styles from './QuestionDetails.module.scss';
 
 type QuestionDetailsProps = {
   answer: string,
-  propositions: string[],
+  proposals: string[],
   description: string
 };
 
 const QuestionDetails = ({
   answer,
-  propositions,
+  proposals,
   description
 }: QuestionDetailsProps) => {
 
@@ -20,13 +20,13 @@ const QuestionDetails = ({
           {answer}
         </p>
 
-        <ul className={styles.propositions}>
-          {propositions.map((proposition, index) =>
+        <ul className={styles.proposals}>
+          {proposals.map((proposal, index) =>
             <li
-              className={styles.propositions__item}
+              className={styles.proposals__item}
               key={index}
             >
-              {proposition}
+              {proposal}
             </li>  
           )}
         </ul>

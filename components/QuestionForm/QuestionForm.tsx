@@ -8,7 +8,7 @@ type QuestionTypes = {
   quizz_id: number,
   question: string,
   description: string,
-  propositions: string[],
+  proposals: string[],
   answer: string,
   reported?: boolean,
   reportMessage?: string
@@ -17,16 +17,16 @@ type QuestionTypes = {
 type QuestionFormProps = {
   question: string,
   answer: string,
-  proposition1: string,
-  proposition2: string,
-  proposition3: string,
+  proposal1: string,
+  proposal2: string,
+  proposal3: string,
   description: string,
   questions: QuestionTypes[],
   setQuestion:Function,
   setAnswer:Function,
-  setProposition1:Function,
-  setProposition2:Function,
-  setProposition3:Function,
+  setProposal1:Function,
+  setProposal2:Function,
+  setProposal3:Function,
   setDescription:Function,
   setQuestions: Function
   handleToggleForm: Function,
@@ -38,16 +38,16 @@ type QuestionFormProps = {
 const QuestionForm = ({
   question,
   answer,
-  proposition1,
-  proposition2,
-  proposition3,
+  proposal1,
+  proposal2,
+  proposal3,
   description,
   questions,
   setQuestion,
   setAnswer,
-  setProposition1,
-  setProposition2,
-  setProposition3,
+  setProposal1,
+  setProposal2,
+  setProposal3,
   setDescription,
   setQuestions,
   handleToggleForm,
@@ -95,11 +95,11 @@ const QuestionForm = ({
     setAnswer(e.target.value);
   };
 
-  const handleChangeProposition1 = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeProposal1 = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    if(proposition1.trim().length > 50) {
+    if(proposal1.trim().length > 50) {
 
-      setWarningMessage('Les propositions ne doivent pas excéder 50 caractères');
+      setWarningMessage('Les proposals ne doivent pas excéder 50 caractères');
       setDisableButton(true);
 
     } else {
@@ -110,14 +110,14 @@ const QuestionForm = ({
       };
     };
 
-    setProposition1(e.target.value);
+    setProposal1(e.target.value);
   };
 
-  const handleChangeProposition2 = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeProposal2 = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    if(proposition2.trim().length > 50) {
+    if(proposal2.trim().length > 50) {
 
-      setWarningMessage('Les propositions ne doivent pas excéder 50 caractères');
+      setWarningMessage('Les proposals ne doivent pas excéder 50 caractères');
       setDisableButton(true);
 
     } else {
@@ -128,14 +128,14 @@ const QuestionForm = ({
       };
     };
 
-    setProposition2(e.target.value);
+    setProposal2(e.target.value);
   };
 
-  const handleChangeProposition3 = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeProposal3 = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    if(proposition3.trim().length > 50) {
+    if(proposal3.trim().length > 50) {
 
-      setWarningMessage('Les propositions ne doivent pas excéder 50 caractères');
+      setWarningMessage('Les proposals ne doivent pas excéder 50 caractères');
       setDisableButton(true);
 
     } else {
@@ -146,7 +146,7 @@ const QuestionForm = ({
       };
     };
 
-    setProposition3(e.target.value);
+    setProposal3(e.target.value);
   };
 
   const handleChangeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -180,11 +180,11 @@ const QuestionForm = ({
 
     } else if(
       answer.length > 100 ||
-      proposition1.length > 100 ||
-      proposition2.length > 100 ||
-      proposition3.length > 100
+      proposal1.length > 100 ||
+      proposal2.length > 100 ||
+      proposal3.length > 100
     ) {
-      setWarningMessage('Les propositions et la réponse ne doivent pas excéder 100 caractères');
+      setWarningMessage('Les proposals et la réponse ne doivent pas excéder 100 caractères');
       setDisableButton(true);
 
     } else {
@@ -200,8 +200,8 @@ const QuestionForm = ({
       // Copy array from state
       const previousQuestions = [...questions];
 
-      // push updated propositions in a new array
-      const propositions = [proposition1, proposition2, proposition3];
+      // push updated proposals in a new array
+      const proposals = [proposal1, proposal2, proposal3];
 
       if(updating) {
         // set up the new question
@@ -210,7 +210,7 @@ const QuestionForm = ({
           quizz_id: 0,
           question,
           answer,
-          propositions,
+          proposals,
           description
         };
 
@@ -225,7 +225,7 @@ const QuestionForm = ({
           quizz_id: null,
           question,
           answer,
-          propositions,
+          proposals,
           description
         };
         // If user is creating a new question, add it to previous questions
@@ -274,33 +274,33 @@ const QuestionForm = ({
         />
 
         <InputField
-          name={'Proposition 1'}
-          state={proposition1}
+          name={'proposal 1'}
+          state={proposal1}
           inputID={'answer'}
           type={'text'}
           isDisabled={false}
           required={true}
-          handleFunction={handleChangeProposition1}
+          handleFunction={handleChangeProposal1}
         />
 
         <InputField
-          name={'Proposition 2'}
-          state={proposition2}
+          name={'proposal 2'}
+          state={proposal2}
           inputID={'answer'}
           type={'text'}
           isDisabled={false}
           required={true}
-          handleFunction={handleChangeProposition2}
+          handleFunction={handleChangeProposal2}
         />
 
         <InputField
-          name={'Proposition 3'}
-          state={proposition3}
+          name={'proposal 3'}
+          state={proposal3}
           inputID={'answer'}
           type={'text'}
           isDisabled={false}
           required={true}
-          handleFunction={handleChangeProposition3}
+          handleFunction={handleChangeProposal3}
         />
 
         <textarea

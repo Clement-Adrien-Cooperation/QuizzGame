@@ -13,7 +13,7 @@ type QuestionCardProps = {
   quizz_id: number,
   question: string,
   answer: string,
-  propositions: string[],
+  proposals: string[],
   description: string,
   setQuestions: Function,
   updateQuestion: Function,
@@ -27,7 +27,7 @@ const QuestionCard = ({
   quizz_id,
   question,
   answer,
-  propositions,
+  proposals,
   description,
   setQuestions,
   updateQuestion,
@@ -85,7 +85,7 @@ const QuestionCard = ({
       quizz_id,
       question,
       answer,
-      propositions,
+      proposals,
       description
     };
 
@@ -163,7 +163,7 @@ const QuestionCard = ({
         {showDetails && (
           <QuestionDetails
             answer={answer}
-            propositions={propositions}
+            proposals={proposals}
             description={description}
           />
         )}

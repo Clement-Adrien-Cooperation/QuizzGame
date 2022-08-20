@@ -14,7 +14,7 @@ type QuestionTypes = {
   quizz_id: number,
   question: string,
   description: string,
-  propositions: string[],
+  proposals: string[],
   answer: string,
   reported?: boolean,
   reportMessage?: string
@@ -29,9 +29,9 @@ const Questions = ({
 
   const [question, setQuestion] = useState<string>('');
   const [answer, setAnswer] = useState<string>('');
-  const [proposition1, setProposition1] = useState<string>('');
-  const [proposition2, setProposition2] = useState<string>('');
-  const [proposition3, setProposition3] = useState<string>('');
+  const [proposal1, setProposal1] = useState<string>('');
+  const [proposal2, setProposal2] = useState<string>('');
+  const [proposal3, setProposal3] = useState<string>('');
   const [description, setDescription] = useState<string>('');
 
   // State to know if user want to create or update a question
@@ -45,9 +45,9 @@ const Questions = ({
     setQuestionID(questionData.id);
     setQuestion(questionData.question);
     setAnswer(questionData.answer);
-    setProposition1(questionData.propositions[0]);
-    setProposition2(questionData.propositions[1]);
-    setProposition3(questionData.propositions[2]);
+    setProposal1(questionData.proposals[0]);
+    setProposal2(questionData.proposals[1]);
+    setProposal3(questionData.proposals[2]);
     setDescription(questionData.description);
 
     handleToggleForm();
@@ -57,9 +57,9 @@ const Questions = ({
     if(showForm) {
       setQuestion('');
       setAnswer('');
-      setProposition1('');
-      setProposition2('');
-      setProposition3('');
+      setProposal1('');
+      setProposal2('');
+      setProposal3('');
       setDescription('');
 
       setShowForm(false);
@@ -79,16 +79,16 @@ const Questions = ({
         <QuestionForm
           question={question}
           answer={answer}
-          proposition1={proposition1}
-          proposition2={proposition2}
-          proposition3={proposition3}
+          proposal1={proposal1}
+          proposal2={proposal2}
+          proposal3={proposal3}
           description={description}
           questions={questions}
           setQuestion={setQuestion}
           setAnswer={setAnswer}
-          setProposition1={setProposition1}
-          setProposition2={setProposition2}
-          setProposition3={setProposition3}
+          setProposal1={setProposal1}
+          setProposal2={setProposal2}
+          setProposal3={setProposal3}
           setDescription={setDescription}
           setQuestions={setQuestions}
           handleToggleForm={handleToggleForm}
@@ -154,7 +154,7 @@ const Questions = ({
                           quizz_id={question.quizz_id}
                           question={question.question}
                           answer={question.answer}
-                          propositions={question.propositions}
+                          proposals={question.proposals}
                           description={question.description}
                           setQuestions={setQuestions}
                           updateQuestion={updateQuestion}

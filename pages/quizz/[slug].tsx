@@ -14,6 +14,7 @@ type QuizTypes = {
   difficulty?: string,
   is_visible: boolean,
   date: string,
+  nbOfQuestions: number,
   reported?: boolean,
   reportMessage?: string
 };
@@ -28,11 +29,12 @@ const emptyQuiz = {
   difficulty: '',
   is_visible: true,
   date: '',
+  nbOfQuestions: 0,
   reported: false,
   reportMessage: ''
 };
 
-const QuizGame: NextPage = ({ isLogged, userLogged }:any) => {
+const QuizGame: NextPage = ({ isLogged, userLogged }: any) => {
   
   const router = useRouter();
   const title = router.query.slug;

@@ -50,7 +50,7 @@ model Question {
   quizz_id      Int
   question      String
   description   String?
-  propositions  String[]
+  proposals     String[]
   answer        String
   reported      Boolean   @default(false)
   reportMessage String[]

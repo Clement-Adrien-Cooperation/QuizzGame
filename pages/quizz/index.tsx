@@ -53,7 +53,11 @@ const Quizz: NextPage = ({ quizzData, isLogged, userLogged }: any) => {
           Quizz
         </h1>
 
-        <div className={styles.input}>
+        <div
+          className={styles.input}
+          title="Vous pouvez filtrer les quizz avec le nom d'un quiz ou avec le pseudo de son créateur"
+          aria-label="Vous pouvez filtrer les quizz avec le nom d'un quiz, ou avec le pseudo de son créateur"
+        >
           <InputField
             name={'Rechercher un quiz...'}
             state={filter}
@@ -91,26 +95,25 @@ const Quizz: NextPage = ({ quizzData, isLogged, userLogged }: any) => {
             const userFilter = filter.toLowerCase();
             
             // If quiz doesn't have question, we don't render it
-            // if(quiz.nbOfQuestions !== 0) {
-              if(quizTitle.includes(userFilter) || quizCreator.includes(userFilter)) {
+            if(quizTitle.includes(userFilter) && quiz.nbOfQuestions > 0
+            || quizCreator.includes(userFilter) && quiz.nbOfQuestions > 0) {
 
-                return (
-                  <li key={quiz.id}>
-                    <QuizCard
-                      id={quiz.id}
-                      creator={quiz.creator}
-                      title={quiz.title}
-                      nbOfQuestions={quiz.nbOfQuestions}
-                      difficulty={quiz.difficulty}
-                      image={quiz.image}
-                      category={quiz.category}
-                      date={quiz.date}
-                      rate={quiz.rate}
-                    />
-                  </li>
-                );
-              };
-            // };
+              return (
+                <li key={quiz.id}>
+                  <QuizCard
+                    id={quiz.id}
+                    creator={quiz.creator}
+                    title={quiz.title}
+                    nbOfQuestions={quiz.nbOfQuestions}
+                    difficulty={quiz.difficulty}
+                    image={quiz.image}
+                    category={quiz.category}
+                    date={quiz.date}
+                    rate={quiz.rate}
+                  />
+                </li>
+              );
+            };
           })}
         </ul>
       </section>
