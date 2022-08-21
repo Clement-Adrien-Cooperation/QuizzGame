@@ -72,7 +72,7 @@ const Quizz: NextPage = ({
   };
 
   return (
-    <>
+    <section className={styles.wrapper}>
       <AdminHeader />
 
       <aside className={styles.buttons}>
@@ -125,7 +125,7 @@ const Quizz: NextPage = ({
       {showLoader && (
         <Loader />
       )}
-    </>
+    </section>
   );
 };
 

@@ -51,7 +51,7 @@ const Users = ({
 
           <div className={styles.input}>
             <InputField
-              name={'Filtrer les utilisateurs'}
+              name={'Rechercher un utilisateur'}
               state={usersFilter}
               inputID={'users-filter'}
               type={'text'}

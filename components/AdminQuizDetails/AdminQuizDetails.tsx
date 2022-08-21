@@ -3,6 +3,7 @@ import CloseButton from '../CloseButton/CloseButton';
 import styles from './AdminQuizDetails.module.scss';
 import trash from '../../public/icons/delete.svg';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 type QuizTypes = {
   id: number,
@@ -48,6 +49,8 @@ const AdminQuizDetails = ({
   handleDeleteQuiz
 }: AdminQuizDetailsProps) => {
 
+  const router = useRouter();
+
   const [opened, setOpened] = useState(false);
 
   useEffect(() => {
@@ -64,56 +67,82 @@ const AdminQuizDetails = ({
 
   return (
     <>
-      <div className={styles.container}>
-        <section
-          className={opened ?
-            `${styles.card} ${styles.opened}`
-          :
-            `${styles.card}`
-          }
-        >
-          <header className={styles.header}>
-            <h5 className={styles.title}>
+      <div
+        className={styles.behind}
+        onClick={() => setQuizDetails(emptyQuiz)}
+      ></div>
+
+      <section
+        className={opened ?
+          `${styles.card} ${styles.opened}`
+        :
+          `${styles.card}`
+        }
+      >
+        <header className={styles.header}>
+          <h5 className={styles.title}>
+            Titre :
+            <span className={styles.title__span}>
               {quiz.title}
-            </h5>
+            </span>
+          </h5>
 
-            <CloseButton
-              handleFunction={() => setQuizDetails(emptyQuiz)}
-            />
-          </header>
+          <CloseButton
+            handleFunction={() => setQuizDetails(emptyQuiz)}
+          />
+        </header>
 
-          <div className={styles.body}>
-            
-
-
-
-
-
-
-
-
-
-          </div>
-
-
-          <footer className={styles.footer}>
-            
+        {quiz.reported && (
+          <aside className={styles.reported}>
             <button
-              className={styles.moderate}
+              className={styles.reported__button}
               type='button'
-              title="Envoyer ce quiz à la corbeille"
-              aria-label="Envoyer ce quiz à la corbeille"
-              onClick={() => handleModerateQuiz(quiz.id, quiz.is_visible)}
+              title='Voir les signalements lié à ce quiz'
+              aria-label='Voir les signalements lié à ce quiz'
+              onClick={() => router.push('/admin/reports')}
             >
-              <Image
-                layout="responsive"
-                width='32'
-                height='32'
-                alt='Petite poubelle avec une croix'
-                src={trash}
-              />
+              ⚠️ Ce quiz a été signalé ⚠️
             </button>
+          </aside>
+        )}
 
+        <div className={styles.body}>
+          
+          <p className={styles.text}>
+            Créateur :
+            <span
+              className={`${styles.span} ${styles.span__creator}`}
+              onClick={() => router.push(`/profile/${quiz.creator}`)}
+            >
+              {quiz.creator}
+            </span>
+          </p>
+          
+          <p className={styles.text}>
+            Créé le :
+            <span className={styles.span}>
+              {quiz.date}
+            </span>
+          </p>
+          
+          <p className={styles.text}>
+            Catégorie :
+            <span className={styles.span}>
+              {quiz.category}
+            </span>
+          </p>
+          
+          <p className={styles.text}>
+            Difficulté :
+            <span className={styles.span}>
+              {quiz.difficulty}
+            </span>
+          </p>
+        </div>
+
+        <footer className={styles.footer}>
+
+          {!quiz.is_visible && (
             <button
               className={styles.delete}
               type='button'
@@ -123,10 +152,25 @@ const AdminQuizDetails = ({
             >
               Supprimer définitivement
             </button>
-          </footer>
-        </section>
+          )}
 
-      </div>
+          <button
+            className={styles.moderate}
+            type='button'
+            title="Envoyer ce quiz à la corbeille"
+            aria-label="Envoyer ce quiz à la corbeille"
+            onClick={() => handleModerateQuiz(quiz.id, quiz.is_visible)}
+          >
+            <Image
+              layout="responsive"
+              width='32'
+              height='32'
+              alt='Petite poubelle avec une croix'
+              src={trash}
+            />
+          </button>
+        </footer>
+      </section>
     </>
   );
 };

@@ -127,7 +127,7 @@ const Questions = ({
                   aria-label='Vous pouvez filtrer avec la questions en elle-même ou avec la bonne réponse'
                 >
                   <InputField
-                    name={'Filtrer les questions'}
+                    name={'Rechercher une question'}
                     state={questionFilter}
                     inputID={'question-filter'}
                     type={'text'}

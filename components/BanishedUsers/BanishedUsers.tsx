@@ -49,7 +49,7 @@ const BanishedUsers = ({
 
           <div className={styles.input}>
             <InputField
-              name={'Filtrer les bannis'}
+              name={'Rechercher un utilisateur'}
               state={banishedUsersFilter}
               inputID={'banished-users-filter'}
               type={'text'}

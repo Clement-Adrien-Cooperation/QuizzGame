@@ -1,6 +1,6 @@
 @import '../../styles/mixins';
 
-.container {
+.behind {
   @include posFixed(0, auto, auto, var(--navbar-width));
   min-height: 100vh;
   width: 100%;
@@ -10,30 +10,99 @@
 }
 
 .card {
-  @include posCenter;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  min-width: 500px;
   background: var(--body-color);
   border-radius: var(--small-radius);
   box-shadow: var(--box-shadow);
-  padding: 20px 30px;
+  padding: 35px 50px;
   opacity: 0;
-  transform: translate(-100%, 30px);
   transition: .3s;
   animation: animApparition .3s ease-out;
+  transform: translate(-50%, -20%);
 
   &.opened {
+    transform: translate(-50%, -50%);
     opacity: 1;
-    transform: translate(-100%, 0);
   }
+}
+
+.title {
+  font-size: 20px;
+  color: var(--grey);
+
+  &__span {
+    margin-left: 0.5em;
+    color: var(--text-color);
+  }
+}
+
+.reported {
+  margin: 20px 0;
+  text-align: center;
+
+  &__button {
+    color: var(--warning);
+    background: var(--warning-bg);
+    border: 1px solid var(--warning-border);
+    border-radius: var(--small-radius);
+    padding: 9px 16px;
+  }
+}
+
+.body {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.text {
+  color: var(--grey);
+}
+
+.span {
+  color: var(--text-color);
+  margin-left: 0.5em;
+
+  &__creator {
+    @include underlineButton;
+    line-height: 120%;
+    font-size: 14px;
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  gap: 200px;
+}
+
+.moderate {
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+  border-radius: var(--small-radius);
+
+  &:hover {
+    background: var(--button-icon-hover);
+  }
+}
+
+.delete {
+  @include underlineButton;
 }
 
 @keyframes animApparition {
   0% {
-    transform: translate(-100%, 30px);
+    transform: translate(-50%, -20%);
     opacity: 0;
   }
 
   100% {
-    transform: translate(-100%, 0);
+    transform: translate(-50%, -50%);
     opacity: 1;
   }
 }

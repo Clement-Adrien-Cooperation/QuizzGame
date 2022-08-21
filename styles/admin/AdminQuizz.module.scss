@@ -1,5 +1,10 @@
 @import '../mixins';
 
+.wrapper {
+  position: relative;
+  min-height: 100vh;
+}
+
 .buttons {
   @include posAbsolute(100px, 20px, auto, auto);
   display: flex;
