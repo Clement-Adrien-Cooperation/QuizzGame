@@ -16,7 +16,6 @@ export default async function handle (
         title: req.body.title,
         nbOfQuestions: req.body.nbOfQuestions,
         category: req.body.category,
-        lang: req.body.lang,
         difficulty: req.body.difficulty
       },
       create: {
@@ -25,7 +24,6 @@ export default async function handle (
         title: req.body.title,
         nbOfQuestions: req.body.nbOfQuestions,
         category: req.body.category,
-        lang: req.body.lang,
         difficulty: req.body.difficulty,
         date: new Date().toLocaleDateString()
       }

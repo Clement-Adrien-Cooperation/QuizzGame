@@ -7,32 +7,26 @@ type QuizFormProps = {
   title: string,
   categoryList: string[],
   defaultCategory: string,
-  langList: string[],
-  defaultLang: string,
   difficulty: string,
   difficultyRange: number,
   rangeColor: string,
   colorDifficultyName: string,
   handleChangeDifficulty: Function,
   handleChangeTitle: Function,
-  handleChangeCategory: Function,
-  handleChangeLang: Function
+  handleChangeCategory: Function
 };
 
 const QuizForm = ({
   title,
   categoryList,
   defaultCategory,
-  langList,
-  defaultLang,
   difficulty,
   difficultyRange,
   rangeColor,
   colorDifficultyName,
   handleChangeDifficulty,
   handleChangeTitle,
-  handleChangeCategory,
-  handleChangeLang
+  handleChangeCategory
 }: QuizFormProps) => {
 
   return (
@@ -53,14 +47,6 @@ const QuizForm = ({
         options={categoryList}
         isDisabled={false}
         handleFunction={(e) => handleChangeCategory(e)}
-      />
-
-      <SelectField
-        name={'Langue'}
-        defaultOption={defaultLang}
-        options={langList}
-        isDisabled={false}
-        handleFunction={(e) => handleChangeLang(e)}
       />
 
       <RangeSlider

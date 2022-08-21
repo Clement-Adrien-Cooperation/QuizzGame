@@ -25,7 +25,6 @@ type QuizTypes = {
   title: string,
   nbOfQuestions: number,
   category: string,
-  lang: string,
   difficulty: string,
   is_visible?: boolean,
   date?: string,
@@ -50,10 +49,6 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
 
   let questionsToSave: QuestionTypes[] = [];
 
-  const langList :string[] = [
-    'Français',
-    'Anglais'
-  ];
   const categoryList :string[] = [
     'Actualités',
     'Art',
@@ -77,14 +72,14 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
     'Autres'
   ];
 
+  const [quizID, setQuizID] = useState<number>(0);
+
   const [pageTitle, setPageTitle] = useState<string>("Éditer un s'Quizz");
   const [currentTitle, setCurrentTitle] = useState<string>('');
   const [title, setTitle] = useState<string>('');
 
   const [category, setCategory] = useState<string>('');
   const [defaultCategory, setDefaultCategory] = useState<string>('Choisir une catégorie...');
-  const [lang, setLang] = useState<string>('');
-  const [defaultLang, setDefaultLang] = useState<string>('Choisir une langue...');
   
   const [difficulty, setDifficulty] = useState<string>('Normal');
   const [difficultyRange, setDifficultyRange] = useState<number>(2);
@@ -129,20 +124,18 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
         router.push('/');
       } else {
 
+        setQuizID(data.id);
+
         setCurrentTitle(data.title);
         setTitle(data.title);
 
         setCategory(data.category);
         setDefaultCategory(data.category);
 
-        setLang(data.lang);
-        setDefaultLang(data.lang);
-
         setDifficulty(data.difficulty);
         setPreviousDifficulty(data.difficulty);
 
         getQuestionsFromQuiz(data.id);
-
       };
     })
     .catch((error) => {
@@ -214,9 +207,6 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
     } else if(category.trim() === '' || !categoryList.includes(category)) {
       setWarningMessage('Vous devez choisir une catégorie valide');
 
-    } else if(lang.trim() === '' || !langList.includes(lang)) {
-      setWarningMessage('Vous devez choisir une langue valide');
-
     } else if(difficultyRange < 0 || difficultyRange > 4 ) {
       setWarningMessage("La difficulté n'est pas valide");
       
@@ -241,10 +231,6 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
 
   const handleChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(e.target.value);
-  };
-
-  const handleChangeLang = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setLang(e.target.value);
   };
 
   const handleChangeDifficulty = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -320,7 +306,6 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
         nbOfQuestions: questions.length,
         title,
         category,
-        lang,
         difficulty
       };
 
@@ -330,12 +315,15 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
       // If there are questions in state, save it.
       if(questions.length > 0) {
         await saveQuestions(body.title);
+      } else {
+        setNotification('✅ Quiz enregistré');
       };
 
       setDisableButton(false);
       setShowLoader(false);
     } else {
 
+      setWarningMessage('Une erreur est survenue. Veuillez réessayer ou nous contacter');
       setDisableButton(false);
       setShowLoader(false);
     };
@@ -354,7 +342,6 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
       if(router.pathname.includes('create')) {
         router.push(`/quizz/update/${data.title}`);
       } else {
-        setNotification('✅ Quiz enregistré');
         setShowNotification(true);
       };
 
@@ -366,51 +353,74 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
   };
 
   const saveQuestions = async(title: string) => {
+
+    if(router.pathname.includes('create')) {
     
-    // Get the quizz ID with the title
-    await fetch('/api/quizz/getOne', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title })
-    })
-    .then(async(res) => {
+      // Get the quizz ID with the title
+      await fetch('/api/quizz/getOne', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title })
+      })
+      .then(async(res) => {
 
-      const data = await res.json();
+        const data = await res.json();
 
-      questionsToSave = [...questions];
-      
-      questionsToSave.forEach(question => {
-        question.quizz_id = data.id;
+        questionsToSave = [...questions];
+
+        questionsToSave.forEach(question => question.quizz_id = data.id);
+
+        console.log(questionsToSave);
+      })
+      .then(async() => {
+        
+        await fetch('/api/question/createMany', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(questionsToSave)
+        })
+        .then(async(res) => {
+
+          const data = await res.json();
+          console.log(data);
+        
+          setNotification('✅ Quiz enregistré');
+          setShowNotification(true);
+        })
+        .catch((error) => {
+
+          console.log(error);
+        });
+      })
+      .catch((error) => {
+
+        console.log(error);
       });
 
-      console.log(questionsToSave);
+    } else {
       
-    })
-    .then(async() => {
-      
+      const questionsToSave = [...questions];
+
+      questionsToSave.forEach(question => question.quizz_id = quizID);
+
       await fetch('/api/question/createMany', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(questionsToSave)
       })
       .then(async(res) => {
-
         const data = await res.json();
         console.log(data);
-      
+
         setNotification('✅ Quiz enregistré');
         setShowNotification(true);
-
       })
       .catch((error) => {
-
         console.log(error);
+        setWarningMessage('Une erreur est survenue, veuillez réessayer ou nous contacter');
+        setShowLoader(false);
       });
-    })
-    .catch((error) => {
-
-      console.log(error);
-    });
+    };
   };
 
   return (
@@ -438,8 +448,6 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
           title={title}
           categoryList={categoryList}
           defaultCategory={defaultCategory}
-          langList={langList}
-          defaultLang={defaultLang}
           difficulty={difficulty}
           difficultyRange={difficultyRange}
           rangeColor={rangeColor}
@@ -447,7 +455,6 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
           handleChangeDifficulty={handleChangeDifficulty}
           handleChangeTitle={handleChangeTitle}
           handleChangeCategory={handleChangeCategory}
-          handleChangeLang={handleChangeLang}
         />
 
         {warningMessage && (

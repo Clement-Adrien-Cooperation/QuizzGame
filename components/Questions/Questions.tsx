@@ -120,7 +120,7 @@ const Questions = ({
                 </button>
               </section>
 
-              {questions.length > 5 && (
+              {questions.length > 10 && (
                 <div
                   className={styles.input}
                   title='Vous pouvez filtrer avec la questions en elle-même ou avec la bonne réponse'
@@ -169,18 +169,21 @@ const Questions = ({
               </ul>
             </>
           )}
-          <button
-            className={styles.button}
-            type='button'
-            title='Ajouter une nouvelle question'
-            aria-label='Ajouter une nouvelle question'
-            onClick={() => {
-              setUpdating(false);
-              handleToggleForm();
-            }}
-          >
-            Ajouter une question
-          </button>
+
+          {questions.length > 1 && questions.length < 10 ? '' : (
+            <button
+              className={styles.button}
+              type='button'
+              title='Ajouter une nouvelle question'
+              aria-label='Ajouter une nouvelle question'
+              onClick={() => {
+                setUpdating(false);
+                handleToggleForm();
+              }}
+            >
+              Ajouter une question
+            </button>
+          )}
         </section>
       )}
     </section>

@@ -49,6 +49,7 @@
     }
 
     &__difficulty {
+      margin-left: 20px;
       border-radius: 50px;
       padding: 9px 16px;
       font-size: 12px;
@@ -68,6 +69,8 @@
 
   &__content {
     margin: 4px 0;
+    font-weight: 300;
+    color: var(--white);
   }
 }
 
@@ -75,16 +78,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.9em;
+  font-size: 14px;
   padding: 20px 25px;
   background: var(--main-color-light);
   border-bottom-left-radius: var(--medium-radius);
   border-bottom-right-radius: var(--medium-radius);
   color: var(--black);
-}
 
-.link {
-  @include underlineButton;
-  margin-left: 0.4em;
-  letter-spacing: 0;
+  &__link {
+    @include underlineButton;
+    margin-left: 0.4em;
+    letter-spacing: 0;
+    font-size: 14px;
+  }
 }

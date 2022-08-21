@@ -74,7 +74,6 @@ const EditUser = ({
 
       setWarningMessage('Entrez une adresse mail valide');
       setDisableButton(true);
-
     };
 
     if(isLogged) {
@@ -169,11 +168,16 @@ const EditUser = ({
       })
       .then(async(res) => {
         const data = await res.json();
-        console.log(data);
         
+        setPseudo(data.pseudo);
+        setEmail(data.email);
+        
+        setShowLoader(false);
       })
       .catch((error) => {
         console.log(error);
+        setWarningMessage('Un problème est survenu, réessayez ou contactez-nous');
+        setShowLoader(false);
       });
 
     // If he's not logged, this is a creation
@@ -230,10 +234,14 @@ const EditUser = ({
         })
         .catch((error) => {
           console.log(error);
+          setWarningMessage('Une erreur est survenue. Réessayez ou contactez-nous');
+          setShowLoader(false);
         });
       })
       .catch((error) => {
         console.log(error);
+        setWarningMessage('Ce pseudo ou cet email est déjà utilisé');
+        setShowLoader(false);
       });
     };
   };
@@ -378,6 +386,8 @@ const EditUser = ({
         <input
           className={styles.submit_button}
           type='submit'
+          title={isLogged ? "Mettre à jour le profil" : "Finaliser mon inscription"}
+          aria-label={isLogged ? "Mettre à jour le profil" : "Finaliser mon inscription"}
           value={isLogged ? 'Sauvegarder' : 'Inscription'}
           disabled={disableButton}
         />

@@ -85,6 +85,8 @@ const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) 
     })
     .catch((error) => {
       console.log(error);
+      setWarningMessage("Cet utilisateur n'existe pas");
+      setShowLoader(false);
     });
     
     setPassword('');

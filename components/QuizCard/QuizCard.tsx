@@ -112,11 +112,11 @@ const QuizCard = ({
 
       <footer className={styles.footer}>
 
-        <p className={styles.creator}>
+        <p>
           Créé par
 
           <button
-            className={styles.link}
+            className={styles.footer__link}
             type='button'
             title={`Voir tous les quizz de ${creator}`}
             aria-label={`Voir tous les quizz de ${creator}`}

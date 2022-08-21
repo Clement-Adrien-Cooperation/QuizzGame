@@ -323,8 +323,8 @@ const QuestionForm = ({
         <button
           className={styles.cancel}
           type='button'
-          title='Revenir aux questions'
-          aria-label='Revenir aux questions'
+          title='Annuler cette question'
+          aria-label='Annuler cette question'
           onClick={() => handleToggleForm()}
         >
           Annuler
