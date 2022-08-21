@@ -1,0 +1,45 @@
+@import '../../styles/mixins';
+
+.container {
+  @include posFixed(0, auto, auto, var(--navbar-width));
+  min-height: 100vh;
+  width: 100%;
+  background: rgba(10, 10, 10, 0.5);
+  opacity: 0;
+  animation: fadeAnim .3s ease-out forwards;
+}
+
+.card {
+  @include posCenter;
+  background: var(--body-color);
+  border-radius: var(--small-radius);
+  box-shadow: var(--box-shadow);
+  padding: 20px 30px;
+  opacity: 0;
+  transform: translate(-100%, 30px);
+  transition: .3s;
+  animation: animApparition .3s ease-out;
+
+  &.opened {
+    opacity: 1;
+    transform: translate(-100%, 0);
+  }
+}
+
+@keyframes animApparition {
+  0% {
+    transform: translate(-100%, 30px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate(-100%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeAnim {
+  100% {
+    opacity: 1;
+  }
+}

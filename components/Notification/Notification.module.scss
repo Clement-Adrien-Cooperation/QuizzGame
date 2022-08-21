@@ -5,9 +5,9 @@
   aspect-ratio: 16/9;
   padding: 30px 60px;
   background: var(--main-color-secondary);
-  opacity: 0;
   border-radius: var(--small-radius) var(--small-radius) 0 0;
   box-shadow: var(--box-shadow);
+  opacity: 0;
   transform: translateY(100%);
   transition: .3s;
   animation: animApparition .3s ease-out;

@@ -1,10 +1,10 @@
-import Image from 'next/image';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import styles from './UserQuizCard.module.scss';
 import playIcon from '../../public/icons/play.svg';
 import editIcon from '../../public/icons/edit.svg';
 import deleteIcon from '../../public/icons/delete.svg';
-import { useState } from 'react';
 import Loader from '../Loader/Loader';
 
 type UserQuizCardProps = {
@@ -88,7 +88,7 @@ const UserQuizCard = ({
                 width='32px'
                 height='32px'
                 layout='responsive'
-                alt='Jouer'
+                alt='Un triangle qui pointe vers la droite'
               />
             </div>
           </button>
@@ -105,7 +105,7 @@ const UserQuizCard = ({
                 width='32px'
                 height='32px'
                 layout='responsive'
-                alt='Modifier'
+                alt='Un crayon avec une gomme'
               />
             </div>
           </button>
@@ -122,7 +122,7 @@ const UserQuizCard = ({
                 width='32px'
                 height='32px'
                 layout='responsive'
-                alt='Supprimer'
+                alt='Une poubelle avec une croix dessinée dessus'
               />
             </div>
           </button>

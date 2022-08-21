@@ -176,7 +176,7 @@ const EditUser = ({
       })
       .catch((error) => {
         console.log(error);
-        setWarningMessage('Un problème est survenu, réessayez ou contactez-nous');
+        setWarningMessage('Ce pseudo ou cet email est déjà utilisé');
         setShowLoader(false);
       });
 

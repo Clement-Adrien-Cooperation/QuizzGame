@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useState } from 'react';
 import AdminQuizCard from '../AdminQuizCard/AdminQuizCard';
 import InputField from '../InputField/InputField';
@@ -13,17 +14,23 @@ type QuizTypes = {
   difficulty: string,
   lang: string,
   image: string,
-  is_visible: string,
+  is_visible: boolean,
   date: string,
   rate: number,
   reported: boolean
 };
 
 type AdminQuizzProps = {
-  deletedQuizzData: QuizTypes[]
+  deletedQuizzData: QuizTypes[],
+  handleModerateQuiz: Function,
+  handleDeleteQuiz: Function
 };
 
-const AdminDeletedQuizz = ({ deletedQuizzData }: AdminQuizzProps) => {
+const AdminDeletedQuizz = ({
+  deletedQuizzData,
+  handleModerateQuiz,
+  handleDeleteQuiz
+}: AdminQuizzProps) => {
 
   const [deletedQuizz, setDeletedQuizz] = useState<QuizTypes[]>([]);
   const [deletedQuizzFilter, setDeletedQuizzFilter] = useState<string>('');
@@ -48,9 +55,13 @@ const AdminDeletedQuizz = ({ deletedQuizzData }: AdminQuizzProps) => {
           Quizz supprimés
         </h2>
 
-        <div className={styles.input}>
+        <div
+          className={styles.input}
+          title='Vous pouvez trouver un quiz avec son titre ou le pseudo de son createur'
+          aria-label='Vous pouvez trouver un quiz avec son titre ou le pseudo de son createur'
+        >
           <InputField
-            name={'Filtrer les quizz supprimés'}
+            name={'Rechercher dans la corbeille...'}
             state={deletedQuizzFilter}
             inputID={'deleted-quizz-filter'}
             type={'text'}
@@ -70,20 +81,11 @@ const AdminDeletedQuizz = ({ deletedQuizzData }: AdminQuizzProps) => {
 
           if(filteredTitle.includes(filter) || filteredCreator.includes(filter)) {
             return (
-              <li key={quiz.id}>
+              <li key={uuidv4()}>
                 <AdminQuizCard
-                  id={quiz.id}
-                  user_id={quiz.user_id}
-                  creator={quiz.creator}
-                  title={quiz.title}
-                  category={quiz.category}
-                  difficulty={quiz.difficulty}
-                  lang={quiz.lang}
-                  image={quiz.image}
-                  is_visible={quiz.is_visible}
-                  date={quiz.date}
-                  rate={quiz.rate}
-                  reported={quiz.reported}
+                  quiz={quiz}
+                  handleModerateQuiz={handleModerateQuiz}
+                  handleDeleteQuiz={handleDeleteQuiz}
                 />
               </li>
             );

@@ -16,7 +16,7 @@ type UserProps = {
   is_banished: boolean
 };
 
-const AdminUsers: NextPage = ({ usersData, banishedUsersData, userLogged } :any) => {
+const AdminUsers: NextPage = ({ isLogged, userLogged, usersData, banishedUsersData } :any) => {
 
   const router = useRouter();
 
@@ -26,14 +26,16 @@ const AdminUsers: NextPage = ({ usersData, banishedUsersData, userLogged } :any)
   const [showLoader, setShowLoader] = useState<boolean>(true);
 
   useEffect(() => {
-
-    document.title = "Modérer les utilisateurs - s'Quizz Game";
-    
     // If user is not admin, we redirect him to home page
-    if(userLogged?.is_admin === true) {
-      setUsers(usersData);
-      setBanishedUsers(banishedUsersData);
-      setShowLoader(false);
+    if(isLogged) {
+      if(userLogged?.is_admin === true) {
+        document.title = "Modérer les utilisateurs - s'Quizz Game";
+        setUsers(usersData);
+        setBanishedUsers(banishedUsersData);
+        setShowLoader(false);
+      } else {
+        router.push('/');
+      };
     } else {
       router.push('/');
     };
@@ -122,8 +124,6 @@ const AdminUsers: NextPage = ({ usersData, banishedUsersData, userLogged } :any)
             Utilisateurs
           </a>
         )}
-
-
 
         {banishedUsers.length === 0 ? '' : (
           <a

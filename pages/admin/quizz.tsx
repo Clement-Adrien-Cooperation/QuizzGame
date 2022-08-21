@@ -1,12 +1,14 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import AdminHeader from '../../components/AdminHeader/AdminHeader';
 import AdminQuizz from '../../components/AdminQuizz/AdminQuizz';
 import AdminDeletedQuizz from '../../components/AdminDeletedQuizz/AdminDeletedQuizz';
 import styles from '../../styles/admin/AdminQuizz.module.scss';
+import Loader from '../../components/Loader/Loader';
 
 const Quizz: NextPage = ({
+  isLogged,
   userLogged,
   quizzData,
   deletedQuizzData
@@ -14,29 +16,74 @@ const Quizz: NextPage = ({
 
   const router = useRouter();
 
-  useEffect(() => {
-    
-    // If user is not admin, we redirect him to home page
-    if(userLogged?.is_admin === false) {
-      router.push('/');
-    } else {
-      document.title = "Modérer les Quizz - s'Quizz Game";
-    };
+  const [showLoader, setShowLoader] = useState<boolean>(true);
 
+  useEffect(() => {
+    // If user is not admin, we redirect him to home page
+    if(isLogged) {
+      if(userLogged?.is_admin === true) {
+        document.title = "Modérer les Quizz - s'Quizz Game";
+        setShowLoader(false);
+      } else {
+        router.push('/');
+      };
+    } else {
+      router.push('/');
+    };
   }, []);
+
+  const handleModerateQuiz = async(id: number, is_visible: boolean) => {
+
+    setShowLoader(true);
+
+    await fetch(`/api/user/moderate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, is_visible })
+    })
+    .then(async(res) => {
+      const data = await res.json();
+      console.log(data);
+      // refaire appel api pour mettre à jour les states ?
+      // resetQuizz()
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+
+  const handleDeleteQuiz = async(id: number) => {
+
+    setShowLoader(true);
+
+    await fetch(`/api/user/delete`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id })
+    })
+    .then((res) => {
+      // refaire appel api pour mettre à jour les states ?
+      // resetQuizz()
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  };
 
   return (
     <>
       <AdminHeader />
 
       <aside className={styles.buttons}>
-
-        <a
-          className={styles.buttons__item}
-          href='#quizz'
-        >
-          Aller aux quizz
-        </a>
+        {quizzData.length < 10 ? '' : (
+          <a
+            className={styles.buttons__item}
+            href='#quizz'
+          >
+            Aller aux quizz
+          </a>
+        )}
 
         {deletedQuizzData.length === 0 ? '' : (
           <a
@@ -55,6 +102,8 @@ const Quizz: NextPage = ({
         >
           <AdminQuizz
             quizzData={quizzData}
+            handleModerateQuiz={handleModerateQuiz}
+            handleDeleteQuiz={handleDeleteQuiz}
           />
         </section>
 
@@ -66,10 +115,16 @@ const Quizz: NextPage = ({
           >
             <AdminDeletedQuizz
               deletedQuizzData={deletedQuizzData}
+              handleModerateQuiz={handleModerateQuiz}
+              handleDeleteQuiz={handleDeleteQuiz}
             />
           </section>
         )} 
       </div>
+
+      {showLoader && (
+        <Loader />
+      )}
     </>
   );
 };

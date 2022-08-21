@@ -14,13 +14,12 @@ export default async function handle (
       update: {
         pseudo: req.body.pseudo,
         email: req.body.email,
-        password: req.body.password,
-        // avatar: req.body.avatar
+        password: req.body.password
       },
       create: {
         pseudo: req.body.pseudo,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
       }
     });
 

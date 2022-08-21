@@ -23,7 +23,7 @@
   box-shadow: var(--box-shadow);
   border-radius: var(--small-radius);
   font-size: clamp(0.8rem, 0.7153rem + 1.6368vw, 1rem);
-  transition-property: height, padding, box-shadow;
+  transition-property: height, padding;
   transition-duration: .3s;
 
   &:hover {

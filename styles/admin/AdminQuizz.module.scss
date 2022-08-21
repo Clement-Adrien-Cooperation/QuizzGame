@@ -11,9 +11,9 @@
 
 .container {
   @include flexCenter;
-  margin-top: 100px;
+  margin: 100px;
 }
 
 .quizz {
-  width: 800px;
+  width: 600px;
 }

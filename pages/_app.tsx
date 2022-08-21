@@ -25,16 +25,6 @@ const unLoggedUser = {
   is_banished: false
 };
 
-const vadrial = {
-  id: 1,
-  pseudo: 'Vadrial',
-  email: 'adrienlcp@gmail.com',
-  password: 'TDYQCM&S3o!zao6i',
-  avatar: '',
-  is_admin: true,
-  is_banished: false
-};
-
 function MyApp({ Component, pageProps }: AppProps) {
 
   const router = useRouter();

@@ -4,17 +4,18 @@ import { useEffect } from 'react';
 import AdminHeader from '../../components/AdminHeader/AdminHeader';
 import styles from '../../styles/admin/AdminReports.module.scss';
 
-const Reports: NextPage = ({ userLogged }:any) => {
+const Reports: NextPage = ({ isLogged, userLogged }:any) => {
 
   const router = useRouter();
 
   useEffect(() => {
-
-    document.title = "Signalements - s'Quizz Game";
-    
     // If user is not admin, we redirect him to home page
-    if(userLogged?.is_admin === true) {
-      return;
+    if(isLogged) {
+      if(userLogged?.is_admin === true) {
+        document.title = "Modérer les Quizz - s'Quizz Game";
+      } else {
+        router.push('/');
+      };
     } else {
       router.push('/');
     };
