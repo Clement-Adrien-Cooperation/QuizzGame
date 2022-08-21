@@ -24,7 +24,8 @@ body {
     --input-color: hsl(var(--hue-color), 29%, 16%);
     --body-color: hsl(var(--hue-color), 28%, 12%);
 
-    --box-shadow: 0 0 10px #8181811a;
+    --box-shadow: 0 0 5px rgba(70, 70, 70, 0.25);
+    --box-shadow-hover: 0 0 10px rgba(70, 70, 70, 0.25)
   }
 }
 

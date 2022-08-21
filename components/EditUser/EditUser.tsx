@@ -145,7 +145,7 @@ const EditUser = ({
 
     // If user is logged, this is an update
     if(isLogged) {
-
+      
       let body = {
         currentPseudo: userLogged.pseudo,
         pseudo,
@@ -183,16 +183,12 @@ const EditUser = ({
     // If he's not logged, this is a creation
     } else {
 
-      const is_admin = false;
-      const currentPseudo = pseudo;
-
       // If everything is ok, set up the body
       const body = {
-        currentPseudo,
+        currentPseudo: pseudo,
         pseudo,
         email,
-        password,
-        is_admin
+        password
       };
 
       // & create a new user
@@ -318,6 +314,24 @@ const EditUser = ({
     setPreviousPassword(e.target.value);
   };
 
+  const deleteUser = async () => {
+
+    const user_id = userLogged.id;
+
+    await fetch(`/api/user/delete`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id })
+    })
+    .then(() => {
+      setIsLogged(false);
+      router.push('/');
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+
   return (    
     <>
       <form
@@ -391,6 +405,18 @@ const EditUser = ({
           value={isLogged ? 'Sauvegarder' : 'Inscription'}
           disabled={disableButton}
         />
+
+        {isLogged && (
+          <button
+            className={styles.delete}
+            type='button'
+            title='Supprimer définitivement mon compte'
+            aria-label='Supprimer définitivement mon compte'
+            onClick={deleteUser}
+          >
+            Supprimer mon compte
+          </button>
+        )}
       </form>
 
       {showLoader && (

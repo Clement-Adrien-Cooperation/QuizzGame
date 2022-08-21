@@ -20,7 +20,7 @@ export default async function handle (
       create: {
         pseudo: req.body.pseudo,
         email: req.body.email,
-        password: req.body.password,
+        password: req.body.password
       }
     });
 

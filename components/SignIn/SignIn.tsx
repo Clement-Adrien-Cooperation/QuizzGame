@@ -80,12 +80,17 @@ const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) 
     .then(async(res) => {
       
       const data = await res.json();
-      
-      checkPassword(data);
+
+      if(data === null) {
+        setWarningMessage("Cet utilisateur n'existe pas");
+        setShowLoader(false);
+      } else {
+        checkPassword(data);
+      };
     })
     .catch((error) => {
       console.log(error);
-      setWarningMessage("Cet utilisateur n'existe pas");
+      setWarningMessage("Un problème est survenu. Réessayez ou contactez-nous");
       setShowLoader(false);
     });
     

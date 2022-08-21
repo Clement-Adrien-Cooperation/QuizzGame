@@ -274,7 +274,7 @@ const QuestionForm = ({
         />
 
         <InputField
-          name={'proposal 1'}
+          name={'Proposition n°1'}
           state={proposal1}
           inputID={'answer'}
           type={'text'}
@@ -284,7 +284,7 @@ const QuestionForm = ({
         />
 
         <InputField
-          name={'proposal 2'}
+          name={'Proposition n°2'}
           state={proposal2}
           inputID={'answer'}
           type={'text'}
@@ -294,7 +294,7 @@ const QuestionForm = ({
         />
 
         <InputField
-          name={'proposal 3'}
+          name={'Proposition n°3'}
           state={proposal3}
           inputID={'answer'}
           type={'text'}

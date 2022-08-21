@@ -93,7 +93,6 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
   const [showLoader, setShowLoader] = useState<boolean>(true);
 
   const [notification, setNotification] = useState<string>('');
-  const [showNotification, setShowNotification] = useState<boolean>(false);
 
   useEffect(() => {
     
@@ -289,6 +288,8 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
     e.preventDefault();
     setDisableButton(true);
     setShowLoader(true);
+    setWarningMessage('');
+    setNotification('');
 
     const user_id :number = userLogged.id;
     const creator :string = userLogged.pseudo;
@@ -341,8 +342,9 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
 
       if(router.pathname.includes('create')) {
         router.push(`/quizz/update/${data.title}`);
+        setNotification('✅ Quiz enregistré');
       } else {
-        setShowNotification(true);
+        setNotification('✅ Quiz enregistré');
       };
 
       console.log(data);
@@ -379,21 +381,15 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(questionsToSave)
         })
-        .then(async(res) => {
-
-          const data = await res.json();
-          console.log(data);
-        
+        .then(() => {
+          setQuestions(questionsToSave);
           setNotification('✅ Quiz enregistré');
-          setShowNotification(true);
         })
         .catch((error) => {
-
           console.log(error);
         });
       })
       .catch((error) => {
-
         console.log(error);
       });
 
@@ -408,12 +404,8 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(questionsToSave)
       })
-      .then(async(res) => {
-        const data = await res.json();
-        console.log(data);
-
+      .then(() => {
         setNotification('✅ Quiz enregistré');
-        setShowNotification(true);
       })
       .catch((error) => {
         console.log(error);
@@ -474,10 +466,10 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
         <Loader />
       )}
 
-      {showNotification && (
+      {notification && (
         <Notification
           notification={notification}
-          setShowNotification={setShowNotification}
+          setNotification={setNotification}
         />
       )}
     </>

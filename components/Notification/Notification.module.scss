@@ -7,6 +7,7 @@
   background: var(--main-color-secondary);
   opacity: 0;
   border-radius: var(--small-radius) var(--small-radius) 0 0;
+  box-shadow: var(--box-shadow);
   transform: translateY(100%);
   transition: .3s;
   animation: animApparition .3s ease-out;

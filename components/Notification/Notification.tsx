@@ -4,12 +4,12 @@ import styles from './Notification.module.scss';
 
 type NotificationTypes = {
   notification: string,
-  setShowNotification: React.Dispatch<React.SetStateAction<boolean>>
+  setNotification: React.Dispatch<React.SetStateAction<string>>
 };
 
 const Notification = ({
   notification,
-  setShowNotification
+  setNotification
 }: NotificationTypes) => {
 
   const [opened, setOpened] = useState(false);
@@ -30,7 +30,7 @@ const Notification = ({
     setOpened(false);
 
     setTimeout(() => {
-      setShowNotification(false);
+      setNotification('');
     }, 300);
   };
 
