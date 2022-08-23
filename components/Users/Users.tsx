@@ -40,56 +40,54 @@ const Users = ({
   };
 
   return (
-    <>
-      {users.length === 0 ? '' :
+    <section className={styles.container}>
 
-        <section className={styles.container}>
+      <h3 className={styles.title}>
+        Utilisateurs actifs
+      </h3>
 
-          <h3 className={styles.title}>
-            {users === [] ? '' : 'Utilisateurs actifs'}
-          </h3>
-
-          <div className={styles.input}>
-            <InputField
-              name={'Rechercher un utilisateur'}
-              state={usersFilter}
-              inputID={'users-filter'}
-              type={'text'}
-              isDisabled={false}
-              required={true}
-              handleFunction={handleChangeFilter}
-            />
-          </div>
-          
-          <ul>
-            {users?.map(({id, pseudo, email, avatar, is_admin, is_banished}: UserTypes) => {
-
-              const filteredPseudo = pseudo.toLowerCase();
-              const filteredEmail = email.toLowerCase();
-              const filter = usersFilter.toLocaleLowerCase();
-
-              if(filteredPseudo.includes(filter) || filteredEmail.includes(filter)) {
-                return (
-                  <li key={id}>
-                    <User
-                      id={id}
-                      pseudo={pseudo}
-                      email={email}
-                      avatar={avatar}
-                      is_admin={is_admin}
-                      is_banished={is_banished}
-                      handleBanishement={handleBanishement}
-                      handlePromotion={handlePromotion}
-                      userLogged={userLogged}
-                    />
-                  </li>
-                );
-              };
-            })}
-          </ul>
-        </section>
+      {users.length < 10 ? '' :
+        <div className={styles.input}>
+          <InputField
+            name={'Rechercher un utilisateur'}
+            state={usersFilter}
+            inputID={'users-filter'}
+            type={'text'}
+            isDisabled={false}
+            required={true}
+            autoFocus={true}
+            handleFunction={handleChangeFilter}
+          />
+        </div>
       }
-    </>
+      
+      <ul>
+        {users?.map(({id, pseudo, email, avatar, is_admin, is_banished}: UserTypes) => {
+
+          const filteredPseudo = pseudo.toLowerCase();
+          const filteredEmail = email.toLowerCase();
+          const filter = usersFilter.toLocaleLowerCase();
+
+          if(filteredPseudo.includes(filter) || filteredEmail.includes(filter)) {
+            return (
+              <li key={id}>
+                <User
+                  id={id}
+                  pseudo={pseudo}
+                  email={email}
+                  avatar={avatar}
+                  is_admin={is_admin}
+                  is_banished={is_banished}
+                  handleBanishement={handleBanishement}
+                  handlePromotion={handlePromotion}
+                  userLogged={userLogged}
+                />
+              </li>
+            );
+          };
+        })}
+      </ul>
+    </section>
   );
 };
 

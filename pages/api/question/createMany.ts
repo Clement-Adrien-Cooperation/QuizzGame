@@ -13,13 +13,13 @@ export default async function handle (
       }
     });
     
-    const question = await prisma.question.createMany({
+    const questions = await prisma.question.createMany({
       data: [
         ...req.body
       ]
     });
 
-    res.status(201).json(question);
+    res.status(201).json(questions);
     
   } catch (error){
     console.log(error);

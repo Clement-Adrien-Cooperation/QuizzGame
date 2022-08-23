@@ -133,6 +133,7 @@ const Questions = ({
                     type={'text'}
                     isDisabled={false}
                     required={true}
+                    autoFocus={true}
                     handleFunction={handleChangeQuestionFilter}
                   />
                 </div>
@@ -150,13 +151,14 @@ const Questions = ({
                     return (
                       <li key={index}>
                         <QuestionCard
+                          questions={questions}
+                          setQuestions={setQuestions}
                           id={question.id}
                           quizz_id={question.quizz_id}
                           question={question.question}
                           answer={question.answer}
                           proposals={question.proposals}
                           description={question.description}
-                          setQuestions={setQuestions}
                           updateQuestion={updateQuestion}
                           setUpdating={setUpdating}
                           questionIndex={index}

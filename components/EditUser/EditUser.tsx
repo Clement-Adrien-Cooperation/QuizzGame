@@ -345,6 +345,7 @@ const EditUser = ({
           type={'text'}
           isDisabled={false}
           required={true}
+          autoFocus={true}
           handleFunction={handleChangePseudo}
         />
 
@@ -355,6 +356,7 @@ const EditUser = ({
           type={'text'}
           isDisabled={false}
           required={true}
+          autoFocus={false}
           handleFunction={handleChangeEmail}
         />
         
@@ -366,6 +368,7 @@ const EditUser = ({
             type={'password'}
             isDisabled={false}
             required={false}
+            autoFocus={false}
             handleFunction={handleChangePreviousPassword}
           />
         )}
@@ -377,6 +380,7 @@ const EditUser = ({
           type={'password'}
           isDisabled={false}
           required={isLogged ? false : true}
+          autoFocus={false}
           handleFunction={handleChangePassword}
         />
 
@@ -387,6 +391,7 @@ const EditUser = ({
           type={'password'}
           isDisabled={false}
           required={isLogged ? false : true}
+          autoFocus={false}
           handleFunction={handleChangeConfirmPassword}
         />
 

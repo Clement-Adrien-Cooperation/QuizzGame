@@ -8,6 +8,7 @@ type InputFieldProps = {
   type: string,
   isDisabled: boolean,
   required: boolean,
+  autoFocus: boolean,
   handleFunction: ChangeEventHandler<HTMLInputElement>
 };
 
@@ -18,6 +19,7 @@ const InputField = ({
   type,
   isDisabled,
   required,
+  autoFocus,
   handleFunction,
 } : InputFieldProps) => {
 
@@ -32,6 +34,7 @@ const InputField = ({
         onChange={handleFunction}
         disabled={isDisabled}
         required={required}
+        autoFocus={autoFocus}
       />
 
       <label

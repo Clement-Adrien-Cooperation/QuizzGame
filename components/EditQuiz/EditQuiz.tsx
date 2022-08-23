@@ -371,8 +371,6 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
         questionsToSave = [...questions];
 
         questionsToSave.forEach(question => question.quizz_id = data.id);
-
-        console.log(questionsToSave);
       })
       .then(async() => {
         

@@ -57,6 +57,7 @@ const AdminDeletedQuizz = ({
               type={'text'}
               isDisabled={false}
               required={true}
+              autoFocus={false}
               handleFunction={handleChangeDeletedQuizzFilter}
             />
           </div>

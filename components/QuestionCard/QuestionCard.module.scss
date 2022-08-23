@@ -37,15 +37,18 @@
   padding: 13px;
   border-radius: var(--small-radius);
   opacity: 0.7;
-  transition: transform .3s;
-
-  &.rotated {
-    transform: rotate(180deg);
-  }
 
   &:hover {
     opacity: 1;
     background: var(--button-icon-hover);
+  }
+}
+
+.arrow_icon {
+  transition: .3s;
+
+  &.rotated {
+    transform: rotate(180deg);
   }
 }
 

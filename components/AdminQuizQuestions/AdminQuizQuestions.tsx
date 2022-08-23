@@ -68,6 +68,7 @@ const AdminQuizQuestions = ({
             type="text"
             isDisabled={false}
             required={true}
+            autoFocus={true}
             handleFunction={handleChangeQuestionFilter}
           />
         </div>

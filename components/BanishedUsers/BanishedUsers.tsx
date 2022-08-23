@@ -55,6 +55,7 @@ const BanishedUsers = ({
               type={'text'}
               isDisabled={false}
               required={true}
+              autoFocus={false}
               handleFunction={handleChangeFilter}
             />
           </div>

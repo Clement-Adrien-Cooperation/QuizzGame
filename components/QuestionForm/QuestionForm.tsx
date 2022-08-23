@@ -260,6 +260,7 @@ const QuestionForm = ({
           type={'text'}
           isDisabled={false}
           required={true}
+          autoFocus={true}
           handleFunction={handleChangeQuestion}
         />
 
@@ -270,6 +271,7 @@ const QuestionForm = ({
           type={'text'}
           isDisabled={false}
           required={true}
+          autoFocus={false}
           handleFunction={handleChangeAnswer}
         />
 
@@ -280,6 +282,7 @@ const QuestionForm = ({
           type={'text'}
           isDisabled={false}
           required={true}
+          autoFocus={false}
           handleFunction={handleChangeProposal1}
         />
 
@@ -290,6 +293,7 @@ const QuestionForm = ({
           type={'text'}
           isDisabled={false}
           required={true}
+          autoFocus={false}
           handleFunction={handleChangeProposal2}
         />
 
@@ -300,6 +304,7 @@ const QuestionForm = ({
           type={'text'}
           isDisabled={false}
           required={true}
+          autoFocus={false}
           handleFunction={handleChangeProposal3}
         />
 

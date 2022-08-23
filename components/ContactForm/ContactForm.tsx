@@ -27,6 +27,7 @@ const ContactForm = () => {
         id='email'
         type='email'
         name='email'
+        autoFocus
         placeholder='Votre adresse mail'
       />
       <ValidationError

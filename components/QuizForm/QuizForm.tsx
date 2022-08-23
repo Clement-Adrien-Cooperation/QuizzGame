@@ -38,6 +38,7 @@ const QuizForm = ({
         type={'text'}
         isDisabled={false}
         required={true}
+        autoFocus={true}
         handleFunction={(e) => handleChangeTitle(e)}
       />
 

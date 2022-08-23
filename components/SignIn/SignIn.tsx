@@ -126,6 +126,7 @@ const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) 
             type={'text'}
             isDisabled={false}
             required={true}
+            autoFocus={true}
             handleFunction={handleChangePseudoOrEmail}
           />
 
@@ -136,6 +137,7 @@ const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) 
             type={'password'}
             isDisabled={false}
             required={true}
+            autoFocus={false}
             handleFunction={handleChangePassword}
           />
 
