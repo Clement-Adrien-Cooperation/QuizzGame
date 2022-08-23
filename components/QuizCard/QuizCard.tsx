@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styles from './QuizCard.module.scss';
 import defaultImage from '../../public/icons/defaultImage.svg';
+import Stars from '../Stars/Stars';
 
 type QuizCardProps = {
   id: number,
@@ -67,16 +68,6 @@ const QuizCard = ({
       >
         <header className={styles.header}>
 
-          {/* <div className={styles.header__icon}>
-            <Image
-              src={image === null ? defaultImage : image}
-              width='32px'
-              height='32px'
-              layout="responsive"
-              alt='Image du quiz'
-            />
-          </div> */}
-
           <aside className={styles.header__aside}>
 
             <h2 className={styles.header__aside__title}>
@@ -93,23 +84,29 @@ const QuizCard = ({
           </aside>
         </header>
 
-        <div className={styles.body}>
+        <section className={styles.body}>
 
-          <span className={styles.body__content}>
-            {category}
-          </span>
+          <div className={styles.body__content}>
 
-          <span className={styles.body__content}>
-            {nbOfQuestions} {nbOfQuestions <= 1 ? 'question' : 'questions'}
-          </span>
+            <span className={styles.category}>
+              {category}
+            </span>
+
+            <span className={styles.questions_number}>
+              {nbOfQuestions} {nbOfQuestions === 1 ? 'question' : 'questions'}
+            </span>
+
+          </div>
 
           {rate === null ? '' :
-            <span className={styles.body__content}>
+            <span className={styles.rate}>
               
-              Note : {rate}/5
+              <Stars
+                rate={rate}
+              />
             </span>
           }
-        </div>
+        </section>
 
       </section>
 

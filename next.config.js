@@ -5,9 +5,6 @@ const nextConfig = {
   i18n: {
     locales: ['fr'],
     defaultLocale: 'fr'
-  },
-  images: {
-    loader: 'imgix'
   }
 };
 

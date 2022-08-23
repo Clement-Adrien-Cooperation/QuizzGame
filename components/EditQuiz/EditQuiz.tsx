@@ -107,14 +107,10 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
 
   const getQuiz = async () => {
 
-    const body = {
-      title: router.query.slug
-    }
-
     await fetch('/api/quizz/getOne', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
+      body: JSON.stringify({ title: router.query.slug })
     })
     .then(async(res) => {
       const data = await res.json();

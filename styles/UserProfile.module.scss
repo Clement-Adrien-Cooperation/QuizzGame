@@ -8,6 +8,11 @@
 
 .container {
   @include flexCenter;
+  flex-direction: column;
+}
+
+.input {
+  width: 500px;
 }
 
 .list {

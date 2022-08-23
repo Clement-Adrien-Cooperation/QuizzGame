@@ -65,7 +65,11 @@ const UserQuizCard = ({
     <>
       <section className={styles.card} key={id}>
         <header className={styles.header}>
-          <h3 className={styles.title}>
+          <h3
+            className={styles.title}
+            title={`${title}`}
+            aria-label={`${title}`}
+          >
             {title}
           </h3>
         

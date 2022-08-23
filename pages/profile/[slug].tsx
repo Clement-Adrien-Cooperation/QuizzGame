@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { ReactEventHandler, useEffect, useState } from 'react';
+import InputField from '../../components/InputField/InputField';
 import Loader from '../../components/Loader/Loader';
 import UserProfileQuizCard from '../../components/UserProfileQuizCard/UserProfileQuizCard';
 import styles from '../../styles/UserProfile.module.scss';
@@ -25,8 +26,9 @@ const UserProfile: NextPage = ({ isLogged, userLogged }: any) => {
 
   const router = useRouter();
 
-  const [showLoader, setShowLoader] = useState<boolean>(true);
   const [userQuizz, setUserQuizz] = useState<QuizTypes[]>([]);
+  const [quizzFilter, setQuizzFilter] = useState<string>('');
+  const [showLoader, setShowLoader] = useState<boolean>(true);
 
   useEffect(() => {
     if(isLogged) {
@@ -59,6 +61,10 @@ const UserProfile: NextPage = ({ isLogged, userLogged }: any) => {
     });
   };
 
+  const handleChangeQuizzFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuizzFilter(e.target.value);
+  };
+
   return (
     <>
       <header className={styles.header}>
@@ -69,20 +75,42 @@ const UserProfile: NextPage = ({ isLogged, userLogged }: any) => {
 
       <section className={styles.container}>
 
+        <div className={styles.input}>
+          <InputField
+            name={'Chercher un quiz...'}
+            state={quizzFilter}
+            inputID={'quizz-filter'}
+            type={'text'}
+            isDisabled={false}
+            required={true}
+            autoFocus={true}
+            handleFunction={handleChangeQuizzFilter}
+          />
+        </div>
+
         <ul className={styles.list}>
 
-          {userQuizz.map((quiz: QuizTypes, index: number) =>
-            <li key={index}>
-              <UserProfileQuizCard
-                title={quiz.title}
-                category={quiz.category}
-                difficulty={quiz.difficulty}
-                image={quiz.image}
-                date={quiz.date}
-                rate={quiz.rate}
-              />
-            </li>
-          )}
+          {userQuizz.map((quiz: QuizTypes, index: number) => {
+
+            const filteredTitle = quiz.title.toLowerCase();
+            const filteredCategory = quiz.category.toLowerCase();
+            const filter = quizzFilter.toLowerCase();
+
+            if(filteredTitle.includes(filter) || filteredCategory.includes(filter)) {
+              return (
+                <li key={index}>
+                  <UserProfileQuizCard
+                    title={quiz.title}
+                    category={quiz.category}
+                    difficulty={quiz.difficulty}
+                    image={quiz.image}
+                    date={quiz.date}
+                    rate={quiz.rate}
+                  />
+                </li>
+              );
+            };
+          })}
         </ul>
       </section>
 
