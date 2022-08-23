@@ -1,2 +1,18 @@
 @import './mixins';
 
+.title {
+  margin: 50px;
+  font-weight: 300;
+  font-size: 25px;
+}
+
+.container {
+  @include flexCenter;
+}
+
+.list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
+}

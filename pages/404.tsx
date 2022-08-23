@@ -1,8 +1,6 @@
 import { NextPage } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
 import styles from '../styles/NotFound.module.scss';
-import home from '../public/icons/home.svg';
 
 const NotFound: NextPage = () => {
 

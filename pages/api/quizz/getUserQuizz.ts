@@ -8,8 +8,8 @@ export default async function getAllQuizz (
 ) {
   try {
     const quizz = await prisma.quizz.findMany({
-      where:{
-        user_id: req.body.user_id
+      where: {
+        creator: req.body.pseudo
       },
       orderBy: [{
         id: 'asc'

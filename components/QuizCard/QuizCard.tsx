@@ -36,23 +36,23 @@ const QuizCard = ({
     switch (true) {
       case difficulty === 'Très facile' :
         setBackgroundColor('var(--white)');
-        break;
+      break;
       case difficulty === 'Facile' :
         setBackgroundColor('var(--green)');
-        break;
+      break;
       case difficulty === 'Normal' :
         setBackgroundColor('var(--yellow)');
-        break;
+      break;
       case difficulty === 'Difficile' :
         setBackgroundColor('var(--orange)');
-        break;
+      break;
       case difficulty === 'Très difficile' :
         setBackgroundColor('var(--red)');
-        break;
+      break;
         
       default:
         setBackgroundColor('var(--yellow)');
-        break;
+      break;
     };
   }, []);
 
@@ -67,7 +67,7 @@ const QuizCard = ({
       >
         <header className={styles.header}>
 
-          <div className={styles.header__icon}>
+          {/* <div className={styles.header__icon}>
             <Image
               src={image === null ? defaultImage : image}
               width='32px'
@@ -75,7 +75,7 @@ const QuizCard = ({
               layout="responsive"
               alt='Image du quiz'
             />
-          </div>
+          </div> */}
 
           <aside className={styles.header__aside}>
 
@@ -103,9 +103,12 @@ const QuizCard = ({
             {nbOfQuestions} {nbOfQuestions <= 1 ? 'question' : 'questions'}
           </span>
 
-          <span className={styles.body__content}>
-            {rate === null ? '' : `${rate}/5`}
-          </span>
+          {rate === null ? '' :
+            <span className={styles.body__content}>
+              
+              Note : {rate}/5
+            </span>
+          }
         </div>
 
       </section>

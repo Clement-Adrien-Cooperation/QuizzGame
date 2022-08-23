@@ -11,8 +11,11 @@
 .list {
   @include flexCenter;
   flex-direction: column;
+  width: 100%;
 
   &__item {
+    text-align: center;
+    width: 100%;
     cursor: pointer;
     color: var(--white);
     margin: 6px 0;

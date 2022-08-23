@@ -116,7 +116,7 @@ const Navbar = ({
             title="Aller à la page d'administration"
             aria-label="Aller à la page d'administration"
           >
-            <Link href='/admin'>
+            <Link href='/admin/reports'>
               <a>
                 Administration
               </a>

@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import styles from './UserProfileQuizCard.module.scss';
 
 type UserProfileQuizCardProps = {
   title: string,
   category: string,
   difficulty: string,
-  lang: string,
   image: string,
   date: string,
   rate: number
@@ -15,7 +15,6 @@ const UserProfileQuizCard = ({
   title,
   category,
   difficulty,
-  lang,
   image,
   date,
   rate
@@ -23,27 +22,68 @@ const UserProfileQuizCard = ({
 
   const router = useRouter();
 
+  const [backgroundColor, setBackgroundColor] = useState<string>('var(--yellow)');
+
+  useEffect(() => {
+    switch (true) {
+      case difficulty === 'Très facile' :
+        setBackgroundColor('var(--white)');
+      break;
+      case difficulty === 'Facile' :
+        setBackgroundColor('var(--green)');
+      break;
+      case difficulty === 'Normal' :
+        setBackgroundColor('var(--yellow)');
+      break;
+      case difficulty === 'Difficile' :
+        setBackgroundColor('var(--orange)');
+      break;
+      case difficulty === 'Très difficile' :
+        setBackgroundColor('var(--red)');
+      break;
+        
+      default:
+        setBackgroundColor('var(--yellow)');
+      break;
+    };
+  }, []);
+
   return (
     <article
       className={styles.card}
-      onClick={() => {
-        router.push(`/quizz/${title}`)
-      }}
+      title="Jouer à ce quiz"
+      aria-label="Jouer à ce quiz"
+      onClick={() => router.push(`/quizz/${title}`)}
     >
       <header className={styles.header}>
-        <h2 className={styles.header}>
+        <h2 className={styles.title}>
           {title}
         </h2>
       </header>
 
       <section className={styles.body}>
-        <p className={styles.content}>
-          {category}
-        </p>
 
-        <p className={styles.content}>
-          {rate}
-        </p>
+        <span
+          className={styles.difficulty}
+          style={{background: `${backgroundColor}`}}
+        >
+          {difficulty}
+        </span>
+
+        <span className={styles.category}>
+          {category}
+        </span>
+
+        {rate === null ? '' :
+
+          <span className={styles.rate}>
+            {rate}/5
+          </span>
+        }
+
+        <span className={styles.date}>
+          {date}
+        </span>
       </section>
 
       <footer className={styles.footer}>

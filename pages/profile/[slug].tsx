@@ -35,15 +35,17 @@ const UserProfile: NextPage = ({ isLogged, userLogged }: any) => {
       };
     };
 
-    getQuizzFromUser(userLogged.id);
+    getQuizzFromUser();
   }, []);
 
-  const getQuizzFromUser = async (user_id: number) => {
+  const getQuizzFromUser = async () => {
+    
+    const pseudo = router.query.slug;
 
     await fetch('/api/quizz/getUserQuizz', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ user_id })
+      body: JSON.stringify({ pseudo })
     })
     .then(async(res) => {
       const data = await res.json();
@@ -61,7 +63,7 @@ const UserProfile: NextPage = ({ isLogged, userLogged }: any) => {
     <>
       <header className={styles.header}>
         <h1 className={styles.title}>
-          Page de {userLogged.pseudo}
+          Quizz de {router.query.slug}
         </h1>
       </header>
 
@@ -75,14 +77,12 @@ const UserProfile: NextPage = ({ isLogged, userLogged }: any) => {
                 title={quiz.title}
                 category={quiz.category}
                 difficulty={quiz.difficulty}
-                lang={quiz.lang}
                 image={quiz.image}
                 date={quiz.date}
                 rate={quiz.rate}
               />
             </li>
           )}
-
         </ul>
       </section>
 
