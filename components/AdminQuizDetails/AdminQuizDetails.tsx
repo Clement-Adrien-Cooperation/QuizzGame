@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import CloseButton from '../CloseButton/CloseButton';
 import styles from './AdminQuizDetails.module.scss';
 import trash from '../../public/icons/delete.svg';
+import restore from '../../public/icons/restore.svg';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import AdminQuizQuestions from '../AdminQuizQuestions/AdminQuizQuestions';
 
 type QuizTypes = {
   id: number,
@@ -51,20 +52,6 @@ const AdminQuizDetails = ({
 
   const router = useRouter();
 
-  const [opened, setOpened] = useState(false);
-
-  useEffect(() => {
-    setOpened(true);
-  }, []);
-
-  const closeQuizDetails = () => {
-    setOpened(false);
-
-    setTimeout(() => {
-      setQuizDetails(emptyQuiz);
-    }, 300);
-  };
-
   return (
     <>
       <div
@@ -73,12 +60,7 @@ const AdminQuizDetails = ({
       ></div>
 
       <section
-        className={opened ?
-          `${styles.card} ${styles.opened}`
-        :
-          `${styles.card}`
-        }
-      >
+        className={styles.card}>
         <header className={styles.header}>
           <h5 className={styles.title}>
             Titre :
@@ -97,8 +79,8 @@ const AdminQuizDetails = ({
             <button
               className={styles.reported__button}
               type='button'
-              title='Voir les signalements lié à ce quiz'
-              aria-label='Voir les signalements lié à ce quiz'
+              title='Voir le(s) signalement(s) lié(s) à ce quiz'
+              aria-label='Voir le(s) signalement(s) lié(s) à ce quiz'
               onClick={() => router.push('/admin/reports')}
             >
               ⚠️ Ce quiz a été signalé ⚠️
@@ -140,7 +122,12 @@ const AdminQuizDetails = ({
           </p>
         </div>
 
-        <footer className={styles.footer}>
+        <div className={
+          quiz.is_visible ? 
+            `${styles.button}`
+          :
+            `${styles.buttons}`
+        }>
 
           {!quiz.is_visible && (
             <button
@@ -157,19 +144,23 @@ const AdminQuizDetails = ({
           <button
             className={styles.moderate}
             type='button'
-            title="Envoyer ce quiz à la corbeille"
-            aria-label="Envoyer ce quiz à la corbeille"
+            title={quiz.is_visible ? "Envoyer ce quiz à la corbeille" : "Restaurer ce quiz"}
+            aria-label={quiz.is_visible ? "Envoyer ce quiz à la corbeille" : "Restaurer ce quiz"}
             onClick={() => handleModerateQuiz(quiz.id, quiz.is_visible)}
           >
             <Image
               layout="responsive"
               width='32'
               height='32'
-              alt='Petite poubelle avec une croix'
-              src={trash}
+              alt={quiz.is_visible ? 'Petite poubelle avec une croix' : 'Petite poubelle avec une flèche qui en ressort'}
+              src={quiz.is_visible ? trash : restore}
             />
           </button>
-        </footer>
+        </div>
+
+        <AdminQuizQuestions
+          id={quiz.id}
+        />
       </section>
     </>
   );

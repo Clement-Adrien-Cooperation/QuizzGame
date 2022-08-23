@@ -7,6 +7,21 @@ import AdminDeletedQuizz from '../../components/AdminDeletedQuizz/AdminDeletedQu
 import styles from '../../styles/admin/AdminQuizz.module.scss';
 import Loader from '../../components/Loader/Loader';
 
+type QuizTypes = {
+  id: number,
+  user_id: number,
+  creator: string,
+  title: string,
+  category: string,
+  difficulty: string,
+  lang: string,
+  image: string,
+  is_visible: boolean,
+  date: string,
+  rate: number,
+  reported: boolean
+};
+
 const Quizz: NextPage = ({
   isLogged,
   userLogged,
@@ -16,6 +31,9 @@ const Quizz: NextPage = ({
 
   const router = useRouter();
 
+  const [quizz, setQuizz] = useState<QuizTypes[]>([]);
+  const [deletedQuizz, setDeletedQuizz] = useState<QuizTypes[]>([]);
+
   const [showLoader, setShowLoader] = useState<boolean>(true);
 
   useEffect(() => {
@@ -23,6 +41,10 @@ const Quizz: NextPage = ({
     if(isLogged) {
       if(userLogged?.is_admin === true) {
         document.title = "Modérer les Quizz - s'Quizz Game";
+
+        setQuizz(quizzData);
+        setDeletedQuizz(deletedQuizzData);
+
         setShowLoader(false);
       } else {
         router.push('/');
@@ -32,20 +54,40 @@ const Quizz: NextPage = ({
     };
   }, []);
 
+  const getQuizz = async () => {
+
+    await fetch('/api/quizz/getAll')
+    .then(async(res) => {
+      const data = await res.json();
+      setQuizz(data);
+      setShowLoader(false);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+    await fetch('/api/quizz/getDeletedQuizz')
+    .then(async(res) => {
+      const data = await res.json();
+      setDeletedQuizz(data);
+      setShowLoader(false);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+
   const handleModerateQuiz = async(id: number, is_visible: boolean) => {
 
     setShowLoader(true);
 
-    await fetch(`/api/user/moderate`, {
+    await fetch('/api/quizz/moderate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id, is_visible })
     })
-    .then(async(res) => {
-      const data = await res.json();
-      console.log(data);
-      // refaire appel api pour mettre à jour les states ?
-      // resetQuizz()
+    .then(() => {
+      getQuizz();
     })
     .catch((error) => {
       console.log(error);
@@ -56,19 +98,17 @@ const Quizz: NextPage = ({
 
     setShowLoader(true);
 
-    await fetch(`/api/user/delete`, {
+    await fetch('/api/quizz/delete', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id })
     })
-    .then((res) => {
-      // refaire appel api pour mettre à jour les states ?
-      // resetQuizz()
+    .then(() => {
+      getQuizz();
     })
     .catch((error) => {
       console.log(error);
     });
-
   };
 
   return (
@@ -85,7 +125,8 @@ const Quizz: NextPage = ({
           </a>
         )}
 
-        {deletedQuizzData.length === 0 ? '' : (
+        {deletedQuizzData.length === 0 
+        || quizz.length < 10 ? '' : (
           <a
             className={styles.buttons__item}
             href='#deleted-quizz'
@@ -101,20 +142,20 @@ const Quizz: NextPage = ({
           id='quizz'
         >
           <AdminQuizz
-            quizzData={quizzData}
+            quizz={quizz}
             handleModerateQuiz={handleModerateQuiz}
             handleDeleteQuiz={handleDeleteQuiz}
           />
         </section>
 
-        {deletedQuizzData.length === 0 ? '' : (
+        {deletedQuizz.length === 0 ? '' : (
 
           <section
             className={styles.quizz}
             id='deleted-quizz'
           >
             <AdminDeletedQuizz
-              deletedQuizzData={deletedQuizzData}
+              deletedQuizz={deletedQuizz}
               handleModerateQuiz={handleModerateQuiz}
               handleDeleteQuiz={handleDeleteQuiz}
             />

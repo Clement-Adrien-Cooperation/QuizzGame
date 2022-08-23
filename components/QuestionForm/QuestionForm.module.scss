@@ -3,6 +3,7 @@
 .form {
   @include flexCenter;
   flex-direction: column;
+  margin-top: 20px;
   width: 400px;
   opacity: 0;
   transform: translateY(20px);

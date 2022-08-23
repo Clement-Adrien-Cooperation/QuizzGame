@@ -1,8 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import AdminQuizCard from '../AdminQuizCard/AdminQuizCard';
 import InputField from '../InputField/InputField';
-import Loader from '../Loader/Loader';
 import styles from './AdminDeletedQuizz.module.scss';
 
 type QuizTypes = {
@@ -21,28 +20,18 @@ type QuizTypes = {
 };
 
 type AdminQuizzProps = {
-  deletedQuizzData: QuizTypes[],
+  deletedQuizz: QuizTypes[],
   handleModerateQuiz: Function,
   handleDeleteQuiz: Function
 };
 
 const AdminDeletedQuizz = ({
-  deletedQuizzData,
+  deletedQuizz,
   handleModerateQuiz,
   handleDeleteQuiz
 }: AdminQuizzProps) => {
 
-  const [deletedQuizz, setDeletedQuizz] = useState<QuizTypes[]>([]);
   const [deletedQuizzFilter, setDeletedQuizzFilter] = useState<string>('');
-
-  const [showLoader, setShowLoader] = useState<boolean>(false);
-
-  useEffect(() => {
-    if(deletedQuizzData) {
-      setDeletedQuizz(deletedQuizzData);
-      setShowLoader(false);
-    };
-  }, []);
 
   const handleChangeDeletedQuizzFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDeletedQuizzFilter(e.target.value);
@@ -55,21 +44,23 @@ const AdminDeletedQuizz = ({
           Quizz supprimés
         </h2>
 
-        <div
-          className={styles.input}
-          title='Vous pouvez trouver un quiz avec son titre ou le pseudo de son createur'
-          aria-label='Vous pouvez trouver un quiz avec son titre ou le pseudo de son createur'
-        >
-          <InputField
-            name={'Rechercher dans la corbeille...'}
-            state={deletedQuizzFilter}
-            inputID={'deleted-quizz-filter'}
-            type={'text'}
-            isDisabled={false}
-            required={true}
-            handleFunction={handleChangeDeletedQuizzFilter}
-          />
-        </div>
+        {deletedQuizz.length < 10 ? '' : (
+          <div
+            className={styles.input}
+            title='Vous pouvez trouver un quiz avec son titre ou le pseudo de son createur'
+            aria-label='Vous pouvez trouver un quiz avec son titre ou le pseudo de son createur'
+          >
+            <InputField
+              name={'Rechercher dans la corbeille...'}
+              state={deletedQuizzFilter}
+              inputID={'deleted-quizz-filter'}
+              type={'text'}
+              isDisabled={false}
+              required={true}
+              handleFunction={handleChangeDeletedQuizzFilter}
+            />
+          </div>
+        )}
       </header>
 
       <ul className={styles.list}>
@@ -92,10 +83,6 @@ const AdminDeletedQuizz = ({
           };
         })}
       </ul>
-
-      {showLoader && (
-        <Loader />
-      )}
     </>
   );
 };

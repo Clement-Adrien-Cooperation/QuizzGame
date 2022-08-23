@@ -1,7 +1,7 @@
 @import '../../styles/mixins';
 
 .behind {
-  @include posFixed(0, auto, auto, var(--navbar-width));
+  @include posFixed(79px, auto, auto, var(--navbar-width));
   min-height: 100vh;
   width: 100%;
   background: rgba(10, 10, 10, 0.5);
@@ -20,13 +20,9 @@
   padding: 35px 50px;
   opacity: 0;
   transition: .3s;
-  animation: animApparition .3s ease-out;
   transform: translate(-50%, -20%);
-
-  &.opened {
-    transform: translate(-50%, -50%);
-    opacity: 1;
-  }
+  animation: animApparition 0.3s ease-out forwards;
+  overflow: hidden;
 }
 
 .title {
@@ -69,15 +65,20 @@
 
   &__creator {
     @include underlineButton;
-    line-height: 120%;
     font-size: 14px;
   }
 }
 
-.footer {
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 25px;
+}
+
+.button {
   display: flex;
   justify-content: center;
-  gap: 200px;
+  margin: 0 0 25px;
 }
 
 .moderate {
@@ -85,9 +86,11 @@
   height: 50px;
   padding: 10px;
   border-radius: var(--small-radius);
+  opacity: 0.7;
 
   &:hover {
     background: var(--button-icon-hover);
+    opacity: 1;
   }
 }
 

@@ -1,8 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import AdminQuizCard from '../AdminQuizCard/AdminQuizCard';
 import InputField from '../InputField/InputField';
-import Loader from '../Loader/Loader';
 import styles from './AdminQuizz.module.scss';
 
 type QuizTypes = {
@@ -21,28 +20,18 @@ type QuizTypes = {
 };
 
 type AdminQuizzProps = {
-  quizzData: QuizTypes[],
+  quizz: QuizTypes[],
   handleModerateQuiz: Function,
   handleDeleteQuiz: Function
 };
 
 const AdminQuizz = ({
-  quizzData,
+  quizz,
   handleModerateQuiz,
   handleDeleteQuiz
 }: AdminQuizzProps) => {
 
-  const [quizz, setQuizz] = useState<QuizTypes[]>([]);
   const [quizzFilter, setQuizzFilter] = useState<string>('');
-
-  const [showLoader, setShowLoader] = useState<boolean>(true);
-
-  useEffect(() => {
-    if(quizzData) {
-      setQuizz(quizzData);
-      setShowLoader(false);
-    };
-  }, []);
 
   const handleChangeQuizzFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuizzFilter(event.target.value);
@@ -55,21 +44,23 @@ const AdminQuizz = ({
           Quizz visibles
         </h2>
 
-        <div
-          className={styles.input}
-          title='Vous pouvez trouver un quiz avec son titre ou le pseudo de son createur'
-          aria-label='Vous pouvez trouver un quiz avec son titre ou le pseudo de son createur'
-        >
-          <InputField
-            name={'Rechercher un quiz...'}
-            state={quizzFilter}
-            inputID={'quizz-filter'}
-            type={'text'}
-            isDisabled={false}
-            required={true}
-            handleFunction={handleChangeQuizzFilter}
-          />
-        </div>
+        {quizz.length < 10 ? '' : (
+          <div
+            className={styles.input}
+            title='Vous pouvez trouver un quiz avec son titre ou le pseudo de son createur'
+            aria-label='Vous pouvez trouver un quiz avec son titre ou le pseudo de son createur'
+          >
+            <InputField
+              name={'Rechercher un quiz...'}
+              state={quizzFilter}
+              inputID={'quizz-filter'}
+              type={'text'}
+              isDisabled={false}
+              required={true}
+              handleFunction={handleChangeQuizzFilter}
+            />
+          </div>
+        )}
       </header>
 
       <ul className={styles.list}>
@@ -92,10 +83,6 @@ const AdminQuizz = ({
           };
         })}
       </ul>
-
-      {showLoader && (
-        <Loader />
-      )}
     </>
   );
 };

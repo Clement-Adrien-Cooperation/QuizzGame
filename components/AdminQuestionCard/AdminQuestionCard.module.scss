@@ -1,0 +1,68 @@
+@import '../../styles/mixins';
+
+.card {
+  cursor: pointer;
+  margin: 5px 0;
+  padding: 15px 25px 0;
+  border-radius: var(--small-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.reported {
+  cursor: default;
+  margin-right: 0.4em;
+}
+
+.title {
+  text-align: center;
+  font-weight: 500;
+}
+
+.body {
+  @include flexCenter;
+  flex-direction: column;
+  gap: 5px;
+  color: var(--white);
+  height: 0;
+  overflow: hidden;
+  transition: height .3s;
+
+  &.opened {
+    height: 200px;
+  }
+}
+
+.answer {
+  border-radius: var(--small-radius);
+  text-align: center;
+  background: var(--green);
+  padding: 9px 16px;
+}
+
+.proposals {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.proposal {
+  border-radius: var(--small-radius);
+  text-align: center;
+  background: var(--red);
+  padding: 9px 16px;
+}
+
+.footer {
+  @include flexCenter;
+  margin-top: 5px;
+}
+
+.arrow {
+  width: 25px;
+  height: 25px;
+  transition: .3s;
+
+  &.rotated {
+    transform: rotate(180deg);
+  }
+}

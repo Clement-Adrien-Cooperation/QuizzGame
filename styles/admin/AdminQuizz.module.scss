@@ -16,7 +16,10 @@
 
 .container {
   @include flexCenter;
-  margin: 100px;
+  flex-direction: column;
+  padding-bottom: 40vh;
+  gap: 100px;
+  margin: 100px 0;
 }
 
 .quizz {

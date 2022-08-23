@@ -12,7 +12,7 @@ export default async function handle (
         id: req.body.id
       },
       data: {
-        is_visible: req.body.is_visible
+        is_visible: !req.body.is_visible
       }
     });
 

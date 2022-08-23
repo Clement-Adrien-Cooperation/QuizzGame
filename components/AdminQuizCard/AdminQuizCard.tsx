@@ -50,8 +50,8 @@ const AdminQuizCard = ({
     <>
       <section
         className={styles.card}
-        title="Voir les détails de ce quiz"
-        aria-label="Voir les détails de ce quiz"
+        title={`Voir les détails du quiz "${quiz.title}"`}
+        aria-label={`Voir les détails du quiz "${quiz.title}"`}
         onClick={() => setQuizDetails(quiz)}
       >
         <header className={styles.header}>

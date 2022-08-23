@@ -3,7 +3,7 @@
 .card {
   display: flex;
   justify-content: space-between;
-  margin: 5px 0;
+  margin: 10px 0;
   height: 50px;
   border-radius: var(--small-radius);
   box-shadow: var(--box-shadow);
@@ -19,6 +19,15 @@
   display: flex;
   align-items: center;
   gap: 15px;
+}
+
+.title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+  white-space: nowrap;
+  line-height: 130%;
+  color: var(--text-color);
 }
 
 .category {
