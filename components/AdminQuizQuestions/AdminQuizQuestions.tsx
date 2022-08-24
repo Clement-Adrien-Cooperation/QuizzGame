@@ -6,8 +6,8 @@ import Loader from '../Loader/Loader';
 import styles from './AdminQuizQuestions.module.scss';
 
 type QuestionTypes = {
-  id: number,
-  quizz_id: number,
+  id: string,
+  quizz_id: string,
   question: string,
   description: string,
   proposals: string[],
@@ -17,7 +17,7 @@ type QuestionTypes = {
 };
 
 type AdminQuizQuestionsProps = {
-  id: number
+  id: string
 };
 
 const AdminQuizQuestions = ({

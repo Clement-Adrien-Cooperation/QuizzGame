@@ -7,8 +7,8 @@ import Image from 'next/image';
 import AdminQuizQuestions from '../AdminQuizQuestions/AdminQuizQuestions';
 
 type QuizTypes = {
-  id: number,
-  user_id: number,
+  id: string,
+  user_id: string,
   creator: string,
   title: string,
   category: string,
@@ -29,8 +29,8 @@ type AdminQuizDetailsProps = {
 };
 
 const emptyQuiz: QuizTypes = {
-  id: 0,
-  user_id: 0,
+  id: '',
+  user_id: '',
   creator: '',
   title: '',
   category: '',

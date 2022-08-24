@@ -8,7 +8,7 @@ import Warning from '../Warning/Warning';
 import styles from './EditQuiz.module.scss';
 
 type UserLoggedTypes = {
-  id: number,
+  id: string,
   pseudo: string,
   is_admin: boolean,
   is_banished: boolean
@@ -19,8 +19,8 @@ type QuizEditProps = {
 };
 
 type QuizTypes = {
-  id?: number,
-  user_id: number,
+  id?: string,
+  user_id: string,
   creator: string,
   title: string,
   nbOfQuestions: number,
@@ -33,8 +33,8 @@ type QuizTypes = {
 };
 
 type QuestionTypes = {
-  id: number,
-  quizz_id: number,
+  id: string,
+  quizz_id: string,
   question: string,
   description: string,
   proposals: string[],
@@ -72,7 +72,7 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
     'Autres'
   ];
 
-  const [quizID, setQuizID] = useState<number>(0);
+  const [quizID, setQuizID] = useState<string>('');
 
   const [pageTitle, setPageTitle] = useState<string>("Éditer un s'Quizz");
   const [currentTitle, setCurrentTitle] = useState<string>('');
@@ -138,7 +138,7 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
     });
   };
 
-  const getQuestionsFromQuiz = async(quizz_id: number) => {
+  const getQuestionsFromQuiz = async(quizz_id: string) => {
 
     await fetch('/api/question/getAllFromQuiz', {
       method: 'POST',
@@ -287,7 +287,7 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
     setWarningMessage('');
     setNotification('');
 
-    const user_id :number = userLogged.id;
+    const user_id :string = userLogged.id;
     const creator :string = userLogged.pseudo;
     
     if(checkForm()) {
@@ -306,7 +306,6 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
         difficulty
       };
 
-      // & create a new user
       await saveQuiz(body);
 
       // If there are questions in state, save it.
@@ -327,27 +326,40 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
   };
 
   const saveQuiz = async(body: QuizTypes) => {
-    await fetch(`/api/quizz/upsert`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    })
-    .then(async(res) => {
-      
-      const data = await res.json();
 
-      if(router.pathname.includes('create')) {
+    if(router.pathname.includes('create')) {
+
+      await fetch(`/api/quizz/create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      })
+      .then(async(res) => {
+        
+        const data = await res.json();
+        
         router.push(`/quizz/update/${data.title}`);
         setNotification('✅ Quiz enregistré');
-      } else {
-        setNotification('✅ Quiz enregistré');
-      };
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-      console.log(data);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    } else {
+      
+      await fetch(`/api/quizz/update`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      })
+      .then(() => {
+
+        setNotification('✅ Quiz enregistré');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    };
   };
 
   const saveQuestions = async(title: string) => {

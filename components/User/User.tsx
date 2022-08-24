@@ -6,14 +6,14 @@ import arrow from '../../public/icons/arrow.svg';
 import UserDetails from '../UserDetails/UserDetails';
 
 type UserLoggedTypes = {
-  id: number,
+  id: string,
   pseudo: string,
   is_admin: boolean,
   is_banished: boolean
 };
 
 type UserProps = {
-  id: number,
+  id: string,
   pseudo: string,
   email: string,
   avatar: string,

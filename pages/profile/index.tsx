@@ -7,8 +7,8 @@ import UserQuizCard from '../../components/UserQuizCard/UserQuizCard';
 import styles from '../../styles/Profile.module.scss';
 
 type QuizTypes = {
-  id: number,
-  user_id: number,
+  id: string,
+  user_id: string,
   creator: string,
   title: string,
   category: string,

@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { v4 as uuidv4 } from 'uuid';
 
 import { prisma } from '../../../lib/prisma';
 
@@ -7,12 +8,14 @@ export default async function handle (
   res: NextApiResponse
 ) {
   try {
-    const quiz = await prisma.quizz.delete({
-      where: {
-        title: req.body.title
+    const user = await prisma.user.create({
+      data: {
+        id: uuidv4(),
+        ...req.body
       }
     });
-    res.status(200).json(quiz);
+
+    res.status(200).json(user);
     
   } catch (error){
     console.log(error);

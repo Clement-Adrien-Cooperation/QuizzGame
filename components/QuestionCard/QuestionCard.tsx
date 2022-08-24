@@ -7,8 +7,8 @@ import arrow from '../../public/icons/arrow.svg';
 import QuestionDetails from '../QuestionDetails/QuestionDetails';
 
 type QuestionTypes = {
-  id: number,
-  quizz_id: number,
+  id: string,
+  quizz_id: string,
   question: string,
   description: string,
   proposals: string[],
@@ -19,8 +19,8 @@ type QuestionTypes = {
 
 type QuestionCardProps = {
   questions: QuestionTypes[],
-  id: number,
-  quizz_id: number,
+  id: string,
+  quizz_id: string,
   question: string,
   answer: string,
   proposals: string[],

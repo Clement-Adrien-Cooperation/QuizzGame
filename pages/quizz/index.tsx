@@ -8,8 +8,8 @@ import InputField from '../../components/InputField/InputField';
 import Loader from '../../components/Loader/Loader';
 
 type QuizTypes = {
-  id: number,
-  user_id: number,
+  id: string,
+  user_id: string,
   creator: string,
   title: string,
   nbOfQuestions: number,

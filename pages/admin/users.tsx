@@ -8,7 +8,7 @@ import BanishedUsers from '../../components/BanishedUsers/BanishedUsers';
 import Loader from '../../components/Loader/Loader';
 
 type UserProps = {
-  id: number,
+  id: string,
   pseudo: string,
   email: string,
   avatar: string,

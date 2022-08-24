@@ -6,7 +6,7 @@ type UserProfileQuizCardProps = {
   title: string,
   category: string,
   difficulty: string,
-  image: string,
+  nbOfQuestions: number,
   date: string,
   rate: number
 };
@@ -15,7 +15,7 @@ const UserProfileQuizCard = ({
   title,
   category,
   difficulty,
-  image,
+  nbOfQuestions,
   date,
   rate
 }: UserProfileQuizCardProps) => {
@@ -68,6 +68,10 @@ const UserProfileQuizCard = ({
           style={{background: `${backgroundColor}`}}
         >
           {difficulty}
+        </span>
+
+        <span className={styles.questions}>
+          {nbOfQuestions} question{nbOfQuestions <= 1 ? '' : 's'}
         </span>
 
         <span className={styles.category}>

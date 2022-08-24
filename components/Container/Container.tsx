@@ -2,7 +2,7 @@ import Head from "../Head/Head";
 import Navbar from '../Navbar/Navbar';
 
 type UserTypes = {
-  id: number,
+  id: string,
   pseudo: string,
   is_admin: boolean,
   is_banished: boolean,

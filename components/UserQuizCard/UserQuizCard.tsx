@@ -8,7 +8,7 @@ import deleteIcon from '../../public/icons/delete.svg';
 import Loader from '../Loader/Loader';
 
 type UserQuizCardProps = {
-  id: number,
+  id: string,
   user_id?: number,
   creator?: string,
   title: string,
@@ -39,23 +39,30 @@ const UserQuizCard = ({
   
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
-  const handleDeleteQuiz = async (id: number) => {
+  const handleDeleteQuiz = async () => {
 
     setShowLoader(true);
 
-    await fetch('api/quizz/delete', {
+    await fetch('/api/quizz/delete', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id })
+      body: JSON.stringify({ title, user_id: "6fc66b22-3dd0-4b15-a25d-bb7515c287b0" })
     })
     .then(async(res) => {
       const data = await res.json();
       console.log(data);
+
+      console.log('entré dans le then');
+      setShowLoader(false);
       
-      await getQuizzFromUser();
+      
+      // await getQuizzFromUser();
     })
     .catch((error) => {
+      console.log('entré dans le catch');
+      
       console.log(error);
+      setShowLoader(false);
     });
 
     setShowLoader(false);
@@ -118,7 +125,7 @@ const UserQuizCard = ({
             type='button'
             title='Supprimer ce quiz'
             aria-label='Supprimer ce quiz'
-            onClick={() => handleDeleteQuiz(id)}
+            onClick={() => handleDeleteQuiz()}
           >
             <div className={styles.icon}>
               <Image

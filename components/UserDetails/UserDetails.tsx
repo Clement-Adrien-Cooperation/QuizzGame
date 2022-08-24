@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import styles from './UserDetails.module.scss';
 
 type UserLoggedTypes = {
-  id: number,
+  id: string,
   pseudo: string,
   is_admin: boolean,
   is_banished: boolean
 };
 
 type UserDetailsProps = {
-  id: number,
+  id: string,
   email: string,
   is_banished: boolean,
   is_admin: boolean,

@@ -8,8 +8,8 @@ import styles from '../../styles/admin/AdminQuizz.module.scss';
 import Loader from '../../components/Loader/Loader';
 
 type QuizTypes = {
-  id: number,
-  user_id: number,
+  id: string,
+  user_id: string,
   creator: string,
   title: string,
   category: string,
@@ -77,7 +77,7 @@ const Quizz: NextPage = ({
     });
   };
 
-  const handleModerateQuiz = async(id: number, is_visible: boolean) => {
+  const handleModerateQuiz = async(id: string, is_visible: boolean) => {
 
     setShowLoader(true);
 
@@ -94,7 +94,7 @@ const Quizz: NextPage = ({
     });
   };
 
-  const handleDeleteQuiz = async(id: number) => {
+  const handleDeleteQuiz = async(id: string) => {
 
     setShowLoader(true);
 

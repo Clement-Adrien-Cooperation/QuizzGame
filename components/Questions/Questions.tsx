@@ -10,8 +10,8 @@ type QuestionsProps = {
 };
 
 type QuestionTypes = {
-  id: number,
-  quizz_id: number,
+  id: string,
+  quizz_id: string,
   question: string,
   description: string,
   proposals: string[],
@@ -37,7 +37,7 @@ const Questions = ({
   // State to know if user want to create or update a question
   const [updating, setUpdating] = useState<boolean>(false);
   const [updateIndex, setUpdateIndex] = useState<number>(0);
-  const [questionID, setQuestionID] = useState<number>(0);
+  const [questionID, setQuestionID] = useState<string>('');
 
   const [questionFilter, setQuestionFilter] = useState<string>('');
 

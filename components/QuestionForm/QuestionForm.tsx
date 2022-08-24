@@ -4,8 +4,8 @@ import Warning from '../Warning/Warning';
 import styles from './QuestionForm.module.scss';
 
 type QuestionTypes = {
-  id: number,
-  quizz_id: number,
+  id: string,
+  quizz_id: string,
   question: string,
   description: string,
   proposals: string[],
@@ -32,7 +32,7 @@ type QuestionFormProps = {
   handleToggleForm: Function,
   updating: boolean,
   updateIndex: number,
-  questionID: number
+  questionID: string
 };
 
 const QuestionForm = ({
@@ -207,7 +207,7 @@ const QuestionForm = ({
         // set up the new question
         const newQuestion = {
           id: questionID,
-          quizz_id: 0,
+          quizz_id: '',
           question,
           answer,
           proposals,
@@ -222,7 +222,7 @@ const QuestionForm = ({
       } else {
         // set up the new question
         const newQuestion = {
-          quizz_id: null,
+          quizz_id: '',
           question,
           answer,
           proposals,

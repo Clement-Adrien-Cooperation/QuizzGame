@@ -12,7 +12,7 @@ type SignInProps = {
 };
 
 type UserTypes = {
-  id: number,
+  id: string,
   pseudo: string,
   password: string,
   email: string,

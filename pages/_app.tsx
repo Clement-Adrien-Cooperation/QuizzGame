@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 type UserLoggedTypes = {
-  id: number,
+  id: string,
   pseudo: string,
   email: string,
   password: string,
@@ -16,7 +16,7 @@ type UserLoggedTypes = {
 };
 
 const unLoggedUser = {
-  id: 0,
+  id: '',
   pseudo: '',
   email: '',
   password: '',

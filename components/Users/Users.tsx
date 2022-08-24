@@ -4,7 +4,7 @@ import User from '../User/User';
 import styles from './Users.module.scss';
 
 type UserTypes = {
-  id: number,
+  id: string,
   pseudo: string,
   email: string,
   avatar: string,
@@ -13,7 +13,7 @@ type UserTypes = {
 };
 
 type UserLoggedTypes = {
-  id: number,
+  id: string,
   pseudo: string,
   is_admin: boolean,
   is_banished: boolean

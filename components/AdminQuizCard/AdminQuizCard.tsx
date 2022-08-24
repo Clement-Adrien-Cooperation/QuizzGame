@@ -3,8 +3,8 @@ import AdminQuizDetails from '../AdminQuizDetails/AdminQuizDetails';
 import styles from './AdminQuizCard.module.scss';
 
 type QuizTypes = {
-  id: number,
-  user_id: number,
+  id: string,
+  user_id: string,
   creator: string,
   title: string,
   category: string,
@@ -24,8 +24,8 @@ type QuizProps = {
 };
 
 const emptyQuiz: QuizTypes = {
-  id: 0,
-  user_id: 0,
+  id: '',
+  user_id: '',
   creator: '',
   title: '',
   category: '',
@@ -76,7 +76,7 @@ const AdminQuizCard = ({
 
       </section>
 
-      {quizDetails.id === 0 ? '' : (
+      {quizDetails.id === '' ? '' : (
         <AdminQuizDetails
           quiz={quiz}
           setQuizDetails={setQuizDetails}

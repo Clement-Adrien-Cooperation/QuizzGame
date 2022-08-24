@@ -6,7 +6,7 @@ import Warning from '../Warning/Warning';
 import styles from './EditUser.module.scss';
 
 type UserTypes = {
-  id: number,
+  id: string,
   pseudo: string,
   email: string,
   password: string,
@@ -25,7 +25,7 @@ type EditProfileProps = {
 const EditUser = ({
   isLogged,
   userLogged,
-  setIsLogged,  
+  setIsLogged,
   setUserLogged
 }: EditProfileProps) => {
 
@@ -161,7 +161,7 @@ const EditUser = ({
       };
 
       // update user
-      await fetch(`/api/user/upsert`, {
+      await fetch(`/api/user/update`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
@@ -185,14 +185,13 @@ const EditUser = ({
 
       // If everything is ok, set up the body
       const body = {
-        currentPseudo: pseudo,
         pseudo,
         email,
         password
       };
 
       // & create a new user
-      await fetch(`/api/user/upsert`, {
+      await fetch(`/api/user/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)

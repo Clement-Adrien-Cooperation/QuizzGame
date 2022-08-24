@@ -6,6 +6,13 @@
   font-size: 25px;
 }
 
+.no_quiz {
+  font-size: 20px;
+  font-weight: 300;
+  margin-top: 40vh;
+  text-align: center;
+}
+
 .container {
   @include flexCenter;
   flex-direction: column;

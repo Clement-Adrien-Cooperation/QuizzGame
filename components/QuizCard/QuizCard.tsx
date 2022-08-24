@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import styles from './QuizCard.module.scss';
-import defaultImage from '../../public/icons/defaultImage.svg';
 import Stars from '../Stars/Stars';
 
 type QuizCardProps = {
-  id: number,
+  id: string,
   creator: string,
   title: string,
   nbOfQuestions: number,

@@ -5,8 +5,8 @@ import InputField from '../InputField/InputField';
 import styles from './AdminQuizz.module.scss';
 
 type QuizTypes = {
-  id: number,
-  user_id: number,
+  id: string,
+  user_id: string,
   creator: string,
   title: string,
   category: string,

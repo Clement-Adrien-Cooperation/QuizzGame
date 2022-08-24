@@ -5,8 +5,8 @@ import styles from './AdminQuestionCard.module.scss';
 import arrow from '../../public/icons/arrow.svg';
 
 type QuestionTypes = {
-  id: number,
-  quizz_id: number,
+  id: string,
+  quizz_id: string,
   question: string,
   description: string,
   proposals: string[],

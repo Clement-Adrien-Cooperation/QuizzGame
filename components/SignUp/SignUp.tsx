@@ -2,7 +2,7 @@ import styles from './SignUp.module.scss';
 import EditUser from '../EditUser/EditUser';
 
 type UserTypes = {
-  id: number,
+  id: string,
   pseudo: string,
   email: string,
   password: string,

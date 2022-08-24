@@ -5,8 +5,8 @@ import Loader from '../../components/Loader/Loader';
 import styles from '../../styles/quizz/QuizGame.module.scss';
 
 type QuizTypes = {
-  id?: number,
-  user_id: number,
+  id?: string,
+  user_id: string,
   creator: string,
   title: string,
   category?: string,
@@ -20,8 +20,8 @@ type QuizTypes = {
 };
 
 const emptyQuiz = {
-  id: 0,
-  user_id: 0,
+  id: '',
+  user_id: '',
   creator: '',
   title: '',
   category: '',

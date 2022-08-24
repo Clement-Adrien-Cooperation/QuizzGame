@@ -3,7 +3,7 @@ import styles from './Navbar.module.scss';
 import Theme from '../Theme/Theme';
 
 type UserTypes = {
-  id: number,
+  id: string,
   pseudo: string,
   is_admin: boolean,
   is_banished: boolean,
