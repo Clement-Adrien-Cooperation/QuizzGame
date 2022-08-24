@@ -7,8 +7,8 @@ import Loader from '../Loader/Loader';
 
 type SignInProps = {
   handleToggleForm: Function,
-  setIsLogged: Function,
-  setUserLogged: Function
+  setIsLogged: React.Dispatch<React.SetStateAction<boolean>>,
+  setUserLogged: React.Dispatch<React.SetStateAction<UserTypes>>
 };
 
 type UserTypes = {

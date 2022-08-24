@@ -22,13 +22,13 @@ type QuestionFormProps = {
   proposal3: string,
   description: string,
   questions: QuestionTypes[],
-  setQuestion:Function,
-  setAnswer:Function,
-  setProposal1:Function,
-  setProposal2:Function,
-  setProposal3:Function,
-  setDescription:Function,
-  setQuestions: Function
+  setQuestion: React.Dispatch<React.SetStateAction<string>>,
+  setAnswer: React.Dispatch<React.SetStateAction<string>>,
+  setProposal1: React.Dispatch<React.SetStateAction<string>>,
+  setProposal2: React.Dispatch<React.SetStateAction<string>>,
+  setProposal3: React.Dispatch<React.SetStateAction<string>>,
+  setDescription: React.Dispatch<React.SetStateAction<string>>,
+  setQuestions: React.Dispatch<React.SetStateAction<QuestionTypes[]>>
   handleToggleForm: Function,
   updating: boolean,
   updateIndex: number,
@@ -54,7 +54,7 @@ const QuestionForm = ({
   updating,
   updateIndex,
   questionID
-}:QuestionFormProps) => {
+}: QuestionFormProps) => {
 
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [disableButton, setDisableButton] = useState<boolean>(false);
@@ -222,6 +222,7 @@ const QuestionForm = ({
       } else {
         // set up the new question
         const newQuestion = {
+          id: '',
           quizz_id: '',
           question,
           answer,

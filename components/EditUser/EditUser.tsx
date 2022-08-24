@@ -18,8 +18,8 @@ type UserTypes = {
 type EditProfileProps = {
   isLogged: boolean,
   userLogged: UserTypes,
-  setIsLogged: Function,
-  setUserLogged: Function
+  setIsLogged: React.Dispatch<React.SetStateAction<boolean>>,
+  setUserLogged: React.Dispatch<React.SetStateAction<UserTypes>>
 };
 
 const EditUser = ({

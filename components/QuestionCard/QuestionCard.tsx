@@ -25,11 +25,11 @@ type QuestionCardProps = {
   answer: string,
   proposals: string[],
   description: string,
-  setQuestions: Function,
+  setQuestions: React.Dispatch<React.SetStateAction<QuestionTypes[]>>,
   updateQuestion: Function,
-  setUpdating: Function,
+  setUpdating: React.Dispatch<React.SetStateAction<boolean>>,
   questionIndex: number,
-  setUpdateIndex: Function
+  setUpdateIndex: React.Dispatch<React.SetStateAction<number>>
 };
 
 const QuestionCard = ({

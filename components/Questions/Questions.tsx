@@ -6,7 +6,7 @@ import styles from './Questions.module.scss';
 
 type QuestionsProps = {
   questions: QuestionTypes[],
-  setQuestions: Function
+  setQuestions: React.Dispatch<React.SetStateAction<QuestionTypes[]>>
 };
 
 type QuestionTypes = {

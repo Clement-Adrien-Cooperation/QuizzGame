@@ -5,15 +5,18 @@ import Theme from '../Theme/Theme';
 type UserTypes = {
   id: string,
   pseudo: string,
+  email: string,
+  password: string,
+  avatar: string,
   is_admin: boolean,
-  is_banished: boolean,
+  is_banished: boolean
 };
 
 type NavBarProps = {
   isLogged: boolean,
   userLogged: UserTypes,
-  setIsLogged: Function,
-  setUserLogged: Function
+  setIsLogged: React.Dispatch<React.SetStateAction<boolean>>,
+  setUserLogged: React.Dispatch<React.SetStateAction<UserTypes>>
 };
 
 const Navbar = ({
@@ -26,8 +29,11 @@ const Navbar = ({
   const handleDisconnect = () => {
       
     const unLoggedUser = {
-      id: 0,
+      id: '',
       pseudo: '',
+      email: '',
+      password: '',
+      avatar: '',
       is_admin: false,
       is_banished: false
     };

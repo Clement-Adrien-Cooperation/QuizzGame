@@ -2,7 +2,7 @@ import styles from './Warning.module.scss';
 
 type WarningProps = {
   warningMessage: string,
-  setWarningMessage: Function
+  setWarningMessage: React.Dispatch<React.SetStateAction<string>>
 };
 
 const Warning = ({ warningMessage, setWarningMessage }: WarningProps) => {

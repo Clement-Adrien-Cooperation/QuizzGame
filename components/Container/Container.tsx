@@ -4,16 +4,19 @@ import Navbar from '../Navbar/Navbar';
 type UserTypes = {
   id: string,
   pseudo: string,
+  email: string,
+  password: string,
+  avatar: string,
   is_admin: boolean,
-  is_banished: boolean,
+  is_banished: boolean
 };
 
 type PropsType = {
   children: JSX.Element,
   isLogged: boolean,
   userLogged: UserTypes,
-  setIsLogged: Function,
-  setUserLogged: Function
+  setIsLogged: React.Dispatch<React.SetStateAction<boolean>>,
+  setUserLogged: React.Dispatch<React.SetStateAction<UserTypes>>
 };
 
 const Container = (props: PropsType) => {

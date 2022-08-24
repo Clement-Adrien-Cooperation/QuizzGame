@@ -13,8 +13,8 @@ type UserTypes = {
 
 type SignUpProps = {
   handleToggleForm: Function,
-  setIsLogged: Function,
-  setUserLogged: Function,
+  setIsLogged: React.Dispatch<React.SetStateAction<boolean>>,
+  setUserLogged: React.Dispatch<React.SetStateAction<UserTypes>>,
   isLogged: boolean
   userLogged: UserTypes,
 };
