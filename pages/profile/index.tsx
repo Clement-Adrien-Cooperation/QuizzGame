@@ -44,7 +44,7 @@ const Profile: NextPage = ({
 
   const getQuizzFromUser = async() => {
 
-    await fetch('api/quizz/getUserQuizz', {
+    await fetch('/api/quiz/getUserQuizz', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ pseudo: userLogged.pseudo })

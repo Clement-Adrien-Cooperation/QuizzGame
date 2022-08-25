@@ -9,6 +9,7 @@ import QuestionDetails from '../QuestionDetails/QuestionDetails';
 type QuestionTypes = {
   id: string,
   quiz_id: string,
+  user_id: string,
   question: string,
   description: string,
   proposals: string[],

@@ -33,14 +33,18 @@ const AdminQuizQuestions = ({
   }, []);
 
   const getQuestionsFromQuiz = async () => {
+
     await fetch('/api/question/getAllFromQuiz', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ quiz_id: id })
     })
     .then(async(res) => {
+      
       const data = await res.json();
 
+      console.log(data);
+      
       setQuestions(data);
       setShowLoader(false);
     })
@@ -75,7 +79,7 @@ const AdminQuizQuestions = ({
       )}
 
       <ul className={styles.list}>
-        {questions.map(question => {
+        {questions?.map(question => {
 
           const filteredQuestion = question.question.toLowerCase();
           const filteredAnswer = question.answer.toLocaleLowerCase();

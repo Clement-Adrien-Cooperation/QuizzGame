@@ -21,13 +21,13 @@ export default async function handle (
       }
     });
 
-    await prisma.quiz.delete({
+    const deleteQuiz = await prisma.quiz.delete({
       where: {
         id: req.body.id
       }
     });
 
-    res.status(200);
+    res.status(200).json(deleteQuiz);
     
   } catch (error){
     console.log(error);

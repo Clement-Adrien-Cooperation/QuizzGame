@@ -12,6 +12,7 @@ type QuestionsProps = {
 type QuestionTypes = {
   id: string,
   quiz_id: string,
+  user_id: string,
   question: string,
   description: string,
   proposals: string[],
@@ -100,11 +101,17 @@ const Questions = ({
         <section className={styles.questions}>
           {questions.length > 0 && (
             <>
-              <section className={styles.header}>
-                
-                <h2 className={styles.title}>
-                  Questions
-                </h2>
+              <section className={styles.box}>
+                <div className={styles.header}>
+                  
+                  <h2 className={styles.title}>
+                    Questions
+                  </h2>
+
+                  <span className={styles.subtitle}>
+                    ({questions.length} {questions.length < 2 ? 'question' : 'questions'})
+                  </span>
+                </div>
 
                 <button
                   className={styles.button}
@@ -119,6 +126,7 @@ const Questions = ({
                   Ajouter une question
                 </button>
               </section>
+
 
               {questions.length > 10 && (
                 <div

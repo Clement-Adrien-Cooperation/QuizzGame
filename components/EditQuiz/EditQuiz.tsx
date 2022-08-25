@@ -22,6 +22,7 @@ type QuizEditProps = {
 type QuestionTypes = {
   id: string,
   quiz_id: string,
+  user_id: string,
   question: string,
   description: string,
   proposals: string[],
@@ -34,7 +35,7 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
 
   const router = useRouter();
 
-  let questionsToSave: QuestionTypes[] = [];
+  const questionsToSave: QuestionTypes[] = [];
 
   const categoryList :string[] = [
     'Actualités',
@@ -136,6 +137,8 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
     .then(async(res) => {
       const data = await res.json();
 
+      console.log(data);
+      
       setQuestions(data);
     })
     .then(() => {
@@ -277,15 +280,8 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
     
     if(checkForm()) {
 
-
-
-      //! A MODIFIER  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-
       if(questions.length < 1) {
         setWarningMessage('Votre quiz doit contenir au moins 1 question');
-
       } else {
 
         await saveQuiz();
@@ -370,10 +366,11 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
 
         const data = await res.json();
 
-        questionsToSave = [...questions];
+        questionsToSave.push(...questions);
 
         questionsToSave.forEach(question => {
           question.id = uuidv4();
+          question.user_id = userLogged.id;
           question.quiz_id = data.id
         });
 
@@ -387,6 +384,7 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
         })
         .then(() => {
           setNotification('✅ Quiz enregistré');
+          setQuestions(questionsToSave);
 
         })
         .catch((error) => {
@@ -399,9 +397,13 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
 
     } else {
       
-      const questionsToSave = [...questions];
+      questionsToSave.push(...questions);
 
-      questionsToSave.forEach(question => question.quiz_id = quizID);
+      questionsToSave.forEach(question => {
+        question.id = uuidv4();
+        question.user_id = userLogged.id;
+        question.quiz_id = quizID;
+      });
 
       await fetch('/api/question/createMany', {
         method: 'POST',

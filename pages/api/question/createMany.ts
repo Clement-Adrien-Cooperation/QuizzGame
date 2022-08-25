@@ -9,7 +9,7 @@ export default async function handle (
   const prisma = new PrismaClient();
 
   try {
-    await prisma.question.deleteMany({
+    const deleteQuestions = await prisma.question.deleteMany({
       where: {
         quiz_id: req.body[0].quiz_id
       }

@@ -6,21 +6,32 @@
   margin-top: 70px;
 }
 
-.header {
+.box {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.header {
+  display: flex;
   align-items: baseline;
 }
 
 .title {
   font-size: 25px;
   font-weight: 300;
-  margin: 0 0 20px;
+}
+
+.subtitle {
+  font-size: 12px;
+  margin-left: 15px;
 }
 
 .input {
   width: 400px;
+  margin-bottom: 20px;
 }
 
 .questions {
@@ -35,6 +46,5 @@
 
 .button {
   @include secondaryButton;
-  font-size: 12px;
-  margin-bottom: 40px;
+  font-size: 10px;
 }

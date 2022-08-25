@@ -11,9 +11,10 @@
 
 .card {
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
-  min-width: 500px;
+  min-width: 800px;
+  max-height: 80vh;
   background: var(--body-color);
   border-radius: var(--small-radius);
   box-shadow: var(--box-shadow);
@@ -21,8 +22,8 @@
   opacity: 0;
   transition: .3s;
   transform: translate(-50%, -20%);
+  overflow-y: auto;
   animation: animApparition 0.3s ease-out forwards;
-  overflow: hidden;
 }
 
 .title {
@@ -65,7 +66,12 @@
 
   &__creator {
     @include underlineButton;
-    font-size: 14px;
+    font-size: 15px;
+  }
+
+  &__nbOfQuestions {
+    color: var(--text-color);
+    margin-right: 0.4em;
   }
 }
 

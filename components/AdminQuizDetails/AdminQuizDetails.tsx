@@ -16,6 +16,7 @@ type QuizTypes = {
   lang: string,
   image: string,
   is_visible: boolean,
+  nbOfQuestions: number,
   date: string,
   rate: number,
   reported: boolean
@@ -39,6 +40,7 @@ const emptyQuiz: QuizTypes = {
   image: '',
   is_visible: false,
   date: '',
+  nbOfQuestions: 0,
   rate: 0,
   reported: false
 };
@@ -89,6 +91,13 @@ const AdminQuizDetails = ({
         )}
 
         <div className={styles.body}>
+          
+          <p className={styles.text}>
+            <span className={styles.span__nbOfQuestions}>
+              {quiz.nbOfQuestions}
+            </span>
+            {quiz.nbOfQuestions < 2 ? 'question' : 'questions'}
+          </p>
           
           <p className={styles.text}>
             Créateur :

@@ -34,7 +34,7 @@ const UserQuizCard = ({
 }: UserQuizCardProps) => {
 
   const router = useRouter();
-  
+
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
   const handleDeleteQuiz = async () => {
@@ -47,16 +47,11 @@ const UserQuizCard = ({
       body: JSON.stringify({ id })
     })
     .then(async() => {
-
-      console.log('entré dans le then');
       setShowLoader(false);
-      
-      
+
       await getQuizzFromUser();
     })
     .catch((error) => {
-      console.log('entré dans le catch');
-      
       console.log(error);
       setShowLoader(false);
     });
