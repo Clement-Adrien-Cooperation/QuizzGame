@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import ConfirmModal from '../../components/ConfirmModal/ConfirmModal';
 import EditUser from '../../components/EditUser/EditUser';
 import Loader from '../../components/Loader/Loader';
 import UserQuizCard from '../../components/UserQuizCard/UserQuizCard';
@@ -30,6 +31,8 @@ const Profile: NextPage = ({
   const router = useRouter();
 
   const [userQuizz, setUserQuizz] = useState<QuizTypes[]>([]);
+  
+  const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(true);
 
   useEffect(() => {
@@ -62,6 +65,26 @@ const Profile: NextPage = ({
     });
   };
 
+  const handleDeleteUser = async () => {
+
+    setShowLoader(true);
+
+    await fetch(`/api/user/delete`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: userLogged.id })
+    })
+    .then(() => {
+      setIsLogged(false);
+      router.push('/');
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+    setShowLoader(false);
+  };
+
   return (
     <>
       <header>
@@ -82,6 +105,17 @@ const Profile: NextPage = ({
           setIsLogged={setIsLogged}
           setUserLogged={setUserLogged}
         />
+
+        <button
+          className={styles.delete}
+          type='button'
+          title='Supprimer définitivement mon compte'
+          aria-label='Supprimer définitivement mon compte'
+          onClick={() => setShowConfirmDelete(true)}
+        >
+          Supprimer mon compte
+        </button>
+
       </section>
 
       {userQuizz?.length === 0 ? (
@@ -134,6 +168,15 @@ const Profile: NextPage = ({
 
       {showLoader && (
         <Loader />
+      )}
+
+      {showConfirmDelete && (
+        <ConfirmModal
+          message={'Êtes vous certain de vouloir supprimer votre compte ?'}
+          text={'Tous les quizz et les questions liées, ainsi que tous vos commentaires seront supprimés définitivement.'}
+          handleFunction={handleDeleteUser}
+          closeModal={() => setShowConfirmDelete(false)}
+        />
       )}
     </>
   );

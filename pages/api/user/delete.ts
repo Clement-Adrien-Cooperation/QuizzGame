@@ -27,13 +27,13 @@ export default async function handle (
       }
     });
 
-    const user = await prisma.user.delete({
+    const deleteUser = await prisma.user.delete({
       where: {
         id: req.body.id
       }
     });
 
-    res.status(200).json(user);
+    res.status(200).json(deleteUser);
     
   } catch (error){
     console.log(error);

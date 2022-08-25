@@ -4,22 +4,69 @@
   @include posFixed(0, auto, auto, 0);
   width: 100vw;
   height: 100vh;
+  @include flexCenter;
+}
+
+.behind {
+  @include posFixed(0, auto, auto, 0);
+  width: 100vw;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.5);
 }
 
 .modal {
-  @include posCenter;
   @include flexCenter;
+  position: relative;
   flex-direction: column;
-  background: var(--main-color-light);
-  padding: 20px 45px;
-}
-
-.message {
+  gap: 20px;
+  background: var(--main-color);
+  border-radius: var(--small-radius);
+  box-shadow: var(--box-shadow);
+  color: var(--white);
+  font-weight: 300;
   text-align: center;
+  max-width: 40vw;
+  padding: 50px 100px;
+  transform: translateY(50px);
+  opacity: 0;
+  animation: animApparition .5s ease-out forwards;
 }
 
 .buttons {
-  @include flexCenter;
-  justify-content: space-evenly;
+  display: flex;
+  gap: 50px;
+}
+
+.button {
+  margin-top: 20px;
+  border-radius: 50px;
+  padding: 9px 16px;
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 300;
+  opacity: 0.8;
+  transition: transform .2s;
+
+  &.confirm {
+    background: var(--green);
+  }
+
+  &.cancel {
+    background: var(--red);
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+@keyframes animApparition {
+  100% {
+    opacity: 1;
+    transform: none;
+  }
 }

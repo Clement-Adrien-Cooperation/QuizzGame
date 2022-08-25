@@ -3,6 +3,7 @@ import styles from './ConfirmModal.module.scss';
 
 type ConfirmModalProps = {
   message: string,
+  text?: string,
   handleFunction: Function,
   closeModal: Function
 };
@@ -10,20 +11,33 @@ type ConfirmModalProps = {
 const ConfirmModal = ({
   message,
   handleFunction,
+  text,
   closeModal
 }: ConfirmModalProps) => {
 
   return (
     <div className={styles.container}>
+
+      <div
+        className={styles.behind}
+        onClick={() => closeModal()}
+      ></div>
+
       <section className={styles.modal}>
         <p className={styles.message}>
           {message}
         </p>
 
+        {text && (
+          <p className={styles.text}>
+            {text}
+          </p>
+        )}
+
         <div className={styles.buttons}>
 
           <button
-            className={styles.buttons__confirm}
+            className={`${styles.button} ${styles.confirm}`}
             title='Accepter'
             aria-label='Accepter'
             onClick={() => handleFunction}
@@ -32,7 +46,7 @@ const ConfirmModal = ({
           </button>
 
           <button
-            className={styles.buttons__cancel}
+            className={`${styles.button} ${styles.cancel}`}
             title='Fermer'
             aria-label='Fermer'
             onClick={() => closeModal}

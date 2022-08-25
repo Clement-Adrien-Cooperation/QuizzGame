@@ -2,10 +2,10 @@
 
 .header {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  gap: 100px;
   padding: 50px 100px;
+  gap: 100px;
 }
 
 .title {
@@ -17,7 +17,7 @@
 .input {
   min-width: 200px;
   width: 100%;
-  max-width: 800px;
+  max-width: 500px;
 }
 
 .button {
