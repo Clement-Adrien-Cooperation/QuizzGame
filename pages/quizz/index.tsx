@@ -131,7 +131,7 @@ export default Quizz;
 export async function getStaticProps() {
 
   // Get data from API
-  const quizzDataFromAPI = await fetch('http://localhost:3000/api/quizz/getAll');
+  const quizzDataFromAPI = await fetch('http://localhost:3000/api/quiz/getAll');
 
   // Translate to JSON
   const quizzData = await quizzDataFromAPI.json();

@@ -45,7 +45,7 @@ const UserProfile: NextPage = ({ isLogged, userLogged }: any) => {
     
     const pseudo = router.query.slug;
 
-    await fetch('/api/quizz/getUserQuizz', {
+    await fetch('/api/quiz/getUserQuizz', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ pseudo })

@@ -1,13 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-
-import { prisma } from '../../../lib/prisma';
+import { PrismaClient } from "@prisma/client";
 
 export default async function getAllQuizz (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+
+  const prisma = new PrismaClient();
+
   try {
-    const quizz = await prisma.quizz.findMany({
+    const quizz = await prisma.quiz.findMany({
       where: {
         creator: req.body.pseudo
       },
@@ -20,4 +22,6 @@ export default async function getAllQuizz (
   } catch (error){
     console.log(error);
   };
+
+  prisma.$disconnect();
 };

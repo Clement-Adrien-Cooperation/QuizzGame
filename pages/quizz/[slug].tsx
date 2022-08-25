@@ -52,7 +52,7 @@ const QuizGame: NextPage = ({ isLogged, userLogged }: any) => {
 
   const getQuiz = async () => {
 
-    await fetch('/api/quizz/getOne', {
+    await fetch('/api/quiz/getOne', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title })

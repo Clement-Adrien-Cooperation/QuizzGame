@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Loader from '../Loader/Loader';
@@ -18,23 +19,9 @@ type QuizEditProps = {
   userLogged: UserLoggedTypes
 };
 
-type QuizTypes = {
-  id?: string,
-  user_id: string,
-  creator: string,
-  title: string,
-  nbOfQuestions: number,
-  category: string,
-  difficulty: string,
-  is_visible?: boolean,
-  date?: string,
-  reported?: boolean,
-  reportMessage?: string
-};
-
 type QuestionTypes = {
   id: string,
-  quizz_id: string,
+  quiz_id: string,
   question: string,
   description: string,
   proposals: string[],
@@ -90,7 +77,7 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
   
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [disableButton, setDisableButton] = useState<boolean>(false);
-  const [showLoader, setShowLoader] = useState<boolean>(true);
+  const [showLoader, setShowLoader] = useState<boolean>(false);
 
   const [notification, setNotification] = useState<string>('');
 
@@ -98,7 +85,6 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
     
     if(router.pathname.includes('create')) {
       setPageTitle("Créer un s'Quizz");
-      setShowLoader(false);
     } else {
       setPageTitle(`Modifier le quiz "${router.query.slug}"`);
       getQuiz();
@@ -107,7 +93,9 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
 
   const getQuiz = async () => {
 
-    await fetch('/api/quizz/getOne', {
+    setShowLoader(true);
+
+    await fetch('/api/quiz/getOne', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title: router.query.slug })
@@ -138,12 +126,12 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
     });
   };
 
-  const getQuestionsFromQuiz = async(quizz_id: string) => {
+  const getQuestionsFromQuiz = async(quiz_id: string) => {
 
     await fetch('/api/question/getAllFromQuiz', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ quizz_id })
+      body: JSON.stringify({ quiz_id })
     })
     .then(async(res) => {
       const data = await res.json();
@@ -286,33 +274,25 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
     setShowLoader(true);
     setWarningMessage('');
     setNotification('');
-
-    const user_id :string = userLogged.id;
-    const creator :string = userLogged.pseudo;
     
     if(checkForm()) {
-      // If everything is ok, setup the body
-      let body = {
-        // currentTitle is empty if this is a creation
-        // if not, useEffect updated it & we enter in "update"
-        // in prisma/quiz/upsert
-        // We need this double title if user change title of quiz
-        currentTitle,
-        user_id,
-        creator,
-        nbOfQuestions: questions.length,
-        title,
-        category,
-        difficulty
-      };
 
-      await saveQuiz(body);
 
-      // If there are questions in state, save it.
-      if(questions.length > 0) {
-        await saveQuestions(body.title);
+
+      //! A MODIFIER  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+      if(questions.length < 1) {
+        setWarningMessage('Votre quiz doit contenir au moins 1 question');
+
       } else {
+
+        await saveQuiz();
+
         setNotification('✅ Quiz enregistré');
+        
+        router.push(`/quizz/update/${title}`);
       };
 
       setDisableButton(false);
@@ -325,36 +305,50 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
     };
   };
 
-  const saveQuiz = async(body: QuizTypes) => {
+  const saveQuiz = async() => {
 
     if(router.pathname.includes('create')) {
 
-      await fetch(`/api/quizz/create`, {
+      const body = {
+        user_id: userLogged.id,
+        creator: userLogged.pseudo,
+        title,
+        category,
+        difficulty,
+        nbOfQuestions: questions.length
+      };
+
+      await fetch(`/api/quiz/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
       })
       .then(async(res) => {
-        
         const data = await res.json();
-        
-        router.push(`/quizz/update/${data.title}`);
-        setNotification('✅ Quiz enregistré');
+        saveQuestions(data.title);
       })
       .catch((error) => {
         console.log(error);
       });
 
     } else {
+
+      const body = {
+        currentTitle,
+        title,
+        category,
+        difficulty,
+        nbOfQuestions: questions.length
+      };
       
-      await fetch(`/api/quizz/update`, {
+      await fetch(`/api/quiz/update`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
       })
-      .then(() => {
-
-        setNotification('✅ Quiz enregistré');
+      .then(async(res) => {
+        const data = await res.json();
+        saveQuestions(data.title);
       })
       .catch((error) => {
         console.log(error);
@@ -367,7 +361,7 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
     if(router.pathname.includes('create')) {
     
       // Get the quizz ID with the title
-      await fetch('/api/quizz/getOne', {
+      await fetch('/api/quiz/getOne', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title })
@@ -378,7 +372,11 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
 
         questionsToSave = [...questions];
 
-        questionsToSave.forEach(question => question.quizz_id = data.id);
+        questionsToSave.forEach(question => {
+          question.id = uuidv4();
+          question.quiz_id = data.id
+        });
+
       })
       .then(async() => {
         
@@ -388,8 +386,8 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
           body: JSON.stringify(questionsToSave)
         })
         .then(() => {
-          setQuestions(questionsToSave);
           setNotification('✅ Quiz enregistré');
+
         })
         .catch((error) => {
           console.log(error);
@@ -403,7 +401,7 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
       
       const questionsToSave = [...questions];
 
-      questionsToSave.forEach(question => question.quizz_id = quizID);
+      questionsToSave.forEach(question => question.quiz_id = quizID);
 
       await fetch('/api/question/createMany', {
         method: 'POST',
@@ -412,6 +410,7 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
       })
       .then(() => {
         setNotification('✅ Quiz enregistré');
+        setQuestions(questionsToSave);
       })
       .catch((error) => {
         console.log(error);

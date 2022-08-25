@@ -35,7 +35,7 @@
 | --- |  ---  | --- | --- |
 | id | INT | PRIMARY KEY, NOT NULL, AUTO_INCREMENT, UNIQUE | Identifiant du commentaire |
 | user_id | INT | NOT NULL | Identifiant de l'user qui a déposé le commentaire |
-| quizz_id | INT | NOT NULL | Identifiant du quizz où se trouve le commentaire |
+| quiz_id | INT | NOT NULL | Identifiant du quizz où se trouve le commentaire |
 | description | TEXT | NOT NULL, VARCHAR(500) | contenu du commentaire |
 
  
@@ -46,7 +46,7 @@
 | Champ | Type | Specificité | Description
 | --- |  ---  | --- | --- |
 | id | INT | PRIMARY KEY, NOT NULL, AUTO_INCREMENT, UNIQUE | Identifiant du commentaire |
-| quizz_id | INT | NOT NULL | Identifiant du quizz |
+| quiz_id | INT | NOT NULL | Identifiant du quizz |
 | question | TEXT | NOT NULL, VARCHAR(600) | question du quizz |
 | proposition | TEXT | NOT NULL, VARCHAR(200) | proposition possible pour répondre à la question |
 | answer | TEXT | NOT NULL, VARCHAR(200) | bonne réponse à la question |

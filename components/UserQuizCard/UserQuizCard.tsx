@@ -9,8 +9,6 @@ import Loader from '../Loader/Loader';
 
 type UserQuizCardProps = {
   id: string,
-  user_id?: number,
-  creator?: string,
   title: string,
   category: string,
   lang: string,
@@ -43,20 +41,18 @@ const UserQuizCard = ({
 
     setShowLoader(true);
 
-    await fetch('/api/quizz/delete', {
+    await fetch('/api/quiz/delete', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title, user_id: "6fc66b22-3dd0-4b15-a25d-bb7515c287b0" })
+      body: JSON.stringify({ id })
     })
-    .then(async(res) => {
-      const data = await res.json();
-      console.log(data);
+    .then(async() => {
 
       console.log('entré dans le then');
       setShowLoader(false);
       
       
-      // await getQuizzFromUser();
+      await getQuizzFromUser();
     })
     .catch((error) => {
       console.log('entré dans le catch');

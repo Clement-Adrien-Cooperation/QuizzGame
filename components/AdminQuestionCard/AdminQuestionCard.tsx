@@ -6,7 +6,7 @@ import arrow from '../../public/icons/arrow.svg';
 
 type QuestionTypes = {
   id: string,
-  quizz_id: string,
+  quiz_id: string,
   question: string,
   description: string,
   proposals: string[],

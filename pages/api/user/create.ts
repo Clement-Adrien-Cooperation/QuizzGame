@@ -1,12 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { PrismaClient } from "@prisma/client";
 import { v4 as uuidv4 } from 'uuid';
-
-import { prisma } from '../../../lib/prisma';
 
 export default async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+
+  const prisma = new PrismaClient();
+
   try {
     const user = await prisma.user.create({
       data: {
@@ -20,4 +22,6 @@ export default async function handle (
   } catch (error){
     console.log(error);
   };
+  
+  prisma.$disconnect();
 };

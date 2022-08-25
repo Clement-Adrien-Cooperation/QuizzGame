@@ -1,13 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-
-import { prisma } from '../../../lib/prisma';
+import { PrismaClient } from "@prisma/client";
 
 export default async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+
+  const prisma = new PrismaClient();
+
   try {
-    const quiz = await prisma.quizz.findUnique({
+    const quiz = await prisma.quiz.findUnique({
       where: {
         title: req.body.title
       }
@@ -17,4 +19,6 @@ export default async function handle (
   } catch (error){
     console.log(error);
   };
+
+  prisma.$disconnect();
 };

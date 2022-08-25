@@ -7,7 +7,7 @@ import styles from './AdminQuizQuestions.module.scss';
 
 type QuestionTypes = {
   id: string,
-  quizz_id: string,
+  quiz_id: string,
   question: string,
   description: string,
   proposals: string[],
@@ -36,7 +36,7 @@ const AdminQuizQuestions = ({
     await fetch('/api/question/getAllFromQuiz', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ quizz_id: id })
+      body: JSON.stringify({ quiz_id: id })
     })
     .then(async(res) => {
       const data = await res.json();

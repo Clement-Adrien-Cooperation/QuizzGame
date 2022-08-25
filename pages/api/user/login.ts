@@ -1,11 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-
-import { prisma } from '../../../lib/prisma';
+import { PrismaClient } from "@prisma/client";
 
 export default async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+
+  const prisma = new PrismaClient();
 
   if(req.body.pseudoOrEmail.includes('@') && req.body.pseudoOrEmail.includes('.')) {
     try {
@@ -35,4 +36,6 @@ export default async function handle (
       console.log(error);
     };
   };
+  
+  prisma.$disconnect();
 };

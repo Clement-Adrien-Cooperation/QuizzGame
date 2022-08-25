@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
 }
 
 datasource db {
@@ -11,7 +12,7 @@ datasource db {
 }
 
 model User {
-  id            String    @id
+  id            String    @id @unique
   pseudo        String    @unique
   email         String    @unique
   password      String
@@ -20,34 +21,27 @@ model User {
   is_banished   Boolean   @default(false)
   reported      Boolean   @default(false)
   reportMessage String[]
-  quizz         Quizz[]
-  comment       Comment[]
 }
 
-model Quizz {
-  id            String    @id
-  user          User      @relation(fields: [user_id], references: [id])
+model Quiz {
+  id            String      @id @unique
   user_id       String       
   creator       String
-  title         String    @unique
+  title         String      @unique
   nbOfQuestions Int
-  category      String?
-  difficulty    String?
-  lang          String?
-  image         String?
-  is_visible    Boolean?   @default(true)
+  category      String
+  difficulty    String
+  is_visible    Boolean     @default(true)
   date          String
   rate          Int?
-  reported      Boolean    @default(false)
+  reported      Boolean     @default(false)
   reportMessage String[]
-  questions     Question[]
-  comments      Comment[]
 }
 
 model Question {
-  id            String    @id
-  quizz         Quizz     @relation(fields: [quizz_id], references: [id])
-  quizz_id      String
+  id            String    @id @unique
+  user_id       String
+  quiz_id       String
   question      String
   description   String?
   proposals     String[]
@@ -57,13 +51,12 @@ model Question {
 }
 
 model Comment {
-  id            String    @id
-  user          User      @relation(fields: [user_id], references: [id])
+  id            String    @id @unique
   user_id       String       
+  quiz_id       String       
   author        String
-  quizz         Quizz     @relation(fields: [quizz_id], references: [id])
-  quizz_id      String       
   content       String
+  likes         Int
   reported      Boolean   @default(false)
   reportMessage String[]
 }

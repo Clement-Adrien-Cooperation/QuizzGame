@@ -11,7 +11,7 @@ type QuestionsProps = {
 
 type QuestionTypes = {
   id: string,
-  quizz_id: string,
+  quiz_id: string,
   question: string,
   description: string,
   proposals: string[],
@@ -140,7 +140,7 @@ const Questions = ({
               )}
 
               <ul className={styles.list}>
-                {questions.map((question, index) => {
+                {questions?.map((question, index) => {
 
                   const filteredQuestion = question.question.toLowerCase();
                   const filteredAnswer = question.answer.toLowerCase();
@@ -154,7 +154,7 @@ const Questions = ({
                           questions={questions}
                           setQuestions={setQuestions}
                           id={question.id}
-                          quizz_id={question.quizz_id}
+                          quiz_id={question.quiz_id}
                           question={question.question}
                           answer={question.answer}
                           proposals={question.proposals}
@@ -172,7 +172,7 @@ const Questions = ({
             </>
           )}
 
-          {questions.length > 1 && questions.length < 10 ? '' : (
+          {questions.length > 0 && questions.length < 10 ? '' : (
             <button
               className={styles.button}
               type='button'

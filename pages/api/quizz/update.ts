@@ -1,14 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-
-import { prisma } from '../../../lib/prisma';
+import { PrismaClient } from "@prisma/client";
 
 export default async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+
+  const prisma = new PrismaClient();
+
   try {
 
-    const quiz = await prisma.quizz.update({
+    const quiz = await prisma.quiz.update({
       where: {
         title: req.body.currentTitle
       },
@@ -25,4 +27,6 @@ export default async function handle (
   } catch (error){
     console.log(error);
   };
+
+  prisma.$disconnect();
 };

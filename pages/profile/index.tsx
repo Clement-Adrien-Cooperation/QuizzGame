@@ -84,7 +84,7 @@ const Profile: NextPage = ({
         />
       </section>
 
-      {userQuizz.length === 0 ? (
+      {userQuizz?.length === 0 ? (
 
         <section className={styles.container}>
           <h2 className={styles.container__title}>
@@ -111,7 +111,7 @@ const Profile: NextPage = ({
 
           <ul className={styles.list}>
 
-            {userQuizz.map(quiz =>
+            {userQuizz?.map(quiz =>
 
               <li key={quiz.id}>
                 <UserQuizCard

@@ -8,7 +8,7 @@ import QuestionDetails from '../QuestionDetails/QuestionDetails';
 
 type QuestionTypes = {
   id: string,
-  quizz_id: string,
+  quiz_id: string,
   question: string,
   description: string,
   proposals: string[],
@@ -20,7 +20,7 @@ type QuestionTypes = {
 type QuestionCardProps = {
   questions: QuestionTypes[],
   id: string,
-  quizz_id: string,
+  quiz_id: string,
   question: string,
   answer: string,
   proposals: string[],
@@ -36,7 +36,7 @@ const QuestionCard = ({
   questions,
   setQuestions,
   id,
-  quizz_id,
+  quiz_id,
   question,
   answer,
   proposals,
@@ -56,7 +56,7 @@ const QuestionCard = ({
     
     const questionData = {
       id,
-      quizz_id,
+      quiz_id,
       question,
       answer,
       proposals,

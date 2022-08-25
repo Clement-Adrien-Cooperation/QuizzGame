@@ -1,15 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-
-import { prisma } from '../../../lib/prisma';
+import { PrismaClient } from "@prisma/client";
 
 export default async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+
+  const prisma = new PrismaClient();
+
   try {
     await prisma.question.deleteMany({
       where: {
-        quizz_id: req.body[0].quizz_id
+        quiz_id: req.body[0].quiz_id
       }
     });
     
@@ -24,4 +26,6 @@ export default async function handle (
   } catch (error){
     console.log(error);
   };
+  
+  prisma.$disconnect();
 };

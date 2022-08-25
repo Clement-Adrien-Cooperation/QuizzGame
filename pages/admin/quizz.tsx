@@ -56,7 +56,7 @@ const Quizz: NextPage = ({
 
   const getQuizz = async () => {
 
-    await fetch('/api/quizz/getAll')
+    await fetch('/api/quiz/getAll')
     .then(async(res) => {
       const data = await res.json();
       setQuizz(data);
@@ -66,7 +66,7 @@ const Quizz: NextPage = ({
       console.log(error);
     });
 
-    await fetch('/api/quizz/getDeletedQuizz')
+    await fetch('/api/quiz/getDeletedQuizz')
     .then(async(res) => {
       const data = await res.json();
       setDeletedQuizz(data);
@@ -81,7 +81,7 @@ const Quizz: NextPage = ({
 
     setShowLoader(true);
 
-    await fetch('/api/quizz/moderate', {
+    await fetch('/api/quiz/moderate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id, is_visible })
@@ -98,7 +98,7 @@ const Quizz: NextPage = ({
 
     setShowLoader(true);
 
-    await fetch('/api/quizz/delete', {
+    await fetch('/api/quiz/delete', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id })
@@ -175,8 +175,8 @@ export default Quizz;
 export async function getStaticProps() {
 
   // Get data from API for users & bannished users
-  const quizzDataFromAPI = await fetch('http://localhost:3000/api/quizz/getAll');
-  const deletedQuizzDataFromAPI = await fetch('http://localhost:3000/api/quizz/getDeletedQuizz');
+  const quizzDataFromAPI = await fetch('http://localhost:3000/api/quiz/getAll');
+  const deletedQuizzDataFromAPI = await fetch('http://localhost:3000/api/quiz/getDeletedQuizz');
 
   // Translate to JSON
   const quizzData = await quizzDataFromAPI.json();

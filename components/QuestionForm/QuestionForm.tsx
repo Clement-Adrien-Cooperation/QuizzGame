@@ -5,7 +5,7 @@ import styles from './QuestionForm.module.scss';
 
 type QuestionTypes = {
   id: string,
-  quizz_id: string,
+  quiz_id: string,
   question: string,
   description: string,
   proposals: string[],
@@ -207,7 +207,7 @@ const QuestionForm = ({
         // set up the new question
         const newQuestion = {
           id: questionID,
-          quizz_id: '',
+          quiz_id: '',
           question,
           answer,
           proposals,
@@ -223,7 +223,7 @@ const QuestionForm = ({
         // set up the new question
         const newQuestion = {
           id: '',
-          quizz_id: '',
+          quiz_id: '',
           question,
           answer,
           proposals,
