@@ -70,54 +70,63 @@ const UserProfile: NextPage = ({ isLogged, userLogged }: any) => {
     <>
       <header className={styles.header}>
         <h1 className={styles.title}>
-          Quizz de {router.query.slug}
+          Page de {router.query.slug}
         </h1>
       </header>
+
+      {userQuizz ? 
       
-      <section className={styles.container}>
+        <section className={styles.container}>
 
-        {userQuizz.length < 10 ? '' :
-          <div className={styles.input}>
-            <InputField
-              name={'Chercher un quiz...'}
-              state={quizzFilter}
-              inputID={'quizz-filter'}
-              type={'text'}
-              isDisabled={false}
-              required={true}
-              autoFocus={true}
-              handleFunction={handleChangeQuizzFilter}
-            />
-          </div>
-        }
+          {userQuizz.length < 10 ? '' :
+            <div className={styles.input}>
+              <InputField
+                name={'Chercher un quiz...'}
+                state={quizzFilter}
+                inputID={'quizz-filter'}
+                type={'text'}
+                isDisabled={false}
+                required={true}
+                autoFocus={true}
+                handleFunction={handleChangeQuizzFilter}
+              />
+            </div>
+          }
 
-        <ul className={styles.list}>
+          <ul className={styles.list}>
 
-          {userQuizz.map((quiz: QuizTypes, index: number) => {
-            
-            const filteredTitle = quiz.title.toLowerCase();
-            const filteredCategory = quiz.category.toLowerCase();
-            const filter = quizzFilter.toLowerCase();
+            {userQuizz?.map((quiz: QuizTypes, index: number) => {
+              
+              const filteredTitle = quiz.title.toLowerCase();
+              const filteredCategory = quiz.category.toLowerCase();
+              const filter = quizzFilter.toLowerCase();
 
-            if(quiz.nbOfQuestions > 5 && filteredTitle.includes(filter)
-            || quiz.nbOfQuestions > 5 && filteredCategory.includes(filter)
-            ) {
-              return (
-                <li key={index}>
-                  <UserProfileQuizCard
-                    title={quiz.title}
-                    category={quiz.category}
-                    difficulty={quiz.difficulty}
-                    nbOfQuestions={quiz.nbOfQuestions}
-                    date={quiz.date}
-                    rate={quiz.rate}
-                  />
-                </li>
-              );
-            };
-          })}
-        </ul>
-      </section>
+              if(quiz.nbOfQuestions > 0 && filteredTitle.includes(filter)
+              || quiz.nbOfQuestions > 0 && filteredCategory.includes(filter)
+              ) {
+                return (
+                  <li key={index}>
+                    <UserProfileQuizCard
+                      title={quiz.title}
+                      category={quiz.category}
+                      difficulty={quiz.difficulty}
+                      nbOfQuestions={quiz.nbOfQuestions}
+                      date={quiz.date}
+                      rate={quiz.rate}
+                    />
+                  </li>
+                );
+              };
+            })}
+          </ul>
+        </section>
+      :
+        <section className={styles.container}>
+          <p className={styles.no_quiz}>
+            {router.query.slug} n'a créé aucun quiz pour le moment
+          </p>
+        </section>
+      }
 
       {showLoader && (
         <Loader />

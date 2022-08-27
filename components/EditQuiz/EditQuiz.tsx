@@ -385,7 +385,6 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
         .then(() => {
           setNotification('✅ Quiz enregistré');
           setQuestions(questionsToSave);
-
         })
         .catch((error) => {
           console.log(error);

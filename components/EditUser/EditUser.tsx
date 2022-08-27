@@ -54,26 +54,31 @@ const EditUser = ({
       
       setWarningMessage('Veuillez entrer un email valide');
       setDisableButton(true);
+      return false;
 
     } else if (pseudo.includes('@') && pseudo.includes('.')) {
 
       setWarningMessage(`Votre pseudo ne doit pas contenir de "@" ou de ".", ces caractères sont réservés au champs "Adresse mail"`);
       setDisableButton(true);
+      return false;
 
     } else if (password !== confirmPassword) {
 
       setWarningMessage('Les deux mots de passe ne correspondent pas');
       setDisableButton(true);
+      return false;
 
     } else if (pseudo.length < 3|| pseudo.length > 30) {
       
       setWarningMessage('Votre pseudo doit contenir entre 3 et 30 caractères');
       setDisableButton(true);
+      return false;
 
     } else if (email.length < 7 || email.length > 100) {
 
       setWarningMessage('Entrez une adresse mail valide');
       setDisableButton(true);
+      return false;
     };
 
     if(isLogged) {
@@ -81,6 +86,7 @@ const EditUser = ({
       || email.trim() === '') {
 
         setWarningMessage("Veuillez remplir tous les champs");
+        return false;
       } else if(previousPassword !== ''
       && password !== ''
       && confirmPassword !== '') {
@@ -88,27 +94,31 @@ const EditUser = ({
 
           setWarningMessage('Les nouveaux mots de passe ne correspondent pas');
           setDisableButton(true);
+          return false;
 
         } else if(previousPassword !== userLogged.password) {
 
           setWarningMessage("L'ancien mot de passe ne correspond pas");
           setDisableButton(true);
+          return false;
         };
       };
 
     } else {
       if(password.length < 10 || password.length > 1000) {
 
-        setWarningMessage('Votre mot de passe doit contenir entre 10 et 1000 caractères');
+        setWarningMessage('Votre mot de passe doit contenir 10 caractères au minimum');
         setDisableButton(true);
+        return false;
 
       } else if (password.length < 10
         || password.length > 1000
         || confirmPassword.length < 10
         || confirmPassword.length > 1000) {
 
-        setWarningMessage('Votre mot de passe doit contenir entre 10 et 1000 caractères');
+        setWarningMessage('Votre mot de passe doit contenir 10 caractères au minimum');
         setDisableButton(true);
+        return false;
     
       };
     };

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Loader from '../components/Loader/Loader';
 import styles from '../styles/Home.module.scss';
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ isLogged, userLogged }: any) => {
 
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
@@ -33,10 +33,16 @@ const Home: NextPage = () => {
   
   return (
     <>
-      <header>
+      <header className={styles.header}>
         <h1 className={styles.title}>
           s'Quizz Game
         </h1>
+
+        {isLogged && (
+          <p className={styles.text}>
+            Salut {userLogged.pseudo}, découvrez et jouez aux quizz créés par les utilisateurs !
+          </p>
+        )}
       </header>
 
       <section className={styles.container}>

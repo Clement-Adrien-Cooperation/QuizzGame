@@ -32,45 +32,12 @@ const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) 
   const [disableButton, setDisableButton] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
-  const checkPassword = (data: UserTypes) => {
-    
-    // If password is correct
-    if(password === data.password) {
-      // update logged state
-      setIsLogged(true);
-
-      // Set data from database
-      const userData = {
-        id: data.id,
-        pseudo: data.pseudo,
-        email: data.email,
-        password: data.password,
-        avatar: data.avatar,
-        is_admin: data.is_admin,
-        is_banished: data.is_banished
-      };
-
-      // Update state for logged user
-      setUserLogged(userData);
-      
-      // Hide loader
-      setShowLoader(false);
-
-      // & redirect to home page
-      router.push('/');
-
-    } else {
-      setShowLoader(false);
-      setWarningMessage(`L'identifiant et le mot de passe ne correspondent pas`);
-    };
-  };
-
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setDisableButton(true);
     setShowLoader(true);
 
-    const body = { pseudoOrEmail }
+    const body = { pseudoOrEmail, password }
   
     await fetch(`/api/user/login`, {
       method: 'POST',
@@ -78,14 +45,18 @@ const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) 
       body: JSON.stringify(body)
     })
     .then(async(res) => {
-      
+
       const data = await res.json();
 
-      if(data === null) {
-        setWarningMessage("Cet utilisateur n'existe pas");
+      if(data.message === 'OK') {
+        setIsLogged(true);
+        setUserLogged(data.user);
         setShowLoader(false);
+        router.push('/');
+        
       } else {
-        checkPassword(data);
+        setWarningMessage("L'identifiant ou le mot de passe ne correspondent pas");
+        setShowLoader(false);
       };
     })
     .catch((error) => {

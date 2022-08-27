@@ -32,6 +32,7 @@ const Profile: NextPage = ({
 
   const [userQuizz, setUserQuizz] = useState<QuizTypes[]>([]);
   
+  const [updateProfile, setUpdateProfile] = useState<boolean>(false);
   const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(true);
 
@@ -87,36 +88,55 @@ const Profile: NextPage = ({
 
   return (
     <>
-      <header>
+      <header className={styles.header}>
         <h1 className={styles.title}>
           Ma page de profil
         </h1>
 
-      </header>
-
-      <section className={styles.container}>
-        <h2 className={styles.container__title}>
-          Modifier mon profil
-        </h2>
-
-        <EditUser
-          isLogged={isLogged}
-          userLogged={userLogged}
-          setIsLogged={setIsLogged}
-          setUserLogged={setUserLogged}
-        />
-
         <button
-          className={styles.delete}
+          className={styles.update}
           type='button'
-          title='Supprimer définitivement mon compte'
-          aria-label='Supprimer définitivement mon compte'
-          onClick={() => setShowConfirmDelete(true)}
+          title={updateProfile ? "Ouvrir le formulaire de modification du profil" : "Fermer le formulaire de modification du profil"}
+          aria-label={updateProfile ? "Ouvrir le formulaire de modification du profil" : "Fermer le formulaire de modification du profil"}
+          onClick={() => setUpdateProfile(!updateProfile)}
         >
-          Supprimer mon compte
+          {updateProfile ? "Fermer mes informations" : "Modifier mes informations"}
         </button>
 
-      </section>
+      </header>
+
+      <div className={styles.container}>
+        <section
+          className={updateProfile ?
+            `${styles.infos} ${styles.opened}`
+          :
+            `${styles.infos}`
+          }
+        >
+          <h2 className={styles.infos__title}>
+            Modifier mon profil
+          </h2>
+
+          <EditUser
+            isLogged={isLogged}
+            userLogged={userLogged}
+            setIsLogged={setIsLogged}
+            setUserLogged={setUserLogged}
+          />
+
+          <button
+            className={styles.delete}
+            type='button'
+            title='Supprimer définitivement mon compte'
+            aria-label='Supprimer définitivement mon compte'
+            onClick={() => setShowConfirmDelete(true)}
+          >
+            Supprimer mon compte
+          </button>
+
+        </section>
+
+      </div>
 
       {userQuizz?.length === 0 ? (
 

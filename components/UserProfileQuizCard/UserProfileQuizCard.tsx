@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Stars from '../Stars/Stars';
 import styles from './UserProfileQuizCard.module.scss';
 
 type UserProfileQuizCardProps = {
@@ -71,27 +72,26 @@ const UserProfileQuizCard = ({
         </span>
 
         <span className={styles.questions}>
-          {nbOfQuestions} question{nbOfQuestions <= 1 ? '' : 's'}
+          {nbOfQuestions} question{nbOfQuestions < 2 ? '' : 's'}
         </span>
 
         <span className={styles.category}>
           {category}
         </span>
 
-        {rate === null ? '' :
-
-          <span className={styles.rate}>
-            {rate}/5
-          </span>
-        }
-
         <span className={styles.date}>
           {date}
         </span>
-      </section>
 
-      <footer className={styles.footer}>
-      </footer>
+        {rate === null ? '' :
+
+          <span className={styles.rate}>
+            <Stars
+              rate={rate}
+            />
+          </span>
+        }
+      </section>
     </article>
   );
 };

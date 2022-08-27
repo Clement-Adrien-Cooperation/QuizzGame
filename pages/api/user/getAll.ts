@@ -14,7 +14,7 @@ export default async function getAllUsers (
         is_banished: false
       },
       orderBy: [{
-        id: 'asc'
+        pseudo: 'asc'
       }]
     });
     res.status(200).json(users);
