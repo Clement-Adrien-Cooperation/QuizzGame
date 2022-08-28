@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from "@prisma/client";
+import { isAdmin } from '../../../middlewares/isAdmin';
 
-export default async function getAllUsers (
+export default isAdmin(async function getAllUsers (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -24,4 +25,4 @@ export default async function getAllUsers (
   };
   
   prisma.$disconnect();
-};
+});

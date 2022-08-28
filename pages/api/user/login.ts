@@ -1,12 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from "@prisma/client";
 import { compare } from 'bcrypt';
+import { sign } from 'jsonwebtoken';
 
 export default async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
 
+  const secret: any = process.env.JWT_SECRET;
+  
   const prisma = new PrismaClient();
 
   if(req.body.pseudoOrEmail.includes('@') && req.body.pseudoOrEmail.includes('.')) {
@@ -19,8 +22,14 @@ export default async function handle (
 
       compare(req.body.password, user.password, async(err, result) => {
         if(!err && result) {
+          
+          const jwt = sign(user, secret, {expiresIn: '1h'});
 
-          res.status(200).json({message: 'OK'});
+          res.status(200).json({
+            user,
+            token: jwt,
+            message: 'OK'
+          });
         } else {
           res.status(404).json({message: 'Wrong password'});
         };
@@ -39,10 +48,15 @@ export default async function handle (
       });
 
       compare(req.body.password, user.password, async(err, result) => {
-        
         if(!err && result) {
+          
+          const jwt = sign(user, secret, {expiresIn: '1h'});
 
-          res.status(200).json({user, message: 'OK'});
+          res.status(200).json({
+            user,
+            token: jwt,
+            message: 'OK'
+          });
         } else {
           res.status(404).json({message: 'Wrong password'});
         };

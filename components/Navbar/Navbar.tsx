@@ -38,6 +38,8 @@ const Navbar = ({
       is_banished: false
     };
 
+    localStorage.removeItem('token');
+
     setIsLogged(false);
     setUserLogged(unLoggedUser);
   };

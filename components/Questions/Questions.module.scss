@@ -6,7 +6,7 @@
   margin-top: 70px;
 }
 
-.box {
+.header {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -14,19 +14,9 @@
   margin-bottom: 40px;
 }
 
-.header {
-  display: flex;
-  align-items: baseline;
-}
-
 .title {
   font-size: 25px;
   font-weight: 300;
-}
-
-.subtitle {
-  font-size: 12px;
-  margin-left: 15px;
 }
 
 .input {

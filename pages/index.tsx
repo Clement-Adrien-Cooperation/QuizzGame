@@ -6,7 +6,7 @@ import styles from '../styles/Home.module.scss';
 const Home: NextPage = ({ isLogged, userLogged }: any) => {
 
   const [showLoader, setShowLoader] = useState<boolean>(false);
-
+  
   useEffect(() => {
 
     document.title = "s'Quizz Game";
@@ -17,7 +17,15 @@ const Home: NextPage = ({ isLogged, userLogged }: any) => {
 
     setShowLoader(true);
 
-    await fetch('/api/user/getAll')
+    const token = localStorage.getItem('token');
+
+    await fetch('/api/user/getAll', {
+      method: 'GET',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      }
+    })
     .then((res) => {
       return res.json();
     })
@@ -40,7 +48,7 @@ const Home: NextPage = ({ isLogged, userLogged }: any) => {
 
         {isLogged && (
           <p className={styles.text}>
-            Salut {userLogged.pseudo}, découvrez et jouez aux quizz créés par les utilisateurs !
+            Salut {userLogged?.pseudo}, découvrez et jouez aux quizz créés par les utilisateurs !
           </p>
         )}
       </header>

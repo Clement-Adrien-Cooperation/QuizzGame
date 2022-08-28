@@ -17,6 +17,7 @@ type QuizTypes = {
   lang: string,
   image: string,
   is_visible: boolean,
+  nbOfQuestions: number,
   date: string,
   rate: number,
   reported: boolean
@@ -24,9 +25,7 @@ type QuizTypes = {
 
 const Quizz: NextPage = ({
   isLogged,
-  userLogged,
-  quizzData,
-  deletedQuizzData
+  userLogged
 }: any) => {
 
   const router = useRouter();
@@ -41,11 +40,9 @@ const Quizz: NextPage = ({
     if(isLogged) {
       if(userLogged?.is_admin === true) {
         document.title = "Modérer les Quizz - s'Quizz Game";
+        
+        getQuizz();
 
-        setQuizz(quizzData);
-        setDeletedQuizz(deletedQuizzData);
-
-        setShowLoader(false);
       } else {
         router.push('/');
       };
@@ -56,25 +53,39 @@ const Quizz: NextPage = ({
 
   const getQuizz = async () => {
 
-    await fetch('/api/quiz/getAll')
+    const token = localStorage.getItem('token');
+
+    await fetch('/api/quiz/getAll', {
+      method: 'GET',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      }
+    })
     .then(async(res) => {
       const data = await res.json();
       setQuizz(data);
-      setShowLoader(false);
     })
     .catch((error) => {
       console.log(error);
     });
 
-    await fetch('/api/quiz/getDeletedQuizz')
+    await fetch('/api/quiz/getDeletedQuizz', {
+      method: 'GET',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      }
+    })
     .then(async(res) => {
       const data = await res.json();
       setDeletedQuizz(data);
-      setShowLoader(false);
     })
     .catch((error) => {
       console.log(error);
     });
+
+    setShowLoader(false);
   };
 
   const handleModerateQuiz = async(id: string, is_visible: boolean) => {
@@ -116,7 +127,7 @@ const Quizz: NextPage = ({
       <AdminHeader />
 
       <aside className={styles.buttons}>
-        {quizzData.length < 10 ? '' : (
+        {quizz.length < 10 ? '' : (
           <a
             className={styles.buttons__item}
             href='#quizz'
@@ -125,7 +136,7 @@ const Quizz: NextPage = ({
           </a>
         )}
 
-        {deletedQuizzData.length === 0 
+        {deletedQuizz.length === 0 
         || quizz.length < 10 ? '' : (
           <a
             className={styles.buttons__item}
@@ -137,16 +148,19 @@ const Quizz: NextPage = ({
       </aside>
 
       <div className={styles.container}>
-        <section
-          className={styles.quizz}
-          id='quizz'
-        >
-          <AdminQuizz
-            quizz={quizz}
-            handleModerateQuiz={handleModerateQuiz}
-            handleDeleteQuiz={handleDeleteQuiz}
-          />
-        </section>
+
+        {quizz.length === 0 ? '' :
+          <section
+            className={styles.quizz}
+            id='quizz'
+          >
+            <AdminQuizz
+              quizz={quizz}
+              handleModerateQuiz={handleModerateQuiz}
+              handleDeleteQuiz={handleDeleteQuiz}
+            />
+          </section>
+        }
 
         {deletedQuizz.length === 0 ? '' : (
 
@@ -171,22 +185,3 @@ const Quizz: NextPage = ({
 };
 
 export default Quizz;
-
-export async function getStaticProps() {
-
-  // Get data from API for users & bannished users
-  const quizzDataFromAPI = await fetch('http://localhost:3000/api/quiz/getAll');
-  const deletedQuizzDataFromAPI = await fetch('http://localhost:3000/api/quiz/getDeletedQuizz');
-
-  // Translate to JSON
-  const quizzData = await quizzDataFromAPI.json();
-  const deletedQuizzData = await deletedQuizzDataFromAPI.json();
-
-  // We return those props & using it in the states
-  return {
-    props: {
-      quizzData,
-      deletedQuizzData
-    }
-  };
-};

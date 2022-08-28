@@ -47,6 +47,8 @@ const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) 
     .then(async(res) => {
 
       const data = await res.json();
+      
+      localStorage.setItem('token', data.token);
 
       if(data.message === 'OK') {
         setIsLogged(true);

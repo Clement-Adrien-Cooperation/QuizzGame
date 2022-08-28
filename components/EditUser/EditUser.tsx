@@ -221,18 +221,14 @@ const EditUser = ({
           
           const data = await res.json();
 
-          const userData: UserTypes = {
-            id: data.id,
-            pseudo: data.pseudo,
-            email: data.email,
-            password: data.password,
-            avatar: data.avatar,
-            is_admin: data.is_admin,
-            is_banished: data.is_banished
-          };
+          // save the token in local storage
+          localStorage.setItem('token', data.token);
 
+          console.log(data);
+          
+
+          setUserLogged(data.user);
           setIsLogged(true);
-          setUserLogged(userData);
           setShowLoader(false);
           
           router.push('/');

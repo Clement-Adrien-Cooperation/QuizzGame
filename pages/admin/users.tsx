@@ -16,7 +16,7 @@ type UserProps = {
   is_banished: boolean
 };
 
-const AdminUsers: NextPage = ({ isLogged, userLogged, usersData, banishedUsersData } :any) => {
+const AdminUsers: NextPage = ({ isLogged, userLogged } :any) => {
 
   const router = useRouter();
 
@@ -30,9 +30,8 @@ const AdminUsers: NextPage = ({ isLogged, userLogged, usersData, banishedUsersDa
     if(isLogged) {
       if(userLogged?.is_admin === true) {
         document.title = "Modérer les utilisateurs - s'Quizz Game";
-        setUsers(usersData);
-        setBanishedUsers(banishedUsersData);
-        setShowLoader(false);
+
+        getUsers();
       } else {
         router.push('/');
       };
@@ -43,8 +42,17 @@ const AdminUsers: NextPage = ({ isLogged, userLogged, usersData, banishedUsersDa
 
   const getUsers = async() => {
 
+    // Get token from local storage for make sur this is an admin
+    const token = localStorage.getItem('token');
+
     // Get users & banished users, then update states
-    await fetch('/api/user/getAll')
+    await fetch('/api/user/getAll', {
+      method: 'GET',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      }
+    })
     .then(async(res) => {
       const usersDataFromAPI = await res.json();
       setUsers(usersDataFromAPI);
@@ -56,13 +64,40 @@ const AdminUsers: NextPage = ({ isLogged, userLogged, usersData, banishedUsersDa
       console.log(error);
     });
 
-    await fetch('/api/user/getBanishedUsers')
+    await fetch('/api/user/getBanishedUsers', {
+      method: 'GET',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      }
+    })
     .then(async(res) => {
       const banishedUsersDataFromAPI = await res.json();
       setBanishedUsers(banishedUsersDataFromAPI);
     })
     .then(() => {
       setShowLoader(false);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+    setShowLoader(false);
+  };
+
+  const handlePromotion = async (user_id :number, is_admin :boolean) => {
+
+    setShowLoader(true);
+
+    const body = { user_id, is_admin }
+
+    await fetch('/api/user/promote', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    })
+    .then(async() => {
+      getUsers();
     })
     .catch((error) => {
       console.log(error);
@@ -79,25 +114,6 @@ const AdminUsers: NextPage = ({ isLogged, userLogged, usersData, banishedUsersDa
   
     // Fetch our API
     await fetch(`/api/user/moderate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    })
-    .then(async() => {
-      getUsers();
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  };
-
-  const handlePromotion = async (user_id :number, is_admin :boolean) => {
-
-    setShowLoader(true);
-
-    const body = { user_id, is_admin }
-
-    await fetch('/api/user/promote', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
@@ -163,22 +179,3 @@ const AdminUsers: NextPage = ({ isLogged, userLogged, usersData, banishedUsersDa
 };
 
 export default AdminUsers;
-
-export async function getStaticProps() {
-
-  // Get data from API for users & bannished users
-  const usersDataFromAPI = await fetch('http://localhost:3000/api/user/getAll');
-  const banishedUsersDataFromAPI = await fetch('http://localhost:3000/api/user/getBanishedUsers');
-
-  // Translate to JSON
-  const usersData = await usersDataFromAPI.json();
-  const banishedUsersData = await banishedUsersDataFromAPI.json();
-
-  // We return those props & using it in the states
-  return {
-    props: {
-      usersData,
-      banishedUsersData
-    }
-  };
-};

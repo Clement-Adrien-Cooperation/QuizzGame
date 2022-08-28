@@ -14,6 +14,7 @@ type QuizTypes = {
   lang: string,
   image: string,
   is_visible: boolean,
+  nbOfQuestions: number,
   date: string,
   rate: number,
   reported: boolean
