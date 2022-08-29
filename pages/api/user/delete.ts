@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from "@prisma/client";
+import { isAdmin } from '../../../middlewares/isAdmin';
 
-export default async function handle (
+export default isAdmin(async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -36,8 +37,8 @@ export default async function handle (
     res.status(200).json(deleteUser);
     
   } catch (error){
-    console.log(error);
+    res.status(404).json(error);
   };
 
   prisma.$disconnect();
-};
+});

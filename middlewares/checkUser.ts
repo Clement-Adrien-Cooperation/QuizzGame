@@ -8,7 +8,6 @@ export const checkUser = (fn: NextApiHandler) => async (
   const secret: any = process.env.JWT_SECRET;
 
   verify(req.headers.authorization!, secret, async(err: any, decoded: any) => {
-    console.log(decoded);
     
     if(!err && decoded) {
       if(decoded.is_admin === true) {

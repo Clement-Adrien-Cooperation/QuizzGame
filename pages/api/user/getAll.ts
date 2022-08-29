@@ -21,7 +21,7 @@ export default isAdmin(async function getAllUsers (
     res.status(200).json(users);
     
   } catch (error){
-    console.log(error);
+    res.status(404).json(error);
   };
   
   prisma.$disconnect();

@@ -17,7 +17,7 @@ export default async function handle (
     res.status(200).json(quiz);
     
   } catch (error){
-    console.log(error);
+    res.status(404).json(error);
   };
 
   prisma.$disconnect();

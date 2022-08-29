@@ -148,20 +148,22 @@ const EditUser = ({
 
     const token = localStorage.getItem('token');
 
-    await fetch('/api/user/getOne', {
+    const body = {
+      id: userLogged.id,
+      previousPassword,
+      newPassword: password
+    }
+
+    await fetch('/api/user/updatePassword', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `${token}`
       },
-      body: JSON.stringify({ id: userLogged.id })
+      body: JSON.stringify(body)
     })
-    .then(async(res) => {
-      const data = await res.json();
-
-      console.log(data);
-
-      // ! compare jwt password with previous password
+    .then(() => {
+      console.log('Success');
       
     })
     .catch((error) => {
@@ -176,10 +178,8 @@ const EditUser = ({
       
       let body = {
         id: userLogged.id,
-        pseudoOrEmail: userLogged.pseudo,
         pseudo,
-        email,
-        // password: userLogged.password
+        email
       };
 
       // If user try to change his password
@@ -201,16 +201,36 @@ const EditUser = ({
       .then(async(res) => {
         const data = await res.json();
 
-        setPseudo(data.pseudo);
-        setEmail(data.email);
+        if(res.status === 401) {
+          
+          if(data.meta.target.includes('pseudo')) {
 
-        setUserLogged(data);
+            setWarningMessage('Ce pseudo est déjà pris');
+
+          } else if(data.meta.target.includes('email')) {
+
+            setWarningMessage('Cet adresse email est déjà utilisée');
+
+          } else {
+            setWarningMessage('Un problème est survenu, veuillez réessayer ou nous contacter');
+          };
+          
+        } else if(res.status === 200) {
+
+          setPseudo(data.pseudo);
+          setEmail(data.email);
+
+          setUserLogged(data);
+
+        } else {
+          setWarningMessage('Un problème est survenu, veuillez réessayer ou nous contacter');
+        };
         
         setShowLoader(false);
       })
       .catch((error) => {
         console.log(error);
-        setWarningMessage('Ce pseudo ou cet email est déjà utilisé');
+        setWarningMessage('Un problème est survenu, veuillez réessayer ou nous contacter');
         setShowLoader(false);
       });
 
@@ -234,38 +254,35 @@ const EditUser = ({
 
         const data = await res.json();
 
-        const body = { pseudoOrEmail: data.pseudo }
+        if(res.status === 401) {
+          if(data.meta.target.includes('pseudo')) {
 
-        await fetch(`/api/user/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body)
-        })
-        .then(async(res) => {
-          
-          const data = await res.json();
+            setWarningMessage('Ce pseudo est déjà pris');
+
+          } else if(data.meta.target.includes('email')) {
+
+            setWarningMessage('Cet adresse email est déjà utilisée');
+
+          } else {
+            setWarningMessage('Un problème est survenu, veuillez réessayer ou nous contacter');
+          };
+        } else if(res.status === 201) {
 
           // save the token in local storage
           localStorage.setItem('token', data.token);
-
-          console.log(data);
           
-
           setUserLogged(data.user);
           setIsLogged(true);
           setShowLoader(false);
           
           router.push('/');
-        })
-        .catch((error) => {
-          console.log(error);
-          setWarningMessage('Une erreur est survenue. Réessayez ou contactez-nous');
-          setShowLoader(false);
-        });
+        };
+
+        setShowLoader(false);
       })
       .catch((error) => {
         console.log(error);
-        setWarningMessage('Ce pseudo ou cet email est déjà utilisé');
+        setWarningMessage('Un problème est survenu, veuillez réessayer ou nous contacter');
         setShowLoader(false);
       });
     };

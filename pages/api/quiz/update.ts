@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from "@prisma/client";
+import { checkUser } from '../../../middlewares/checkUser';
 
-export default async function handle (
+export default checkUser(async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -25,8 +26,8 @@ export default async function handle (
     res.status(201).json(quiz);
     
   } catch (error){
-    console.log(error);
+    res.status(404).json(error);
   };
 
   prisma.$disconnect();
-};
+});

@@ -34,6 +34,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   
   const checkUser = async () => {
 
+    console.log('check user');
+    
+
     const token = localStorage.getItem('token');
 
     await fetch('/api/user/getOne', {
@@ -42,7 +45,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         'Content-Type': 'application/json',
         'Authorization': `${token}`
       },
-      body: JSON.stringify({ user_id: userLogged.id})
+      body: JSON.stringify({ user_id: userLogged?.id})
     })
     .then(async(res) => {
 
@@ -54,6 +57,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       if(data.is_banished === true) {
         router.push('/banned');
       };
+
+      console.log('user checked');
     });
   };
   

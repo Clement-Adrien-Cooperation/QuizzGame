@@ -23,20 +23,20 @@ export default async function handle (
       compare(req.body.password, user.password, async(err, result) => {
         if(!err && result) {
           
-          const jwt = sign(user, secret, {expiresIn: '1h'});
+          const token = sign(user, secret, {expiresIn: '1h'});
 
           res.status(200).json({
             user,
-            token: jwt,
+            token,
             message: 'OK'
           });
         } else {
-          res.status(404).json({message: 'Wrong password'});
+          res.status(401).json({message: 'Wrong password'});
         };
       });
     }
     catch (error){
-      console.log(error);
+      res.status(401).json(error);
     };
 
   } else {
@@ -50,20 +50,20 @@ export default async function handle (
       compare(req.body.password, user.password, async(err, result) => {
         if(!err && result) {
           
-          const jwt = sign(user, secret, {expiresIn: '1h'});
+          const token = sign(user, secret, {expiresIn: '1h'});
 
           res.status(200).json({
             user,
-            token: jwt,
+            token,
             message: 'OK'
           });
         } else {
-          res.status(404).json({message: 'Wrong password'});
+          res.status(401).json({message: 'Wrong password'});
         };
       });
     }
     catch (error){
-      console.log(error);
+      res.status(401).json(error);
     };
   };
   

@@ -19,7 +19,7 @@ export default async function handle (
     res.status(201).json(questions);
     
   } catch (error){
-    console.log(error);
+    res.status(404).json(error);
   };
   
   prisma.$disconnect();

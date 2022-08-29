@@ -2,32 +2,48 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from "@prisma/client";
 import { v4 as uuidv4 } from 'uuid';
 import { hash } from 'bcrypt';
+import { sign } from 'jsonwebtoken';
 
 export default async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
 
+  const secret: any = process.env.JWT_SECRET;
+
   hash(req.body.password, 12, async(err, hash) => {
 
-    const prisma = new PrismaClient();
+    if(err) {
 
-    try {
-      const user = await prisma.user.create({
-        data: {
-          id: uuidv4(),
-          pseudo: req.body.pseudo,
-          email: req.body.email,
-          password: hash
-        }
-      });
+      res.status(404).json(err);
 
-      res.status(200).json(user);
+    } else {
+
+      const prisma = new PrismaClient();
+
+      try {
+        const user = await prisma.user.create({
+          data: {
+            id: uuidv4(),
+            pseudo: req.body.pseudo,
+            email: req.body.email,
+            password: hash
+          }
+        });
+
+        const token = sign(user, secret, {expiresIn: '1h'});
+
+        res.status(201).json({
+          user,
+          token,
+          message: 'Created'
+        });
+        
+      } catch (error){
+        res.status(404).json(error);
+      };
       
-    } catch (error){
-      console.log(error);
+      prisma.$disconnect();
     };
-    
-    prisma.$disconnect();
   });
 };

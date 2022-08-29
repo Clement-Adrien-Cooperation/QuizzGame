@@ -18,7 +18,17 @@ Un jeu de quizz participatif en ligne. Vous pouvez créer vos propres quizz et j
 
 ## Langages
 
-Ce projet a été créé avec JavaScript, React, Next, TypeScript, Sass, PostgreSQL, Prisma, ...
+Ce projet a été créé avec :
+- JavaScript
+- React
+- Next
+- TypeScript
+- Scss / Sass
+- PostgreSQL
+- Prisma
+- Json Web Token
+- Bcrypt
+- uuid
 
 
 ## Méthodo

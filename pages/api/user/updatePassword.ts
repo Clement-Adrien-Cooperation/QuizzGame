@@ -17,10 +17,10 @@ export default checkUser(async function handle (
       }
     });
 
-    compare(req.body.password, user.password, async(err, result) => {
+    compare(req.body.previousPassword, user.password, async(err, result) => {
       if(!err && result) {
 
-        hash(req.body.password, 12, async(err, hash) => {
+        hash(req.body.newPassword, 12, async(err, hash) => {
           const updateUser = await prisma.user.update({
             where: {
               id: user.id
@@ -40,7 +40,7 @@ export default checkUser(async function handle (
     });
 
   } catch (error){
-    console.log(error);
+    res.status(404).json(error);
   };
   prisma.$disconnect();
 });
