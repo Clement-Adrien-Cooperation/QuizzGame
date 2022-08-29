@@ -34,16 +34,22 @@ function MyApp({ Component, pageProps }: AppProps) {
   
   const checkUser = async () => {
 
-    const body = { user_id: userLogged.id };
-      
+    const token = localStorage.getItem('token');
+
     await fetch('/api/user/getOne', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      },
+      body: JSON.stringify({ user_id: userLogged.id})
     })
     .then(async(res) => {
 
       const data = await res.json();
+
+      console.log(data);
+      
 
       if(data.is_banished === true) {
         router.push('/banned');
@@ -55,7 +61,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     if(isLogged) {
       checkUser();
     };
-  }, [userLogged]);
+  }, [isLogged]);
 
   return (
     <Container

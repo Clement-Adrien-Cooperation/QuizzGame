@@ -95,12 +95,6 @@ const EditUser = ({
           setWarningMessage('Les nouveaux mots de passe ne correspondent pas');
           setDisableButton(true);
           return false;
-
-        } else if(previousPassword !== userLogged.password) {
-
-          setWarningMessage("L'ancien mot de passe ne correspond pas");
-          setDisableButton(true);
-          return false;
         };
       };
 
@@ -119,7 +113,6 @@ const EditUser = ({
         setWarningMessage('Votre mot de passe doit contenir 10 caractères au minimum');
         setDisableButton(true);
         return false;
-    
       };
     };
 
@@ -151,36 +144,67 @@ const EditUser = ({
     setDisableButton(false);
   };
 
+  const changePassword = async () => {
+
+    const token = localStorage.getItem('token');
+
+    await fetch('/api/user/getOne', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      },
+      body: JSON.stringify({ id: userLogged.id })
+    })
+    .then(async(res) => {
+      const data = await res.json();
+
+      console.log(data);
+
+      // ! compare jwt password with previous password
+      
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+
   const editUser = async() => {
 
     // If user is logged, this is an update
     if(isLogged) {
       
       let body = {
-        currentPseudo: userLogged.pseudo,
+        id: userLogged.id,
+        pseudoOrEmail: userLogged.pseudo,
         pseudo,
         email,
-        password: userLogged.password,
-        is_admin: userLogged.is_admin
+        // password: userLogged.password
       };
 
       // If user try to change his password
-      if(previousPassword !== '') {
-        // Change it on the body
-        body.password = password;
+      if(previousPassword !== '' && password !=='') {
+        await changePassword();
       };
+
+      const token = localStorage.getItem('token');
 
       // update user
       await fetch(`/api/user/update`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`
+        },
         body: JSON.stringify(body)
       })
       .then(async(res) => {
         const data = await res.json();
-        
+
         setPseudo(data.pseudo);
         setEmail(data.email);
+
+        setUserLogged(data);
         
         setShowLoader(false);
       })

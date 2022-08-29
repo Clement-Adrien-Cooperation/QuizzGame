@@ -47,18 +47,24 @@ const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) 
     .then(async(res) => {
 
       const data = await res.json();
-      
-      localStorage.setItem('token', data.token);
 
-      if(data.message === 'OK') {
-        setIsLogged(true);
-        setUserLogged(data.user);
-        setShowLoader(false);
-        router.push('/');
-        
+      if(data.user.is_banished === true) {
+
+        router.push('/banned');
+
       } else {
-        setWarningMessage("L'identifiant ou le mot de passe ne correspondent pas");
-        setShowLoader(false);
+        if(data.message === 'OK') {
+      
+          localStorage.setItem('token', data.token);
+          setUserLogged(data.user);
+          setIsLogged(true);
+          setShowLoader(false);
+          router.push('/');
+          
+        } else {
+          setWarningMessage("L'identifiant et le mot de passe ne correspondent pas");
+          setShowLoader(false);
+        };
       };
     })
     .catch((error) => {

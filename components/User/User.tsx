@@ -12,25 +12,24 @@ type UserLoggedTypes = {
   is_banished: boolean
 };
 
-type UserProps = {
+type UserTypes = {
   id: string,
   pseudo: string,
   email: string,
   avatar: string,
   is_admin: boolean,
-  is_banished: boolean,
+  is_banished: boolean
+};
+
+type UserProps = {
+  user: UserTypes,
   handleBanishement: Function,
   handlePromotion: Function;
   userLogged: UserLoggedTypes
 };
 
 const User = ({
-  id,
-  pseudo,
-  email,
-  avatar,
-  is_admin,
-  is_banished,
+  user,
   handleBanishement,
   handlePromotion,
   userLogged
@@ -49,21 +48,20 @@ const User = ({
         <input
           className={styles.input}
           type='checkbox'
-          id={pseudo}
+          id={user.pseudo}
           name='user'
         />
 
         <label
           className={styles.card}
-          htmlFor={pseudo}
+          htmlFor={user.pseudo}
           onClick={toggleDetails}
         >
-
           <section className={styles.header}>
 
             <div className={styles.avatar}>
               <Image
-                src={avatar === null ? defaultAvatar : avatar}
+                src={user.avatar === null ? defaultAvatar : user.avatar}
                 width='32'
                 height='32'
                 layout='responsive'
@@ -72,7 +70,7 @@ const User = ({
             </div>
 
             <h3 className={styles.pseudo}>
-              {pseudo}
+              {user.pseudo}
             </h3>
 
             <div className={styles.toggle_icon}>
@@ -89,10 +87,10 @@ const User = ({
 
           { showDetails && (
             <UserDetails
-              id={id}
-              email={email}
-              is_banished={is_banished}
-              is_admin={is_admin}
+              id={user.id}
+              email={user.email}
+              is_banished={user.is_banished}
+              is_admin={user.is_admin}
               handleBanishement={handleBanishement}
               handlePromotion={handlePromotion}
               userLogged={userLogged}

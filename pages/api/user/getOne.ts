@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from "@prisma/client";
+import { checkUser } from '../../../middlewares/checkUser';
 
-export default async function handle (
+export default checkUser(async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -21,4 +22,4 @@ export default async function handle (
   };
   
   prisma.$disconnect();
-};
+});

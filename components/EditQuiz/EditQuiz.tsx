@@ -280,19 +280,16 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
     
     if(checkForm()) {
 
-      if(questions.length < 1) {
-        setWarningMessage('Votre quiz doit contenir au moins 1 question');
-      } else {
+      await saveQuiz();
 
-        await saveQuiz();
-
-        setNotification('✅ Quiz enregistré');
-        
-        router.push(`/quizz/update/${title}`);
-      };
+      setNotification('✅ Quiz enregistré');
 
       setDisableButton(false);
       setShowLoader(false);
+      
+      if(router.pathname.includes('create')) {
+        router.push(`/quizz/update/${title}`);
+      };
     } else {
 
       setWarningMessage('Une erreur est survenue. Veuillez réessayer ou nous contacter');
@@ -321,7 +318,10 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
       })
       .then(async(res) => {
         const data = await res.json();
-        saveQuestions(data.title);
+
+        if(questions.length > 0) {
+          saveQuestions(data.title);
+        };
       })
       .catch((error) => {
         console.log(error);
@@ -344,7 +344,10 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
       })
       .then(async(res) => {
         const data = await res.json();
-        saveQuestions(data.title);
+
+        if(questions.length > 0) {
+          saveQuestions(data.title);
+        };
       })
       .catch((error) => {
         console.log(error);
@@ -383,7 +386,6 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
           body: JSON.stringify(questionsToSave)
         })
         .then(() => {
-          setNotification('✅ Quiz enregistré');
           setQuestions(questionsToSave);
         })
         .catch((error) => {
@@ -410,7 +412,6 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
         body: JSON.stringify(questionsToSave)
       })
       .then(() => {
-        setNotification('✅ Quiz enregistré');
         setQuestions(questionsToSave);
       })
       .catch((error) => {
@@ -463,10 +464,12 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
         )}
       </form>
 
-      <Questions
-        questions={questions}
-        setQuestions={setQuestions}
-      />
+      {router.pathname.includes('create') ? '' :
+        <Questions
+          questions={questions}
+          setQuestions={setQuestions}
+        />
+      }
 
       {showLoader && (
         <Loader />

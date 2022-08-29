@@ -62,22 +62,17 @@ const Users = ({
       }
       
       <ul>
-        {users?.map(({id, pseudo, email, avatar, is_admin, is_banished}: UserTypes) => {
+        {users.map((user: UserTypes) => {
 
-          const filteredPseudo = pseudo.toLowerCase();
-          const filteredEmail = email.toLowerCase();
+          const filteredPseudo = user.pseudo.toLowerCase();
+          const filteredEmail = user.email.toLowerCase();
           const filter = usersFilter.toLocaleLowerCase();
 
           if(filteredPseudo.includes(filter) || filteredEmail.includes(filter)) {
             return (
-              <li key={id}>
+              <li key={user.id}>
                 <User
-                  id={id}
-                  pseudo={pseudo}
-                  email={email}
-                  avatar={avatar}
-                  is_admin={is_admin}
-                  is_banished={is_banished}
+                  user={user}
                   handleBanishement={handleBanishement}
                   handlePromotion={handlePromotion}
                   userLogged={userLogged}
