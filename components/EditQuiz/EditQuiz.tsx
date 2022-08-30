@@ -119,7 +119,11 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
         setDifficulty(data.difficulty);
         setPreviousDifficulty(data.difficulty);
 
-        getQuestionsFromQuiz(data.id);
+        if(data.nbOfQuestions > 0) {
+          await getQuestionsFromQuiz(data.id);
+        };
+
+        setShowLoader(false);
       };
     })
     .catch((error) => {
@@ -136,13 +140,8 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
     })
     .then(async(res) => {
       const data = await res.json();
-
-      console.log(data);
       
       setQuestions(data);
-    })
-    .then(() => {
-      setShowLoader(false);
     })
     .catch((error) => {
       console.log(error);
@@ -300,6 +299,8 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
 
   const saveQuiz = async() => {
 
+    const token = localStorage.getItem('token');
+
     if(router.pathname.includes('create')) {
 
       const body = {
@@ -313,7 +314,10 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
 
       await fetch(`/api/quiz/create`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`
+        },
         body: JSON.stringify(body)
       })
       .then(async(res) => {
@@ -339,7 +343,10 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
       
       await fetch(`/api/quiz/update`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`
+        },
         body: JSON.stringify(body)
       })
       .then(async(res) => {
@@ -357,12 +364,17 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
 
   const saveQuestions = async(title: string) => {
 
+    const token = localStorage.getItem('token');
+
     if(router.pathname.includes('create')) {
     
       // Get the quizz ID with the title
       await fetch('/api/quiz/getOne', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`
+        },
         body: JSON.stringify({ title })
       })
       .then(async(res) => {
@@ -382,7 +394,10 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
         
         await fetch('/api/question/createMany', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${token}`
+          },
           body: JSON.stringify(questionsToSave)
         })
         .then(() => {
@@ -408,7 +423,10 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
 
       await fetch('/api/question/createMany', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`
+        },
         body: JSON.stringify(questionsToSave)
       })
       .then(() => {

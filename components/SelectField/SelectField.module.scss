@@ -7,13 +7,12 @@
 }
 
 .select {
-  color: var(--text-color);
   width: 100%;
+  color: var(--text-color);
   background: var(--input-color);
-  padding: 9px 16px;
-  border-radius: var(--small-radius);
-  border-radius: 50px;
+  border-radius: var(--main-radius);
   border: var(--border-transparent);
+  padding: 9px 16px;
   font-family: inherit;
   color: var(--text-color);
   cursor: pointer;

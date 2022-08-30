@@ -31,41 +31,46 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [userLogged, setUserLogged] = useState<UserLoggedTypes>(unLoggedUser);
-  
-  const checkUser = async () => {
 
-    console.log('check user');
-    
+  const checkUser = async () => {
 
     const token = localStorage.getItem('token');
 
-    await fetch('/api/user/getOne', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `${token}`
-      },
-      body: JSON.stringify({ user_id: userLogged?.id})
-    })
-    .then(async(res) => {
+    if(token) {
+      await fetch('/api/user/checkToken', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`
+        }
+      })
+      .then(async(res) => {
+        const data = await res.json();
 
-      const data = await res.json();
+        if(res.status === 200) {
 
-      console.log(data);
-      
+          if(data.is_banished) {
+            router.push('/banned');
+          } else {
 
-      if(data.is_banished === true) {
-        router.push('/banned');
-      };
+            setUserLogged(data);
+            setIsLogged(true);
+          };
 
-      console.log('user checked');
-    });
+        } else if(res.status === 401) {
+          console.error(data.message);
+        } else {
+          console.error(data);
+        };
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    };
   };
   
   useEffect(() => {
-    if(isLogged) {
-      checkUser();
-    };
+    checkUser();
   }, [isLogged]);
 
   return (

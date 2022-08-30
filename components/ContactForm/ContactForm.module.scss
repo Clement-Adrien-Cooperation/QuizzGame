@@ -12,7 +12,7 @@
   padding: 9px 16px;
   background: var(--input-color);
   border: var(--border-transparent);
-  border-radius: 50px;
+  border-radius: var(--main-radius);
 
   &:hover {
     border-color: var(--main-color-light);

@@ -12,6 +12,8 @@ export default async function handle (
   
   const prisma = new PrismaClient();
 
+  await prisma.$connect();
+
   if(req.body.pseudoOrEmail.includes('@') && req.body.pseudoOrEmail.includes('.')) {
     try {
       const user: any = await prisma.user.findUnique({
@@ -67,5 +69,5 @@ export default async function handle (
     };
   };
   
-  prisma.$disconnect();
+  await prisma.$disconnect();
 };

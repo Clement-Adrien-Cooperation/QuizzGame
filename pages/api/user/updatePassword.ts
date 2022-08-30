@@ -10,6 +10,8 @@ export default checkUser(async function handle (
 
   const prisma = new PrismaClient();
 
+  await prisma.$connect();
+
   try {
     const user: any = await prisma.user.findUnique({
       where: {
@@ -42,5 +44,6 @@ export default checkUser(async function handle (
   } catch (error){
     res.status(404).json(error);
   };
-  prisma.$disconnect();
+
+  await prisma.$disconnect();
 });

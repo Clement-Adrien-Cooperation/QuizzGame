@@ -48,7 +48,7 @@ const Home: NextPage = ({ isLogged, userLogged }: any) => {
 
         {isLogged && (
           <p className={styles.text}>
-            Salut {userLogged?.pseudo}, découvrez et jouez aux quizz créés par les utilisateurs !
+            Salut {userLogged?.pseudo}, découvre et joue aux quizz créés par les utilisateurs !
           </p>
         )}
       </header>

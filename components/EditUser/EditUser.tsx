@@ -2,6 +2,8 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import InputField from '../InputField/InputField';
 import Loader from '../Loader/Loader';
+import PasswordField from '../PasswordField/PasswordField';
+import PasswordValidation from '../PasswordValidation/PasswordValidation';
 import Warning from '../Warning/Warning';
 import styles from './EditUser.module.scss';
 
@@ -41,12 +43,57 @@ const EditUser = ({
   const [disableButton, setDisableButton] = useState<boolean>(true);
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
+  const [validLowercase, setValidLowercase] = useState<boolean>(false);
+  const [validUppercase, setValidUppercase] = useState<boolean>(false);
+  const [validNumber, setValidNumber] = useState<boolean>(false);
+  const [validSpecial, setValidSpecial] = useState<boolean>(false);
+  const [validLength, setValidLength] = useState<boolean>(false);
+
   useEffect(() => {
     if(isLogged) {
       setPseudo(userLogged.pseudo);
       setEmail(userLogged.email);
     };
   }, []);
+
+  const checkPassword = () => {
+
+    const lowercase = new RegExp('(?=.*[a-z])');
+    const uppercase = new RegExp('(?=.*[A-Z])');
+    const number = new RegExp('(?=.*[0-9])');
+    const special = new RegExp('(?=.*[!@#\$%\^&\*])');
+    const length = new RegExp('(?=.{8,})');
+
+    if(lowercase.test(password)) {
+      setValidLowercase(true);
+    } else {
+      setValidLowercase(false);
+    };
+
+    if(uppercase.test(password)) {
+      setValidUppercase(true);
+    } else {
+      setValidUppercase(false);
+    };
+
+    if(number.test(password)) {
+      setValidNumber(true);
+    } else {
+      setValidNumber(false);
+    };
+
+    if(special.test(password)) {
+      setValidSpecial(true);
+    } else {
+      setValidSpecial(false);
+    };
+
+    if(length.test(password)) {
+      setValidLength(true);
+    } else {
+      setValidLength(false);
+    };
+  };
 
   const checkForm = () => {
 
@@ -90,6 +137,18 @@ const EditUser = ({
       } else if(previousPassword !== ''
       && password !== ''
       && confirmPassword !== '') {
+
+        if(!validLowercase &&
+          !validUppercase &&
+          !validNumber &&
+          !validSpecial &&
+          !validLength) {
+
+          setWarningMessage('Votre mot de passe doit contenir 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère spécial et 8 caractères au minimum');
+          setDisableButton(true);
+          return false;
+        };
+
         if(password !== confirmPassword) {
 
           setWarningMessage('Les nouveaux mots de passe ne correspondent pas');
@@ -99,18 +158,13 @@ const EditUser = ({
       };
 
     } else {
-      if(password.length < 10 || password.length > 1000) {
-
-        setWarningMessage('Votre mot de passe doit contenir 10 caractères au minimum');
-        setDisableButton(true);
-        return false;
-
-      } else if (password.length < 10
-        || password.length > 1000
-        || confirmPassword.length < 10
-        || confirmPassword.length > 1000) {
-
-        setWarningMessage('Votre mot de passe doit contenir 10 caractères au minimum');
+      if(!validLowercase &&
+        !validUppercase &&
+        !validNumber &&
+        !validSpecial &&
+        !validLength) {
+          
+        setWarningMessage('Votre mot de passe doit contenir 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère spécial et 8 caractères au minimum');
         setDisableButton(true);
         return false;
       };
@@ -171,120 +225,131 @@ const EditUser = ({
     });
   };
 
-  const editUser = async() => {
-
-    // If user is logged, this is an update
-    if(isLogged) {
+  const updateUser = async () => {
       
-      let body = {
-        id: userLogged.id,
-        pseudo,
-        email
-      };
+    let body = {
+      id: userLogged.id,
+      pseudo,
+      email
+    };
 
-      // If user try to change his password
-      if(previousPassword !== '' && password !=='') {
-        await changePassword();
-      };
+    // If user try to change his password
+    if(previousPassword !== '' && password !=='') {
+      await changePassword();
+    };
 
-      const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
-      // update user
-      await fetch(`/api/user/update`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `${token}`
-        },
-        body: JSON.stringify(body)
-      })
-      .then(async(res) => {
-        const data = await res.json();
+    // update user
+    await fetch(`/api/user/update`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      },
+      body: JSON.stringify(body)
+    })
+    .then(async(res) => {
+      const data = await res.json();
 
-        if(res.status === 401) {
-          
-          if(data.meta.target.includes('pseudo')) {
+      if(res.status === 401) {
+        
+        if(data.meta.target.includes('pseudo')) {
 
-            setWarningMessage('Ce pseudo est déjà pris');
+          setWarningMessage('Ce pseudo est déjà pris');
 
-          } else if(data.meta.target.includes('email')) {
+        } else if(data.meta.target.includes('email')) {
 
-            setWarningMessage('Cet adresse email est déjà utilisée');
-
-          } else {
-            setWarningMessage('Un problème est survenu, veuillez réessayer ou nous contacter');
-          };
-          
-        } else if(res.status === 200) {
-
-          setPseudo(data.pseudo);
-          setEmail(data.email);
-
-          setUserLogged(data);
+          setWarningMessage('Cet adresse email est déjà utilisée');
 
         } else {
           setWarningMessage('Un problème est survenu, veuillez réessayer ou nous contacter');
         };
         
-        setShowLoader(false);
-      })
-      .catch((error) => {
-        console.log(error);
+      } else if(res.status === 200) {
+        // If response status is 200 (OK),
+
+        // update state with user's data
+        setPseudo(data.pseudo);
+        setEmail(data.email);
+
+        setUserLogged(data);
+
+      } else {
         setWarningMessage('Un problème est survenu, veuillez réessayer ou nous contacter');
+      };
+      
+      setShowLoader(false);
+    })
+    .catch((error) => {
+      console.log(error);
+      setWarningMessage('Un problème est survenu, veuillez réessayer ou nous contacter');
+      setShowLoader(false);
+    });
+
+  };
+
+  const createUser = async () => {
+
+    const body = {
+      pseudo,
+      email,
+      password
+    };
+
+    await fetch(`/api/user/create`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    })
+    .then(async(res) => {
+
+      const data = await res.json();
+
+      if(res.status === 401) {
+        if(data.meta.target.includes('pseudo')) {
+
+          setWarningMessage('Ce pseudo est déjà pris');
+
+        } else if(data.meta.target.includes('email')) {
+
+          setWarningMessage('Cet adresse email est déjà utilisée');
+
+        } else {
+          setWarningMessage('Un problème est survenu, veuillez réessayer ou nous contacter');
+        };
+      } else if(res.status === 201) {
+        // If response status is 201 (created),
+
+        // save the token in local storage
+        localStorage.setItem('token', data.token);
+        
+        // update states with user's data and push to home page
+        setUserLogged(data.user);
+        setIsLogged(true);
         setShowLoader(false);
-      });
-
-    // If he's not logged, this is a creation
-    } else {
-
-      // If everything is ok, set up the body
-      const body = {
-        pseudo,
-        email,
-        password
+        
+        router.push('/');
       };
 
-      // & create a new user
-      await fetch(`/api/user/create`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-      })
-      .then(async(res) => {
+      setShowLoader(false);
+    })
+    .catch((error) => {
+      console.log(error);
+      setWarningMessage('Un problème est survenu, veuillez réessayer ou nous contacter');
+      setShowLoader(false);
+    });
 
-        const data = await res.json();
+  };
 
-        if(res.status === 401) {
-          if(data.meta.target.includes('pseudo')) {
+  const editUser = () => {
 
-            setWarningMessage('Ce pseudo est déjà pris');
-
-          } else if(data.meta.target.includes('email')) {
-
-            setWarningMessage('Cet adresse email est déjà utilisée');
-
-          } else {
-            setWarningMessage('Un problème est survenu, veuillez réessayer ou nous contacter');
-          };
-        } else if(res.status === 201) {
-
-          // save the token in local storage
-          localStorage.setItem('token', data.token);
-          
-          setUserLogged(data.user);
-          setIsLogged(true);
-          setShowLoader(false);
-          
-          router.push('/');
-        };
-
-        setShowLoader(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        setWarningMessage('Un problème est survenu, veuillez réessayer ou nous contacter');
-        setShowLoader(false);
-      });
+    // If user is logged, this is an update
+    if(isLogged) {
+      updateUser();
+    // If he's not logged, this is a creation
+    } else {
+      createUser();
     };
   };
 
@@ -321,45 +386,6 @@ const EditUser = ({
     setEmail(e.target.value);
   };
 
-  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-
-    if(password.length > 1000) {
-      setWarningMessage('Votre mot de passe ne doit pas excéder 1000 caractères');
-      setDisableButton(true);
-    } else {
-      setWarningMessage('');
-      setDisableButton(false);
-    };
-
-    setPassword(e.target.value);
-  };
-
-  const handleChangeConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-
-    if(confirmPassword.length > 1000) {
-      setWarningMessage('Votre mot de passe ne doit pas excéder 1000 caractères');
-      setDisableButton(true);
-    } else {
-      setWarningMessage('');
-      setDisableButton(false);
-    };
-
-    setConfirmPassword(e.target.value);
-  };
-
-  const handleChangePreviousPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-
-    if(previousPassword.length > 1000) {
-      setWarningMessage('Votre mot de passe ne doit pas excéder 1000 caractères');
-      setDisableButton(true);
-    } else {
-      setWarningMessage('');
-      setDisableButton(false);
-    };
-
-    setPreviousPassword(e.target.value);
-  };
-
   return (    
     <>
       <form
@@ -389,38 +415,26 @@ const EditUser = ({
         />
         
         {isLogged && (
-          <InputField
+          <PasswordField
             name={'Ancien mot de passe'}
-            state={previousPassword}
             inputID={'previous-password'}
-            type={'password'}
-            isDisabled={false}
-            required={false}
-            autoFocus={false}
-            handleFunction={handleChangePreviousPassword}
+            password={previousPassword}
+            setPassword={setPreviousPassword}
           />
         )}
-
-        <InputField
-          name={isLogged ? 'Nouveau mot de passe' : 'Mot de passe'}
-          state={password}
-          inputID={'password'}
-          type={'password'}
-          isDisabled={false}
-          required={isLogged ? false : true}
-          autoFocus={false}
-          handleFunction={handleChangePassword}
-        />
-
-        <InputField
-          name={'Confirmer le mot de passe'}
-          state={confirmPassword}
-          inputID={'confirm-password'}
-          type={'password'}
-          isDisabled={false}
-          required={isLogged ? false : true}
-          autoFocus={false}
-          handleFunction={handleChangeConfirmPassword}
+        
+        <PasswordValidation
+          isLogged={isLogged}
+          password={password}
+          confirmPassword={confirmPassword}
+          setPassword={setPassword}
+          setConfirmPassword={setConfirmPassword}
+          validLowercase={validLowercase}
+          validUppercase={validUppercase}
+          validNumber={validNumber}
+          validSpecial={validSpecial}
+          validLength={validLength}
+          checkPassword={checkPassword}
         />
 
         { warningMessage && (

@@ -20,7 +20,7 @@ export const checkUser = (fn: NextApiHandler) => async (
 
       } else if(decoded.id !== req.body.user_id) {
 
-        res.status(403).json({message: "L'ID de l'utilisateur ne correspond pas"});
+        res.status(404).json({message: "L'ID de l'utilisateur ne correspond pas"});
       
       } else {
         return await fn(req, res);

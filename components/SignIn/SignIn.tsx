@@ -4,9 +4,11 @@ import styles from './SignIn.module.scss';
 import InputField from '../InputField/InputField';
 import Warning from '../Warning/Warning';
 import Loader from '../Loader/Loader';
+import PasswordField from '../PasswordField/PasswordField';
 
 type SignInProps = {
   handleToggleForm: Function,
+  isLogged: boolean,
   setIsLogged: React.Dispatch<React.SetStateAction<boolean>>,
   setUserLogged: React.Dispatch<React.SetStateAction<UserTypes>>
 };
@@ -21,14 +23,13 @@ type UserTypes = {
   is_banished: boolean
 };
 
-const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) => {
+const SignIn = ({ handleToggleForm, isLogged, setIsLogged, setUserLogged }: SignInProps) => {
 
   const router = useRouter();
 
   const [pseudoOrEmail, setPseudoOrEmail] = useState<string>('adrienlcp@gmail.com');
   const [password, setPassword] = useState<string>('!xJeLth!P4!psnjT');
   const [warningMessage, setWarningMessage] = useState<string>('');
-
   const [disableButton, setDisableButton] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
@@ -81,10 +82,6 @@ const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) 
     setPseudoOrEmail(e.target.value);
   };
 
-  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-
   return (
     <>
       <section className={styles.container}>
@@ -109,15 +106,11 @@ const SignIn = ({ handleToggleForm, setIsLogged, setUserLogged } : SignInProps) 
             handleFunction={handleChangePseudoOrEmail}
           />
 
-          <InputField
+          <PasswordField
             name={'Mot de passe'}
-            state={password}
             inputID={'password'}
-            type={'password'}
-            isDisabled={false}
-            required={true}
-            autoFocus={false}
-            handleFunction={handleChangePassword}
+            password={password}
+            setPassword={setPassword}
           />
 
           { warningMessage && (

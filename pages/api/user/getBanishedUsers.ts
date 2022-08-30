@@ -9,6 +9,8 @@ export default isAdmin(async function handle (
 
   const prisma = new PrismaClient();
 
+  await prisma.$connect();
+
   try {
     const users = await prisma.user.findMany({
       where: {
@@ -24,5 +26,5 @@ export default isAdmin(async function handle (
     res.status(404).json(error);
   };
   
-  prisma.$disconnect();
+  await prisma.$disconnect();
 });

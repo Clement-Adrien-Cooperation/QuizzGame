@@ -8,6 +8,8 @@ export default async function handle (
 
   const prisma = new PrismaClient();
 
+  await prisma.$connect();
+
   try {
     const quizz = await prisma.quiz.findMany({
       where: {
@@ -23,5 +25,5 @@ export default async function handle (
     res.status(404).json(error);
   };
   
-  prisma.$disconnect();
+  await prisma.$disconnect();
 };

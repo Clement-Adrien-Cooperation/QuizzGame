@@ -42,6 +42,7 @@ const Connexion: NextPage = ({ setIsLogged, setUserLogged, isLogged, userLogged 
           <div className={styles.sign_in}>
             <SignIn
               handleToggleForm={handleToggleForm}
+              isLogged={isLogged}
               setIsLogged={setIsLogged}
               setUserLogged={setUserLogged}
             />

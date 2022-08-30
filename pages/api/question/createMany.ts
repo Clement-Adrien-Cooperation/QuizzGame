@@ -9,6 +9,8 @@ export default authenticated(async function handle (
 
   const prisma = new PrismaClient();
 
+  await prisma.$connect();
+
   try {
     const deleteQuestions = await prisma.question.deleteMany({
       where: {
@@ -28,5 +30,5 @@ export default authenticated(async function handle (
     res.status(404).json(error);
   };
   
-  prisma.$disconnect();
+  await prisma.$disconnect();
 });
