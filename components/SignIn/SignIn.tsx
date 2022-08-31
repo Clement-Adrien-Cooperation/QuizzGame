@@ -5,7 +5,7 @@ import InputField from '../InputField/InputField';
 import Warning from '../Warning/Warning';
 import Loader from '../Loader/Loader';
 import PasswordField from '../PasswordField/PasswordField';
-import RememberMe from '../RememberMe/RememberMe';
+import CheckButton from '../CheckButton/CheckButton';
 
 type SignInProps = {
   handleToggleForm: Function
@@ -150,9 +150,12 @@ const SignIn = ({
             setPassword={setPassword}
           />
 
-          <RememberMe
-            rememberMe={rememberMe}
-            setRememberMe={setRememberMe}
+          <CheckButton
+            label={"Se souvenir de moi"}
+            id={"remember-me"}
+            title={"Me connecter automatiquement à ma prochaine visite"}
+            state={rememberMe}
+            setState={setRememberMe}
           />
 
           { warningMessage && (

@@ -1,37 +1,48 @@
 import styles from './CheckButton.module.scss';
 
 type CheckButtonProps = {
-  state: boolean,
+  label: string,
+  id: string,
   title: string,
-  clickFunction: Function
+  state: boolean,
+  setState: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 const CheckButton = ({
-  state,
+  label,
+  id,
   title,
-  clickFunction
-} :CheckButtonProps) => {
+  state,
+  setState
+}: CheckButtonProps) => {
 
   return (
-    <>
+    <div className={styles.checkbox}>
       <input
         className={styles.input}
         type='checkbox'
         title={title}
         aria-label={title}
-        id='switch'
+        id={id}
         checked={state}
         readOnly
+        onClick={() => setState(!state)}
       />
 
       <label
         className={styles.label}
         title={title}
         aria-label={title}
-        htmlFor="switch"
-        onClick={() => clickFunction()}
+        htmlFor={id}
       ></label>
-    </>
+
+      <p
+        className={styles.text}
+        onClick={() => setState(!state)}
+      >
+        {label}
+      </p>
+    </div>
   );
 };
 

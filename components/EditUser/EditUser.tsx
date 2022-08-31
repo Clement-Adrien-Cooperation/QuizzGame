@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import CheckButton from '../CheckButton/CheckButton';
 import InputField from '../InputField/InputField';
 import Loader from '../Loader/Loader';
 import PasswordField from '../PasswordField/PasswordField';
 import PasswordValidation from '../PasswordValidation/PasswordValidation';
-import RememberMe from '../RememberMe/RememberMe';
 import Warning from '../Warning/Warning';
 import styles from './EditUser.module.scss';
 
@@ -452,9 +452,12 @@ const EditUser = ({
           checkPasswords={checkPasswords}
         />
 
-        <RememberMe
-          rememberMe={rememberMe}
-          setRememberMe={setRememberMe}
+        <CheckButton
+          label={"Se souvenir de moi"}
+          id={"remember-me"}
+          title={"Me connecter automatiquement à ma prochaine visite"}
+          state={rememberMe}
+          setState={setRememberMe}
         />
 
         {notification && (

@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-import Image from 'next/image';
 import styles from './DarkMode.module.scss';
-
-import sun from '../../public/icons/sun.svg';
-import moon from '../../public/icons/moon.svg';
 import CheckButton from "../CheckButton/CheckButton";
 
 const DarkMode = () => {
@@ -42,32 +38,16 @@ const DarkMode = () => {
     };
   }, [darkMode]);
 
-  const toggleTheme = () => {
-    setDarkMode(!darkMode);
-  };
-
   return (
     <section className={styles.container}>
 
       <CheckButton
-        state={darkMode}
+        id={'switch-theme'}
+        label={"Mode sombre"}
         title={darkMode ? 'Activer le mode clair' : 'Activer mode sombre'}
-        clickFunction={toggleTheme}
+        state={darkMode}
+        setState={setDarkMode}
       />
-
-      <div className={styles.icon}>
-        <Image
-          src={darkMode ? moon : sun}
-          width='32px'
-          height='32px'
-          layout="responsive"
-          alt='Changer de thème'
-        />
-      </div>
-
-      <span className={styles.span}>
-        Mode sombre
-      </span>
 
     </section>
   );
