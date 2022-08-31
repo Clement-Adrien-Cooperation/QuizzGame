@@ -7,8 +7,8 @@ export const authenticated = (fn: NextApiHandler) => async (
 ) => {
   const secret: any = process.env.JWT_SECRET;
 
-  verify(req.headers.authorization!, secret, async(err: any, decoded: any) => {
-    if(!err && decoded) {
+  verify(req.headers.authorization!, secret, async(err: any, user: any) => {
+    if(!err && user) {
       return await fn(req, res);
     } else {
       res.status(401).json({message: "Vous n'êtes pas authentifié"});

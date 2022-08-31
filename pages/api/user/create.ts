@@ -33,7 +33,7 @@ export default async function handle (
           }
         });
 
-        const token = sign(user, secret, {expiresIn: '1h'});
+        const token = sign(user, secret, {expiresIn: '1800s'});
 
         res.status(201).json({
           user,

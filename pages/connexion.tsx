@@ -5,7 +5,12 @@ import styles from '../styles/Connexion.module.scss';
 import SignUp from '../components/SignUp/SignUp';
 import SignIn from '../components/SignIn/SignIn';
 
-const Connexion: NextPage = ({ setIsLogged, setUserLogged, isLogged, userLogged }:any) => {
+const Connexion: NextPage = ({
+  setIsLogged,
+  setUserLogged,
+  isLogged,
+  userLogged
+}:any) => {
 
   const router = useRouter();
   
@@ -42,7 +47,6 @@ const Connexion: NextPage = ({ setIsLogged, setUserLogged, isLogged, userLogged 
           <div className={styles.sign_in}>
             <SignIn
               handleToggleForm={handleToggleForm}
-              isLogged={isLogged}
               setIsLogged={setIsLogged}
               setUserLogged={setUserLogged}
             />

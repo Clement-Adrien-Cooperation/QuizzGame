@@ -4,6 +4,7 @@ import InputField from '../InputField/InputField';
 import Loader from '../Loader/Loader';
 import PasswordField from '../PasswordField/PasswordField';
 import PasswordValidation from '../PasswordValidation/PasswordValidation';
+import RememberMe from '../RememberMe/RememberMe';
 import Warning from '../Warning/Warning';
 import styles from './EditUser.module.scss';
 
@@ -38,7 +39,9 @@ const EditUser = ({
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [previousPassword, setPreviousPassword] = useState<string>('');
+  const [rememberMe, setRememberMe] = useState<boolean>(false);
 
+  const [notification, setNotification] = useState<string>('');
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [disableButton, setDisableButton] = useState<boolean>(true);
   const [showLoader, setShowLoader] = useState<boolean>(false);
@@ -55,6 +58,16 @@ const EditUser = ({
       setEmail(userLogged.email);
     };
   }, []);
+
+  const checkPasswords = () => {
+
+    if( password !== '' && password === confirmPassword) {
+      setNotification('Les deux mots de passe correspondent ✅');
+      setWarningMessage('');
+    } else {
+      setNotification('');
+    };
+  };
 
   const checkPassword = () => {
 
@@ -158,10 +171,10 @@ const EditUser = ({
       };
 
     } else {
-      if(!validLowercase &&
-        !validUppercase &&
-        !validNumber &&
-        !validSpecial &&
+      if(!validLowercase ||
+        !validUppercase ||
+        !validNumber ||
+        !validSpecial ||
         !validLength) {
           
         setWarningMessage('Votre mot de passe doit contenir 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère spécial et 8 caractères au minimum');
@@ -294,7 +307,8 @@ const EditUser = ({
     const body = {
       pseudo,
       email,
-      password
+      password,
+      rememberMe
     };
 
     await fetch(`/api/user/create`, {
@@ -435,7 +449,19 @@ const EditUser = ({
           validSpecial={validSpecial}
           validLength={validLength}
           checkPassword={checkPassword}
+          checkPasswords={checkPasswords}
         />
+
+        <RememberMe
+          rememberMe={rememberMe}
+          setRememberMe={setRememberMe}
+        />
+
+        {notification && (
+          <p className={styles.notification}>
+            {notification}
+          </p>
+        )}
 
         { warningMessage && (
           <Warning

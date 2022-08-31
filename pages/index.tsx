@@ -1,9 +1,12 @@
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Loader from '../components/Loader/Loader';
 import styles from '../styles/Home.module.scss';
 
-const Home: NextPage = ({ isLogged, userLogged }: any) => {
+const Home: NextPage = ({ isLogged, userLogged, handleDisconnect }: any) => {
+
+  const router = useRouter();
 
   const [showLoader, setShowLoader] = useState<boolean>(false);
   
@@ -11,13 +14,18 @@ const Home: NextPage = ({ isLogged, userLogged }: any) => {
 
     document.title = "s'Quizz Game";
 
+    if(isLogged) {
+      if(userLogged.is_banished) {
+        router.push('/banned');
+      };
+    };
   }, []);
 
   const getUsers = async () => {
 
-    setShowLoader(true);
-
     const token = localStorage.getItem('token');
+
+    setShowLoader(true);
 
     await fetch('/api/user/getAll', {
       method: 'GET',
@@ -26,11 +34,14 @@ const Home: NextPage = ({ isLogged, userLogged }: any) => {
         'Authorization': `${token}`
       }
     })
-    .then((res) => {
-      return res.json();
-    })
     .then(async(res) => {
-      console.log(res);
+
+      if(res.status === 401) {
+        handleDisconnect();
+      } else if(res.status === 200) {
+        const data = await res.json();
+        console.log(data);
+      };
     })
     .catch((error) => {
       console.log(error);

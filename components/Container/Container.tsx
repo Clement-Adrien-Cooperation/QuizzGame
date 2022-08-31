@@ -11,15 +11,14 @@ type UserTypes = {
   is_banished: boolean
 };
 
-type PropsType = {
+type ContainerPropsType = {
   children: JSX.Element,
   isLogged: boolean,
-  userLogged: UserTypes,
-  setIsLogged: React.Dispatch<React.SetStateAction<boolean>>,
-  setUserLogged: React.Dispatch<React.SetStateAction<UserTypes>>
+  userLogged: UserTypes
+  handleDisconnect: Function
 };
 
-const Container = (props: PropsType) => {
+const Container = (props: ContainerPropsType) => {
 
   return (
     <>
@@ -27,8 +26,7 @@ const Container = (props: PropsType) => {
       <Navbar
         isLogged={props.isLogged}
         userLogged={props.userLogged}
-        setIsLogged={props.setIsLogged}
-        setUserLogged={props.setUserLogged}
+        handleDisconnect={props.handleDisconnect}
       />
       {props.children}
     </>

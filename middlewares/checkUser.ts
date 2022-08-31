@@ -7,18 +7,18 @@ export const checkUser = (fn: NextApiHandler) => async (
 ) => {
   const secret: any = process.env.JWT_SECRET;
 
-  verify(req.headers.authorization!, secret, async(err: any, decoded: any) => {
+  verify(req.headers.authorization!, secret, async(err: any, user: any) => {
     
-    if(!err && decoded) {
-      if(decoded.is_admin === true) {
+    if(!err && user) {
+      if(user.is_admin === true) {
 
         return await fn(req, res);
 
-      } else if(decoded.is_banished === true) {
+      } else if(user.is_banished === true) {
 
         res.status(403).json({message: "Vous avez été banni"});
 
-      } else if(decoded.id !== req.body.user_id) {
+      } else if(user.id !== req.body.user_id || user.id !== req.body.id) {
 
         res.status(404).json({message: "L'ID de l'utilisateur ne correspond pas"});
       

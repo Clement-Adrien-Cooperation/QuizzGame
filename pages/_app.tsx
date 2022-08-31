@@ -5,7 +5,7 @@ import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-type UserLoggedTypes = {
+type UserTypes = {
   id: string,
   pseudo: string,
   email: string,
@@ -15,7 +15,7 @@ type UserLoggedTypes = {
   is_banished: boolean
 };
 
-const unLoggedUser = {
+const unLoggedUser: UserTypes = {
   id: '',
   pseudo: '',
   email: '',
@@ -30,62 +30,74 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   const [isLogged, setIsLogged] = useState<boolean>(false);
-  const [userLogged, setUserLogged] = useState<UserLoggedTypes>(unLoggedUser);
-
-  const checkUser = async () => {
-
+  const [userLogged, setUserLogged] = useState<UserTypes>(unLoggedUser);
+  
+  useEffect(() => {
     const token = localStorage.getItem('token');
 
     if(token) {
-      await fetch('/api/user/checkToken', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `${token}`
-        }
-      })
-      .then(async(res) => {
-        const data = await res.json();
-
-        if(res.status === 200) {
-
-          if(data.is_banished) {
-            router.push('/banned');
-          } else {
-
-            setUserLogged(data);
-            setIsLogged(true);
-          };
-
-        } else if(res.status === 401) {
-          console.error(data.message);
-        } else {
-          console.error(data);
-        };
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      checkToken(token);
     };
+  }, []);
+
+  const checkToken = async (token: string) => {
+
+    await fetch('/api/user/checkToken', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      }
+    })
+    .then(async(res) => {
+      const data = await res.json();
+
+      if(res.status === 200) {
+
+        if(data.is_banished) {
+          router.push('/banned');
+        } else {
+
+          setUserLogged(data);
+          setIsLogged(true);
+        };
+      } else if(res.status === 401) {
+        console.error(data.message);
+        handleDisconnect();
+      } else {
+        console.error(data);
+        handleDisconnect();
+      };
+    })
+    .catch((error) => {
+      console.log(error);
+      handleDisconnect();
+    });
   };
-  
-  useEffect(() => {
-    checkUser();
-  }, [isLogged]);
+
+  const handleDisconnect = () => {
+
+    localStorage.removeItem('token');
+
+    setIsLogged(false);
+    setUserLogged(unLoggedUser);
+
+    router.push('/');
+  };
 
   return (
     <Container
       isLogged={isLogged}
       userLogged={userLogged}
-      setIsLogged={setIsLogged}
-      setUserLogged={setUserLogged}
+      handleDisconnect={handleDisconnect}
     >
-      <Component 
+      <Component
         {...pageProps}
         isLogged={isLogged}
         setIsLogged={setIsLogged}
         userLogged={userLogged}
         setUserLogged={setUserLogged}
+        handleDisconnect={handleDisconnect}
       />
     </Container>
   );

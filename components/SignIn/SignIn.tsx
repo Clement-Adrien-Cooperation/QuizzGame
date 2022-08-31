@@ -5,12 +5,18 @@ import InputField from '../InputField/InputField';
 import Warning from '../Warning/Warning';
 import Loader from '../Loader/Loader';
 import PasswordField from '../PasswordField/PasswordField';
+import RememberMe from '../RememberMe/RememberMe';
 
 type SignInProps = {
-  handleToggleForm: Function,
-  isLogged: boolean,
+  handleToggleForm: Function
   setIsLogged: React.Dispatch<React.SetStateAction<boolean>>,
   setUserLogged: React.Dispatch<React.SetStateAction<UserTypes>>
+};
+
+type DataTypes = {
+  user: UserTypes,
+  token: string,
+  message: string
 };
 
 type UserTypes = {
@@ -23,12 +29,18 @@ type UserTypes = {
   is_banished: boolean
 };
 
-const SignIn = ({ handleToggleForm, isLogged, setIsLogged, setUserLogged }: SignInProps) => {
+const SignIn = ({
+  handleToggleForm,
+  setIsLogged,
+  setUserLogged
+}: SignInProps) => {
 
   const router = useRouter();
 
   const [pseudoOrEmail, setPseudoOrEmail] = useState<string>('adrienlcp@gmail.com');
   const [password, setPassword] = useState<string>('!xJeLth!P4!psnjT');
+  const [rememberMe, setRememberMe] = useState<boolean>(false);
+  
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [disableButton, setDisableButton] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(false);
@@ -38,7 +50,11 @@ const SignIn = ({ handleToggleForm, isLogged, setIsLogged, setUserLogged }: Sign
     setDisableButton(true);
     setShowLoader(true);
 
-    const body = { pseudoOrEmail, password }
+    const body = { 
+      pseudoOrEmail,
+      password,
+      rememberMe
+    }
   
     await fetch(`/api/user/login`, {
       method: 'POST',
@@ -60,6 +76,7 @@ const SignIn = ({ handleToggleForm, isLogged, setIsLogged, setUserLogged }: Sign
           setUserLogged(data.user);
           setIsLogged(true);
           setShowLoader(false);
+
           router.push('/');
           
         } else {
@@ -76,6 +93,26 @@ const SignIn = ({ handleToggleForm, isLogged, setIsLogged, setUserLogged }: Sign
     
     setPassword('');
     setDisableButton(false);
+  };
+
+  const getRefreshToken = async (data: DataTypes) => {
+
+    await fetch('/api/user/getRefreshToken', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${data.token}`
+      },
+      body: JSON.stringify(data.user)
+    })
+    .then(async(res) => {
+      const refreshToken = await res.json();
+      
+      localStorage.setItem('refresh-token', refreshToken);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   };
 
   const handleChangePseudoOrEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -111,6 +148,11 @@ const SignIn = ({ handleToggleForm, isLogged, setIsLogged, setUserLogged }: Sign
             inputID={'password'}
             password={password}
             setPassword={setPassword}
+          />
+
+          <RememberMe
+            rememberMe={rememberMe}
+            setRememberMe={setRememberMe}
           />
 
           { warningMessage && (

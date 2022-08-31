@@ -7,10 +7,10 @@ export const isAdmin = (fn: NextApiHandler) => async (
 ) => {
   const secret: any = process.env.JWT_SECRET;
 
-  verify(req.headers.authorization!, secret, async(err: any, decoded: any) => {
-    if(!err && decoded) {
+  verify(req.headers.authorization!, secret, async(err: any, user: any) => {
+    if(!err && user) {
       
-      if(decoded.is_admin === true) {
+      if(user.is_admin === true) {
         return await fn(req, res);
       } else {
         res.status(403).json({message: "Vous n'êtes pas administrateur"});

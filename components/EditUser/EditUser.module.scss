@@ -10,3 +10,28 @@
   @include mainButton;
   margin: 20px 0;
 }
+
+.notification {
+  margin-top: 10px;
+  color: var(--white);
+  background: var(--green-hover);
+  border: 2px solid var(--green);
+  border-radius: var(--small-radius);
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 120%;
+  animation: animApparition .3s ease-out;
+}
+
+@keyframes animApparition {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

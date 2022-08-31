@@ -13,7 +13,8 @@ type PasswordValidationProps = {
   validNumber: boolean,
   validSpecial: boolean,
   validLength: boolean,
-  checkPassword: Function
+  checkPassword: Function,
+  checkPasswords: Function
 };
 
 const PasswordValidation = ({
@@ -27,20 +28,11 @@ const PasswordValidation = ({
   validNumber,
   validSpecial,
   validLength,
-  checkPassword
+  checkPassword,
+  checkPasswords
 }: PasswordValidationProps) => {
 
   const [showValidation, setShowValidation] = useState<boolean>(false);
-  const [notification, setNotification] = useState<string>('');
-
-  const checkPasswords = () => {
-
-    if(password === confirmPassword) {
-      setNotification('Les deux mots de passe correspondent ✅');
-    } else {
-      setNotification('');
-    };
-  };
 
   return (
     <>
@@ -138,12 +130,6 @@ const PasswordValidation = ({
         </li>
 
       </ul>
-
-      {notification && (
-        <p className={styles.notification}>
-          {notification}
-        </p>
-      )}
     </>
   );
 };

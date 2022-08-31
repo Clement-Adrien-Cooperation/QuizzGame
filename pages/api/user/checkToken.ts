@@ -12,30 +12,32 @@ export default async function handle (
   verify(req.headers.authorization!, secret, async(err: any, decoded: any) => {
 
     if(!err && decoded) {
-
-      const prisma = new PrismaClient();
-
-      await prisma.$connect();
-
       try {
+        const prisma = new PrismaClient();
+        await prisma.$connect();
+
         const user = await prisma.user.findUnique({
           where: {
             id: decoded.id
           }
         });
 
-        console.log(decoded);
-        
-        res.status(200).json(user);
-        
+        if(user) {
+            
+          res.status(200).json(user);
+
+        } else {
+          res.status(404).json({message: 'user not found'});
+        };
+
+        await prisma.$disconnect();
+
       } catch (error){
         res.status(404).json(error);
       };
-  
-      await prisma.$disconnect();
 
     } else {
-      res.status(401).json({message: "Le token est expiré"});
+      res.status(401).json({message: "expired token"});
     };
   });
 };

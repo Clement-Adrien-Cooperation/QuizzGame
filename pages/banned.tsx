@@ -1,47 +1,8 @@
 import { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import ContactForm from '../components/ContactForm/ContactForm';
-import Loader from '../components/Loader/Loader';
 import styles from '../styles/Banned.module.scss';
 
-const Banned: NextPage = ({ isLogged, userLogged }:any) => {
-
-  const router = useRouter();
-
-  const [showLoader, setShowLoader] = useState<boolean>(true);
-
-  useEffect(() => {
-  
-    document.title = "Banni";
-  
-    if(isLogged) {
-      checkUser();
-    } else {
-      router.push('/');
-    };
-  }, []);
-
-  const checkUser = async () => {
-
-    const body = { user_id: userLogged.id };
-      
-    await fetch('/api/user/getOne', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    })
-    .then(async(res) => {
-
-      const data = await res.json();
-
-      setShowLoader(false);
-
-      if(data.is_banished === false) {
-        router.push('/');
-      };
-    });
-  };
+const Banned: NextPage = () => {
 
   return (
     <>
@@ -57,10 +18,6 @@ const Banned: NextPage = ({ isLogged, userLogged }:any) => {
 
         <ContactForm />
       </div>
-
-      {showLoader && (
-        <Loader />
-      )}
     </>
   );
 };

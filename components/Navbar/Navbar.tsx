@@ -15,34 +15,14 @@ type UserTypes = {
 type NavBarProps = {
   isLogged: boolean,
   userLogged: UserTypes,
-  setIsLogged: React.Dispatch<React.SetStateAction<boolean>>,
-  setUserLogged: React.Dispatch<React.SetStateAction<UserTypes>>
+  handleDisconnect: Function
 };
 
 const Navbar = ({
   isLogged,
   userLogged,
-  setIsLogged,
-  setUserLogged
+  handleDisconnect
 }: NavBarProps) => {
-
-  const handleDisconnect = () => {
-      
-    const unLoggedUser = {
-      id: '',
-      pseudo: '',
-      email: '',
-      password: '',
-      avatar: '',
-      is_admin: false,
-      is_banished: false
-    };
-
-    localStorage.removeItem('token');
-
-    setIsLogged(false);
-    setUserLogged(unLoggedUser);
-  };
 
   return (
     <nav className={styles.navbar}>
@@ -151,7 +131,7 @@ const Navbar = ({
             aria-label="Se déconnecter"
           >
             <Link href='/'>
-              <a onClick={handleDisconnect}>
+              <a onClick={() => handleDisconnect()}>
                 Déconnexion
               </a>
             </Link>

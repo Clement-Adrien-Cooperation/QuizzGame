@@ -24,8 +24,14 @@ export default async function handle (
 
       compare(req.body.password, user.password, async(err, result) => {
         if(!err && result) {
-          
-          const token = sign(user, secret, {expiresIn: '1h'});
+
+          let token: string;
+
+          if(req.body.rememberMe) {
+            token = sign(user, secret);
+          } else {
+            token = sign(user, secret, {expiresIn: '12h'});
+          };
 
           res.status(200).json({
             user,
@@ -33,7 +39,7 @@ export default async function handle (
             message: 'OK'
           });
         } else {
-          res.status(401).json({message: 'Wrong password'});
+          res.status(401).json({message: 'Le mot de passe ne correspond pas'});
         };
       });
     }
@@ -51,8 +57,14 @@ export default async function handle (
 
       compare(req.body.password, user.password, async(err, result) => {
         if(!err && result) {
-          
-          const token = sign(user, secret, {expiresIn: '1h'});
+
+          let token: string;
+
+          if(req.body.rememberMe) {
+            token = sign(user, secret);
+          } else {
+            token = sign(user, secret, {expiresIn: '12h'});
+          };
 
           res.status(200).json({
             user,
@@ -60,7 +72,7 @@ export default async function handle (
             message: 'OK'
           });
         } else {
-          res.status(401).json({message: 'Wrong password'});
+          res.status(401).json({message: 'Le mot de passe ne correspond pas'});
         };
       });
     }
