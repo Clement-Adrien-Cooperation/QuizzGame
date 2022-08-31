@@ -34,20 +34,35 @@ const emptyQuiz = {
   reportMessage: ''
 };
 
-const QuizGame: NextPage = ({ isLogged, userLogged }: any) => {
+const QuizGame: NextPage = ({
+  isLogged,
+  userLogged,
+  checkToken
+}: any) => {
   
   const router = useRouter();
   const title = router.query.slug;
 
   const [quiz, setQuiz] = useState<QuizTypes>(emptyQuiz);
   const [showLoader, setShowLoader] = useState<boolean>(true);
-
+  
   useEffect(() => {
 
     document.title = `${title} - s'Quizz Game`;
 
-    getQuiz();
+    if(isLogged) {
+      if(userLogged.is_banished) {
+        router.push('/banned');
+      };
+    } else {
+      const token = localStorage.getItem('token');
 
+      if(token) {
+        checkToken(token);
+      };
+    };
+
+    getQuiz();
   }, []);
 
   const getQuiz = async () => {

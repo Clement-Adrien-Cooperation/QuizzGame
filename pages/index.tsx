@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Loader from '../components/Loader/Loader';
 import styles from '../styles/Home.module.scss';
 
-const Home: NextPage = ({ isLogged, userLogged, handleDisconnect }: any) => {
+const Home: NextPage = ({ isLogged, userLogged, handleDisconnect, checkToken }: any) => {
 
   const router = useRouter();
 
@@ -17,6 +17,12 @@ const Home: NextPage = ({ isLogged, userLogged, handleDisconnect }: any) => {
     if(isLogged) {
       if(userLogged.is_banished) {
         router.push('/banned');
+      };
+    } else {
+      const token = localStorage.getItem('token');
+
+      if(token) {
+        checkToken(token);
       };
     };
   }, []);

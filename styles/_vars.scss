@@ -76,11 +76,5 @@
   --warning-bg: #f8d7da;
   --warning-border: #f5c6cb;
 
-  --very-easy: linear-gradient(90deg, var(--white) 0%, var(--input-color) 0%);
-  --easy: linear-gradient(90deg, var(--green) 25%, var(--input-color) 25%);
-  --medium: linear-gradient(90deg, var(--yellow) 50%, var(--input-color) 50%);
-  --hard: linear-gradient(90deg, var(--orange) 75%, var(--input-color) 75%);
-  --very-hard: linear-gradient(90deg, var(--red) 100%, var(--input-color) 100%);
-
   --card-gradient: linear-gradient(45deg, var(--main-color), var(--main-color-alt), var(--main-color));
 }

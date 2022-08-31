@@ -23,21 +23,35 @@ type QuizTypes = {
   reportMessage?: string[]
 };
 
-const UserProfile: NextPage = ({ isLogged, userLogged }: any) => {
+const UserProfile: NextPage = ({
+  isLogged,
+  userLogged,
+  checkToken
+}: any) => {
 
   const router = useRouter();
 
   const [userQuizz, setUserQuizz] = useState<QuizTypes[]>([]);
   const [quizzFilter, setQuizzFilter] = useState<string>('');
   const [showLoader, setShowLoader] = useState<boolean>(true);
-
+  
   useEffect(() => {
+
     if(isLogged) {
-      if(userLogged.is_banished === true) {
+      if(userLogged.is_banished) {
         router.push('/banned');
+      };
+    } else {
+      const token = localStorage.getItem('token');
+
+      if(token) {
+        checkToken(token);
+      } else {
+        router.push('/');
       };
     };
 
+    document.title = `Profil de ${router.query.slug} - s'Quizz Game`;
     getQuizzFromUser();
   }, []);
 

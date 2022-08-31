@@ -25,7 +25,8 @@ type QuizTypes = {
 
 const Quizz: NextPage = ({
   isLogged,
-  userLogged
+  userLogged,
+  checkToken
 }: any) => {
 
   const router = useRouter();
@@ -34,20 +35,28 @@ const Quizz: NextPage = ({
   const [deletedQuizz, setDeletedQuizz] = useState<QuizTypes[]>([]);
 
   const [showLoader, setShowLoader] = useState<boolean>(true);
-
+  
   useEffect(() => {
-    // If user is not admin, we redirect him to home page
+
     if(isLogged) {
-      if(userLogged?.is_admin === true) {
-        document.title = "Modérer les Quizz - s'Quizz Game";
-        
+      if(userLogged.is_banished) {
+        router.push('/banned');
+      } else if(userLogged.is_admin) {
+
+        document.title = "Modérer les utilisateurs - s'Quizz Game";
         getQuizz();
 
       } else {
         router.push('/');
       };
     } else {
-      router.push('/');
+      const token = localStorage.getItem('token');
+
+      if(token) {
+        checkToken(token);
+      } else {
+        router.push('/');
+      };
     };
   }, []);
 

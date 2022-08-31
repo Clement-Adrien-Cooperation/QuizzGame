@@ -3,16 +3,30 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import EditQuiz from '../../components/EditQuiz/EditQuiz';
 
-const CreateQuizz: NextPage = ({ isLogged, userLogged }: any) => {
+const CreateQuizz: NextPage = ({
+  isLogged,
+  userLogged,
+  checkToken
+}: any) => {
 
   const router = useRouter();
-
+  
   useEffect(() => {
 
+    document.title = `Créer mon quiz - s'Quizz Game`;
+
     if(isLogged) {
-      document.title = `Créer mon quiz - s'Quizz Game`;
+      if(userLogged.is_banished) {
+        router.push('/banned');
+      };
     } else {
-      router.push('/');
+      const token = localStorage.getItem('token');
+
+      if(token) {
+        checkToken(token);
+      } else {
+        router.push('/');
+      };
     };
   }, []);
 

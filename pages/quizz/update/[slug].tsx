@@ -5,44 +5,34 @@ import Loader from '../../../components/Loader/Loader';
 import EditQuiz from '../../../components/EditQuiz/EditQuiz';
 import styles from '../../../styles/UpdateQuizz.module.scss';
 
-const UpdateQuiz: NextPage = ({ isLogged, userLogged }:any) => {
+const UpdateQuiz: NextPage = ({
+  isLogged,
+  userLogged,
+  checkToken
+}: any) => {
   
   const router = useRouter();
 
   const [showLoader, setShowLoader] = useState<boolean>(true);
-
+  
   useEffect(() => {
 
+    document.title = `Modifier "${router.query.slug}" - s'Quizz Game`;
+
     if(isLogged) {
-      getQuizAndCheckUser();
+      if(userLogged.is_banished) {
+        router.push('/banned');
+      };
     } else {
-      router.push('/');
-    };
-  }, []);
+      const token = localStorage.getItem('token');
 
-  const getQuizAndCheckUser = async () => {
-
-    const title = router.query.slug;
-
-    await fetch('/api/quiz/getOne', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title })
-    })
-    .then(async(res) => {
-      const data = await res.json();
-
-      if(userLogged.id !== data.user_id) {
+      if(token) {
+        checkToken(token);
+      } else {
         router.push('/');
       };
-    })
-    .then(() => {
-      setShowLoader(false);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  };
+    };
+  }, []);
 
   return (
     <>

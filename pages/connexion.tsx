@@ -9,19 +9,28 @@ const Connexion: NextPage = ({
   setIsLogged,
   setUserLogged,
   isLogged,
-  userLogged
-}:any) => {
+  userLogged,
+  checkToken
+}: any) => {
 
   const router = useRouter();
   
   const [toggleForm, setToggleForm] = useState(false);
-
+  
   useEffect(() => {
 
+    document.title = "Connexion - s'Quizz Game";
+
     if(isLogged) {
-      router.push('/');
+      if(userLogged.is_banished) {
+        router.push('/banned');
+      };
     } else {
-      document.title = "Connexion - s'Quizz Game";
+      const token = localStorage.getItem('token');
+
+      if(token) {
+        checkToken(token);
+      };
     };
   }, []);
 

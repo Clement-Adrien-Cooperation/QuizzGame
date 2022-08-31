@@ -22,23 +22,38 @@ type QuizTypes = {
   rate: number
 };
 
-const Quizz: NextPage = ({ quizzData, isLogged, userLogged }: any) => {
+const Quizz: NextPage = ({
+  quizzData,
+  isLogged,
+  userLogged,
+  checkToken
+}: any) => {
 
   const router = useRouter();
 
   const [filter, setFilter] = useState<string>('');
   const [quizz, setQuizz] = useState<QuizTypes[]>([]);
   const [showLoader, setShowLoader] = useState<boolean>(true);
-
+  
   useEffect(() => {
 
-    if(userLogged.is_banished === true) {
-      router.push('/banned');
-    } else {
-      document.title = "Quizz - s'Quizz Game";
+    document.title = "Quizz - s'Quizz Game";
 
-      setQuizz(quizzData);
-      setShowLoader(false);
+    setQuizz(quizzData);
+    setShowLoader(false);
+
+    if(isLogged) {
+      if(userLogged.is_banished) {
+        router.push('/banned');
+      };
+    } else {
+      const token = localStorage.getItem('token');
+
+      if(token) {
+        checkToken(token);
+      } else {
+        router.push('/');
+      };
     };
   }, []);
 

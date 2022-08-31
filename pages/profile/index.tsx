@@ -25,7 +25,8 @@ const Profile: NextPage = ({
   isLogged,
   userLogged,
   setIsLogged,
-  setUserLogged
+  setUserLogged,
+  checkToken
 }: any) => {
 
   const router = useRouter();
@@ -35,14 +36,28 @@ const Profile: NextPage = ({
   const [updateProfile, setUpdateProfile] = useState<boolean>(false);
   const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(true);
-
+  
   useEffect(() => {
 
     if(isLogged) {
-      document.title = "Mon profil - s'Quizz Game";
-      getQuizzFromUser();
+      if(userLogged.is_banished) {
+        router.push('/banned');
+      } else if(userLogged.pseudo === router.query.slug) {
+
+        document.title = "Mon profil - s'Quizz Game";
+        getQuizzFromUser();
+
+      } else {
+        router.push('/');
+      };
     } else {
-      router.push('/');
+      const token = localStorage.getItem('token');
+
+      if(token) {
+        checkToken(token);
+      } else {
+        router.push('/');
+      };
     };
   }, []);
 

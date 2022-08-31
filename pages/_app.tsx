@@ -31,14 +31,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [userLogged, setUserLogged] = useState<UserTypes>(unLoggedUser);
-  
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-
-    if(token) {
-      checkToken(token);
-    };
-  }, []);
 
   const checkToken = async (token: string) => {
 
@@ -98,6 +90,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         userLogged={userLogged}
         setUserLogged={setUserLogged}
         handleDisconnect={handleDisconnect}
+        checkToken={checkToken}
       />
     </Container>
   );

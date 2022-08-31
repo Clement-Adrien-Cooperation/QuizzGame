@@ -27,6 +27,12 @@ body {
     --box-shadow: 0 0 15px rgba(50, 50, 50, 0.3);
     --box-shadow-hover: 0 0 25px rgba(50, 50, 50, 0.35);
   }
+
+  --very-easy: linear-gradient(90deg, var(--white) 0%, var(--input-color) 0%);
+  --easy: linear-gradient(90deg, var(--green) 25%, var(--input-color) 25%);
+  --medium: linear-gradient(90deg, var(--yellow) 50%, var(--input-color) 50%);
+  --hard: linear-gradient(90deg, var(--orange) 75%, var(--input-color) 75%);
+  --very-hard: linear-gradient(90deg, var(--red) 100%, var(--input-color) 100%);
 }
 
 h1, h2, h3, h4{
