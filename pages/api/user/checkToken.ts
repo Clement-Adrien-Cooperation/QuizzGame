@@ -23,11 +23,13 @@ export default async function handle (
         });
 
         if(user) {
-            
-          res.status(200).json(user);
-
+          if(user.is_banished === true) {
+            res.status(401).json({message: "Vous avez été banni"});
+          } else {
+            res.status(200).json(user);
+          };
         } else {
-          res.status(404).json({message: 'user not found'});
+          res.status(404).json({message: 'Utilisateur inexistant'});
         };
 
         await prisma.$disconnect();
@@ -35,9 +37,8 @@ export default async function handle (
       } catch (error){
         res.status(404).json(error);
       };
-
     } else {
-      res.status(401).json({message: "expired token"});
+      res.status(401).json({message: "Le token est expiré"});
     };
   });
 };

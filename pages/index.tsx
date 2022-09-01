@@ -4,7 +4,12 @@ import { useEffect, useState } from 'react';
 import Loader from '../components/Loader/Loader';
 import styles from '../styles/Home.module.scss';
 
-const Home: NextPage = ({ isLogged, userLogged, handleDisconnect, checkToken }: any) => {
+const Home: NextPage = ({
+  isLogged,
+  userLogged,
+  handleDisconnect,
+  checkToken
+}: any) => {
 
   const router = useRouter();
 
@@ -41,6 +46,7 @@ const Home: NextPage = ({ isLogged, userLogged, handleDisconnect, checkToken }: 
       }
     })
     .then(async(res) => {
+      
 
       if(res.status === 401) {
         handleDisconnect();

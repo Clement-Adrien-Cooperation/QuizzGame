@@ -39,16 +39,18 @@ const Profile: NextPage = ({
   
   useEffect(() => {
 
+    console.log(userLogged.pseudo);
+    console.log(router.query.slug);
+    
+    
+
     if(isLogged) {
       if(userLogged.is_banished) {
         router.push('/banned');
-      } else if(userLogged.pseudo === router.query.slug) {
+      } else {
 
         document.title = "Mon profil - s'Quizz Game";
         getQuizzFromUser();
-
-      } else {
-        router.push('/');
       };
     } else {
       const token = localStorage.getItem('token');

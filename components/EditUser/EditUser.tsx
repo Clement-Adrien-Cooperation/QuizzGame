@@ -452,13 +452,15 @@ const EditUser = ({
           checkPasswords={checkPasswords}
         />
 
-        <CheckButton
-          label={"Se souvenir de moi"}
-          id={"remember-me"}
-          title={"Me connecter automatiquement à ma prochaine visite"}
-          state={rememberMe}
-          setState={setRememberMe}
-        />
+        {!isLogged && (
+          <CheckButton
+            label={"Se souvenir de moi"}
+            id={"remember-me"}
+            title={"Me connecter automatiquement à ma prochaine visite"}
+            state={rememberMe}
+            setState={setRememberMe}
+          />
+        )}
 
         {notification && (
           <p className={styles.notification}>

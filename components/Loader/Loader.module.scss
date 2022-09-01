@@ -2,23 +2,37 @@
 
 .container {
   @include posFixed(0, auto, auto, 0);
+  @include flexCenter;
   width: 100vw;
   height: 100vh;
   z-index: 1000;
   background: rgba(0, 0, 0, 0.5);
   cursor: wait;
   opacity: 0;
-  animation: apparition 0.1s ease-in-out forwards;
+  animation: apparition 0.1s ease-in forwards;
 }
 
 .loader {
-  @include posCenter;
-  width: 150px;
-  height: 150px;
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 5px solid var(--white);
+  border-top-color: var(--main-color);
+  box-shadow: 0 -10px 50px var(--main-color);
+  margin-left: var(--navbar-width);
+  transform: translateY(-5vh);
+  animation: spin 1s cubic-bezier(.9,.25,.25,.9) infinite;
 }
 
 @keyframes apparition {
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: translateY(-5vh) rotate(360deg);
   }
 }
