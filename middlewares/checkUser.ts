@@ -1,4 +1,5 @@
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
+import { PrismaClient } from "@prisma/client";
 import { verify } from 'jsonwebtoken';
 
 export const checkUser = (fn: NextApiHandler) => async (
@@ -7,24 +8,48 @@ export const checkUser = (fn: NextApiHandler) => async (
 ) => {
   const secret: any = process.env.JWT_SECRET;
 
-  verify(req.headers.authorization!, secret, async(err: any, user: any) => {
+  verify(req.headers.authorization!, secret, async(err: any, decoded: any) => {
     
-    if(!err && user) {
-      if(user.is_admin === true) {
+    if(!err && decoded) {
 
-        return await fn(req, res);
+      const prisma = new PrismaClient();
+      await prisma.$connect();
 
-      } else if(user.is_banished === true) {
+      // get user from database
+      const user: any = await prisma.user.findUnique({
+        where: {
+          id: decoded.id
+        }
+      });
 
-        res.status(403).json({message: "Vous avez été banni"});
+      if(user) {
 
-      } else if(user.id !== req.body.user_id || user.id !== req.body.id) {
+        // verify if user is admin
+        if(user.is_admin === true) {
+          
+          // we return original API call
+          return await fn(req, res);
 
-        res.status(404).json({message: "L'ID de l'utilisateur ne correspond pas"});
-      
+        // If user is banished
+        } else if(user.is_banished === true) {
+
+          res.status(403).json({message: "Vous avez été banni"});
+
+        // & if this is the right user
+        } else if(user.id !== req.body.user_id) {
+
+          res.status(401).json({message: "L'ID de l'utilisateur ne correspond pas"});
+        
+        } else {
+          // if everything is ok, we return the original API call
+          return await fn(req, res);
+        };
       } else {
-        return await fn(req, res);
+        res.status(404).json({message: "Utilisateur inexistant"});
       };
+      
+      await prisma.$disconnect();
+
     } else {
       res.status(401).json({message: "Vous n'êtes pas authentifié"});
     };

@@ -1,4 +1,5 @@
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
+import { PrismaClient } from "@prisma/client";
 import { verify } from 'jsonwebtoken';
 
 export const authenticated = (fn: NextApiHandler) => async (
@@ -7,9 +8,31 @@ export const authenticated = (fn: NextApiHandler) => async (
 ) => {
   const secret: any = process.env.JWT_SECRET;
 
-  verify(req.headers.authorization!, secret, async(err: any, user: any) => {
-    if(!err && user) {
-      return await fn(req, res);
+  verify(req.headers.authorization!, secret, async(err: any, decoded: any) => {
+    if(!err && decoded) {
+
+      const prisma = new PrismaClient();
+      await prisma.$connect();
+
+      const user: any = await prisma.user.findUnique({
+        where: {
+          id: decoded.id
+        }
+      });
+
+      if(user) {
+
+        if(user.is_banished === true) {
+          res.status(401).json({message: "Vous avez été banni"});
+        } else {
+          return await fn(req, res);
+        };
+      } else {
+        res.status(404).json({message: "Utilisateur inexistant"});
+      };
+
+      await prisma.$disconnect();
+      
     } else {
       res.status(401).json({message: "Vous n'êtes pas authentifié"});
     };

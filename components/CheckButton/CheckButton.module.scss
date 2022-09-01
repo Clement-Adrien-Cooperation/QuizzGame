@@ -9,16 +9,16 @@
 
 .label {
   cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
   width: 40px;
   height: 22px;
   background: var(--light-grey);
+  box-shadow: var(--inner-shadow);
   border-radius: 25px;
-  position: relative;
-  box-shadow: var(--inner-box-shadow);
   white-space: nowrap;
   transition: 0.3s;
-  display: flex;
-  align-items: center;
 
   &::after {
     content: '';
