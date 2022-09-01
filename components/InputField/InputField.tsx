@@ -1,7 +1,7 @@
-import { ChangeEventHandler } from 'react';
+import { ChangeEventHandler, FunctionComponent } from 'react';
 import styles from './InputField.module.scss';
 
-type InputFieldProps = {
+type Props = {
   name: string,
   state: string,
   inputID: string,
@@ -12,7 +12,7 @@ type InputFieldProps = {
   handleFunction: ChangeEventHandler<HTMLInputElement>
 };
 
-const InputField = ({
+const InputField: FunctionComponent<Props> = ({
   name,
   state,
   inputID,
@@ -21,7 +21,7 @@ const InputField = ({
   required,
   autoFocus,
   handleFunction,
-} : InputFieldProps) => {
+}) => {
 
   return (
     <div className={styles.field}>

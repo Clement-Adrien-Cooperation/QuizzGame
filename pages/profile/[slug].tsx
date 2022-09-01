@@ -1,37 +1,27 @@
+import { Quiz, User } from '@prisma/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import InputField from '../../components/InputField/InputField';
 import Loader from '../../components/Loader/Loader';
 import UserProfileQuizCard from '../../components/UserProfileQuizCard/UserProfileQuizCard';
 import styles from '../../styles/UserProfile.module.scss';
 
-type QuizTypes = {
-  id: string,
-  user_id: string,
-  creator: string,
-  title: string,
-  category: string,
-  difficulty: string,
-  lang: string,
-  image: string,
-  nbOfQuestions: number,
-  is_visible: boolean,
-  date: string,
-  rate: number,
-  reported: boolean,
-  reportMessage?: string[]
+type Props = {
+  isLogged: boolean,
+  userLogged: User,
+  checkToken: (token: string) => void
 };
 
-const UserProfile: NextPage = ({
+const UserProfile: NextPage<Props> = ({
   isLogged,
   userLogged,
   checkToken
-}: any) => {
+}) => {
 
   const router = useRouter();
 
-  const [userQuizz, setUserQuizz] = useState<QuizTypes[]>([]);
+  const [userQuizz, setUserQuizz] = useState<Quiz[]>([]);
   const [quizzFilter, setQuizzFilter] = useState<string>('');
   const [showLoader, setShowLoader] = useState<boolean>(true);
   
@@ -76,8 +66,8 @@ const UserProfile: NextPage = ({
     });
   };
 
-  const handleChangeQuizzFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuizzFilter(e.target.value);
+  const handleChangeQuizzFilter = (event: ChangeEvent<HTMLInputElement>) => {
+    setQuizzFilter(event.target.value);
   };
 
   return (
@@ -109,7 +99,7 @@ const UserProfile: NextPage = ({
 
           <ul className={styles.list}>
 
-            {userQuizz?.map((quiz: QuizTypes, index: number) => {
+            {userQuizz?.map((quiz: Quiz, index: number) => {
               
               const filteredTitle = quiz.title.toLowerCase();
               const filteredCategory = quiz.category.toLowerCase();
@@ -121,12 +111,7 @@ const UserProfile: NextPage = ({
                 return (
                   <li key={index}>
                     <UserProfileQuizCard
-                      title={quiz.title}
-                      category={quiz.category}
-                      difficulty={quiz.difficulty}
-                      nbOfQuestions={quiz.nbOfQuestions}
-                      date={quiz.date}
-                      rate={quiz.rate}
+                      quiz={quiz}
                     />
                   </li>
                 );

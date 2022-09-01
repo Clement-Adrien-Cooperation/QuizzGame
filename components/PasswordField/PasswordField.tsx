@@ -1,28 +1,28 @@
-import { useState } from 'react';
+import { ChangeEvent, Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
 import Image from 'next/image';
 import styles from './PasswordField.module.scss';
 import InputField from '../InputField/InputField';
 import eye_visible from '../../public/icons/eye_visible.svg';
 import eye_hidden from '../../public/icons/eye_hidden.svg';
 
-type PasswordFieldProps = {
+type Props = {
   name: string,
   inputID: string,
   password: string,
-  setPassword: React.Dispatch<React.SetStateAction<string>>
+  setPassword: Dispatch<SetStateAction<string>>
 };
 
-const PasswordField = ({
+const PasswordField: FunctionComponent<Props> = ({
   name,
   inputID,
   password,
   setPassword
-}: PasswordFieldProps) => {
+}) => {
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
+  const handleChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
   };
 
   return(

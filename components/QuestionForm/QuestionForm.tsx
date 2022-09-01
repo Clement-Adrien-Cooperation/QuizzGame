@@ -1,42 +1,31 @@
-import { useState } from 'react';
+import { Question } from '@prisma/client';
+import { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction, useState } from 'react';
 import InputField from '../InputField/InputField';
 import Warning from '../Warning/Warning';
 import styles from './QuestionForm.module.scss';
 
-type QuestionTypes = {
-  id: string,
-  quiz_id: string,
-  user_id: string,
-  question: string,
-  description: string,
-  proposals: string[],
-  answer: string,
-  reported?: boolean,
-  reportMessage?: string
-};
-
-type QuestionFormProps = {
+type Props = {
   question: string,
   answer: string,
   proposal1: string,
   proposal2: string,
   proposal3: string,
   description: string,
-  questions: QuestionTypes[],
-  setQuestion: React.Dispatch<React.SetStateAction<string>>,
-  setAnswer: React.Dispatch<React.SetStateAction<string>>,
-  setProposal1: React.Dispatch<React.SetStateAction<string>>,
-  setProposal2: React.Dispatch<React.SetStateAction<string>>,
-  setProposal3: React.Dispatch<React.SetStateAction<string>>,
-  setDescription: React.Dispatch<React.SetStateAction<string>>,
-  setQuestions: React.Dispatch<React.SetStateAction<QuestionTypes[]>>
+  questions: Question[],
+  setQuestions: Dispatch<SetStateAction<Question[]>>
+  setQuestion: Dispatch<SetStateAction<string>>,
+  setAnswer: Dispatch<SetStateAction<string>>,
+  setProposal1: Dispatch<SetStateAction<string>>,
+  setProposal2: Dispatch<SetStateAction<string>>,
+  setProposal3: Dispatch<SetStateAction<string>>,
+  setDescription: Dispatch<SetStateAction<string>>,
   handleToggleForm: Function,
   updating: boolean,
   updateIndex: number,
   questionID: string
 };
 
-const QuestionForm = ({
+const QuestionForm: FunctionComponent<Props> = ({
   question,
   answer,
   proposal1,
@@ -55,12 +44,12 @@ const QuestionForm = ({
   updating,
   updateIndex,
   questionID
-}: QuestionFormProps) => {
+}) => {
 
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [disableButton, setDisableButton] = useState<boolean>(false);
 
-  const handleChangeQuestion = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeQuestion = (event: ChangeEvent<HTMLInputElement>) => {
 
     if(question.trim().length > 100) {
 
@@ -75,10 +64,10 @@ const QuestionForm = ({
       };
     };
 
-    setQuestion(e.target.value);
+    setQuestion(event.target.value);
   };
 
-  const handleChangeAnswer = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeAnswer = (event: ChangeEvent<HTMLInputElement>) => {
 
     if(answer.trim().length > 50) {
 
@@ -93,10 +82,10 @@ const QuestionForm = ({
       };
     };
 
-    setAnswer(e.target.value);
+    setAnswer(event.target.value);
   };
 
-  const handleChangeProposal1 = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeProposal1 = (event: ChangeEvent<HTMLInputElement>) => {
 
     if(proposal1.trim().length > 50) {
 
@@ -111,10 +100,10 @@ const QuestionForm = ({
       };
     };
 
-    setProposal1(e.target.value);
+    setProposal1(event.target.value);
   };
 
-  const handleChangeProposal2 = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeProposal2 = (event: ChangeEvent<HTMLInputElement>) => {
 
     if(proposal2.trim().length > 50) {
 
@@ -129,10 +118,10 @@ const QuestionForm = ({
       };
     };
 
-    setProposal2(e.target.value);
+    setProposal2(event.target.value);
   };
 
-  const handleChangeProposal3 = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeProposal3 = (event: ChangeEvent<HTMLInputElement>) => {
 
     if(proposal3.trim().length > 50) {
 
@@ -147,10 +136,10 @@ const QuestionForm = ({
       };
     };
 
-    setProposal3(e.target.value);
+    setProposal3(event.target.value);
   };
 
-  const handleChangeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChangeDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
 
     if(description.trim().length > 500) {
 
@@ -164,7 +153,7 @@ const QuestionForm = ({
       };
     };
     
-    setDescription(e.target.value);
+    setDescription(event.target.value);
   };
 
   const checkForm = () => {
@@ -193,8 +182,8 @@ const QuestionForm = ({
     };
   };
 
-  const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmitForm = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
       
     if(checkForm()) {
       
@@ -213,7 +202,9 @@ const QuestionForm = ({
           question,
           answer,
           proposals,
-          description
+          description,
+          reported: false,
+          reportMessage: []
         };
 
         // If user is currently updating a question, update the good one
@@ -230,7 +221,9 @@ const QuestionForm = ({
           question,
           answer,
           proposals,
-          description
+          description,
+          reported: false,
+          reportMessage: []
         };
         // If user is creating a new question, add it to previous questions
         const newQuestions = [...previousQuestions, newQuestion];

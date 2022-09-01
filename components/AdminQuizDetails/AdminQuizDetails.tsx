@@ -1,3 +1,5 @@
+import { Quiz } from '@prisma/client';
+import { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import { useRouter } from 'next/router';
 import CloseButton from '../CloseButton/CloseButton';
 import styles from './AdminQuizDetails.module.scss';
@@ -6,51 +8,34 @@ import restore from '../../public/icons/restore.svg';
 import Image from 'next/image';
 import AdminQuizQuestions from '../AdminQuizQuestions/AdminQuizQuestions';
 
-type QuizTypes = {
-  id: string,
-  user_id: string,
-  creator: string,
-  title: string,
-  category: string,
-  difficulty: string,
-  lang: string,
-  image: string,
-  is_visible: boolean,
-  nbOfQuestions: number,
-  date: string,
-  rate: number,
-  reported: boolean
-};
-
-type AdminQuizDetailsProps = {
-  quiz: QuizTypes,
-  setQuizDetails: React.Dispatch<React.SetStateAction<QuizTypes>>,
-  handleModerateQuiz: Function,
-  handleDeleteQuiz: Function
-};
-
-const emptyQuiz: QuizTypes = {
+const emptyQuiz: Quiz = {
   id: '',
   user_id: '',
   creator: '',
   title: '',
   category: '',
   difficulty: '',
-  lang: '',
-  image: '',
   is_visible: false,
   date: '',
   nbOfQuestions: 0,
   rate: 0,
-  reported: false
+  reported: false,
+  reportMessage: []
 };
 
-const AdminQuizDetails = ({
+type Props = {
+  quiz: Quiz,
+  setQuizDetails: Dispatch<SetStateAction<Quiz>>,
+  handleModerateQuiz: (id: string, is_visible: boolean) => void,
+  handleDeleteQuiz: (id: string) => void
+};
+
+const AdminQuizDetails: FunctionComponent<Props> = ({
   quiz,
   setQuizDetails,
   handleModerateQuiz,
   handleDeleteQuiz
-}: AdminQuizDetailsProps) => {
+}) => {
 
   const router = useRouter();
 

@@ -1,52 +1,36 @@
-import { useState } from 'react';
+import { Quiz } from '@prisma/client';
+import { FunctionComponent, useState } from 'react';
 import AdminQuizDetails from '../AdminQuizDetails/AdminQuizDetails';
 import styles from './AdminQuizCard.module.scss';
 
-type QuizTypes = {
-  id: string,
-  user_id: string,
-  creator: string,
-  title: string,
-  category: string,
-  difficulty: string,
-  lang: string,
-  image: string,
-  is_visible: boolean,
-  nbOfQuestions: number,
-  date: string,
-  rate: number,
-  reported: boolean
-};
-
-type QuizProps = {
-  quiz: QuizTypes,
-  handleModerateQuiz: Function,
-  handleDeleteQuiz: Function
-};
-
-const emptyQuiz: QuizTypes = {
+const emptyQuiz: Quiz = {
   id: '',
   user_id: '',
   creator: '',
   title: '',
   category: '',
   difficulty: '',
-  lang: '',
-  image: '',
   is_visible: false,
   date: '',
   nbOfQuestions: 0,
   rate: 0,
-  reported: false
+  reported: false,
+  reportMessage: []
 };
 
-const AdminQuizCard = ({
+type Props = {
+  quiz: Quiz,
+  handleModerateQuiz: (id: string, is_visible: boolean) => void,
+  handleDeleteQuiz: (id: string) => void
+};
+
+const AdminQuizCard: FunctionComponent<Props> = ({
   quiz,
   handleModerateQuiz,
   handleDeleteQuiz
-}: QuizProps) => {
+}) => {
 
-  const [quizDetails, setQuizDetails] = useState<QuizTypes>(emptyQuiz);
+  const [quizDetails, setQuizDetails] = useState<Quiz>(emptyQuiz);
 
   return (
     <>

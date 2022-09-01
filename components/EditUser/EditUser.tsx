@@ -1,5 +1,6 @@
+import { User } from '@prisma/client';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction, useEffect, useState } from 'react';
 import CheckButton from '../CheckButton/CheckButton';
 import InputField from '../InputField/InputField';
 import Loader from '../Loader/Loader';
@@ -8,29 +9,19 @@ import PasswordValidation from '../PasswordValidation/PasswordValidation';
 import Warning from '../Warning/Warning';
 import styles from './EditUser.module.scss';
 
-type UserTypes = {
-  id: string,
-  pseudo: string,
-  email: string,
-  password: string,
-  avatar: string,
-  is_admin: boolean,
-  is_banished: boolean
-};
-
-type EditProfileProps = {
+type Props = {
   isLogged: boolean,
-  userLogged: UserTypes,
-  setIsLogged: React.Dispatch<React.SetStateAction<boolean>>,
-  setUserLogged: React.Dispatch<React.SetStateAction<UserTypes>>
+  userLogged: User,
+  setIsLogged: Dispatch<SetStateAction<boolean>>,
+  setUserLogged: Dispatch<SetStateAction<User>>
 };
 
-const EditUser = ({
+const EditUser: FunctionComponent<Props> = ({
   isLogged,
   userLogged,
   setIsLogged,
   setUserLogged
-}: EditProfileProps) => {
+}) => {
 
   const router = useRouter();
 
@@ -186,9 +177,9 @@ const EditUser = ({
     return true;
   };
 
-  const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitForm = async (event: FormEvent<HTMLFormElement>) => {
     // Prevent the refresh
-    e.preventDefault();
+    event.preventDefault();
     setDisableButton(true);
 
     // Reset the warning message
@@ -367,7 +358,7 @@ const EditUser = ({
     };
   };
 
-  const handleChangePseudo = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangePseudo = (event: ChangeEvent<HTMLInputElement>) => {
 
     // If pseudo is longer than 30 letters
     if(pseudo.length > 30) {
@@ -384,10 +375,10 @@ const EditUser = ({
       setDisableButton(false);
     };
 
-    setPseudo(e.target.value);
+    setPseudo(event.target.value);
   };
 
-  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
 
     if(email.length > 100) {
       setWarningMessage('Votre adresse mail ne doit pas excéder 100 caractères');
@@ -397,7 +388,7 @@ const EditUser = ({
       setDisableButton(false);
     };
 
-    setEmail(e.target.value);
+    setEmail(event.target.value);
   };
 
   return (    

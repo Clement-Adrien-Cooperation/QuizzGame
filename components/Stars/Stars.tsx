@@ -1,14 +1,14 @@
-import { useEffect } from 'react';
+import { FunctionComponent, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './Stars.module.scss';
 
-type StarsProps = {
+type Props = {
   rate: number
 };
 
-const Stars = ({
+const Stars: FunctionComponent<Props> = ({
   rate
-}: StarsProps) => {
+}) => {
 
   const filledStars: string[] = [];
   const emptyStars: string[] = [];

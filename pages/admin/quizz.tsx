@@ -1,3 +1,4 @@
+import { Quiz, User } from '@prisma/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -7,32 +8,22 @@ import AdminDeletedQuizz from '../../components/AdminDeletedQuizz/AdminDeletedQu
 import styles from '../../styles/admin/AdminQuizz.module.scss';
 import Loader from '../../components/Loader/Loader';
 
-type QuizTypes = {
-  id: string,
-  user_id: string,
-  creator: string,
-  title: string,
-  category: string,
-  difficulty: string,
-  lang: string,
-  image: string,
-  is_visible: boolean,
-  nbOfQuestions: number,
-  date: string,
-  rate: number,
-  reported: boolean
+type Props = {
+  isLogged: boolean,
+  userLogged: User,
+  checkToken: (token: string) => void
 };
 
-const Quizz: NextPage = ({
+const Quizz: NextPage<Props> = ({
   isLogged,
   userLogged,
   checkToken
-}: any) => {
+}) => {
 
   const router = useRouter();
 
-  const [quizz, setQuizz] = useState<QuizTypes[]>([]);
-  const [deletedQuizz, setDeletedQuizz] = useState<QuizTypes[]>([]);
+  const [quizz, setQuizz] = useState<Quiz[]>([]);
+  const [deletedQuizz, setDeletedQuizz] = useState<Quiz[]>([]);
 
   const [showLoader, setShowLoader] = useState<boolean>(true);
   

@@ -1,6 +1,7 @@
+import { FunctionComponent } from 'react';
 import styles from './Loader.module.scss';
 
-const Loader = () => {
+const Loader: FunctionComponent = () => {
   return (
     <div className={styles.container}>
       

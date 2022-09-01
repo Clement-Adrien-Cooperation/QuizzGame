@@ -1,32 +1,26 @@
-import { useEffect, useState } from 'react';
+import { User } from '@prisma/client';
+import { FunctionComponent, useEffect, useState } from 'react';
 import styles from './UserDetails.module.scss';
 
-type UserLoggedTypes = {
-  id: string,
-  pseudo: string,
-  is_admin: boolean,
-  is_banished: boolean
-};
-
-type UserDetailsProps = {
+type Props = {
   id: string,
   email: string,
-  is_banished: boolean,
   is_admin: boolean,
-  handleBanishement: Function,
-  handlePromotion: Function,
-  userLogged: UserLoggedTypes
+  is_banished: boolean,
+  userLogged: User,
+  handlePromotion: (user_id: string, is_admin: boolean) => void,
+  handleBanishment: (user_id: string, is_banished: boolean) => void
 };
 
-const UserDetails = ({
+const UserDetails: FunctionComponent<Props> = ({
   id,
   email,
   is_banished,
   is_admin,
-  handleBanishement,
+  userLogged,
   handlePromotion,
-  userLogged
-} :UserDetailsProps) => {
+  handleBanishment
+}) => {
 
   const [showButtons, setShowButtons] = useState<boolean>(true);
 
@@ -64,7 +58,7 @@ const UserDetails = ({
             type='button'
             title={is_banished ? 'Débannir cet utilisateur' : 'Bannir cet utilisateur'}
             aria-label={is_banished ? 'Débannir cet utilisateur' : 'Bannir cet utilisateur'}
-            onClick={() => handleBanishement(id, is_banished)}
+            onClick={() => handleBanishment(id, is_banished)}
           >
             {is_banished ? "Débannir" : "Bannir"}
           </button>

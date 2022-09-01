@@ -1,6 +1,7 @@
+import { Question, User } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, FunctionComponent, useEffect, useState } from 'react';
 import Loader from '../Loader/Loader';
 import Notification from '../Notification/Notification';
 import Questions from '../Questions/Questions';
@@ -8,34 +9,17 @@ import QuizForm from '../QuizForm/QuizForm';
 import Warning from '../Warning/Warning';
 import styles from './EditQuiz.module.scss';
 
-type UserLoggedTypes = {
-  id: string,
-  pseudo: string,
-  is_admin: boolean,
-  is_banished: boolean
+type Props = {
+  userLogged: User
 };
 
-type QuizEditProps = {
-  userLogged: UserLoggedTypes
-};
-
-type QuestionTypes = {
-  id: string,
-  quiz_id: string,
-  user_id: string,
-  question: string,
-  description: string,
-  proposals: string[],
-  answer: string,
-  reported?: boolean,
-  reportMessage?: string
-};
-
-const EditQuiz = ({ userLogged }: QuizEditProps) => {
+const EditQuiz: FunctionComponent<Props> = ({
+  userLogged
+}) => {
 
   const router = useRouter();
 
-  const questionsToSave: QuestionTypes[] = [];
+  const questionsToSave: Question[] = [];
 
   const categoryList :string[] = [
     'Actualités',
@@ -74,7 +58,7 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
   const [rangeColor, setRangeColor] = useState<string>(`var(--medium)`);
   const [colorDifficultyName, setColorDifficultyName] = useState<string>('var(--yellow)');
 
-  const [questions, setQuestions] = useState<QuestionTypes[]>([]);
+  const [questions, setQuestions] = useState<Question[]>([]);
   
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [disableButton, setDisableButton] = useState<boolean>(false);
@@ -200,8 +184,8 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
     };
   };
 
-  const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if(e.target.value.length > 50) {
+  const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
+    if(event.target.value.length > 50) {
       setWarningMessage('Le titre de votre quizz ne doit pas contenir plus de 50 caractères');
       setDisableButton(true);
     } else {
@@ -211,16 +195,16 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
       };
     };
 
-    setTitle(e.target.value);
+    setTitle(event.target.value);
   };
 
-  const handleChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategory(e.target.value);
+  const handleChangeCategory = (event: ChangeEvent<HTMLSelectElement>) => {
+    setCategory(event.target.value);
   };
 
-  const handleChangeDifficulty = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeDifficulty = (event: ChangeEvent<HTMLInputElement>) => {
     
-    const newDifficulty :number = parseInt(e.target.value, 10);
+    const newDifficulty :number = parseInt(event.target.value, 10);
 
     // Watch if user change min & max values in html
     if(newDifficulty < 0 || newDifficulty > 4 ) {
@@ -269,9 +253,9 @@ const EditQuiz = ({ userLogged }: QuizEditProps) => {
     };
   };
 
-  const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitForm = async (event: FormEvent<HTMLFormElement>) => {
     // Prevent refresh
-    e.preventDefault();
+    event.preventDefault();
     setDisableButton(true);
     setShowLoader(true);
     setWarningMessage('');

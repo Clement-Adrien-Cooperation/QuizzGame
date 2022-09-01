@@ -1,48 +1,39 @@
+import { Quiz, User } from '@prisma/client';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import ConfirmModal from '../../components/ConfirmModal/ConfirmModal';
 import EditUser from '../../components/EditUser/EditUser';
 import Loader from '../../components/Loader/Loader';
 import UserQuizCard from '../../components/UserQuizCard/UserQuizCard';
 import styles from '../../styles/Profile.module.scss';
 
-type QuizTypes = {
-  id: string,
-  user_id: string,
-  creator: string,
-  title: string,
-  category: string,
-  lang: string,
-  difficulty: string,
-  is_visible: boolean,
-  date: string,
-  reported?: boolean,
-  reportMessage?: string
+type Props = {
+  isLogged: boolean,
+  userLogged: User,
+  setIsLogged: Dispatch<SetStateAction<boolean>>,
+  setUserLogged: Dispatch<SetStateAction<User>>,
+  checkToken: (token: string) => void
 };
 
-const Profile: NextPage = ({
+const Profile: NextPage<Props> = ({
   isLogged,
   userLogged,
   setIsLogged,
   setUserLogged,
   checkToken
-}: any) => {
+}) => {
 
   const router = useRouter();
 
-  const [userQuizz, setUserQuizz] = useState<QuizTypes[]>([]);
+  const [userQuizz, setUserQuizz] = useState<Quiz[]>([]);
   
   const [updateProfile, setUpdateProfile] = useState<boolean>(false);
   const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(true);
   
   useEffect(() => {
-
-    console.log(userLogged.pseudo);
-    console.log(router.query.slug);
-    
-    
 
     if(isLogged) {
       if(userLogged.is_banished) {
@@ -182,19 +173,11 @@ const Profile: NextPage = ({
 
           <ul className={styles.list}>
 
-            {userQuizz?.map(quiz =>
+            {userQuizz?.map((quiz: Quiz) =>
 
-              <li key={quiz.id}>
+              <li key={uuidv4()}>
                 <UserQuizCard
-                  id={quiz.id}
-                  title={quiz.title}
-                  category={quiz.category}
-                  lang={quiz.lang}
-                  difficulty={quiz.difficulty}
-                  is_visible={quiz.is_visible}
-                  date={quiz.date}
-                  reported={quiz.reported}
-                  reportMessage={quiz.reportMessage}
+                  quiz={quiz}
                   getQuizzFromUser={getQuizzFromUser}
                 />
               </li>

@@ -1,39 +1,28 @@
-import { useState } from 'react';
+import { Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
 import Image from 'next/image';
 import styles from './QuestionCard.module.scss';
 import editIcon from '../../public/icons/edit.svg';
 import deleteIcon from '../../public/icons/delete.svg';
 import arrow from '../../public/icons/arrow.svg';
 import QuestionDetails from '../QuestionDetails/QuestionDetails';
+import { Question } from '@prisma/client';
 
-type QuestionTypes = {
-  id: string,
-  quiz_id: string,
-  user_id: string,
-  question: string,
-  description: string,
-  proposals: string[],
-  answer: string,
-  reported?: boolean,
-  reportMessage?: string
-};
-
-type QuestionCardProps = {
-  questions: QuestionTypes[],
+type Props = {
+  questions: Question[],
   id: string,
   quiz_id: string,
   question: string,
   answer: string,
   proposals: string[],
   description: string,
-  setQuestions: React.Dispatch<React.SetStateAction<QuestionTypes[]>>,
+  setQuestions: Dispatch<SetStateAction<Question[]>>,
   updateQuestion: Function,
-  setUpdating: React.Dispatch<React.SetStateAction<boolean>>,
+  setUpdating: Dispatch<SetStateAction<boolean>>,
   questionIndex: number,
-  setUpdateIndex: React.Dispatch<React.SetStateAction<number>>
+  setUpdateIndex: Dispatch<SetStateAction<number>>
 };
 
-const QuestionCard = ({
+const QuestionCard: FunctionComponent<Props> = ({
   questions,
   setQuestions,
   id,
@@ -46,7 +35,7 @@ const QuestionCard = ({
   setUpdating,
   questionIndex,
   setUpdateIndex
-}: QuestionCardProps) => {
+}) => {
 
   const [showDetails, setShowDetails] = useState(false);
 

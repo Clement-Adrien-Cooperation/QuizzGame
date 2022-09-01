@@ -1,11 +1,15 @@
+import { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import styles from './Warning.module.scss';
 
-type WarningProps = {
+type Props = {
   warningMessage: string,
-  setWarningMessage: React.Dispatch<React.SetStateAction<string>>
+  setWarningMessage: Dispatch<SetStateAction<string>>
 };
 
-const Warning = ({ warningMessage, setWarningMessage }: WarningProps) => {
+const Warning: FunctionComponent<Props> = ({
+  warningMessage,
+  setWarningMessage
+}) => {
 
   return (
     <div className={styles.warning}>

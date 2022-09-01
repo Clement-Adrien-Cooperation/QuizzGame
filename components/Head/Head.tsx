@@ -1,6 +1,7 @@
+import { FunctionComponent } from "react";
 import Head from "next/head";
 
-const NextHead = () => {
+const NextHead: FunctionComponent = () => {
   return (
     <Head>
       <meta httpEquiv="x-UA-Compatible" content="IE-edge" />

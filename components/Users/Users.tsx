@@ -1,42 +1,28 @@
-import { useState } from 'react';
+import { User } from '@prisma/client';
+import { ChangeEvent, FunctionComponent, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import InputField from '../InputField/InputField';
-import User from '../User/User';
+import UserCard from '../UserCard/UserCard';
 import styles from './Users.module.scss';
 
-type UserTypes = {
-  id: string,
-  pseudo: string,
-  email: string,
-  avatar: string,
-  is_admin: boolean,
-  is_banished: boolean
+type Props = {
+  users: User[],
+  userLogged: User,
+  handlePromotion: (user_id: string, is_banished: boolean) => void,
+  handleBanishment: (user_id: string, is_banished: boolean) => void,
 };
 
-type UserLoggedTypes = {
-  id: string,
-  pseudo: string,
-  is_admin: boolean,
-  is_banished: boolean
-};
-
-type UsersProps = {
-  users: UserTypes[],
-  handleBanishement: Function,
-  handlePromotion: Function,
-  userLogged: UserLoggedTypes
-};
-
-const Users = ({
+const Users: FunctionComponent<Props> = ({
   users,
-  handleBanishement,
+  userLogged,
   handlePromotion,
-  userLogged
-} : UsersProps ) => {
+  handleBanishment
+}) => {
 
   const [usersFilter, setUsersFilter] = useState<string>('');
 
-  const handleChangeFilter = (e:React.ChangeEvent<HTMLInputElement>) => {
-    setUsersFilter(e.target.value);
+  const handleChangeFilter = (event: ChangeEvent<HTMLInputElement>) => {
+    setUsersFilter(event.target.value);
   };
 
   return (
@@ -62,7 +48,7 @@ const Users = ({
       }
       
       <ul>
-        {users.map((user: UserTypes) => {
+        {users.map((user: User) => {
 
           const filteredPseudo = user.pseudo.toLowerCase();
           const filteredEmail = user.email.toLowerCase();
@@ -70,12 +56,12 @@ const Users = ({
 
           if(filteredPseudo.includes(filter) || filteredEmail.includes(filter)) {
             return (
-              <li key={user.id}>
-                <User
+              <li key={uuidv4()}>
+                <UserCard
                   user={user}
-                  handleBanishement={handleBanishement}
-                  handlePromotion={handlePromotion}
                   userLogged={userLogged}
+                  handleBanishment={handleBanishment}
+                  handlePromotion={handlePromotion}
                 />
               </li>
             );

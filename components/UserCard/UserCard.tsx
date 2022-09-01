@@ -1,39 +1,23 @@
+import { User } from '@prisma/client';
+import { FunctionComponent, useState } from 'react';
 import Image from 'next/image';
-import { useState } from 'react';
-import styles from './User.module.scss';
-import defaultAvatar from '../../public/icons/defaultAvatar.svg';
+import styles from './UserCard.module.scss';
 import arrow from '../../public/icons/arrow.svg';
 import UserDetails from '../UserDetails/UserDetails';
 
-type UserLoggedTypes = {
-  id: string,
-  pseudo: string,
-  is_admin: boolean,
-  is_banished: boolean
+type Props = {
+  user: User,
+  userLogged: User,
+  handlePromotion: (user_id: string, is_admin: boolean) => void,
+  handleBanishment: (user_id: string, is_banished: boolean) => void
 };
 
-type UserTypes = {
-  id: string,
-  pseudo: string,
-  email: string,
-  avatar: string,
-  is_admin: boolean,
-  is_banished: boolean
-};
-
-type UserProps = {
-  user: UserTypes,
-  handleBanishement: Function,
-  handlePromotion: Function;
-  userLogged: UserLoggedTypes
-};
-
-const User = ({
+const UserCard: FunctionComponent<Props> = ({
   user,
-  handleBanishement,
+  userLogged,
   handlePromotion,
-  userLogged
-} : UserProps ) => {
+  handleBanishment
+}) => {
   
   const [showDetails, setShowDetails] = useState<boolean>(false);
 
@@ -59,16 +43,6 @@ const User = ({
         >
           <section className={styles.header}>
 
-            <div className={styles.avatar}>
-              <Image
-                src={user.avatar === null ? defaultAvatar : user.avatar}
-                width='32'
-                height='32'
-                layout='responsive'
-                alt="Avatar de l'utilisateur"
-              />
-            </div>
-
             <h3 className={styles.pseudo}>
               {user.pseudo}
             </h3>
@@ -91,7 +65,7 @@ const User = ({
               email={user.email}
               is_banished={user.is_banished}
               is_admin={user.is_admin}
-              handleBanishement={handleBanishement}
+              handleBanishment={handleBanishment}
               handlePromotion={handlePromotion}
               userLogged={userLogged}
             />
@@ -102,4 +76,4 @@ const User = ({
   );
 };
 
-export default User;
+export default UserCard;

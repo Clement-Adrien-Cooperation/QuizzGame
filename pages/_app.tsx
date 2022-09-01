@@ -2,27 +2,19 @@ import '../styles/reset.css';
 import '../styles/globals.scss';
 import Container from '../components/Container/Container';
 import type { AppProps } from 'next/app';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { User } from '@prisma/client';
 
-type UserTypes = {
-  id: string,
-  pseudo: string,
-  email: string,
-  password: string,
-  avatar: string,
-  is_admin: boolean,
-  is_banished: boolean
-};
-
-const unLoggedUser: UserTypes = {
+const unLoggedUser: User = {
   id: '',
   pseudo: '',
   email: '',
   password: '',
-  avatar: '',
   is_admin: false,
-  is_banished: false
+  is_banished: false,
+  reported: false,
+  reportMessage: []
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -30,7 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   const [isLogged, setIsLogged] = useState<boolean>(false);
-  const [userLogged, setUserLogged] = useState<UserTypes>(unLoggedUser);
+  const [userLogged, setUserLogged] = useState<User>(unLoggedUser);
 
   const checkToken = async (token: string) => {
 

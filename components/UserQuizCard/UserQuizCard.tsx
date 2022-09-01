@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { Quiz } from '@prisma/client';
+import { FunctionComponent, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styles from './UserQuizCard.module.scss';
@@ -7,31 +8,15 @@ import editIcon from '../../public/icons/edit.svg';
 import deleteIcon from '../../public/icons/delete.svg';
 import Loader from '../Loader/Loader';
 
-type UserQuizCardProps = {
-  id: string,
-  title: string,
-  category: string,
-  lang: string,
-  difficulty: string,
-  is_visible: boolean,
-  date: string,
-  reported?: boolean,
-  reportMessage?: string,
-  getQuizzFromUser: Function
+type Props = {
+  quiz: Quiz,
+  getQuizzFromUser: () => void
 };
 
-const UserQuizCard = ({
-  id,
-  title,
-  category,
-  lang,
-  difficulty,
-  is_visible,
-  date,
-  reported,
-  reportMessage,
+const UserQuizCard: FunctionComponent<Props> = ({
+  quiz,
   getQuizzFromUser
-}: UserQuizCardProps) => {
+}) => {
 
   const router = useRouter();
 
@@ -44,7 +29,7 @@ const UserQuizCard = ({
     await fetch('/api/quiz/delete', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id })
+      body: JSON.stringify({ id: quiz.id })
     })
     .then(async() => {
       setShowLoader(false);
@@ -61,18 +46,18 @@ const UserQuizCard = ({
 
   return (
     <>
-      <section className={styles.card} key={id}>
+      <section className={styles.card}>
         <header className={styles.header}>
           <h3
             className={styles.title}
-            title={`${title}`}
-            aria-label={`${title}`}
+            title={`${quiz.title}`}
+            aria-label={`${quiz.title}`}
           >
-            {title}
+            {quiz.title}
           </h3>
         
           <span className={styles.category}>
-            {category}
+            {quiz.category}
           </span>
         </header>
 
@@ -82,7 +67,7 @@ const UserQuizCard = ({
             type='button'
             title='Jouer à ce quiz'
             aria-label='Jouer à ce quiz'
-            onClick={() => router.push(`/quizz/${title}`)}
+            onClick={() => router.push(`/quizz/${quiz.title}`)}
           >
             <div className={styles.icon}>
               <Image
@@ -99,7 +84,7 @@ const UserQuizCard = ({
             type='button'
             title='Modifier ce quiz'
             aria-label='Modifier ce quiz'
-            onClick={() => router.push(`/quizz/update/${title}`)}
+            onClick={() => router.push(`/quizz/update/${quiz.title}`)}
           >
             <div className={styles.icon}>
               <Image

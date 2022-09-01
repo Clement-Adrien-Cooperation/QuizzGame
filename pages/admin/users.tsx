@@ -1,3 +1,4 @@
+import { User } from '@prisma/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -7,25 +8,22 @@ import Users from '../../components/Users/Users';
 import BanishedUsers from '../../components/BanishedUsers/BanishedUsers';
 import Loader from '../../components/Loader/Loader';
 
-type UserProps = {
-  id: string,
-  pseudo: string,
-  email: string,
-  avatar: string,
-  is_admin: boolean,
-  is_banished: boolean
+type Props = {
+  isLogged: boolean,
+  userLogged: User,
+  checkToken: (token: string) => void
 };
 
-const AdminUsers: NextPage = ({
+const AdminUsers: NextPage<Props> = ({
   isLogged,
   userLogged,
   checkToken
-}: any) => {
+}) => {
 
   const router = useRouter();
 
-  const [users, setUsers] = useState<UserProps[]>([]);
-  const [banishedUsers, setBanishedUsers] = useState<UserProps[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [banishedUsers, setBanishedUsers] = useState<User[]>([]);
 
   const [showLoader, setShowLoader] = useState<boolean>(true);
   
@@ -98,7 +96,7 @@ const AdminUsers: NextPage = ({
     setShowLoader(false);
   };
 
-  const handlePromotion = async (user_id :number, is_admin :boolean) => {
+  const handlePromotion = async (user_id: string, is_admin: boolean) => {
 
     setShowLoader(true);
 
@@ -118,7 +116,7 @@ const AdminUsers: NextPage = ({
   };
 
   // Function for bann a user
-  const handleBanishement = async (user_id:number, is_banished :boolean) => {
+  const handleBanishment = async (user_id: string, is_banished: boolean) => {
 
     setShowLoader(true);
 
@@ -169,8 +167,8 @@ const AdminUsers: NextPage = ({
           <Users
             users={users}
             userLogged={userLogged}
-            handleBanishement={handleBanishement}
             handlePromotion={handlePromotion}
+            handleBanishment={handleBanishment}
           />
         </div>
 
@@ -178,8 +176,8 @@ const AdminUsers: NextPage = ({
           <BanishedUsers
             banishedUsers={banishedUsers}
             userLogged={userLogged}
-            handleBanishement={handleBanishement}
             handlePromotion={handlePromotion}
+            handleBanishment={handleBanishment}
           />
         </div>
       </section>

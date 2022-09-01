@@ -1,30 +1,20 @@
-import { useState } from 'react';
+import { Question } from '@prisma/client';
+import { ChangeEvent, Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import InputField from '../InputField/InputField';
 import QuestionCard from '../QuestionCard/QuestionCard';
 import QuestionForm from '../QuestionForm/QuestionForm';
 import styles from './Questions.module.scss';
 
-type QuestionsProps = {
-  questions: QuestionTypes[],
-  setQuestions: React.Dispatch<React.SetStateAction<QuestionTypes[]>>
+type Props = {
+  questions: Question[],
+  setQuestions: Dispatch<SetStateAction<Question[]>>
 };
 
-type QuestionTypes = {
-  id: string,
-  quiz_id: string,
-  user_id: string,
-  question: string,
-  description: string,
-  proposals: string[],
-  answer: string,
-  reported?: boolean,
-  reportMessage?: string
-};
-
-const Questions = ({
+const Questions: FunctionComponent<Props> = ({
   questions,
   setQuestions
-} :QuestionsProps) => {
+}) => {
 
   const [showForm, setShowForm] = useState<boolean>(false);
 
@@ -42,14 +32,17 @@ const Questions = ({
 
   const [questionFilter, setQuestionFilter] = useState<string>('');
 
-  const updateQuestion = (questionData: QuestionTypes) => {
+  const updateQuestion = (questionData: Question) => {
     setQuestionID(questionData.id);
     setQuestion(questionData.question);
     setAnswer(questionData.answer);
     setProposal1(questionData.proposals[0]);
     setProposal2(questionData.proposals[1]);
     setProposal3(questionData.proposals[2]);
-    setDescription(questionData.description);
+
+    if(description) {
+      setDescription(questionData.description);
+    };
 
     handleToggleForm();
   };
@@ -69,8 +62,8 @@ const Questions = ({
     };
   };
 
-  const handleChangeQuestionFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuestionFilter(e.target.value);
+  const handleChangeQuestionFilter = (event: ChangeEvent<HTMLInputElement>) => {
+    setQuestionFilter(event.target.value);
   };
 
   return (
@@ -79,19 +72,19 @@ const Questions = ({
       {showForm ? (
         <QuestionForm
           question={question}
+          setQuestion={setQuestion}
           answer={answer}
           proposal1={proposal1}
           proposal2={proposal2}
           proposal3={proposal3}
           description={description}
           questions={questions}
-          setQuestion={setQuestion}
+          setQuestions={setQuestions}
           setAnswer={setAnswer}
           setProposal1={setProposal1}
           setProposal2={setProposal2}
           setProposal3={setProposal3}
           setDescription={setDescription}
-          setQuestions={setQuestions}
           handleToggleForm={handleToggleForm}
           updating={updating}
           updateIndex={updateIndex}
@@ -151,7 +144,7 @@ const Questions = ({
                   if(filteredQuestion.includes(filter) || filteredAnswer.includes(filter)) {
 
                     return (
-                      <li key={index}>
+                      <li key={uuidv4()}>
                         <QuestionCard
                           questions={questions}
                           setQuestions={setQuestions}

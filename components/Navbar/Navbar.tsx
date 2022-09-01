@@ -1,28 +1,20 @@
+import { User } from '@prisma/client';
 import Link from 'next/link';
 import styles from './Navbar.module.scss';
 import Theme from '../Theme/Theme';
+import { FunctionComponent } from 'react';
 
-type UserTypes = {
-  id: string,
-  pseudo: string,
-  email: string,
-  password: string,
-  avatar: string,
-  is_admin: boolean,
-  is_banished: boolean
-};
-
-type NavBarProps = {
+type Props = {
   isLogged: boolean,
-  userLogged: UserTypes,
-  handleDisconnect: Function
+  userLogged: User,
+  handleDisconnect: () => void
 };
 
-const Navbar = ({
+const Navbar: FunctionComponent<Props> = ({
   isLogged,
   userLogged,
   handleDisconnect
-}: NavBarProps) => {
+}) => {
 
   return (
     <nav className={styles.navbar}>

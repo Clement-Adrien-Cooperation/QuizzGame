@@ -1,30 +1,20 @@
-import { useEffect, useState } from 'react';
+import { Question } from '@prisma/client';
+import { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import AdminQuestionCard from '../AdminQuestionCard/AdminQuestionCard';
 import InputField from '../InputField/InputField';
 import Loader from '../Loader/Loader';
 import styles from './AdminQuizQuestions.module.scss';
 
-type QuestionTypes = {
-  id: string,
-  quiz_id: string,
-  question: string,
-  description: string,
-  proposals: string[],
-  answer: string,
-  reported?: boolean,
-  reportMessage?: string
-};
-
-type AdminQuizQuestionsProps = {
+type Props = {
   id: string
 };
 
-const AdminQuizQuestions = ({
+const AdminQuizQuestions: FunctionComponent<Props> = ({
   id
-}: AdminQuizQuestionsProps) => {
+}) => {
 
-  const [questions, setQuestions] = useState<QuestionTypes[]>([]);
+  const [questions, setQuestions] = useState<Question[]>([]);
   const [questionFilter, setQuestionFilter] = useState<string>('');
   const [showLoader, setShowLoader] = useState<boolean>(true);
 
@@ -53,8 +43,8 @@ const AdminQuizQuestions = ({
     });
   };
 
-  const handleChangeQuestionFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuestionFilter(e.target.value);
+  const handleChangeQuestionFilter = (event: ChangeEvent<HTMLInputElement>) => {
+    setQuestionFilter(event.target.value);
   };
 
   return (
@@ -79,7 +69,7 @@ const AdminQuizQuestions = ({
       )}
 
       <ul className={styles.list}>
-        {questions?.map(question => {
+        {questions?.map((question: Question) => {
 
           const filteredQuestion = question.question.toLowerCase();
           const filteredAnswer = question.answer.toLocaleLowerCase();

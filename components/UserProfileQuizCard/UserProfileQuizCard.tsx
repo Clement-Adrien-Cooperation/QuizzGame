@@ -1,25 +1,16 @@
+import { Quiz } from '@prisma/client';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import Stars from '../Stars/Stars';
 import styles from './UserProfileQuizCard.module.scss';
 
-type UserProfileQuizCardProps = {
-  title: string,
-  category: string,
-  difficulty: string,
-  nbOfQuestions: number,
-  date: string,
-  rate: number
+type Props = {
+  quiz: Quiz
 };
 
-const UserProfileQuizCard = ({
-  title,
-  category,
-  difficulty,
-  nbOfQuestions,
-  date,
-  rate
-}: UserProfileQuizCardProps) => {
+const UserProfileQuizCard: FunctionComponent<Props> = ({
+  quiz
+}) => {
 
   const router = useRouter();
 
@@ -27,19 +18,19 @@ const UserProfileQuizCard = ({
 
   useEffect(() => {
     switch (true) {
-      case difficulty === 'Très facile' :
+      case quiz.difficulty === 'Très facile' :
         setBackgroundColor('var(--white)');
       break;
-      case difficulty === 'Facile' :
+      case quiz.difficulty === 'Facile' :
         setBackgroundColor('var(--green)');
       break;
-      case difficulty === 'Normal' :
+      case quiz.difficulty === 'Normal' :
         setBackgroundColor('var(--yellow)');
       break;
-      case difficulty === 'Difficile' :
+      case quiz.difficulty === 'Difficile' :
         setBackgroundColor('var(--orange)');
       break;
-      case difficulty === 'Très difficile' :
+      case quiz.difficulty === 'Très difficile' :
         setBackgroundColor('var(--red)');
       break;
         
@@ -54,11 +45,11 @@ const UserProfileQuizCard = ({
       className={styles.card}
       title="Jouer à ce quiz"
       aria-label="Jouer à ce quiz"
-      onClick={() => router.push(`/quizz/${title}`)}
+      onClick={() => router.push(`/quizz/${quiz.title}`)}
     >
       <header className={styles.header}>
         <h2 className={styles.title}>
-          {title}
+          {quiz.title}
         </h2>
       </header>
 
@@ -68,26 +59,26 @@ const UserProfileQuizCard = ({
           className={styles.difficulty}
           style={{background: `${backgroundColor}`}}
         >
-          {difficulty}
+          {quiz.difficulty}
         </span>
 
         <span className={styles.questions}>
-          {nbOfQuestions} question{nbOfQuestions < 2 ? '' : 's'}
+          {quiz.nbOfQuestions} question{quiz.nbOfQuestions < 2 ? '' : 's'}
         </span>
 
         <span className={styles.category}>
-          {category}
+          {quiz.category}
         </span>
 
         <span className={styles.date}>
-          {date}
+          {quiz.date}
         </span>
 
-        {rate === null ? '' :
+        {quiz.rate === null ? '' :
 
           <span className={styles.rate}>
             <Stars
-              rate={rate}
+              rate={quiz.rate}
             />
           </span>
         }

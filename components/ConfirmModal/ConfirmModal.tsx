@@ -1,19 +1,20 @@
+import { FunctionComponent } from 'react';
 import CloseButton from '../CloseButton/CloseButton';
 import styles from './ConfirmModal.module.scss';
 
-type ConfirmModalProps = {
+type Props = {
   message: string,
-  text?: string,
-  handleFunction: Function,
-  closeModal: Function
+  text: string,
+  handleFunction: () => void,
+  closeModal: () => void
 };
 
-const ConfirmModal = ({
+const ConfirmModal: FunctionComponent<Props> = ({
   message,
   handleFunction,
   text,
   closeModal
-}: ConfirmModalProps) => {
+}) => {
 
   return (
     <div className={styles.container}>

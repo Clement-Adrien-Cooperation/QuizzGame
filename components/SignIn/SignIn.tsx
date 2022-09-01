@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from './SignIn.module.scss';
 import InputField from '../InputField/InputField';
@@ -6,34 +6,19 @@ import Warning from '../Warning/Warning';
 import Loader from '../Loader/Loader';
 import PasswordField from '../PasswordField/PasswordField';
 import CheckButton from '../CheckButton/CheckButton';
+import { User } from '@prisma/client';
 
-type SignInProps = {
-  handleToggleForm: Function
-  setIsLogged: React.Dispatch<React.SetStateAction<boolean>>,
-  setUserLogged: React.Dispatch<React.SetStateAction<UserTypes>>
+type Props = {
+  handleToggleForm: () => void,
+  setIsLogged: Dispatch<SetStateAction<boolean>>,
+  setUserLogged: Dispatch<SetStateAction<User>>
 };
 
-type DataTypes = {
-  user: UserTypes,
-  token: string,
-  message: string
-};
-
-type UserTypes = {
-  id: string,
-  pseudo: string,
-  password: string,
-  email: string,
-  avatar?: string,
-  is_admin: boolean,
-  is_banished: boolean
-};
-
-const SignIn = ({
+const SignIn: FunctionComponent<Props> = ({
   handleToggleForm,
   setIsLogged,
   setUserLogged
-}: SignInProps) => {
+}) => {
 
   const router = useRouter();
 
@@ -45,8 +30,8 @@ const SignIn = ({
   const [disableButton, setDisableButton] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
-  const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmitForm = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setDisableButton(true);
     setShowLoader(true);
 
@@ -95,28 +80,8 @@ const SignIn = ({
     setDisableButton(false);
   };
 
-  const getRefreshToken = async (data: DataTypes) => {
-
-    await fetch('/api/user/getRefreshToken', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `${data.token}`
-      },
-      body: JSON.stringify(data.user)
-    })
-    .then(async(res) => {
-      const refreshToken = await res.json();
-      
-      localStorage.setItem('refresh-token', refreshToken);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  };
-
-  const handleChangePseudoOrEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPseudoOrEmail(e.target.value);
+  const handleChangePseudoOrEmail = (event: ChangeEvent<HTMLInputElement>) => {
+    setPseudoOrEmail(event.target.value);
   };
 
   return (

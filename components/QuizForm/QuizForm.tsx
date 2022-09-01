@@ -1,9 +1,10 @@
+import { ChangeEventHandler, FunctionComponent } from 'react';
 import InputField from '../InputField/InputField';
 import RangeSlider from '../RangeSlider/RangeSlider';
 import SelectField from '../SelectField/SelectField';
 import styles from './QuizForm.module.scss';
 
-type QuizFormProps = {
+type Props = {
   title: string,
   categoryList: string[],
   defaultCategory: string,
@@ -11,12 +12,12 @@ type QuizFormProps = {
   difficultyRange: number,
   rangeColor: string,
   colorDifficultyName: string,
-  handleChangeDifficulty: Function,
-  handleChangeTitle: Function,
-  handleChangeCategory: Function
+  handleChangeDifficulty: ChangeEventHandler<HTMLInputElement>,
+  handleChangeTitle: ChangeEventHandler<HTMLInputElement>,
+  handleChangeCategory: ChangeEventHandler<HTMLSelectElement>
 };
 
-const QuizForm = ({
+const QuizForm: FunctionComponent<Props> = ({
   title,
   categoryList,
   defaultCategory,
@@ -27,7 +28,7 @@ const QuizForm = ({
   handleChangeDifficulty,
   handleChangeTitle,
   handleChangeCategory
-}: QuizFormProps) => {
+}) => {
 
   return (
     <section className={styles.container}>

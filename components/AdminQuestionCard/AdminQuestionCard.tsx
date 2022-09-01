@@ -1,27 +1,17 @@
-import Image from 'next/image';
-import { useState } from 'react';
+import { Question } from '@prisma/client';
+import { FunctionComponent, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import Image from 'next/image';
 import styles from './AdminQuestionCard.module.scss';
 import arrow from '../../public/icons/arrow.svg';
 
-type QuestionTypes = {
-  id: string,
-  quiz_id: string,
-  question: string,
-  description: string,
-  proposals: string[],
-  answer: string,
-  reported?: boolean,
-  reportMessage?: string
+type Props = {
+  question: Question
 };
 
-type AdminQuestionCardProps = {
-  question: QuestionTypes
-};
-
-const AdminQuestionCard = ({
+const AdminQuestionCard: FunctionComponent<Props> = ({
   question
-}: AdminQuestionCardProps) => {
+}) => {
 
   const [showDetails, setShowDetails] = useState<boolean>(false);
 

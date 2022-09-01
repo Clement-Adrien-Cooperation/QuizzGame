@@ -1,31 +1,16 @@
-import { useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from './QuizCard.module.scss';
 import Stars from '../Stars/Stars';
+import { Quiz } from '@prisma/client';
 
-type QuizCardProps = {
-  id: string,
-  creator: string,
-  title: string,
-  nbOfQuestions: number,
-  difficulty: string,
-  image: string,
-  category: string,
-  date: string;
-  rate: number;
+type Props = {
+  quiz: Quiz
 };
 
-const QuizCard = ({
-  id,
-  creator,
-  title,
-  nbOfQuestions,
-  difficulty,
-  image,
-  category,
-  date,
-  rate
-} :QuizCardProps) => {
+const QuizCard: FunctionComponent<Props> = ({
+  quiz
+}) => {
 
   const router = useRouter();
 
@@ -33,19 +18,19 @@ const QuizCard = ({
 
   useEffect(() => {
     switch (true) {
-      case difficulty === 'Très facile' :
+      case quiz.difficulty === 'Très facile' :
         setBackgroundColor('var(--white)');
       break;
-      case difficulty === 'Facile' :
+      case quiz.difficulty === 'Facile' :
         setBackgroundColor('var(--green)');
       break;
-      case difficulty === 'Normal' :
+      case quiz.difficulty === 'Normal' :
         setBackgroundColor('var(--yellow)');
       break;
-      case difficulty === 'Difficile' :
+      case quiz.difficulty === 'Difficile' :
         setBackgroundColor('var(--orange)');
       break;
-      case difficulty === 'Très difficile' :
+      case quiz.difficulty === 'Très difficile' :
         setBackgroundColor('var(--red)');
       break;
         
@@ -62,21 +47,21 @@ const QuizCard = ({
         className={styles.container}
         title='Jouer à ce quiz'
         aria-label='Jouer à ce quiz'
-        onClick={() => router.push(`/quizz/${title}`)}
+        onClick={() => router.push(`/quizz/${quiz.title}`)}
       >
         <header className={styles.header}>
 
           <aside className={styles.header__aside}>
 
             <h2 className={styles.header__aside__title}>
-              {title}
+              {quiz.title}
             </h2>
 
             <span
               className={styles.header__aside__difficulty}
               style={{background: `${backgroundColor}`}}
             >
-              {difficulty}
+              {quiz.difficulty}
             </span>
 
           </aside>
@@ -87,20 +72,20 @@ const QuizCard = ({
           <div className={styles.body__content}>
 
             <span className={styles.category}>
-              {category}
+              {quiz.category}
             </span>
 
             <span className={styles.questions_number}>
-              {nbOfQuestions} {nbOfQuestions === 1 ? 'question' : 'questions'}
+              {quiz.nbOfQuestions} {quiz.nbOfQuestions === 1 ? 'question' : 'questions'}
             </span>
 
           </div>
 
-          {rate === null ? '' :
+          {quiz.rate === null ? '' :
             <span className={styles.rate}>
               
               <Stars
-                rate={rate}
+                rate={quiz.rate}
               />
             </span>
           }
@@ -116,16 +101,16 @@ const QuizCard = ({
           <button
             className={styles.footer__link}
             type='button'
-            title={`Voir tous les quizz de ${creator}`}
-            aria-label={`Voir tous les quizz de ${creator}`}
-            onClick={() => router.push(`/profile/${creator}`)}
+            title={`Voir tous les quizz de ${quiz.creator}`}
+            aria-label={`Voir tous les quizz de ${quiz.creator}`}
+            onClick={() => router.push(`/profile/${quiz.creator}`)}
           >
-            {creator}
+            {quiz.creator}
           </button>
         </p>
 
         <p className={styles.date}>
-          {date}
+          {quiz.date}
         </p>
       </footer>
       

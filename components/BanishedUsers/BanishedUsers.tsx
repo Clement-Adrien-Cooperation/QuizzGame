@@ -1,42 +1,28 @@
-import { useState } from 'react';
+import { User } from '@prisma/client';
+import { ChangeEvent, FunctionComponent, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import InputField from '../InputField/InputField';
-import User from '../User/User';
+import UserCard from '../UserCard/UserCard';
 import styles from './BanishedUsers.module.scss';
 
-type UserTypes = {
-  id: string,
-  pseudo: string,
-  email: string,
-  avatar: string,
-  is_admin: boolean,
-  is_banished: boolean
+type Props = {
+  banishedUsers: User[],
+  userLogged: User,
+  handlePromotion: (user_id: string, is_admin: boolean) => void,
+  handleBanishment: (user_id: string, is_banished: boolean) => void
 };
 
-type UserLoggedTypes = {
-  id: string,
-  pseudo: string,
-  is_admin: boolean,
-  is_banished: boolean
-};
-
-type BanishedUsersProps = {
-  banishedUsers: UserTypes[],
-  handleBanishement: Function,
-  handlePromotion: Function,
-  userLogged: UserLoggedTypes
-};
-
-const BanishedUsers = ({ 
+const BanishedUsers: FunctionComponent<Props> = ({ 
   banishedUsers,
-  handleBanishement,
+  userLogged,
   handlePromotion,
-  userLogged
-} : BanishedUsersProps ) => {
+  handleBanishment
+}) => {
 
   const [banishedUsersFilter, setBanishedUsersFilter] = useState<string>('');
 
-  const handleChangeFilter = (e:React.ChangeEvent<HTMLInputElement>) => {
-    setBanishedUsersFilter(e.target.value);
+  const handleChangeFilter = (event: ChangeEvent<HTMLInputElement>) => {
+    setBanishedUsersFilter(event.target.value);
   };
 
   return (
@@ -61,23 +47,18 @@ const BanishedUsers = ({
           </div>
 
           <ul>
-            {banishedUsers?.map(({id, pseudo, email, avatar, is_admin, is_banished}: UserTypes) => {
+            {banishedUsers?.map((user: User) => {
 
-              const filteredPseudo = pseudo.toLowerCase();
-              const filteredEmail = email.toLowerCase();
+              const filteredPseudo = user.pseudo.toLowerCase();
+              const filteredEmail = user.email.toLowerCase();
               const filter = banishedUsersFilter.toLocaleLowerCase();
 
               if(filteredPseudo.includes(filter) || filteredEmail.includes(filter)) {
                 return (
-                  <li key={id}>
-                    <User
-                      id={id}
-                      pseudo={pseudo}
-                      email={email}
-                      avatar={avatar}
-                      is_admin={is_admin}
-                      is_banished={is_banished}
-                      handleBanishement={handleBanishement}
+                  <li key={uuidv4()}>
+                    <UserCard
+                      user={user}
+                      handleBanishment={handleBanishment}
                       handlePromotion={handlePromotion}
                       userLogged={userLogged}
                     />

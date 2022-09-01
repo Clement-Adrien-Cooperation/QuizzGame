@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import { Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
 import PasswordField from '../PasswordField/PasswordField';
 import styles from './PasswordValidation.module.scss';
 
-type PasswordValidationProps = {
+type Props = {
   isLogged: boolean,
   password: string,
   confirmPassword: string,
-  setPassword: React.Dispatch<React.SetStateAction<string>>,
-  setConfirmPassword: React.Dispatch<React.SetStateAction<string>>,
+  setPassword: Dispatch<SetStateAction<string>>,
+  setConfirmPassword: Dispatch<SetStateAction<string>>,
   validLowercase: boolean,
   validUppercase: boolean,
   validNumber: boolean,
@@ -17,7 +17,7 @@ type PasswordValidationProps = {
   checkPasswords: Function
 };
 
-const PasswordValidation = ({
+const PasswordValidation: FunctionComponent<Props> = ({
   isLogged,
   password,
   setPassword,
@@ -30,7 +30,7 @@ const PasswordValidation = ({
   validLength,
   checkPassword,
   checkPasswords
-}: PasswordValidationProps) => {
+}) => {
 
   const [showValidation, setShowValidation] = useState<boolean>(false);
 

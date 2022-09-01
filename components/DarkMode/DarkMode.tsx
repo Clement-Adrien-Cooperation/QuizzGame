@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import styles from './DarkMode.module.scss';
 import CheckButton from "../CheckButton/CheckButton";
 
-const DarkMode = () => {
+const DarkMode: FunctionComponent = () => {
 
   const [darkMode, setDarkMode] = useState<boolean>(false);
 

@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, FunctionComponent, SetStateAction, useEffect, useState } from 'react';
 import CloseButton from '../CloseButton/CloseButton';
 import styles from './Notification.module.scss';
 
-type NotificationTypes = {
+type Props = {
   notification: string,
-  setNotification: React.Dispatch<React.SetStateAction<string>>
+  setNotification: Dispatch<SetStateAction<string>>
 };
 
-const Notification = ({
+const Notification: FunctionComponent<Props> = ({
   notification,
   setNotification
-}: NotificationTypes) => {
+}) => {
 
   const [opened, setOpened] = useState(false);
 

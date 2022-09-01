@@ -1,34 +1,30 @@
+import { FunctionComponent, PropsWithChildren } from "react";
+import { User } from "@prisma/client";
 import Head from "../Head/Head";
 import Navbar from '../Navbar/Navbar';
 
-type UserTypes = {
-  id: string,
-  pseudo: string,
-  email: string,
-  password: string,
-  avatar: string,
-  is_admin: boolean,
-  is_banished: boolean
-};
-
-type ContainerPropsType = {
-  children: JSX.Element,
+type Props = PropsWithChildren<{
   isLogged: boolean,
-  userLogged: UserTypes
-  handleDisconnect: Function
-};
+  userLogged: User,
+  handleDisconnect: () => void
+}>;
 
-const Container = (props: ContainerPropsType) => {
+const Container: FunctionComponent<Props> = ({
+  isLogged,
+  userLogged,
+  handleDisconnect,
+  children
+}) => {
 
   return (
     <>
       <Head />
       <Navbar
-        isLogged={props.isLogged}
-        userLogged={props.userLogged}
-        handleDisconnect={props.handleDisconnect}
+        isLogged={isLogged}
+        userLogged={userLogged}
+        handleDisconnect={handleDisconnect}
       />
-      {props.children}
+      {children}
     </>
   );
 };

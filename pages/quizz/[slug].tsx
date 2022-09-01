@@ -1,49 +1,41 @@
+import { Quiz, User } from '@prisma/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Loader from '../../components/Loader/Loader';
 import styles from '../../styles/quizz/QuizGame.module.scss';
 
-type QuizTypes = {
-  id?: string,
-  user_id: string,
-  creator: string,
-  title: string,
-  category?: string,
-  lang?: string,
-  difficulty?: string,
-  is_visible: boolean,
-  date: string,
-  nbOfQuestions: number,
-  reported?: boolean,
-  reportMessage?: string
-};
-
-const emptyQuiz = {
+const emptyQuiz: Quiz = {
   id: '',
   user_id: '',
   creator: '',
   title: '',
   category: '',
-  lang: '',
   difficulty: '',
   is_visible: true,
   date: '',
   nbOfQuestions: 0,
+  rate: 0,
   reported: false,
-  reportMessage: ''
+  reportMessage: []
 };
 
-const QuizGame: NextPage = ({
+type Props = {
+  isLogged: boolean,
+  userLogged: User,
+  checkToken: (token: string) => void
+};
+
+const QuizGame: NextPage<Props> = ({
   isLogged,
   userLogged,
   checkToken
-}: any) => {
+}) => {
   
   const router = useRouter();
   const title = router.query.slug;
 
-  const [quiz, setQuiz] = useState<QuizTypes>(emptyQuiz);
+  const [quiz, setQuiz] = useState<Quiz>(emptyQuiz);
   const [showLoader, setShowLoader] = useState<boolean>(true);
   
   useEffect(() => {

@@ -1,20 +1,21 @@
+import { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import styles from './CheckButton.module.scss';
 
-type CheckButtonProps = {
+type Props = {
   label: string,
   id: string,
   title: string,
   state: boolean,
-  setState: React.Dispatch<React.SetStateAction<boolean>>
+  setState: Dispatch<SetStateAction<boolean>>
 };
 
-const CheckButton = ({
+const CheckButton: FunctionComponent<Props> = ({
   label,
   id,
   title,
   state,
   setState
-}: CheckButtonProps) => {
+}) => {
 
   return (
     <div className={styles.checkbox}>

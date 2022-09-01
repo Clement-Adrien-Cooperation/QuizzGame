@@ -1,7 +1,7 @@
-import { ChangeEventHandler } from 'react';
+import { ChangeEventHandler, FunctionComponent } from 'react';
 import styles from './SelectField.module.scss';
 
-type SelectFieldProps = {
+type Props = {
   name: string,
   defaultOption: string,
   options: string[],
@@ -9,13 +9,13 @@ type SelectFieldProps = {
   handleFunction: ChangeEventHandler<HTMLSelectElement>
 };
 
-const SelectField = ({
+const SelectField: FunctionComponent<Props> = ({
   name,
   defaultOption,
   options,
   isDisabled,
   handleFunction
-} : SelectFieldProps ) => {
+}) => {
 
   return (
     <div className={styles.field}>
@@ -29,7 +29,6 @@ const SelectField = ({
       >
         <option
           className={styles.option}
-          // value=''
           value={defaultOption}
         >
           {defaultOption}

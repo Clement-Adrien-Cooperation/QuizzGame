@@ -1,10 +1,13 @@
+import { FunctionComponent } from 'react';
 import styles from './CloseButton.module.scss';
 
-type CloseButtonProps = {
-  handleFunction: Function
+type Props = {
+  handleFunction: () => void
 };
 
-const CloseButton = ({ handleFunction } :CloseButtonProps) => {
+const CloseButton: FunctionComponent<Props> = ({
+  handleFunction
+}) => {
 
   return (
     <button

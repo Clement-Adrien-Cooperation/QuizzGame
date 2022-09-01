@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import styles from './ColorsPicker.module.scss';
 
 import ColorPicker from '../ColorPicker/ColorPicker';
 
-const ColorsPicker = () => {
+const ColorsPicker: FunctionComponent = () => {
 
   const [hue, setHue] = useState<string>('250');
 

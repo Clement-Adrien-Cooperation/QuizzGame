@@ -1,3 +1,4 @@
+import { User } from '@prisma/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -5,11 +6,17 @@ import Loader from '../../../components/Loader/Loader';
 import EditQuiz from '../../../components/EditQuiz/EditQuiz';
 import styles from '../../../styles/UpdateQuizz.module.scss';
 
-const UpdateQuiz: NextPage = ({
+type Props = {
+  isLogged: boolean,
+  userLogged: User,
+  checkToken: (token: string) => void
+};
+
+const UpdateQuiz: NextPage<Props> = ({
   isLogged,
   userLogged,
   checkToken
-}: any) => {
+}) => {
   
   const router = useRouter();
 

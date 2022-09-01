@@ -1,17 +1,26 @@
 import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../styles/Connexion.module.scss';
 import SignUp from '../components/SignUp/SignUp';
 import SignIn from '../components/SignIn/SignIn';
+import { User } from '@prisma/client';
 
-const Connexion: NextPage = ({
-  setIsLogged,
-  setUserLogged,
+type Props = {
+  isLogged: boolean,
+  userLogged: User,
+  setIsLogged: Dispatch<SetStateAction<boolean>>,
+  setUserLogged: Dispatch<SetStateAction<User>>,
+  checkToken: (token: string) => void
+};
+
+const Connexion: NextPage<Props> = ({
   isLogged,
   userLogged,
+  setIsLogged,
+  setUserLogged,
   checkToken
-}: any) => {
+}) => {
 
   const router = useRouter();
   

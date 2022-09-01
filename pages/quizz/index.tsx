@@ -1,5 +1,6 @@
+import { Quiz, User } from '@prisma/client';
 import { NextPage } from 'next';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../../styles/Quizz.module.scss';
 import Link from 'next/link';
@@ -7,32 +8,24 @@ import QuizCard from '../../components/QuizCard/QuizCard';
 import InputField from '../../components/InputField/InputField';
 import Loader from '../../components/Loader/Loader';
 
-type QuizTypes = {
-  id: string,
-  user_id: string,
-  creator: string,
-  title: string,
-  nbOfQuestions: number,
-  category: string,
-  difficulty: string,
-  lang: string,
-  image: string,
-  is_visible: boolean,
-  date: string,
-  rate: number
+type Props = {
+  quizzData: any,
+  isLogged: boolean,
+  userLogged: User,
+  checkToken: (token: string) => void
 };
 
-const Quizz: NextPage = ({
+const Quizz: NextPage<Props> = ({
   quizzData,
   isLogged,
   userLogged,
   checkToken
-}: any) => {
+}) => {
 
   const router = useRouter();
 
   const [filter, setFilter] = useState<string>('');
-  const [quizz, setQuizz] = useState<QuizTypes[]>([]);
+  const [quizz, setQuizz] = useState<Quiz[]>([]);
   const [showLoader, setShowLoader] = useState<boolean>(true);
   
   useEffect(() => {
@@ -57,8 +50,8 @@ const Quizz: NextPage = ({
     };
   }, []);
 
-  const handleChangeFilter = (e:React.ChangeEvent<HTMLInputElement>) => {
-    setFilter(e.target.value);
+  const handleChangeFilter = (event: ChangeEvent<HTMLInputElement>) => {
+    setFilter(event.target.value);
   };
   
   return (
@@ -104,7 +97,7 @@ const Quizz: NextPage = ({
       <section className={styles.container}>
 
         <ul>
-          {quizz?.map((quiz: QuizTypes) => {
+          {quizz?.map((quiz: Quiz) => {
 
             const quizTitle = quiz.title.toLowerCase();
             const quizCreator = quiz.creator.toLowerCase();
@@ -117,15 +110,7 @@ const Quizz: NextPage = ({
               return (
                 <li key={quiz.id}>
                   <QuizCard
-                    id={quiz.id}
-                    creator={quiz.creator}
-                    title={quiz.title}
-                    nbOfQuestions={quiz.nbOfQuestions}
-                    difficulty={quiz.difficulty}
-                    image={quiz.image}
-                    category={quiz.category}
-                    date={quiz.date}
-                    rate={quiz.rate}
+                    quiz={quiz}
                   />
                 </li>
               );

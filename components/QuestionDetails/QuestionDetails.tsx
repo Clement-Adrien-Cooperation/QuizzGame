@@ -1,16 +1,18 @@
+import { FunctionComponent } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import styles from './QuestionDetails.module.scss';
 
-type QuestionDetailsProps = {
+type Props = {
   answer: string,
   proposals: string[],
   description: string
 };
 
-const QuestionDetails = ({
+const QuestionDetails: FunctionComponent<Props> = ({
   answer,
   proposals,
   description
-}: QuestionDetailsProps) => {
+}) => {
 
   return (
     <>
@@ -21,10 +23,10 @@ const QuestionDetails = ({
         </p>
 
         <ul className={styles.proposals}>
-          {proposals.map((proposal, index) =>
+          {proposals.map((proposal: string) =>
             <li
               className={styles.proposals__item}
-              key={index}
+              key={uuidv4()}
             >
               {proposal}
             </li>  

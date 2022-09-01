@@ -1,6 +1,7 @@
+import { ChangeEventHandler, FunctionComponent } from 'react';
 import styles from './RangeSlider.module.scss';
 
-type RangeSliderProps = {
+type Props = {
   name: string,
   value: number,
   min: string,
@@ -8,10 +9,10 @@ type RangeSliderProps = {
   gradient: string,
   difficulty: string,
   colorDifficultyName: string,
-  handleFunction: Function
+  handleFunction: ChangeEventHandler<HTMLInputElement>
 };
 
-const RangeSlider = ({
+const RangeSlider: FunctionComponent<Props> = ({
   name,
   value,
   min,
@@ -20,7 +21,7 @@ const RangeSlider = ({
   difficulty,
   colorDifficultyName,
   handleFunction
-} :RangeSliderProps) => {
+}) => {
 
   return (
     <div className={styles.slideContainer}>

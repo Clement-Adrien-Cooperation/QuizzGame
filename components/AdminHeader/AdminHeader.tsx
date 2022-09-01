@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { FunctionComponent } from 'react';
 import styles from './AdminHeader.module.scss';
 
-const AdminHeader = () => {
+const AdminHeader: FunctionComponent = () => {
 
   const router = useRouter();
 

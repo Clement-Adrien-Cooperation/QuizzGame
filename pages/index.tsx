@@ -1,15 +1,23 @@
+import { User } from '@prisma/client';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Loader from '../components/Loader/Loader';
 import styles from '../styles/Home.module.scss';
 
-const Home: NextPage = ({
+type Props = {
+  isLogged: boolean,
+  userLogged: User,
+  handleDisconnect: () => void,
+  checkToken: (token: string) => void
+};
+
+const Home: NextPage<Props> = ({
   isLogged,
   userLogged,
   handleDisconnect,
   checkToken
-}: any) => {
+}) => {
 
   const router = useRouter();
 

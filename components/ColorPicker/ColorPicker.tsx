@@ -1,22 +1,22 @@
+import { FunctionComponent, PropsWithChildren } from 'react';
 import styles from './ColorPicker.module.scss';
 
-type ColorPickerProps = {
-  children: any,
+type Props = PropsWithChildren<{
   hue: string,
   colorName: string,
   hueColor: string,
   title: string,
-  changeColor: Function
-};
+  changeColor: (hueColor: string) => void
+}>;
 
-const ColorPicker = ({
+const ColorPicker: FunctionComponent<Props> = ({
   children,
   hue,
   colorName,
   hueColor,
   title,
   changeColor
-} : ColorPickerProps) => {
+}) => {
 
   return (
     <>

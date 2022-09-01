@@ -1,31 +1,23 @@
+import { User } from '@prisma/client';
+import { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import styles from './SignUp.module.scss';
 import EditUser from '../EditUser/EditUser';
 
-type UserTypes = {
-  id: string,
-  pseudo: string,
-  email: string,
-  password: string,
-  avatar: string,
-  is_admin: boolean,
-  is_banished: boolean
+type Props = {
+  isLogged: boolean,
+  userLogged: User,
+  setIsLogged: Dispatch<SetStateAction<boolean>>,
+  setUserLogged: Dispatch<SetStateAction<User>>,
+  handleToggleForm: () => void
 };
 
-type SignUpProps = {
-  handleToggleForm: Function,
-  setIsLogged: React.Dispatch<React.SetStateAction<boolean>>,
-  setUserLogged: React.Dispatch<React.SetStateAction<UserTypes>>,
-  isLogged: boolean
-  userLogged: UserTypes,
-};
-
-const SignUp = ({
-  handleToggleForm,
+const SignUp: FunctionComponent<Props> = ({
+  isLogged,
+  userLogged,
   setIsLogged,
   setUserLogged,
-  isLogged,
-  userLogged
-}: SignUpProps) => {
+  handleToggleForm
+}) => {
 
   return (
     <section className={styles.container}>

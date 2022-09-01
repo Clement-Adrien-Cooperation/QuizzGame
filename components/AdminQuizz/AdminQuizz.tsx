@@ -1,40 +1,25 @@
+import { Quiz } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
-import { useState } from 'react';
+import { ChangeEvent, FunctionComponent, useState } from 'react';
 import AdminQuizCard from '../AdminQuizCard/AdminQuizCard';
 import InputField from '../InputField/InputField';
 import styles from './AdminQuizz.module.scss';
 
-type QuizTypes = {
-  id: string,
-  user_id: string,
-  creator: string,
-  title: string,
-  category: string,
-  difficulty: string,
-  lang: string,
-  image: string,
-  is_visible: boolean,
-  nbOfQuestions: number,
-  date: string,
-  rate: number,
-  reported: boolean
+type Props = {
+  quizz: Quiz[],
+  handleModerateQuiz: (id: string, is_visible: boolean) => void,
+  handleDeleteQuiz: (id: string) => void
 };
 
-type AdminQuizzProps = {
-  quizz: QuizTypes[],
-  handleModerateQuiz: Function,
-  handleDeleteQuiz: Function
-};
-
-const AdminQuizz = ({
+const AdminQuizz: FunctionComponent<Props> = ({
   quizz,
   handleModerateQuiz,
   handleDeleteQuiz
-}: AdminQuizzProps) => {
+}) => {
 
   const [quizzFilter, setQuizzFilter] = useState<string>('');
 
-  const handleChangeQuizzFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeQuizzFilter = (event: ChangeEvent<HTMLInputElement>) => {
     setQuizzFilter(event.target.value);
   };
 
@@ -66,7 +51,7 @@ const AdminQuizz = ({
       </header>
 
       <ul className={styles.list}>
-        {quizz?.map((quiz: QuizTypes) => {
+        {quizz?.map((quiz: Quiz) => {
 
           const filteredTitle = quiz.title.toLowerCase();
           const filteredCreator = quiz.creator.toLowerCase();

@@ -1,14 +1,21 @@
+import { User } from '@prisma/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import AdminHeader from '../../components/AdminHeader/AdminHeader';
 import styles from '../../styles/admin/AdminReports.module.scss';
 
-const Reports: NextPage = ({
+type Props = {
+  isLogged: boolean,
+  userLogged: User,
+  checkToken: (token: string) => void
+};
+
+const Reports: NextPage<Props> = ({
   isLogged,
   userLogged,
   checkToken
-}:any) => {
+}) => {
 
   const router = useRouter();
   
@@ -40,7 +47,10 @@ const Reports: NextPage = ({
   return (
     <>
       <AdminHeader />
-      
+
+
+
+
     </>
   );
 };
