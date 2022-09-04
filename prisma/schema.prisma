@@ -63,6 +63,7 @@ model Report {
   about_id      String
   title         String
   message       String
+  date          String
 }
 
 model Category {

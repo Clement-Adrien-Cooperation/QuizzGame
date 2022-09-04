@@ -10,14 +10,16 @@ type Props = {
   isLogged: boolean,
   userLogged: User,
   setIsLogged: Dispatch<SetStateAction<boolean>>,
-  setUserLogged: Dispatch<SetStateAction<User>>
+  setUserLogged: Dispatch<SetStateAction<User>>,
+  setShowLoader: Dispatch<SetStateAction<boolean>>
 };
 
 const Connexion: NextPage<Props> = ({
   isLogged,
   userLogged,
   setIsLogged,
-  setUserLogged
+  setUserLogged,
+  setShowLoader
 }) => {
 
   const router = useRouter();
@@ -49,6 +51,7 @@ const Connexion: NextPage<Props> = ({
               setUserLogged={setUserLogged}
               isLogged={isLogged}
               userLogged={userLogged}
+              setShowLoader={setShowLoader}
             />
           </div>
         ) : (
@@ -57,6 +60,7 @@ const Connexion: NextPage<Props> = ({
               handleToggleForm={handleToggleForm}
               setIsLogged={setIsLogged}
               setUserLogged={setUserLogged}
+              setShowLoader={setShowLoader}
             />
           </div>
         )}

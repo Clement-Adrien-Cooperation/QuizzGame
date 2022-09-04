@@ -1,18 +1,20 @@
 import { User } from '@prisma/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import EditQuiz from '../../../components/EditQuiz/EditQuiz';
 import styles from '../../../styles/UpdateQuizz.module.scss';
 
 type Props = {
   isLogged: boolean,
-  userLogged: User
+  userLogged: User,
+  setShowLoader: Dispatch<SetStateAction<boolean>>
 };
 
 const UpdateQuiz: NextPage<Props> = ({
   isLogged,
-  userLogged
+  userLogged,
+  setShowLoader
 }) => {
   
   const router = useRouter();
@@ -36,6 +38,7 @@ const UpdateQuiz: NextPage<Props> = ({
 
         <EditQuiz
           userLogged={userLogged}
+          setShowLoader={setShowLoader}
         />
         
       </div>

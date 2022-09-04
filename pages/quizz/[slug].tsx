@@ -1,8 +1,7 @@
 import { Quiz, User } from '@prisma/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import Loader from '../../components/Loader/Loader';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import styles from '../../styles/quizz/QuizGame.module.scss';
 
 const emptyQuiz: Quiz = {
@@ -16,25 +15,25 @@ const emptyQuiz: Quiz = {
   date: '',
   nbOfQuestions: 0,
   rate: 0,
-  reported: false,
-  reportMessage: []
+  reported: false
 };
 
 type Props = {
   isLogged: boolean,
   userLogged: User,
+  setShowLoader: Dispatch<SetStateAction<boolean>>
 };
 
 const QuizGame: NextPage<Props> = ({
   isLogged,
-  userLogged
+  userLogged,
+  setShowLoader
 }) => {
   
   const router = useRouter();
   const title = router.query.slug;
 
   const [quiz, setQuiz] = useState<Quiz>(emptyQuiz);
-  const [showLoader, setShowLoader] = useState<boolean>(true);
   
   useEffect(() => {
 
@@ -76,10 +75,6 @@ const QuizGame: NextPage<Props> = ({
           {quiz.title}
         </h1>
       </header>
-
-      {showLoader && (
-        <Loader />
-      )}
     </>
   );
 };

@@ -1,25 +1,24 @@
 import { User } from '@prisma/client';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import Loader from '../components/Loader/Loader';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import styles from '../styles/Home.module.scss';
 
 type Props = {
   isLogged: boolean,
   userLogged: User,
-  handleDisconnect: () => void
+  handleDisconnect: () => void,
+  setShowLoader: Dispatch<SetStateAction<boolean>>
 };
 
 const Home: NextPage<Props> = ({
   isLogged,
   userLogged,
-  handleDisconnect
+  handleDisconnect,
+  setShowLoader
 }) => {
 
   const router = useRouter();
-
-  const [showLoader, setShowLoader] = useState<boolean>(false);
   
   useEffect(() => {
 
@@ -103,10 +102,6 @@ const Home: NextPage<Props> = ({
         </button>
 
       </section>
-
-      { showLoader && (
-        <Loader />
-      )}
     </>
   );
 };

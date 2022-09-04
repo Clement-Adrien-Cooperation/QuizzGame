@@ -1,29 +1,28 @@
 import { User } from '@prisma/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import AdminHeader from '../../components/AdminHeader/AdminHeader';
 import styles from '../../styles/admin/AdminUsers.module.scss';
 import Users from '../../components/Users/Users';
 import BanishedUsers from '../../components/BanishedUsers/BanishedUsers';
-import Loader from '../../components/Loader/Loader';
 
 type Props = {
   isLogged: boolean,
-  userLogged: User
+  userLogged: User,
+  setShowLoader: Dispatch<SetStateAction<boolean>>
 };
 
 const AdminUsers: NextPage<Props> = ({
   isLogged,
-  userLogged
+  userLogged,
+  setShowLoader
 }) => {
 
   const router = useRouter();
 
   const [users, setUsers] = useState<User[]>([]);
   const [banishedUsers, setBanishedUsers] = useState<User[]>([]);
-
-  const [showLoader, setShowLoader] = useState<boolean>(true);
   
   useEffect(() => {
 
@@ -173,10 +172,6 @@ const AdminUsers: NextPage<Props> = ({
           />
         </div>
       </section>
-
-      {showLoader && (
-        <Loader />
-      )}
     </>
   );
 };

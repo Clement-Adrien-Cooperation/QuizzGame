@@ -5,7 +5,6 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ConfirmModal from '../../components/ConfirmModal/ConfirmModal';
 import EditUser from '../../components/EditUser/EditUser';
-import Loader from '../../components/Loader/Loader';
 import UserQuizCard from '../../components/UserQuizCard/UserQuizCard';
 import styles from '../../styles/Profile.module.scss';
 
@@ -13,14 +12,16 @@ type Props = {
   isLogged: boolean,
   userLogged: User,
   setIsLogged: Dispatch<SetStateAction<boolean>>,
-  setUserLogged: Dispatch<SetStateAction<User>>
+  setUserLogged: Dispatch<SetStateAction<User>>,
+  setShowLoader: Dispatch<SetStateAction<boolean>>
 };
 
 const Profile: NextPage<Props> = ({
   isLogged,
   userLogged,
   setIsLogged,
-  setUserLogged
+  setUserLogged,
+  setShowLoader
 }) => {
 
   const router = useRouter();
@@ -29,7 +30,6 @@ const Profile: NextPage<Props> = ({
   
   const [updateProfile, setUpdateProfile] = useState<boolean>(false);
   const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
-  const [showLoader, setShowLoader] = useState<boolean>(true);
   
   useEffect(() => {
 
@@ -122,6 +122,7 @@ const Profile: NextPage<Props> = ({
             userLogged={userLogged}
             setIsLogged={setIsLogged}
             setUserLogged={setUserLogged}
+            setShowLoader={setShowLoader}
           />
 
           <button
@@ -171,15 +172,12 @@ const Profile: NextPage<Props> = ({
                 <UserQuizCard
                   quiz={quiz}
                   getQuizzFromUser={getQuizzFromUser}
+                  setShowLoader={setShowLoader}
                 />
               </li>
             )}
           </ul>
         </section>
-      )}
-
-      {showLoader && (
-        <Loader />
       )}
 
       {showConfirmDelete && (

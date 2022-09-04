@@ -1,23 +1,24 @@
 import { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction, useState } from 'react';
 import { useRouter } from 'next/router';
+import { User } from '@prisma/client';
 import styles from './SignIn.module.scss';
 import InputField from '../InputField/InputField';
 import Warning from '../Warning/Warning';
-import Loader from '../Loader/Loader';
 import PasswordField from '../PasswordField/PasswordField';
 import CheckButton from '../CheckButton/CheckButton';
-import { User } from '@prisma/client';
 
 type Props = {
   handleToggleForm: () => void,
   setIsLogged: Dispatch<SetStateAction<boolean>>,
-  setUserLogged: Dispatch<SetStateAction<User>>
+  setUserLogged: Dispatch<SetStateAction<User>>,
+  setShowLoader: Dispatch<SetStateAction<boolean>>
 };
 
 const SignIn: FunctionComponent<Props> = ({
   handleToggleForm,
   setIsLogged,
-  setUserLogged
+  setUserLogged,
+  setShowLoader
 }) => {
 
   const router = useRouter();
@@ -28,7 +29,6 @@ const SignIn: FunctionComponent<Props> = ({
   
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [disableButton, setDisableButton] = useState<boolean>(false);
-  const [showLoader, setShowLoader] = useState<boolean>(false);
 
   const handleSubmitForm = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -72,7 +72,7 @@ const SignIn: FunctionComponent<Props> = ({
     })
     .catch((error) => {
       console.log(error);
-      setWarningMessage("Un problème est survenu. Réessayez ou contactez-nous");
+      setWarningMessage("L'identifiant et le mot de passe ne correspondent pas");
       setShowLoader(false);
     });
     
@@ -152,10 +152,6 @@ const SignIn: FunctionComponent<Props> = ({
         </button>
 
       </section>
-
-      {showLoader && (
-        <Loader />
-      )}
     </>
   );
 };

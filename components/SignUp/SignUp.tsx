@@ -8,6 +8,7 @@ type Props = {
   userLogged: User,
   setIsLogged: Dispatch<SetStateAction<boolean>>,
   setUserLogged: Dispatch<SetStateAction<User>>,
+  setShowLoader: Dispatch<SetStateAction<boolean>>,
   handleToggleForm: () => void
 };
 
@@ -16,6 +17,7 @@ const SignUp: FunctionComponent<Props> = ({
   userLogged,
   setIsLogged,
   setUserLogged,
+  setShowLoader,
   handleToggleForm
 }) => {
 
@@ -31,6 +33,7 @@ const SignUp: FunctionComponent<Props> = ({
         isLogged={isLogged}
         setIsLogged={setIsLogged}
         setUserLogged={setUserLogged}
+        setShowLoader={setShowLoader}
       />
 
       <button

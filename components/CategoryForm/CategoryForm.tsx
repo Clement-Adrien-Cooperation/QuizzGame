@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction, useState } from 'react';
 import InputField from '../InputField/InputField';
 import Notification from '../Notification/Notification';
+import Warning from '../Warning/Warning';
 import styles from './CategoryForm.module.scss';
 
 type Props = {
@@ -27,6 +28,14 @@ const CategoryForm: FunctionComponent<Props> = ({
 
   const handleChangeCategoryName = (event: ChangeEvent<HTMLInputElement>) => {
     setCategoryName(event.target.value);
+
+    if(categoryName.length > 20) {
+      setWarningMessage("Le nom d'une catégorie ne doit pas excéder 20 caractères");
+      setDisableButton(true);
+    } else {
+      setWarningMessage('');
+      setDisableButton(false);
+    };
   };
 
   const handleSubmitForm = async(event: FormEvent<HTMLFormElement>) => {
@@ -56,6 +65,11 @@ const CategoryForm: FunctionComponent<Props> = ({
         const newCategories = [...categories, data];
         // update state with this new array
         setCategories(newCategories);
+
+        setNotification('Catégorie ajoutée ✅');
+
+        // then, reset state
+        setCategoryName('');
         
       } else {
         router.push('/');
@@ -85,7 +99,7 @@ const CategoryForm: FunctionComponent<Props> = ({
           state={categoryName}
           inputID={'category'}
           type={'text'}
-          isDisabled={disableButton}
+          isDisabled={false}
           required={true}
           autoFocus={false}
           handleFunction={handleChangeCategoryName}
@@ -96,6 +110,7 @@ const CategoryForm: FunctionComponent<Props> = ({
           type='submit'
           title='Ajouter une nouvelle catégorie'
           aria-label='Ajouter une nouvelle catégorie'
+          disabled={disableButton}
         >
           +
         </button>
@@ -105,6 +120,13 @@ const CategoryForm: FunctionComponent<Props> = ({
         <Notification
           notification={notification}
           setNotification={setNotification}
+        />
+      )}
+
+      {warningMessage && (
+        <Warning
+          warningMessage={warningMessage}
+          setWarningMessage={setWarningMessage}
         />
       )}
     </>

@@ -33,7 +33,13 @@ export default async function handle (
           }
         });
 
-        const token = sign(user, secret, {expiresIn: '1800s'});
+        let token: string;
+
+        if(req.body.rememberMe) {
+          token = sign(user, secret);
+        } else {
+          token = sign(user, secret, {expiresIn: '12h'});
+        };
 
         res.status(201).json({
           user,

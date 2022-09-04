@@ -62,49 +62,51 @@ const Categories: NextPage<Props> = ({
           setShowLoader={setShowLoader}
         />
 
-        <div className={styles.categories}>
+        {categories.length > 0 && (
+          <div className={styles.categories}>
 
-          <header className={styles.header}>
-            <h1 className={styles.title}>
-              Catégories
-            </h1>
-          </header>
+            <header className={styles.header}>
+              <h1 className={styles.title}>
+                Catégories
+              </h1>
+            </header>
 
-          {categories?.length > 10 ? '' :
-          
-            <InputField
-              name={'Filtrer les catégories...'}
-              state={categoryFilter}
-              inputID={'category-filter'}
-              type={'text'}
-              isDisabled={false}
-              required={true}
-              autoFocus={true}
-              handleFunction={handleChangeCategoryFilter}
-            />
-          }
+            {categories?.length < 10 ? '' :
+            
+              <InputField
+                name={'Filtrer les catégories...'}
+                state={categoryFilter}
+                inputID={'category-filter'}
+                type={'text'}
+                isDisabled={false}
+                required={true}
+                autoFocus={true}
+                handleFunction={handleChangeCategoryFilter}
+              />
+            }
 
-          <ul className={styles.list}>
-            {categories?.map((category: Category) => {
+            <ul className={styles.list}>
+              {categories?.map((category: Category) => {
 
-              const filteredName = category.name.toLocaleLowerCase();
-              const filter = categoryFilter.toLowerCase();
+                const filteredName = category.name.toLocaleLowerCase();
+                const filter = categoryFilter.toLowerCase();
 
-              if(filteredName.includes(filter)) {
-                return (
-                  <li key={uuidv4()}>
-                    <CategoryCard
-                      id={category.id}
-                      name={category.name}
-                      setCategories={setCategories}
-                      setShowLoader={setShowLoader}
-                    />
-                  </li>
-                );
-              };
-            })}
-          </ul>
-        </div>
+                if(filteredName.includes(filter)) {
+                  return (
+                    <li key={uuidv4()}>
+                      <CategoryCard
+                        id={category.id}
+                        name={category.name}
+                        setCategories={setCategories}
+                        setShowLoader={setShowLoader}
+                      />
+                    </li>
+                  );
+                };
+              })}
+            </ul>
+          </div>
+        )}
       </section>
     </>
   );

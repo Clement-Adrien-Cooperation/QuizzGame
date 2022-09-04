@@ -1,27 +1,27 @@
 import { Quiz, User } from '@prisma/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
 import InputField from '../../components/InputField/InputField';
-import Loader from '../../components/Loader/Loader';
 import UserProfileQuizCard from '../../components/UserProfileQuizCard/UserProfileQuizCard';
 import styles from '../../styles/UserProfile.module.scss';
 
 type Props = {
   isLogged: boolean,
-  userLogged: User
+  userLogged: User,
+  setShowLoader: Dispatch<SetStateAction<boolean>>
 };
 
 const UserProfile: NextPage<Props> = ({
   isLogged,
-  userLogged
+  userLogged,
+  setShowLoader
 }) => {
 
   const router = useRouter();
 
   const [userQuizz, setUserQuizz] = useState<Quiz[]>([]);
   const [quizzFilter, setQuizzFilter] = useState<string>('');
-  const [showLoader, setShowLoader] = useState<boolean>(true);
   
   useEffect(() => {
 
@@ -118,10 +118,6 @@ const UserProfile: NextPage<Props> = ({
           </p>
         </section>
       }
-
-      {showLoader && (
-        <Loader />
-      )}
     </>
   );
 };

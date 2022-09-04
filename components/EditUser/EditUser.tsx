@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction, useEffect, useState } from 'react';
 import CheckButton from '../CheckButton/CheckButton';
 import InputField from '../InputField/InputField';
-import Loader from '../Loader/Loader';
 import PasswordField from '../PasswordField/PasswordField';
 import PasswordValidation from '../PasswordValidation/PasswordValidation';
 import Warning from '../Warning/Warning';
@@ -13,14 +12,16 @@ type Props = {
   isLogged: boolean,
   userLogged: User,
   setIsLogged: Dispatch<SetStateAction<boolean>>,
-  setUserLogged: Dispatch<SetStateAction<User>>
+  setUserLogged: Dispatch<SetStateAction<User>>,
+  setShowLoader: Dispatch<SetStateAction<boolean>>
 };
 
 const EditUser: FunctionComponent<Props> = ({
   isLogged,
   userLogged,
   setIsLogged,
-  setUserLogged
+  setUserLogged,
+  setShowLoader
 }) => {
 
   const router = useRouter();
@@ -35,7 +36,6 @@ const EditUser: FunctionComponent<Props> = ({
   const [notification, setNotification] = useState<string>('');
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [disableButton, setDisableButton] = useState<boolean>(true);
-  const [showLoader, setShowLoader] = useState<boolean>(false);
 
   const [validLowercase, setValidLowercase] = useState<boolean>(false);
   const [validUppercase, setValidUppercase] = useState<boolean>(false);
@@ -392,94 +392,88 @@ const EditUser: FunctionComponent<Props> = ({
   };
 
   return (    
-    <>
-      <form
-        className={styles.form}
-        onSubmit={handleSubmitForm}
-      >
-        <InputField
-          name={'Pseudo'}
-          state={pseudo}
-          inputID={'pseudo'}
-          type={'text'}
-          isDisabled={false}
-          required={true}
-          autoFocus={true}
-          handleFunction={handleChangePseudo}
+    <form
+      className={styles.form}
+      onSubmit={handleSubmitForm}
+    >
+      <InputField
+        name={'Pseudo'}
+        state={pseudo}
+        inputID={'pseudo'}
+        type={'text'}
+        isDisabled={false}
+        required={true}
+        autoFocus={true}
+        handleFunction={handleChangePseudo}
+      />
+
+      <InputField
+        name={'Adresse Mail'}
+        state={email}
+        inputID={'email'}
+        type={'text'}
+        isDisabled={false}
+        required={true}
+        autoFocus={false}
+        handleFunction={handleChangeEmail}
+      />
+      
+      {isLogged && (
+        <PasswordField
+          name={'Ancien mot de passe'}
+          inputID={'previous-password'}
+          password={previousPassword}
+          setPassword={setPreviousPassword}
         />
-
-        <InputField
-          name={'Adresse Mail'}
-          state={email}
-          inputID={'email'}
-          type={'text'}
-          isDisabled={false}
-          required={true}
-          autoFocus={false}
-          handleFunction={handleChangeEmail}
-        />
-        
-        {isLogged && (
-          <PasswordField
-            name={'Ancien mot de passe'}
-            inputID={'previous-password'}
-            password={previousPassword}
-            setPassword={setPreviousPassword}
-          />
-        )}
-        
-        <PasswordValidation
-          isLogged={isLogged}
-          password={password}
-          confirmPassword={confirmPassword}
-          setPassword={setPassword}
-          setConfirmPassword={setConfirmPassword}
-          validLowercase={validLowercase}
-          validUppercase={validUppercase}
-          validNumber={validNumber}
-          validSpecial={validSpecial}
-          validLength={validLength}
-          checkPassword={checkPassword}
-          checkPasswords={checkPasswords}
-        />
-
-        {!isLogged && (
-          <CheckButton
-            label={"Se souvenir de moi"}
-            id={"remember-me"}
-            title={"Me connecter automatiquement à ma prochaine visite"}
-            state={rememberMe}
-            setState={setRememberMe}
-          />
-        )}
-
-        {notification && (
-          <p className={styles.notification}>
-            {notification}
-          </p>
-        )}
-
-        { warningMessage && (
-          <Warning
-            warningMessage={warningMessage}
-            setWarningMessage={setWarningMessage}
-          />
-        )}
-        
-        <input
-          className={styles.submit_button}
-          type='submit'
-          title={isLogged ? "Mettre à jour le profil" : "Finaliser mon inscription"}
-          aria-label={isLogged ? "Mettre à jour le profil" : "Finaliser mon inscription"}
-          value={isLogged ? 'Sauvegarder' : 'Inscription'}
-          disabled={disableButton}
-        />
-      </form>
-
-      {showLoader && (
-        <Loader />
       )}
-    </>
+      
+      <PasswordValidation
+        isLogged={isLogged}
+        password={password}
+        confirmPassword={confirmPassword}
+        setPassword={setPassword}
+        setConfirmPassword={setConfirmPassword}
+        validLowercase={validLowercase}
+        validUppercase={validUppercase}
+        validNumber={validNumber}
+        validSpecial={validSpecial}
+        validLength={validLength}
+        checkPassword={checkPassword}
+        checkPasswords={checkPasswords}
+      />
+
+      {!isLogged && (
+        <CheckButton
+          label={"Se souvenir de moi"}
+          id={"remember-me"}
+          title={"Me connecter automatiquement à ma prochaine visite"}
+          state={rememberMe}
+          setState={setRememberMe}
+        />
+      )}
+
+      {notification && (
+        <p className={styles.notification}>
+          {notification}
+        </p>
+      )}
+
+      { warningMessage && (
+        <Warning
+          warningMessage={warningMessage}
+          setWarningMessage={setWarningMessage}
+        />
+      )}
+      
+      <input
+        className={styles.submit_button}
+        type='submit'
+        title={isLogged ? "Mettre à jour le profil" : "Finaliser mon inscription"}
+        aria-label={isLogged ? "Mettre à jour le profil" : "Finaliser mon inscription"}
+        value={isLogged ? 'Sauvegarder' : 'Inscription'}
+        disabled={disableButton}
+      />
+    </form>
   );
 };
 

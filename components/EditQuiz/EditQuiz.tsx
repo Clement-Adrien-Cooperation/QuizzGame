@@ -1,8 +1,7 @@
 import { Category, Question, User } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
-import { ChangeEvent, FormEvent, FunctionComponent, useEffect, useState } from 'react';
-import Loader from '../Loader/Loader';
+import { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction, useEffect, useState } from 'react';
 import Notification from '../Notification/Notification';
 import Questions from '../Questions/Questions';
 import QuizForm from '../QuizForm/QuizForm';
@@ -10,11 +9,13 @@ import Warning from '../Warning/Warning';
 import styles from './EditQuiz.module.scss';
 
 type Props = {
-  userLogged: User
+  userLogged: User,
+  setShowLoader: Dispatch<SetStateAction<boolean>>
 };
 
 const EditQuiz: FunctionComponent<Props> = ({
-  userLogged
+  userLogged,
+  setShowLoader
 }) => {
 
   const router = useRouter();
@@ -40,7 +41,6 @@ const EditQuiz: FunctionComponent<Props> = ({
   
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [disableButton, setDisableButton] = useState<boolean>(false);
-  const [showLoader, setShowLoader] = useState<boolean>(false);
 
   const [notification, setNotification] = useState<string>('');
 
@@ -524,10 +524,6 @@ const EditQuiz: FunctionComponent<Props> = ({
           setQuestions={setQuestions}
         />
       }
-
-      {showLoader && (
-        <Loader />
-      )}
 
       {notification && (
         <Notification

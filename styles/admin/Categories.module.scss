@@ -9,11 +9,12 @@
   @include flexCenter;
   flex-direction: column;
   width: 400px;
+  padding-bottom: 30vh;
 }
 
 .title {
   text-align: center;
   font-weight: 300;
   font-size: 25px;
-  margin-bottom: 25px;
+  margin: 50px 0 25px;
 }
