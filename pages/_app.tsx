@@ -13,9 +13,7 @@ const unLoggedUser: User = {
   email: '',
   password: '',
   is_admin: false,
-  is_banished: false,
-  reported: false,
-  reportMessage: []
+  is_banished: false
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -93,7 +91,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         userLogged={userLogged}
         setUserLogged={setUserLogged}
         handleDisconnect={handleDisconnect}
-        checkToken={checkToken}
+        setShowLoader={setShowLoader}
       />
       {showLoader && (
         <Loader />

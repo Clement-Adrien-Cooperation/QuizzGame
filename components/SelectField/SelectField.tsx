@@ -1,4 +1,5 @@
-import { ChangeEventHandler, FunctionComponent } from 'react';
+import { ChangeEventHandler, FunctionComponent, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import styles from './SelectField.module.scss';
 
 type Props = {
@@ -17,6 +18,11 @@ const SelectField: FunctionComponent<Props> = ({
   handleFunction
 }) => {
 
+  useEffect(() => {
+    console.log(options);
+    
+  }, [])
+
   return (
     <div className={styles.field}>
 
@@ -29,15 +35,16 @@ const SelectField: FunctionComponent<Props> = ({
       >
         <option
           className={styles.option}
+          key={uuidv4()}
           value={defaultOption}
         >
           {defaultOption}
         </option>
 
-        {options.map((option: string, index: number) =>
+        {options?.map((option: string, index: number) =>
           <option
-            key={index}
             value={option}
+            key={uuidv4()}
             className={styles.option}
           >
             {option}

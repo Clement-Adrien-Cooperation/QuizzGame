@@ -1,4 +1,4 @@
-import { Question, User } from '@prisma/client';
+import { Category, Question, User } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
 import { ChangeEvent, FormEvent, FunctionComponent, useEffect, useState } from 'react';
@@ -21,29 +21,6 @@ const EditQuiz: FunctionComponent<Props> = ({
 
   const questionsToSave: Question[] = [];
 
-  const categoryList :string[] = [
-    'Actualités',
-    'Art',
-    'BD / Manga',
-    'Divertissement',
-    'Cinéma',
-    'Culture générale',
-    'Dessins animés',
-    'Géographie',
-    'Histoire',
-    'Jeux vidéo',
-    'Littérature',
-    'Loisirs',
-    'Médias',
-    'Musique',
-    'Sciences',
-    'Séries',
-    'Sport',
-    'Technologies',
-    'Divers',
-    'Autres'
-  ];
-
   const [quizID, setQuizID] = useState<string>('');
 
   const [pageTitle, setPageTitle] = useState<string>("Éditer un s'Quizz");
@@ -52,6 +29,7 @@ const EditQuiz: FunctionComponent<Props> = ({
 
   const [category, setCategory] = useState<string>('');
   const [defaultCategory, setDefaultCategory] = useState<string>('Choisir une catégorie...');
+  const [categoriesList, setCategoriesList] = useState<string[]>([]);
   
   const [difficulty, setDifficulty] = useState<string>('Normal');
   const [difficultyRange, setDifficultyRange] = useState<number>(2);
@@ -67,19 +45,40 @@ const EditQuiz: FunctionComponent<Props> = ({
   const [notification, setNotification] = useState<string>('');
 
   useEffect(() => {
-    
+      
+    getCategories();
+
     if(router.pathname.includes('create')) {
       setPageTitle("Créer un s'Quizz");
     } else {
 
       setPageTitle(`Modifier le quiz "${router.query.slug}"`);
-      
       getQuiz();
     };
   }, []);
 
-  const getQuiz = async () => {
-      // setShowLoader(true);
+  const getCategories = async() => {
+    setShowLoader(true);
+
+    await fetch('/api/category/getAll')
+    .then(async(res) => {
+      const data = await res.json();
+
+      const categoriesArray: string[] = [];
+
+      data.forEach((category: Category) => categoriesArray.push(category.name));
+
+      setCategoriesList(categoriesArray);
+      
+      setShowLoader(false);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+
+  const getQuiz = async() => {
+    setShowLoader(true);
 
     await fetch('/api/quiz/getOne', {
       method: 'POST',
@@ -89,26 +88,33 @@ const EditQuiz: FunctionComponent<Props> = ({
     .then(async(res) => {
       const data = await res.json();
 
-      if(userLogged.id !== data.user_id) {
+      console.log(data);
+
+      if(res.status === 404) {
         router.push('/');
       } else {
-        
-        setQuizID(data.id);
 
-        setCurrentTitle(data.title);
-        setTitle(data.title);
+        if(userLogged.id !== data.user_id) {
+          router.push('/');
+        } else {
+          
+          setQuizID(data.id);
 
-        setCategory(data.category);
-        setDefaultCategory(data.category);
+          setCurrentTitle(data.title);
+          setTitle(data.title);
 
-        setDifficulty(data.difficulty);
-        setPreviousDifficulty(data.difficulty);
+          setCategory(data.category);
+          setDefaultCategory(data.category);
 
-        if(data.nbOfQuestions > 0) {
-          await getQuestionsFromQuiz(data.id);
+          setDifficulty(data.difficulty);
+          setPreviousDifficulty(data.difficulty);
+
+          if(data.nbOfQuestions > 0) {
+            await getQuestionsFromQuiz(data.id);
+          };
+          
+          setShowLoader(false);
         };
-        
-        setShowLoader(false);
       };
     })
     .catch((error) => {
@@ -175,7 +181,7 @@ const EditQuiz: FunctionComponent<Props> = ({
     if(title.trim() === '') {
       setWarningMessage('Vous devez choisir un titre');
 
-    } else if(category.trim() === '' || !categoryList.includes(category)) {
+    } else if(category.trim() === '' || !categoriesList.includes(category)) {
       setWarningMessage('Vous devez choisir une catégorie valide');
 
     } else if(difficultyRange < 0 || difficultyRange > 4 ) {
@@ -255,7 +261,7 @@ const EditQuiz: FunctionComponent<Props> = ({
     };
   };
 
-  const handleSubmitForm = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmitForm = async(event: FormEvent<HTMLFormElement>) => {
     // Prevent refresh
     event.preventDefault();
     setDisableButton(true);
@@ -283,134 +289,134 @@ const EditQuiz: FunctionComponent<Props> = ({
     };
   };
 
-  const saveQuiz = async() => {
+  const createQuiz = async() => {
 
     const token = localStorage.getItem('token');
 
+    const body = {
+      user_id: userLogged.id,
+      creator: userLogged.pseudo,
+      title,
+      nbOfQuestions: questions.length,
+      category,
+      difficulty,
+      rate: 0,
+      date: new Date().toLocaleDateString()
+    };
+
+    await fetch(`/api/quiz/create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      },
+      body: JSON.stringify(body)
+    })
+    .then(async(res) => {
+      const data = await res.json();
+
+      if(questions.length > 0) {
+        saveQuestions(data.title);
+      };
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+
+  const updateQuiz = async() => {
+
+    const token = localStorage.getItem('token');
+
+    const body = {
+      currentTitle,
+      title,
+      category,
+      difficulty,
+      nbOfQuestions: questions.length
+    };
+    
+    await fetch(`/api/quiz/update`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      },
+      body: JSON.stringify(body)
+    })
+    .then(async(res) => {
+      const data = await res.json();
+
+      if(data.nbOfQuestions > 0) {
+        saveQuestions(data.title);
+      } else {
+        deleteQuestions(data.id);
+      };
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+
+  const deleteQuestions = async(quizz_id: string) => {
+
+    const token = localStorage.getItem('token');
+
+    await fetch('/api/question/deleteMany', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      },
+      body: JSON.stringify({ quizz_id })
+    })
+    .then((res) => {
+      if(res.status === 404) {
+        console.log('Une erreur est survenue dans la suppression des questions');
+      };
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+
+  const saveQuiz = async() => {
+
     if(router.pathname.includes('create')) {
-
-      const body = {
-        user_id: userLogged.id,
-        creator: userLogged.pseudo,
-        title,
-        nbOfQuestions: questions.length,
-        category,
-        difficulty,
-        rate: 0,
-        date: new Date().toLocaleDateString(),
-        reported: false,
-        reportMessage: []
-      };
-
-      await fetch(`/api/quiz/create`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `${token}`
-        },
-        body: JSON.stringify(body)
-      })
-      .then(async(res) => {
-        const data = await res.json();
-
-        if(questions.length > 0) {
-          saveQuestions(data.title);
-        };
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
+      createQuiz();
     } else {
-
-      const body = {
-        currentTitle,
-        title,
-        category,
-        difficulty,
-        nbOfQuestions: questions.length
-      };
-      
-      await fetch(`/api/quiz/update`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `${token}`
-        },
-        body: JSON.stringify(body)
-      })
-      .then(async(res) => {
-        const data = await res.json();
-
-        if(questions.length > 0) {
-          saveQuestions(data.title);
-        };
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      updateQuiz();
     };
   };
 
-  const saveQuestions = async(title: string) => {
+  const createQuestions = async(title: string) => {
 
     const token = localStorage.getItem('token');
 
-    if(router.pathname.includes('create')) {
-    
-      // Get the quizz ID with the title
-      await fetch('/api/quiz/getOne', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `${token}`
-        },
-        body: JSON.stringify({ title })
-      })
-      .then(async(res) => {
+    // Get the quizz ID with the title
+    await fetch('/api/quiz/getOne', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      },
+      body: JSON.stringify({ title })
+    })
+    .then(async(res) => {
 
-        const data = await res.json();
+      const data = await res.json();
 
-        questionsToSave.push(...questions);
-
-        questionsToSave.forEach(question => {
-          question.id = uuidv4();
-          question.user_id = userLogged.id;
-          question.quiz_id = data.id
-        });
-
-      })
-      .then(async() => {
-        
-        await fetch('/api/question/createMany', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `${token}`
-          },
-          body: JSON.stringify(questionsToSave)
-        })
-        .then(() => {
-          setQuestions(questionsToSave);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    } else {
-      
       questionsToSave.push(...questions);
 
       questionsToSave.forEach(question => {
         question.id = uuidv4();
         question.user_id = userLogged.id;
-        question.quiz_id = quizID;
+        question.quiz_id = data.id
       });
 
+    })
+    .then(async() => {
+      
       await fetch('/api/question/createMany', {
         method: 'POST',
         headers: {
@@ -424,9 +430,49 @@ const EditQuiz: FunctionComponent<Props> = ({
       })
       .catch((error) => {
         console.log(error);
-        setWarningMessage('Une erreur est survenue, veuillez réessayer ou nous contacter');
-        setShowLoader(false);
       });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+
+  const updateQuestions = async(title: string) => {
+
+    const token = localStorage.getItem('token');
+      
+    questionsToSave.push(...questions);
+
+    questionsToSave.forEach(question => {
+      question.id = uuidv4();
+      question.user_id = userLogged.id;
+      question.quiz_id = quizID;
+    });
+
+    await fetch('/api/question/createMany', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      },
+      body: JSON.stringify(questionsToSave)
+    })
+    .then(() => {
+      setQuestions(questionsToSave);
+    })
+    .catch((error) => {
+      console.log(error);
+      setWarningMessage('Une erreur est survenue, veuillez réessayer ou nous contacter');
+      setShowLoader(false);
+    });
+  };
+
+  const saveQuestions = async(title: string) => {
+
+    if(router.pathname.includes('create')) {
+      createQuestions(title);
+    } else {
+      updateQuestions(title);
     };
   };
 
@@ -453,7 +499,7 @@ const EditQuiz: FunctionComponent<Props> = ({
 
         <QuizForm
           title={title}
-          categoryList={categoryList}
+          categoriesList={categoriesList}
           defaultCategory={defaultCategory}
           difficulty={difficulty}
           difficultyRange={difficultyRange}

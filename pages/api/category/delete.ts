@@ -1,26 +1,34 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from "@prisma/client";
+import { isAdmin } from '../../../middlewares/isAdmin';
 
-export default async function handle (
+export default isAdmin(async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+
   const prisma = new PrismaClient();
 
   await prisma.$connect();
-
+  
   try {
-    const quiz = await prisma.quiz.findUnique({
+    await prisma.category.delete({
       where: {
-        title: req.body.title
+        id: req.body.id
       }
     });
 
-    res.status(200).json(quiz);
+    const categories = await prisma.category.findMany({
+      orderBy: {
+        name: 'asc'
+      }
+    });
 
+    res.status(200).json(categories);
+    
   } catch (error){
     res.status(404).json(error);
   };
-
+  
   await prisma.$disconnect();
-};
+});

@@ -1,0 +1,19 @@
+@import '../mixins';
+
+.container {
+  @include flexCenter;
+  flex-direction: column;
+}
+
+.categories {
+  @include flexCenter;
+  flex-direction: column;
+  width: 400px;
+}
+
+.title {
+  text-align: center;
+  font-weight: 300;
+  font-size: 25px;
+  margin-bottom: 25px;
+}

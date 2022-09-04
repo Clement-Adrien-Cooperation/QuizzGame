@@ -6,7 +6,7 @@ import styles from './QuizForm.module.scss';
 
 type Props = {
   title: string,
-  categoryList: string[],
+  categoriesList: string[],
   defaultCategory: string,
   difficulty: string,
   difficultyRange: number,
@@ -19,7 +19,7 @@ type Props = {
 
 const QuizForm: FunctionComponent<Props> = ({
   title,
-  categoryList,
+  categoriesList,
   defaultCategory,
   difficulty,
   difficultyRange,
@@ -46,7 +46,7 @@ const QuizForm: FunctionComponent<Props> = ({
       <SelectField
         name={'Catégorie'}
         defaultOption={defaultCategory}
-        options={categoryList}
+        options={categoriesList}
         isDisabled={false}
         handleFunction={(e) => handleChangeCategory(e)}
       />

@@ -18,6 +18,7 @@ model User {
   password      String
   is_admin      Boolean   @default(false)
   is_banished   Boolean   @default(false)
+  reported      Boolean   @default(false)
 }
 
 model Quiz {
@@ -28,9 +29,10 @@ model Quiz {
   nbOfQuestions Int
   category      String
   difficulty    String
-  is_visible    Boolean     @default(true)
   date          String
   rate          Int
+  is_visible    Boolean     @default(true)
+  reported      Boolean     @default(false)
 }
 
 model Question {
@@ -41,6 +43,7 @@ model Question {
   description   String
   proposals     String[]
   answer        String
+  reported      Boolean   @default(false)
 }
 
 model Comment {
@@ -50,6 +53,7 @@ model Comment {
   author        String
   content       String
   likes         Int
+  reported      Boolean   @default(false)
 }
 
 model Report {
@@ -63,7 +67,7 @@ model Report {
 
 model Category {
   id            Int       @id @default(autoincrement())
-  name          String
+  name          String    @unique
 }
 
 model Played {

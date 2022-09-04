@@ -1,6 +1,7 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FunctionComponent } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import Link from 'next/link';
 import styles from './AdminHeader.module.scss';
 
 const AdminHeader: FunctionComponent = () => {
@@ -17,7 +18,7 @@ const AdminHeader: FunctionComponent = () => {
       <nav className={styles.nav}>
 
         <ul className={styles.list}>
-          <li>
+          <li key={uuidv4()}>
             <Link href='/admin/users'>
               <a
                 className={
@@ -32,7 +33,7 @@ const AdminHeader: FunctionComponent = () => {
             </Link>
           </li>
           
-          <li>
+          <li key={uuidv4()}>
             <Link href='/admin/quizz'>
               <a
                 className={
@@ -47,7 +48,7 @@ const AdminHeader: FunctionComponent = () => {
             </Link>
           </li>
           
-          <li>
+          <li key={uuidv4()}>
             <Link href='/admin/reports'>
               <a
                 className={
@@ -58,6 +59,21 @@ const AdminHeader: FunctionComponent = () => {
                 }
               >
                 Signalements
+              </a>
+            </Link>
+          </li>
+
+          <li key={uuidv4()}>
+            <Link href='/admin/categories'>
+              <a
+                className={
+                  router.pathname == '/admin/categories' ?
+                    `${styles.button} ${styles.button_active}`
+                  :
+                    styles.button
+                }
+              >
+                Catégories
               </a>
             </Link>
           </li>

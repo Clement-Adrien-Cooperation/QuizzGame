@@ -5,22 +5,23 @@ export default async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+
   const prisma = new PrismaClient();
 
   await prisma.$connect();
-
+  
   try {
-    const quiz = await prisma.quiz.findUnique({
-      where: {
-        title: req.body.title
+    const categories = await prisma.category.findMany({
+      orderBy: {
+        name: 'asc'
       }
     });
 
-    res.status(200).json(quiz);
-
+    res.status(200).json(categories);
+    
   } catch (error){
     res.status(404).json(error);
   };
-
+  
   await prisma.$disconnect();
 };
