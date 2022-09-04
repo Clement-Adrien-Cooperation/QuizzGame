@@ -23,13 +23,11 @@ const emptyQuiz: Quiz = {
 type Props = {
   isLogged: boolean,
   userLogged: User,
-  checkToken: (token: string) => void
 };
 
 const QuizGame: NextPage<Props> = ({
   isLogged,
-  userLogged,
-  checkToken
+  userLogged
 }) => {
   
   const router = useRouter();
@@ -45,12 +43,6 @@ const QuizGame: NextPage<Props> = ({
     if(isLogged) {
       if(userLogged.is_banished) {
         router.push('/banned');
-      };
-    } else {
-      const token = localStorage.getItem('token');
-
-      if(token) {
-        checkToken(token);
       };
     };
 

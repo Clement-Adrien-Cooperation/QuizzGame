@@ -11,12 +11,11 @@ export default authenticated(async function handle (
   const prisma = new PrismaClient();
 
   await prisma.$connect();
-
+  
   try {
     const quiz = await prisma.quiz.create({
       data: {
         id: uuidv4(),
-        date: new Date().toLocaleDateString(),
         ...req.body
       }
     });

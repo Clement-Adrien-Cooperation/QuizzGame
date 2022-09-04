@@ -2,9 +2,10 @@ import '../styles/reset.css';
 import '../styles/globals.scss';
 import Container from '../components/Container/Container';
 import type { AppProps } from 'next/app';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { User } from '@prisma/client';
+import Loader from '../components/Loader/Loader';
 
 const unLoggedUser: User = {
   id: '',
@@ -23,8 +24,19 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [userLogged, setUserLogged] = useState<User>(unLoggedUser);
+  const [showLoader, setShowLoader] = useState<boolean>(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if(token) {
+      checkToken(token);
+    };
+  }, []);
 
   const checkToken = async (token: string) => {
+
+    setShowLoader(true);
 
     await fetch('/api/user/checkToken', {
       method: 'POST',
@@ -45,11 +57,8 @@ function MyApp({ Component, pageProps }: AppProps) {
           setUserLogged(data);
           setIsLogged(true);
         };
-      } else if(res.status === 401) {
-        console.error(data.message);
-        handleDisconnect();
       } else {
-        console.error(data);
+        console.log(data);
         handleDisconnect();
       };
     })
@@ -57,6 +66,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       console.log(error);
       handleDisconnect();
     });
+
+    setShowLoader(false);
   };
 
   const handleDisconnect = () => {
@@ -84,6 +95,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         handleDisconnect={handleDisconnect}
         checkToken={checkToken}
       />
+      {showLoader && (
+        <Loader />
+      )}
     </Container>
   );
 };

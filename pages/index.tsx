@@ -8,15 +8,13 @@ import styles from '../styles/Home.module.scss';
 type Props = {
   isLogged: boolean,
   userLogged: User,
-  handleDisconnect: () => void,
-  checkToken: (token: string) => void
+  handleDisconnect: () => void
 };
 
 const Home: NextPage<Props> = ({
   isLogged,
   userLogged,
-  handleDisconnect,
-  checkToken
+  handleDisconnect
 }) => {
 
   const router = useRouter();
@@ -30,12 +28,6 @@ const Home: NextPage<Props> = ({
     if(isLogged) {
       if(userLogged.is_banished) {
         router.push('/banned');
-      };
-    } else {
-      const token = localStorage.getItem('token');
-
-      if(token) {
-        checkToken(token);
       };
     };
   }, []);

@@ -7,14 +7,12 @@ import styles from '../../styles/admin/AdminReports.module.scss';
 
 type Props = {
   isLogged: boolean,
-  userLogged: User,
-  checkToken: (token: string) => void
+  userLogged: User
 };
 
 const Reports: NextPage<Props> = ({
   isLogged,
-  userLogged,
-  checkToken
+  userLogged
 }) => {
 
   const router = useRouter();
@@ -34,13 +32,7 @@ const Reports: NextPage<Props> = ({
         router.push('/');
       };
     } else {
-      const token = localStorage.getItem('token');
-
-      if(token) {
-        checkToken(token);
-      } else {
-        router.push('/');
-      };
+      router.push('/');
     };
   }, []);
 

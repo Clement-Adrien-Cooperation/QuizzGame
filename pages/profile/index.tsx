@@ -13,16 +13,14 @@ type Props = {
   isLogged: boolean,
   userLogged: User,
   setIsLogged: Dispatch<SetStateAction<boolean>>,
-  setUserLogged: Dispatch<SetStateAction<User>>,
-  checkToken: (token: string) => void
+  setUserLogged: Dispatch<SetStateAction<User>>
 };
 
 const Profile: NextPage<Props> = ({
   isLogged,
   userLogged,
   setIsLogged,
-  setUserLogged,
-  checkToken
+  setUserLogged
 }) => {
 
   const router = useRouter();
@@ -44,13 +42,7 @@ const Profile: NextPage<Props> = ({
         getQuizzFromUser();
       };
     } else {
-      const token = localStorage.getItem('token');
-
-      if(token) {
-        checkToken(token);
-      } else {
-        router.push('/');
-      };
+      router.push('/');
     };
   }, []);
 

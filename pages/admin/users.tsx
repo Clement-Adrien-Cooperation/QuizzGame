@@ -10,14 +10,12 @@ import Loader from '../../components/Loader/Loader';
 
 type Props = {
   isLogged: boolean,
-  userLogged: User,
-  checkToken: (token: string) => void
+  userLogged: User
 };
 
 const AdminUsers: NextPage<Props> = ({
   isLogged,
-  userLogged,
-  checkToken
+  userLogged
 }) => {
 
   const router = useRouter();
@@ -41,13 +39,7 @@ const AdminUsers: NextPage<Props> = ({
         router.push('/');
       };
     } else {
-      const token = localStorage.getItem('token');
-
-      if(token) {
-        checkToken(token);
-      } else {
-        router.push('/');
-      };
+      router.push('/');
     };
   }, []);
 

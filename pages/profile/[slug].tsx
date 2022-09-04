@@ -9,14 +9,12 @@ import styles from '../../styles/UserProfile.module.scss';
 
 type Props = {
   isLogged: boolean,
-  userLogged: User,
-  checkToken: (token: string) => void
+  userLogged: User
 };
 
 const UserProfile: NextPage<Props> = ({
   isLogged,
-  userLogged,
-  checkToken
+  userLogged
 }) => {
 
   const router = useRouter();
@@ -32,13 +30,7 @@ const UserProfile: NextPage<Props> = ({
         router.push('/banned');
       };
     } else {
-      const token = localStorage.getItem('token');
-
-      if(token) {
-        checkToken(token);
-      } else {
-        router.push('/');
-      };
+      router.push('/');
     };
 
     document.title = `Profil de ${router.query.slug} - s'Quizz Game`;

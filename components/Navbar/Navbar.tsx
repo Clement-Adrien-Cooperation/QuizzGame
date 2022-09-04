@@ -69,14 +69,14 @@ const Navbar: FunctionComponent<Props> = ({
               >
               <Link href='/profile'>
                 <a>
-                  Profil
+                  Mon espace
                 </a>
               </Link>
             </li>
           </>
         )}
 
-        {!isLogged && !userLogged?.is_banished && (
+        {!isLogged && (
           <li
             className={styles.list__item}
             title="Se connecter"
@@ -90,7 +90,7 @@ const Navbar: FunctionComponent<Props> = ({
           </li>
         )}
 
-        {userLogged?.is_admin && !userLogged?.is_banished && (
+        {isLogged && userLogged?.is_admin && !userLogged?.is_banished && (
           <li
             className={styles.list__item}
             title="Aller à la page d'administration"

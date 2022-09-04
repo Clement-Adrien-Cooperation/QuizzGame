@@ -10,16 +10,14 @@ type Props = {
   isLogged: boolean,
   userLogged: User,
   setIsLogged: Dispatch<SetStateAction<boolean>>,
-  setUserLogged: Dispatch<SetStateAction<User>>,
-  checkToken: (token: string) => void
+  setUserLogged: Dispatch<SetStateAction<User>>
 };
 
 const Connexion: NextPage<Props> = ({
   isLogged,
   userLogged,
   setIsLogged,
-  setUserLogged,
-  checkToken
+  setUserLogged
 }) => {
 
   const router = useRouter();
@@ -31,15 +29,7 @@ const Connexion: NextPage<Props> = ({
     document.title = "Connexion - s'Quizz Game";
 
     if(isLogged) {
-      if(userLogged.is_banished) {
-        router.push('/banned');
-      };
-    } else {
-      const token = localStorage.getItem('token');
-
-      if(token) {
-        checkToken(token);
-      };
+      router.push('/');
     };
   }, []);
 

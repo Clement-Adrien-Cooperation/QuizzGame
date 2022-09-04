@@ -11,15 +11,13 @@ import Loader from '../../components/Loader/Loader';
 type Props = {
   quizzData: any,
   isLogged: boolean,
-  userLogged: User,
-  checkToken: (token: string) => void
+  userLogged: User
 };
 
 const Quizz: NextPage<Props> = ({
   quizzData,
   isLogged,
-  userLogged,
-  checkToken
+  userLogged
 }) => {
 
   const router = useRouter();
@@ -40,13 +38,7 @@ const Quizz: NextPage<Props> = ({
         router.push('/banned');
       };
     } else {
-      const token = localStorage.getItem('token');
-
-      if(token) {
-        checkToken(token);
-      } else {
-        router.push('/');
-      };
+      router.push('/');
     };
   }, []);
 

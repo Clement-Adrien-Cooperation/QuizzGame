@@ -5,22 +5,21 @@ export default async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-
-  const prisma = new PrismaClient();
-
-  await prisma.$connect();
-
   try {
+    const prisma = new PrismaClient();
+
+    await prisma.$connect();
+
     const quiz = await prisma.quiz.findUnique({
       where: {
         title: req.body.title
       }
     });
     res.status(200).json(quiz);
-    
+
+    await prisma.$disconnect();
+
   } catch (error){
     res.status(404).json(error);
   };
-
-  await prisma.$disconnect();
 };

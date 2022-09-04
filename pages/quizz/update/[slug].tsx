@@ -1,26 +1,21 @@
 import { User } from '@prisma/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import Loader from '../../../components/Loader/Loader';
+import { useEffect } from 'react';
 import EditQuiz from '../../../components/EditQuiz/EditQuiz';
 import styles from '../../../styles/UpdateQuizz.module.scss';
 
 type Props = {
   isLogged: boolean,
-  userLogged: User,
-  checkToken: (token: string) => void
+  userLogged: User
 };
 
 const UpdateQuiz: NextPage<Props> = ({
   isLogged,
-  userLogged,
-  checkToken
+  userLogged
 }) => {
   
   const router = useRouter();
-
-  const [showLoader, setShowLoader] = useState<boolean>(true);
   
   useEffect(() => {
 
@@ -31,13 +26,7 @@ const UpdateQuiz: NextPage<Props> = ({
         router.push('/banned');
       };
     } else {
-      const token = localStorage.getItem('token');
-
-      if(token) {
-        checkToken(token);
-      } else {
-        router.push('/');
-      };
+      router.push('/');
     };
   }, []);
 
@@ -50,10 +39,6 @@ const UpdateQuiz: NextPage<Props> = ({
         />
         
       </div>
-
-      {showLoader && (
-        <Loader />
-      )}
     </>
   );
 };

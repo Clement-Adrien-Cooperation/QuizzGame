@@ -71,27 +71,28 @@ const EditQuiz: FunctionComponent<Props> = ({
     if(router.pathname.includes('create')) {
       setPageTitle("Créer un s'Quizz");
     } else {
+
       setPageTitle(`Modifier le quiz "${router.query.slug}"`);
+      
       getQuiz();
     };
   }, []);
 
   const getQuiz = async () => {
-
-    setShowLoader(true);
+      // setShowLoader(true);
 
     await fetch('/api/quiz/getOne', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ title: router.query.slug })
     })
     .then(async(res) => {
       const data = await res.json();
-      
+
       if(userLogged.id !== data.user_id) {
         router.push('/');
       } else {
-
+        
         setQuizID(data.id);
 
         setCurrentTitle(data.title);
@@ -106,12 +107,13 @@ const EditQuiz: FunctionComponent<Props> = ({
         if(data.nbOfQuestions > 0) {
           await getQuestionsFromQuiz(data.id);
         };
-
+        
         setShowLoader(false);
       };
     })
     .catch((error) => {
       console.log(error);
+      setShowLoader(false);
     });
   };
 
@@ -291,9 +293,13 @@ const EditQuiz: FunctionComponent<Props> = ({
         user_id: userLogged.id,
         creator: userLogged.pseudo,
         title,
+        nbOfQuestions: questions.length,
         category,
         difficulty,
-        nbOfQuestions: questions.length
+        rate: 0,
+        date: new Date().toLocaleDateString(),
+        reported: false,
+        reportMessage: []
       };
 
       await fetch(`/api/quiz/create`, {
