@@ -11,9 +11,9 @@
 
 .card {
   position: absolute;
-  top: 50%;
+  top: 35%;
   left: 50%;
-  min-width: 800px;
+  min-width: 600px;
   max-height: 80vh;
   background: var(--body-color);
   border-radius: var(--small-radius);
@@ -21,7 +21,7 @@
   padding: 35px 50px;
   opacity: 0;
   transition: .3s;
-  transform: translate(-50%, -20%);
+  transform: translate(-50%, 0);
   overflow-y: auto;
   animation: animApparition 0.3s ease-out forwards;
 }

@@ -76,14 +76,18 @@ const Quizz: NextPage<Props> = ({
     setShowLoader(false);
   };
 
-  const handleModerateQuiz = async(id: string, is_visible: boolean) => {
+  const handleModerateQuiz = async(quiz_id: string, is_visible: boolean) => {
 
     setShowLoader(true);
+    const token = localStorage.getItem('token');
 
     await fetch('/api/quiz/moderate', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, is_visible })
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      },
+      body: JSON.stringify({ quiz_id, is_visible })
     })
     .then(() => {
       getQuizz();
@@ -93,14 +97,18 @@ const Quizz: NextPage<Props> = ({
     });
   };
 
-  const handleDeleteQuiz = async(id: string) => {
+  const handleDeleteQuiz = async(quiz_id: string) => {
 
     setShowLoader(true);
+    const token = localStorage.getItem('token');
 
     await fetch('/api/quiz/delete', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id })
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      },
+      body: JSON.stringify({ quiz_id })
     })
     .then(() => {
       getQuizz();

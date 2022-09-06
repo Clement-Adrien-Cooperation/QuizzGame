@@ -86,6 +86,8 @@ const AdminQuizDetails: FunctionComponent<Props> = ({
           <p className={styles.text}>
             Créateur :
             <span
+              title={`Voir le profil de ${quiz.creator}`}
+              aria-label={`Voir le profil de ${quiz.creator}`}
               className={`${styles.span} ${styles.span__creator}`}
               onClick={() => router.push(`/profile/${quiz.creator}`)}
             >

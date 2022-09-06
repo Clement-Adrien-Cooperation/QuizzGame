@@ -61,7 +61,7 @@ const UserQuizCard: FunctionComponent<Props> = ({
         </span>
       </header>
 
-      <footer className={styles.footer}>
+      <section className={styles.buttons}>
         <button
           className={styles.button}
           type='button'
@@ -113,6 +113,32 @@ const UserQuizCard: FunctionComponent<Props> = ({
             />
           </div>
         </button>
+      </section>
+
+      <footer className={styles.footer}>
+
+        {quiz.reported && (
+          <span
+            className={styles.warning}
+            title="Ce quiz a été signalé par un utilisateur, cliquez pour en savoir plus"
+            aria-label="Ce quiz a été signalé par un utilisateur, cliquez pour en savoir plus"
+            onClick={() => console.log('⚠️ Ouvrir une modal de détails ⚠️')}
+          >
+            ⚠️
+          </span>
+        )}
+
+        {!quiz.is_visible && (
+          <span
+            className={styles.warning}
+            title="Ce quiz a été supprimé par la modération, cliquez pour en savoir plus"
+            aria-label="Ce quiz a été supprimé par la modération, cliquez pour en savoir plus"
+            onClick={() => console.log('⚠️ Ouvrir une modal de détails ⚠️')}
+          >
+            🚫
+          </span>
+        )}
+
       </footer>
     </article>
   );

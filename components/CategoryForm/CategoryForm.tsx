@@ -38,52 +38,69 @@ const CategoryForm: FunctionComponent<Props> = ({
     };
   };
 
+  const checkForm = () => {
+    if(categoryName.length > 20) {
+      setWarningMessage("Le nom d'une catégorie ne doit pas excéder 20 caractères");
+      setDisableButton(true);
+      return false;
+    } else {
+      return true;
+    };
+  };
+
   const handleSubmitForm = async(event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setDisableButton(true);
-    setShowLoader(true);
-    setWarningMessage('');
-    setNotification('');
+    if(checkForm()) {
+      setDisableButton(true);
+      setShowLoader(true);
+      setWarningMessage('');
+      setNotification('');
 
-    const token = localStorage.getItem('token');
+      const token = localStorage.getItem('token');
 
-    await fetch('/api/category/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `${token}`
-      },
-      body: JSON.stringify({ name: categoryName })
-    })
-    .then(async(res) => {
-
-      if(res.status == 201) {
+      await fetch('/api/category/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`
+        },
+        body: JSON.stringify({ name: categoryName })
+      })
+      .then(async(res) => {
 
         const data = await res.json();
-        // push our new category on a new array
-        const newCategories = [...categories, data];
-        // update state with this new array
-        setCategories(newCategories);
 
-        setNotification('Catégorie ajoutée ✅');
+        if(res.status == 201) {
+          // push our new category on a new array
+          const newCategories = [...categories, data];
+          // update state with this new array
+          setCategories(newCategories);
 
-        // then, reset state
-        setCategoryName('');
+          setNotification('Catégorie ajoutée ✅');
+
+          // then, reset state
+          setCategoryName('');
+          
+        } else if(data.meta.target.includes('name')) {
+
+          setWarningMessage('Cette catégorie existe déjà');
+          setCategoryName('');
+
+        } else {
+          setWarningMessage('Un problème est survenu');
+        };
         
-      } else {
-        router.push('/');
-      };
-      
-      setDisableButton(false);
-      setShowLoader(false);
-    })
-    .catch((error) => {
-      setWarningMessage('Cette catégorie existe pas');
-      
-      setShowLoader(false);
-      console.log(error);
-    });
+        setDisableButton(false);
+        setShowLoader(false);
+      })
+      .catch((error) => {
+        setWarningMessage('Un problème est survenu');
+        
+        setShowLoader(false);
+        console.log(error);
+      });
+    };
   };
 
   return (

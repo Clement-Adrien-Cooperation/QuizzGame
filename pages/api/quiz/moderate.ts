@@ -14,7 +14,7 @@ export default checkUser(async function handle (
   try {
     const deletedQuizz = await prisma.quiz.update({
       where: {
-        id: req.body.id
+        id: req.body.quiz_id
       },
       data: {
         is_visible: !req.body.is_visible

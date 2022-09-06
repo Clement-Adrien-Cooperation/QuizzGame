@@ -12,7 +12,6 @@ export default isAdmin(async function handle (
   await prisma.$connect();
   
   try {
-
     const reports = await prisma.report.findMany({
       orderBy: {
         date: 'asc'

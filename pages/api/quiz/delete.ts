@@ -14,19 +14,19 @@ export default checkUser(async function handle (
   try {
     await prisma.comment.deleteMany({
       where: {
-        quiz_id: req.body.id
+        quiz_id: req.body.quiz_id
       }
     });
 
     await prisma.question.deleteMany({
       where: {
-        quiz_id: req.body.id
+        quiz_id: req.body.quiz_id
       }
     });
 
     const deleteQuiz = await prisma.quiz.delete({
       where: {
-        id: req.body.id
+        id: req.body.quiz_id
       }
     });
 
