@@ -1,5 +1,5 @@
 import { User } from '@prisma/client';
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent } from 'react';
 import styles from './UserDetails.module.scss';
 
 type Props = {
@@ -22,14 +22,6 @@ const UserDetails: FunctionComponent<Props> = ({
   handleBanishment
 }) => {
 
-  const [showButtons, setShowButtons] = useState<boolean>(true);
-
-  useEffect(() => {
-    if(userLogged.id === id) {
-      setShowButtons(false);
-    };
-  }, []);
-
   return (
     <section className={styles.details}>
 
@@ -49,8 +41,15 @@ const UserDetails: FunctionComponent<Props> = ({
 
       </div>
 
-      {showButtons ? (
+      {userLogged.id === id ? (
 
+        <div className={styles.footer}>
+          <p className={styles.text}>
+            Vous ne pouvez pas vous administrer vous-même
+          </p>
+        </div>
+
+      ) : (
         <div className={styles.footer}>
 
           <button
@@ -75,12 +74,6 @@ const UserDetails: FunctionComponent<Props> = ({
               {is_admin ? "Rétrograder" : "Promouvoir"}
             </button>
           )}
-        </div>
-      ) : (
-        <div className={styles.footer}>
-          <p className={styles.text}>
-            Vous ne pouvez pas vous administrer vous-même
-          </p>
         </div>
       )}
     </section>

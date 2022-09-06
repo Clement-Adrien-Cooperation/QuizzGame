@@ -28,9 +28,4 @@ Ce projet a été créé avec :
 - Prisma
 - Json Web Token
 - Bcrypt
-- uuid
-
-
-## Méthodo
-
-Nous avons suivi une méthode de travail agile comprenant users stories, MDC, MLD, dictionnaire de données, et pair-programming
+- Uuid

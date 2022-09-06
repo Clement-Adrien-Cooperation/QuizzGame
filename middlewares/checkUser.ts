@@ -38,7 +38,7 @@ export const checkUser = (fn: NextApiHandler) => async (
 
           // & if this is the right user
           } else if(user.id !== req.body.user_id) {
-
+            
             res.status(401).json({message: "L'ID de l'utilisateur ne correspond pas"});
           
           } else {

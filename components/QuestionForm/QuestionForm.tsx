@@ -1,5 +1,5 @@
-import { Question } from '@prisma/client';
 import { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction, useState } from 'react';
+import { Question } from '@prisma/client';
 import InputField from '../InputField/InputField';
 import Warning from '../Warning/Warning';
 import styles from './QuestionForm.module.scss';
@@ -19,7 +19,7 @@ type Props = {
   setProposal2: Dispatch<SetStateAction<string>>,
   setProposal3: Dispatch<SetStateAction<string>>,
   setDescription: Dispatch<SetStateAction<string>>,
-  handleToggleForm: Function,
+  handleToggleForm: () => void,
   updating: boolean,
   updateIndex: number,
   questionID: string
@@ -174,7 +174,7 @@ const QuestionForm: FunctionComponent<Props> = ({
       proposal2.length > 100 ||
       proposal3.length > 100
     ) {
-      setWarningMessage('Les proposals et la réponse ne doivent pas excéder 100 caractères');
+      setWarningMessage('Les proposositions et la réponse ne doivent pas excéder 100 caractères');
       setDisableButton(true);
 
     } else {
@@ -195,7 +195,7 @@ const QuestionForm: FunctionComponent<Props> = ({
 
       if(updating) {
         // set up the new question
-        const newQuestion = {
+        const newQuestion: Question = {
           id: questionID,
           quiz_id: '',
           user_id: '',
@@ -203,8 +203,7 @@ const QuestionForm: FunctionComponent<Props> = ({
           answer,
           proposals,
           description,
-          reported: false,
-          reportMessage: []
+          reported: false
         };
 
         // If user is currently updating a question, update the good one
@@ -214,7 +213,7 @@ const QuestionForm: FunctionComponent<Props> = ({
 
       } else {
         // set up the new question
-        const newQuestion = {
+        const newQuestion: Question = {
           id: '',
           quiz_id: '',
           user_id: '',
@@ -222,8 +221,7 @@ const QuestionForm: FunctionComponent<Props> = ({
           answer,
           proposals,
           description,
-          reported: false,
-          reportMessage: []
+          reported: false
         };
         // If user is creating a new question, add it to previous questions
         const newQuestions = [...previousQuestions, newQuestion];
@@ -327,7 +325,7 @@ const QuestionForm: FunctionComponent<Props> = ({
           type='button'
           title='Annuler cette question'
           aria-label='Annuler cette question'
-          onClick={() => handleToggleForm()}
+          onClick={handleToggleForm}
         >
           Annuler
         </button>

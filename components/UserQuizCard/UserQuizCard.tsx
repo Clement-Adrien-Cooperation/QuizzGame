@@ -24,16 +24,18 @@ const UserQuizCard: FunctionComponent<Props> = ({
   const handleDeleteQuiz = async () => {
 
     setShowLoader(true);
+    const token = localStorage.getItem('token');
 
     await fetch('/api/quiz/delete', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      },
       body: JSON.stringify({ id: quiz.id })
     })
-    .then(async() => {
-      setShowLoader(false);
-
-      await getQuizzFromUser();
+    .then(() => {
+      getQuizzFromUser();
     })
     .catch((error) => {
       console.log(error);
@@ -99,7 +101,7 @@ const UserQuizCard: FunctionComponent<Props> = ({
           type='button'
           title='Supprimer ce quiz'
           aria-label='Supprimer ce quiz'
-          onClick={() => handleDeleteQuiz()}
+          onClick={handleDeleteQuiz}
         >
           <div className={styles.icon}>
             <Image

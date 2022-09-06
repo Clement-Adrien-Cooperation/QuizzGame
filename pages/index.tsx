@@ -70,7 +70,7 @@ const Home: NextPage<Props> = ({
 
         {isLogged && (
           <p className={styles.text}>
-            Salut {userLogged?.pseudo}, découvre et joue aux quizz créés par les utilisateurs !
+            Salut {userLogged?.pseudo}, découvre et joue aux quizz créés par la communauté de s'Quizz Game !
           </p>
         )}
       </header>

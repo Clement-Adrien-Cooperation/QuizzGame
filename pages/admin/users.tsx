@@ -91,11 +91,15 @@ const AdminUsers: NextPage<Props> = ({
 
     setShowLoader(true);
 
+    const token = localStorage.getItem('token');
     const body = { user_id, is_admin }
 
     await fetch('/api/user/promote', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      },
       body: JSON.stringify(body)
     })
     .then(async() => {
@@ -113,11 +117,15 @@ const AdminUsers: NextPage<Props> = ({
 
     // Set up the body for the request with user ID & new status of bannishement
     const body = { user_id, is_banished };
+    const token = localStorage.getItem('token');
   
     // Fetch our API
     await fetch(`/api/user/moderate`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      },
       body: JSON.stringify(body)
     })
     .then(async() => {

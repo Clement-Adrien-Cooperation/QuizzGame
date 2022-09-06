@@ -11,8 +11,8 @@ type Props = {
 
 const ConfirmModal: FunctionComponent<Props> = ({
   message,
-  handleFunction,
   text,
+  handleFunction,
   closeModal
 }) => {
 
@@ -21,7 +21,7 @@ const ConfirmModal: FunctionComponent<Props> = ({
 
       <div
         className={styles.behind}
-        onClick={() => closeModal()}
+        onClick={closeModal}
       ></div>
 
       <section className={styles.modal}>
@@ -39,18 +39,20 @@ const ConfirmModal: FunctionComponent<Props> = ({
 
           <button
             className={`${styles.button} ${styles.confirm}`}
+            type='button'
             title='Accepter'
             aria-label='Accepter'
-            onClick={() => handleFunction}
+            onClick={handleFunction}
           >
             Confirmer
           </button>
 
           <button
             className={`${styles.button} ${styles.cancel}`}
+            type='button'
             title='Fermer'
             aria-label='Fermer'
-            onClick={() => closeModal}
+            onClick={closeModal}
           >
             Annuler
           </button>

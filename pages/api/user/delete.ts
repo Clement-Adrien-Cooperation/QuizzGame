@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from "@prisma/client";
-import { isAdmin } from '../../../middlewares/isAdmin';
+import { checkUser } from '../../../middlewares/checkUser';
 
-export default isAdmin(async function handle (
+export default checkUser(async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -14,25 +14,25 @@ export default isAdmin(async function handle (
   try {
     await prisma.comment.deleteMany({
       where: {
-        user_id: req.body.id
+        user_id: req.body.user_id
       }
     });
 
     await prisma.question.deleteMany({
       where: {
-        user_id: req.body.id
+        user_id: req.body.user_id
       }
     });
 
     await prisma.quiz.deleteMany({
       where: {
-        user_id: req.body.id
+        user_id: req.body.user_id
       }
     });
 
     const deleteUser = await prisma.user.delete({
       where: {
-        id: req.body.id
+        id: req.body.user_id
       }
     });
 

@@ -2,6 +2,7 @@ import { FunctionComponent } from "react";
 import Head from "next/head";
 
 const NextHead: FunctionComponent = () => {
+
   return (
     <Head>
       <meta httpEquiv="x-UA-Compatible" content="IE-edge" />
@@ -15,6 +16,11 @@ const NextHead: FunctionComponent = () => {
 
       <meta name="msapplication-TileColor" content="#da532c"/>
       <meta name="theme-color" content="#ffffff"/> */}
+
+      <meta 
+        name="description"
+        content="Site de quiz français : créez et jouez à des quizz de culture générale, cinéma, musique, sport, histoire, sciences, ..."
+      />
       
       <title>s'Quizz Game</title>
     </Head>

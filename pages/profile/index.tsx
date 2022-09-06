@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import ConfirmModal from '../../components/ConfirmModal/ConfirmModal';
 import EditUser from '../../components/EditUser/EditUser';
 import UserQuizCard from '../../components/UserQuizCard/UserQuizCard';
+import Warning from '../../components/Warning/Warning';
 import styles from '../../styles/Profile.module.scss';
 
 type Props = {
@@ -13,7 +14,8 @@ type Props = {
   userLogged: User,
   setIsLogged: Dispatch<SetStateAction<boolean>>,
   setUserLogged: Dispatch<SetStateAction<User>>,
-  setShowLoader: Dispatch<SetStateAction<boolean>>
+  setShowLoader: Dispatch<SetStateAction<boolean>>,
+  handleDisconnect: () => void
 };
 
 const Profile: NextPage<Props> = ({
@@ -21,7 +23,8 @@ const Profile: NextPage<Props> = ({
   userLogged,
   setIsLogged,
   setUserLogged,
-  setShowLoader
+  setShowLoader,
+  handleDisconnect
 }) => {
 
   const router = useRouter();
@@ -30,6 +33,7 @@ const Profile: NextPage<Props> = ({
   
   const [updateProfile, setUpdateProfile] = useState<boolean>(false);
   const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
+  const [warningMessage, setWarningMessage] = useState<string>('');
   
   useEffect(() => {
 
@@ -67,17 +71,27 @@ const Profile: NextPage<Props> = ({
   };
 
   const handleDeleteUser = async () => {
-
+    
     setShowLoader(true);
+    const token = localStorage.getItem('token');
 
     await fetch(`/api/user/delete`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: userLogged.id })
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `${token}`
+      },
+      body: JSON.stringify({ user_id: userLogged.id })
     })
-    .then(() => {
-      setIsLogged(false);
-      router.push('/');
+    .then(async(res) => {
+
+      if(res.status === 200) {
+
+        handleDisconnect();
+
+      } else {
+        setWarningMessage('Une erreur est survenue. Réessayez ou contactez-nous');
+      };
     })
     .catch((error) => {
       console.log(error);
@@ -93,16 +107,17 @@ const Profile: NextPage<Props> = ({
           Ma page de profil
         </h1>
 
-        <button
-          className={styles.update}
-          type='button'
-          title={updateProfile ? "Ouvrir le formulaire de modification du profil" : "Fermer le formulaire de modification du profil"}
-          aria-label={updateProfile ? "Ouvrir le formulaire de modification du profil" : "Fermer le formulaire de modification du profil"}
-          onClick={() => setUpdateProfile(!updateProfile)}
-        >
-          {updateProfile ? "Fermer mes informations" : "Modifier mes informations"}
-        </button>
-
+        {!updateProfile && (
+          <button
+            className={styles.update}
+            type='button'
+            title={updateProfile ? "Ouvrir le formulaire de modification du profil" : "Fermer le formulaire de modification du profil"}
+            aria-label={updateProfile ? "Ouvrir le formulaire de modification du profil" : "Fermer le formulaire de modification du profil"}
+            onClick={() => setUpdateProfile(!updateProfile)}
+          >
+            {updateProfile ? "Fermer mes informations" : "Modifier mes informations"}
+          </button>
+        )}
       </header>
 
       <div className={styles.container}>
@@ -126,6 +141,16 @@ const Profile: NextPage<Props> = ({
           />
 
           <button
+            className={styles.cancel}
+            type='button'
+            title="Fermer le formulaire de modification du profil"
+            aria-label="Fermer le formulaire de modification du profil"
+            onClick={() => setUpdateProfile(!updateProfile)}
+          >
+            Annuler
+          </button>
+
+          <button
             className={styles.delete}
             type='button'
             title='Supprimer définitivement mon compte'
@@ -135,8 +160,13 @@ const Profile: NextPage<Props> = ({
             Supprimer mon compte
           </button>
 
+          {warningMessage && (
+            <Warning
+              warningMessage={warningMessage}
+              setWarningMessage={setWarningMessage}
+            />
+          )}
         </section>
-
       </div>
 
       {userQuizz?.length === 0 ? (

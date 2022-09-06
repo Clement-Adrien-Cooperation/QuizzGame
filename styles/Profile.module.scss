@@ -37,11 +37,12 @@
   }
 
   &.opened {
-    height: 40vh;
+    height: 600px;
   }
 }
 
 .container {
+  margin-bottom: 50px;
 
   &__title {
     margin: 30px 0;
@@ -52,6 +53,11 @@
 
 .button {
   @include secondaryButton;
+}
+
+.cancel {
+  @include secondaryButton;
+  margin-bottom: 20px;
 }
 
 .list {

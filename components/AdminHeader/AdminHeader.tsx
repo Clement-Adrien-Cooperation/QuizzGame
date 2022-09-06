@@ -18,7 +18,11 @@ const AdminHeader: FunctionComponent = () => {
       <nav className={styles.nav}>
 
         <ul className={styles.list}>
-          <li key={uuidv4()}>
+          <li
+            key={uuidv4()}
+            title="Gérer les utilisateurs"
+            aria-label="Gérer les utilisateurs"
+          >
             <Link href='/admin/users'>
               <a
                 className={
@@ -33,7 +37,11 @@ const AdminHeader: FunctionComponent = () => {
             </Link>
           </li>
           
-          <li key={uuidv4()}>
+          <li
+            key={uuidv4()}
+            title="Gérer les quizz"
+            aria-label="Gérer les quizz"
+          >
             <Link href='/admin/quizz'>
               <a
                 className={
@@ -48,7 +56,11 @@ const AdminHeader: FunctionComponent = () => {
             </Link>
           </li>
           
-          <li key={uuidv4()}>
+          <li
+            key={uuidv4()}
+            title="Gérer les signalements"
+            aria-label="Gérer les signalements"
+          >
             <Link href='/admin/reports'>
               <a
                 className={
@@ -63,7 +75,11 @@ const AdminHeader: FunctionComponent = () => {
             </Link>
           </li>
 
-          <li key={uuidv4()}>
+          <li
+            key={uuidv4()}
+            title="Gérer les catégories"
+            aria-label="Gérer les catégories"
+          >
             <Link href='/admin/categories'>
               <a
                 className={

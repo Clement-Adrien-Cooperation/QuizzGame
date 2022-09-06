@@ -48,14 +48,13 @@ const SignIn: FunctionComponent<Props> = ({
     })
     .then(async(res) => {
 
-      const data = await res.json();
+      if(res.status === 200) {
 
-      if(data.user.is_banished === true) {
-
-        router.push('/banned');
-
-      } else {
-        if(data.message === 'OK') {
+        const data = await res.json();
+        
+        if(data.user.is_banished === true) {
+          router.push('/banned');
+        } else {
       
           localStorage.setItem('token', data.token);
           setUserLogged(data.user);
@@ -63,11 +62,10 @@ const SignIn: FunctionComponent<Props> = ({
           setShowLoader(false);
 
           router.push('/');
-          
-        } else {
-          setWarningMessage("L'identifiant et le mot de passe ne correspondent pas");
-          setShowLoader(false);
         };
+      } else {
+        setWarningMessage("L'identifiant et le mot de passe ne correspondent pas");
+        setShowLoader(false);
       };
     })
     .catch((error) => {

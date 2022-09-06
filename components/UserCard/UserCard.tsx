@@ -26,53 +26,51 @@ const UserCard: FunctionComponent<Props> = ({
   };
 
   return (
-    <>
-      <div className={styles.container}>
+    <article className={styles.container}>
 
-        <input
-          className={styles.input}
-          type='checkbox'
-          id={user.pseudo}
-          name='user'
-        />
+      <input
+        className={styles.input}
+        type='checkbox'
+        id={user.pseudo}
+        name='user'
+      />
 
-        <label
-          className={styles.card}
-          htmlFor={user.pseudo}
-          onClick={toggleDetails}
-        >
-          <section className={styles.header}>
+      <label
+        className={styles.card}
+        htmlFor={user.pseudo}
+        onClick={toggleDetails}
+      >
+        <section className={styles.header}>
 
-            <h3 className={styles.pseudo}>
-              {user.pseudo}
-            </h3>
+          <h3 className={styles.pseudo}>
+            {user.pseudo}
+          </h3>
 
-            <div className={styles.toggle_icon}>
-              <Image
-                src={arrow}
-                width='32'
-                height='32'
-                layout='responsive'
-                alt="Ouvrir les détails de l'utilisateur"
-              />
-            </div>
-
-          </section>
-
-          { showDetails && (
-            <UserDetails
-              id={user.id}
-              email={user.email}
-              is_banished={user.is_banished}
-              is_admin={user.is_admin}
-              handleBanishment={handleBanishment}
-              handlePromotion={handlePromotion}
-              userLogged={userLogged}
+          <div className={styles.toggle_icon}>
+            <Image
+              src={arrow}
+              width='32'
+              height='32'
+              layout='responsive'
+              alt="Ouvrir les détails de l'utilisateur"
             />
-          )}
-        </label>
-      </div>
-    </>
+          </div>
+
+        </section>
+
+        { showDetails && (
+          <UserDetails
+            id={user.id}
+            email={user.email}
+            is_banished={user.is_banished}
+            is_admin={user.is_admin}
+            handleBanishment={handleBanishment}
+            handlePromotion={handlePromotion}
+            userLogged={userLogged}
+          />
+        )}
+      </label>
+    </article>
   );
 };
 

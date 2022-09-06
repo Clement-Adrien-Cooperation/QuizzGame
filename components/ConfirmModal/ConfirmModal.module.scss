@@ -19,10 +19,11 @@
   position: relative;
   flex-direction: column;
   gap: 20px;
-  background: var(--main-color);
+  margin-left: var(--navbar-width);
+  background: var(--body-color);
   border-radius: var(--small-radius);
   box-shadow: var(--box-shadow);
-  color: var(--white);
+  color: var(--text-color);
   font-weight: 300;
   text-align: center;
   max-width: 40vw;

@@ -20,8 +20,6 @@ const EditQuiz: FunctionComponent<Props> = ({
 
   const router = useRouter();
 
-  const questionsToSave: Question[] = [];
-
   const [quizID, setQuizID] = useState<string>('');
 
   const [pageTitle, setPageTitle] = useState<string>("Éditer un s'Quizz");
@@ -87,8 +85,6 @@ const EditQuiz: FunctionComponent<Props> = ({
     })
     .then(async(res) => {
       const data = await res.json();
-
-      console.log(data);
 
       if(res.status === 404) {
         router.push('/');
@@ -316,7 +312,7 @@ const EditQuiz: FunctionComponent<Props> = ({
       const data = await res.json();
 
       if(questions.length > 0) {
-        saveQuestions(data.title);
+        createQuestions(data.id);
       };
     })
     .catch((error) => {
@@ -348,7 +344,7 @@ const EditQuiz: FunctionComponent<Props> = ({
       const data = await res.json();
 
       if(data.nbOfQuestions > 0) {
-        saveQuestions(data.title);
+        updateQuestions();
       } else {
         deleteQuestions(data.id);
       };
@@ -389,59 +385,42 @@ const EditQuiz: FunctionComponent<Props> = ({
     };
   };
 
-  const createQuestions = async(title: string) => {
+  const createQuestions = async(quiz_id: string) => {
 
     const token = localStorage.getItem('token');
 
-    // Get the quizz ID with the title
-    await fetch('/api/quiz/getOne', {
+    const questionsToSave = [...questions];
+
+    questionsToSave.forEach(question => {
+      question.id = uuidv4();
+      question.user_id = userLogged.id;
+      question.quiz_id = quiz_id
+    });
+
+    console.log(questionsToSave);
+      
+      
+    await fetch('/api/question/createMany', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `${token}`
       },
-      body: JSON.stringify({ title })
+      body: JSON.stringify(questionsToSave)
     })
-    .then(async(res) => {
-
-      const data = await res.json();
-
-      questionsToSave.push(...questions);
-
-      questionsToSave.forEach(question => {
-        question.id = uuidv4();
-        question.user_id = userLogged.id;
-        question.quiz_id = data.id
-      });
-
-    })
-    .then(async() => {
-      
-      await fetch('/api/question/createMany', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `${token}`
-        },
-        body: JSON.stringify(questionsToSave)
-      })
-      .then(() => {
-        setQuestions(questionsToSave);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    .then(() => {
+      setQuestions(questionsToSave);
     })
     .catch((error) => {
       console.log(error);
     });
   };
 
-  const updateQuestions = async(title: string) => {
+  const updateQuestions = async() => {
 
     const token = localStorage.getItem('token');
-      
-    questionsToSave.push(...questions);
+
+    const questionsToSave = [...questions];
 
     questionsToSave.forEach(question => {
       question.id = uuidv4();
@@ -465,15 +444,6 @@ const EditQuiz: FunctionComponent<Props> = ({
       setWarningMessage('Une erreur est survenue, veuillez réessayer ou nous contacter');
       setShowLoader(false);
     });
-  };
-
-  const saveQuestions = async(title: string) => {
-
-    if(router.pathname.includes('create')) {
-      createQuestions(title);
-    } else {
-      updateQuestions(title);
-    };
   };
 
   return (

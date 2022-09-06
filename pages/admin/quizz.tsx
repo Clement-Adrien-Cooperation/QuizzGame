@@ -48,10 +48,7 @@ const Quizz: NextPage<Props> = ({
 
     await fetch('/api/quiz/getAll', {
       method: 'GET',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': `${token}`
-      }
+      headers: { 'Content-Type': 'application/json' }
     })
     .then(async(res) => {
       const data = await res.json();

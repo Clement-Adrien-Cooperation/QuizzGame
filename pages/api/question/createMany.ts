@@ -12,7 +12,7 @@ export default authenticated(async function handle (
   await prisma.$connect();
 
   try {
-    const deleteQuestions = await prisma.question.deleteMany({
+    await prisma.question.deleteMany({
       where: {
         quiz_id: req.body[0].quiz_id
       }
