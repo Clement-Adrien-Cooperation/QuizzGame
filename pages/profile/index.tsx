@@ -106,18 +106,16 @@ const Profile: NextPage<Props> = ({
         <h1 className={styles.title}>
           Ma page de profil
         </h1>
-
-        {!updateProfile && (
-          <button
-            className={styles.update}
-            type='button'
-            title={updateProfile ? "Ouvrir le formulaire de modification du profil" : "Fermer le formulaire de modification du profil"}
-            aria-label={updateProfile ? "Ouvrir le formulaire de modification du profil" : "Fermer le formulaire de modification du profil"}
-            onClick={() => setUpdateProfile(!updateProfile)}
-          >
-            {updateProfile ? "Fermer mes informations" : "Modifier mes informations"}
-          </button>
-        )}
+        
+        <button
+          className={styles.update}
+          type='button'
+          title={updateProfile ? "Ouvrir le formulaire de modification du profil" : "Fermer le formulaire de modification du profil"}
+          aria-label={updateProfile ? "Ouvrir le formulaire de modification du profil" : "Fermer le formulaire de modification du profil"}
+          onClick={() => setUpdateProfile(!updateProfile)}
+        >
+          {updateProfile ? "Fermer mes informations" : "Modifier mes informations"}
+        </button>
       </header>
 
       <div className={styles.container}>

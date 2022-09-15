@@ -50,7 +50,6 @@ const QuizGame: NextPage<Props> = ({
   const [quiz, setQuiz] = useState<Quiz>(emptyQuiz);
   const [questions, setQuestions] = useState<Question[]>([emptyQuestion]);
 
-  // const [gameQuestions, setGameQuestions] = useState<Question[]>([emptyQuestion]);
   const [currentQuestion, setCurrentQuestion] = useState<Question>(emptyQuestion);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [currentProposals, setCurrentProposals] = useState<string[]>(['']);
@@ -72,7 +71,6 @@ const QuizGame: NextPage<Props> = ({
         setWarningMessage('Ce quiz contient moins de 10 questions');
       } else {
         setQuiz(quizData);
-        setQuestions(questionsData);
 
         randomizeQuestions();
       };
@@ -108,6 +106,8 @@ const QuizGame: NextPage<Props> = ({
       // to not have this question again in this game
       availableQuestions.splice(randomIndex, 1);
     };
+
+    setQuestions(gameQuestions);
 
     // Set this randomized array in state
     setCurrentQuestion(gameQuestions[currentIndex]);
@@ -145,7 +145,7 @@ const QuizGame: NextPage<Props> = ({
   };
 
   const nextQuestion = () => {
-    // currentIndex was incremented in "randomizeQuestions" function
+    // currentIndex was incremented first time in "randomizeQuestions" function
     // Set the next question with it
     const newQuestion = questions[currentIndex];
 
@@ -154,6 +154,9 @@ const QuizGame: NextPage<Props> = ({
 
     // Randomize proposals from this new question
     randomizeProposals(newQuestion);
+
+    // Then, incremente again the currentIndex for the nextQuestion
+    setCurrentIndex(currentIndex => currentIndex + 1);
   };
 
   return (

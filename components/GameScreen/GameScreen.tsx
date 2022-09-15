@@ -1,6 +1,8 @@
 import { Question } from '@prisma/client';
 import { FunctionComponent, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import GameAnswer from '../GameAnswer/GameAnswer';
+import GameOver from '../GameOver/GameOver';
+import GameProposals from '../GameProposals/GameProposals';
 import styles from './GameScreen.module.scss';
 
 type Props = {
@@ -16,46 +18,71 @@ const GameScreen: FunctionComponent<Props> = ({
 }) => {
 
   const [questionNumber, setQuestionNumber] = useState<number>(1);
+  const [score, setScore] = useState<number>(0);
+  const [gameOver, setGameOver] = useState<boolean>(false);
+  const [showAnswer, setShowAnswer] = useState<boolean>(false);
+  const [goodAnswer, setGoodAnswer] = useState<boolean>(false);
   
-  const handleUserAnswer = async (userAnswer: string) => {
+  const handleUserAnswer = (userAnswer: string) => {
 
+    if(userAnswer === currentQuestion.answer) {
+      setGoodAnswer(true);
+      setScore(score => score + 1);
+    } else {
+      setGoodAnswer(false);
+    };
 
+    setShowAnswer(true);
+  };
 
-    nextQuestion();
+  const handleNextQuestion = () => {
+    // Check if this is the last question
+    if(questionNumber >= 10) {
+      // Game if over
+      setGameOver(true);
+    } else {
+      // Incremente question number
+      setQuestionNumber(questionNumber + 1);
+      // Launch
+      nextQuestion();
+    };
+
+    setShowAnswer(false);
   };
 
   return (
     <main className={styles.game}>
-      <header className={styles.header}>
-        <span className={styles.span}>
-          Question n°{questionNumber} :
-        </span>
+      {gameOver ?
+        <GameOver
+          score={score}
+        />
+      :
+       <>
+        <header className={styles.header}>
+          <span className={styles.span}>
+            Question n°{questionNumber} :
+          </span>
 
-        <h1 className={styles.question}>
-          {currentQuestion?.question}
-        </h1>
-      </header>
+          <h1 className={styles.question}>
+            {currentQuestion?.question}
+          </h1>
+        </header>
 
-      <section className={styles.proposals}>
-        <ul className={styles.list}>
-          {currentProposals?.map(proposal =>
-            <li
-              className={styles.proposal}
-              key={uuidv4()}
-            >
-              <button
-                className={styles.button}
-                type="button"
-                aria-label={`Répondre "${proposal}"`}
-                title={`Répondre "${proposal}"`}
-                onClick={() => handleUserAnswer(proposal)}
-              >
-                {proposal}
-              </button>
-            </li>
-          )}
-        </ul>
-      </section>
+        {showAnswer ?
+          <GameAnswer
+            currentQuestion={currentQuestion}
+            questionNumber={questionNumber}
+            goodAnswer={goodAnswer}
+            handleNextQuestion={handleNextQuestion}
+          />
+        :
+          <GameProposals
+            currentProposals={currentProposals}
+            handleUserAnswer={handleUserAnswer}
+          />
+        }
+       </>
+      }
     </main>
   );
 };
