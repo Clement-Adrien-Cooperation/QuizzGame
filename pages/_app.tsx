@@ -45,19 +45,18 @@ function MyApp({ Component, pageProps }: AppProps) {
       }
     })
     .then(async(res) => {
-      const data = await res.json();
+      const userData = await res.json();
 
       if(res.status === 200) {
 
-        if(data.is_banished) {
-          router.push('/banned');
-        } else {
+        setUserLogged(userData);
+        setIsLogged(true);
 
-          setUserLogged(data);
-          setIsLogged(true);
+        if(userData.is_banished) {
+          router.push('/banned');
         };
       } else {
-        console.log(data);
+        console.log(userData);
         handleDisconnect();
       };
     })

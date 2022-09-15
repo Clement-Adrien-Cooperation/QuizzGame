@@ -285,6 +285,15 @@ const EditQuiz: FunctionComponent<Props> = ({
     };
   };
 
+  const saveQuiz = async() => {
+
+    if(router.pathname.includes('create')) {
+      createQuiz();
+    } else {
+      updateQuiz();
+    };
+  };
+
   const createQuiz = async() => {
 
     const token = localStorage.getItem('token');
@@ -309,10 +318,15 @@ const EditQuiz: FunctionComponent<Props> = ({
       body: JSON.stringify(body)
     })
     .then(async(res) => {
-      const data = await res.json();
+      if(res.status === 201) {
 
-      if(questions.length > 0) {
-        createQuestions(data.id);
+        const data = await res.json();
+
+        if(data.nbOfQuestions > 0) {
+          createQuestions(data.id);
+        };
+      } else {
+        setWarningMessage('Ce titre est déjà utilisé');
       };
     })
     .catch((error) => {
@@ -331,6 +345,9 @@ const EditQuiz: FunctionComponent<Props> = ({
       difficulty,
       nbOfQuestions: questions.length
     };
+
+    console.log(body);
+    
     
     await fetch(`/api/quiz/update`, {
       method: 'POST',
@@ -341,12 +358,18 @@ const EditQuiz: FunctionComponent<Props> = ({
       body: JSON.stringify(body)
     })
     .then(async(res) => {
-      const data = await res.json();
+      
+      if(res.status === 200) {
 
-      if(data.nbOfQuestions > 0) {
-        updateQuestions();
+        const data = await res.json();
+
+        if(data.nbOfQuestions > 0) {
+          updateQuestions();
+        } else {
+          deleteQuestions(data.id);
+        };
       } else {
-        deleteQuestions(data.id);
+        setWarningMessage('Ce titre est déjà utilisé');
       };
     })
     .catch((error) => {
@@ -374,15 +397,6 @@ const EditQuiz: FunctionComponent<Props> = ({
     .catch((error) => {
       console.log(error);
     });
-  };
-
-  const saveQuiz = async() => {
-
-    if(router.pathname.includes('create')) {
-      createQuiz();
-    } else {
-      updateQuiz();
-    };
   };
 
   const createQuestions = async(quiz_id: string) => {

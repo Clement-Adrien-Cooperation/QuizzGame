@@ -2,6 +2,8 @@ import { Quiz, User } from '@prisma/client';
 import { NextPage } from 'next';
 import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { v4 as uuidv4 } from 'uuid';
+import { api } from '../../api/api';
 import styles from '../../styles/Quizz.module.scss';
 import Link from 'next/link';
 import QuizCard from '../../components/QuizCard/QuizCard';
@@ -100,7 +102,7 @@ const Quizz: NextPage<Props> = ({
             || quizCreator.includes(userFilter) && quiz.nbOfQuestions > 0) {
 
               return (
-                <li key={quiz.id}>
+                <li key={uuidv4()}>
                   <QuizCard
                     quiz={quiz}
                   />
@@ -119,7 +121,7 @@ export default Quizz;
 export async function getStaticProps() {
 
   // Get data from API
-  const quizzDataFromAPI = await fetch('http://localhost:3000/api/quiz/getAll');
+  const quizzDataFromAPI = await fetch(`${api}/quiz/getAll`);
 
   // Translate to JSON
   const quizzData = await quizzDataFromAPI.json();
@@ -128,6 +130,7 @@ export async function getStaticProps() {
   return {
     props: {
       quizzData
-    }
+    },
+    revalidate: 10
   };
 };

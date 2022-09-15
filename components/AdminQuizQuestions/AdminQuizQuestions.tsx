@@ -48,7 +48,7 @@ const AdminQuizQuestions: FunctionComponent<Props> = ({
   };
 
   return (
-    <>
+    <section className={styles.questions}>
       {questions.length < 10 ? '' : (
         <div
           className={styles.input}
@@ -90,7 +90,7 @@ const AdminQuizQuestions: FunctionComponent<Props> = ({
       {showLoader && (
         <Loader />
       )}
-    </>
+    </section>
   );
 };
 

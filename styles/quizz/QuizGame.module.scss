@@ -1,18 +1,46 @@
 @import '../mixins';
 
 .header {
-  @include flexCenter;
   padding: 50px;
 }
 
 .title {
-  font-size: 25px;
+  font-size: 50px;
   font-weight: 300;
+  line-height: 140%;
 }
 
-@keyframes animate {
-  100% {
-    opacity: 1;
-    transform: none;
+.presentation {
+  @include flexCenter;
+  flex-direction: column;
+  margin-top: 10vh;
+  gap: 10vh;
+}
+
+.play {
+  @include flexCenter;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.ready {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.button {
+  @include mainButton;
+  font-family: var(--title-font);
+  color: var(--body-color);
+  box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.25);
+  font-size: 30px;
+
+  &:hover {
+    transform: scale(1.2);
   }
+}
+
+.warning {
+  @include flexCenter;
+  padding: 100px;
 }

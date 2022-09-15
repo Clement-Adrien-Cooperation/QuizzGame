@@ -57,7 +57,11 @@
 .warning {
   cursor: pointer;
   background: var(--warning-bg);
-  border: 1px solid var(--warning-border);
+  border: 2px solid var(--warning-border);
   border-radius: var(--small-radius);
   padding: 10px;
+  
+  &:hover {
+    background: var(--warning-border);
+  }
 }

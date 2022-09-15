@@ -18,11 +18,6 @@ const SelectField: FunctionComponent<Props> = ({
   handleFunction
 }) => {
 
-  useEffect(() => {
-    console.log(options);
-    
-  }, [])
-
   return (
     <div className={styles.field}>
 
@@ -41,7 +36,7 @@ const SelectField: FunctionComponent<Props> = ({
           {defaultOption}
         </option>
 
-        {options?.map((option: string, index: number) =>
+        {options?.map((option: string) =>
           <option
             value={option}
             key={uuidv4()}

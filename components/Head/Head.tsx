@@ -22,7 +22,7 @@ const NextHead: FunctionComponent = () => {
         content="Site de quiz français : créez et jouez à des quizz de culture générale, cinéma, musique, sport, histoire, sciences, ..."
       />
       
-      <title>s'Quizz Game</title>
+      <title>s'Quizz Game - créez et jouez aux quizz de la communauté</title>
     </Head>
   );
 };

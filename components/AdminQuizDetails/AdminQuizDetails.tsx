@@ -84,7 +84,7 @@ const AdminQuizDetails: FunctionComponent<Props> = ({
           </p>
           
           <p className={styles.text}>
-            Créateur :
+            Créé par
             <span
               title={`Voir le profil de ${quiz.creator}`}
               aria-label={`Voir le profil de ${quiz.creator}`}
@@ -96,7 +96,7 @@ const AdminQuizDetails: FunctionComponent<Props> = ({
           </p>
           
           <p className={styles.text}>
-            Créé le :
+            Le
             <span className={styles.span}>
               {quiz.date}
             </span>

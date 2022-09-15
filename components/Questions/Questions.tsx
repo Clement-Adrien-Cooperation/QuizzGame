@@ -113,6 +113,12 @@ const Questions: FunctionComponent<Props> = ({
                   Ajouter une question
                 </button>
               </section>
+              
+              {questions.length < 10 &&
+                <span className={styles.warning}>
+                  Pour être jouable, votre quiz doit contenir au moins 10 questions
+                </span>
+              }
 
 
               {questions.length > 10 && (

@@ -17,8 +17,8 @@
 .container {
   @include flexCenter;
   flex-direction: column;
-  padding-bottom: 40vh;
   gap: 100px;
+  padding-bottom: 30vh;
   margin: 100px 0;
 }
 

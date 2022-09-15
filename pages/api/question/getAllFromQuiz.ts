@@ -11,14 +11,13 @@ export default async function handle (
   await prisma.$connect();
 
   try {
-    
     const questions = await prisma.question.findMany({
       where: {
         quiz_id: req.body.quiz_id
       }
     });
 
-    res.status(201).json(questions);
+    res.status(200).json(questions);
     
   } catch (error){
     res.status(404).json(error);

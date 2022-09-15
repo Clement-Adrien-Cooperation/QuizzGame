@@ -1,0 +1,16 @@
+@import '../../styles/mixins';
+
+.infos {
+  @include flexCenter;
+  flex-direction: column;
+  gap: 5px;
+  padding: 20px 40px;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--main-radius);
+}
+
+.link {
+  @include underlineButton;
+  font-size: 16px;
+  margin-left: 0.4em;
+}

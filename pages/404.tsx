@@ -8,7 +8,7 @@ const NotFound: NextPage = () => {
     <section className={styles.container}>
       <header className={styles.header}>
         <h1 className={styles.title}>
-          La page que vous cherchez n'existe pas
+          Une erreur est survenue
         </h1>
       </header>
 

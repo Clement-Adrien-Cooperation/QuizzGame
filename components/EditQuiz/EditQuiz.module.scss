@@ -22,5 +22,7 @@
 
 .submit {
   @include mainButton;
-  margin-left: 50px;
+  position: fixed;
+  top: 50px;
+  right: 50px;
 }

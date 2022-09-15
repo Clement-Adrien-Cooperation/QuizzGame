@@ -1,5 +1,18 @@
 @import '../../styles/mixins';
 
+.questions {
+  @include flexCenter;
+  flex-direction: column;
+}
+
+.input {
+  width: 100%;
+  max-width: 400px;
+}
+
 .list {
   margin: 10px 0;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 0 10px;
 }
