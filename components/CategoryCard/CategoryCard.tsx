@@ -1,8 +1,9 @@
-import Image from 'next/image';
 import { Dispatch, FunctionComponent, SetStateAction } from 'react';
-import styles from './CategoryCard.module.scss';
-import trash from '../../public/icons/delete.svg';
+import { api } from '../../api/api';
 import { Category } from '@prisma/client';
+import Image from 'next/image';
+import trash from '../../public/icons/delete.svg';
+import styles from './CategoryCard.module.scss';
 
 type Props = {
   id: number,
@@ -23,7 +24,7 @@ const CategoryCard: FunctionComponent<Props> = ({
     setShowLoader(true);
     const token = localStorage.getItem('token');
 
-    await fetch('/api/category/delete', {
+    await fetch(`${api}/category/delete`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

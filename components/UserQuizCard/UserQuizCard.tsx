@@ -1,5 +1,6 @@
 import { Quiz } from '@prisma/client';
 import { Dispatch, FunctionComponent, SetStateAction } from 'react';
+import { api } from '../../api/api';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styles from './UserQuizCard.module.scss';
@@ -26,7 +27,7 @@ const UserQuizCard: FunctionComponent<Props> = ({
     setShowLoader(true);
     const token = localStorage.getItem('token');
 
-    await fetch('/api/quiz/delete', {
+    await fetch(`${api}/quiz/delete`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

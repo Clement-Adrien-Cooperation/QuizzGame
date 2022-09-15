@@ -1,4 +1,5 @@
 import { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction, useState } from 'react';
+import { api } from '../../api/api';
 import { useRouter } from 'next/router';
 import { User } from '@prisma/client';
 import styles from './SignIn.module.scss';
@@ -41,7 +42,7 @@ const SignIn: FunctionComponent<Props> = ({
       rememberMe
     }
   
-    await fetch(`/api/user/login`, {
+    await fetch(`${api}/user/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)

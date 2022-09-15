@@ -1,7 +1,7 @@
-import { User } from '@prisma/client';
+import { Report, User } from '@prisma/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import AdminHeader from '../../components/AdminHeader/AdminHeader';
 import styles from '../../styles/admin/AdminReports.module.scss';
 
@@ -16,6 +16,8 @@ const Reports: NextPage<Props> = ({
 }) => {
 
   const router = useRouter();
+
+  const [reports, setReports] = useState<Report[]>();
   
   useEffect(() => {
 
@@ -26,7 +28,7 @@ const Reports: NextPage<Props> = ({
 
         document.title = "Modérer les quizz - s'Quizz Game";
 
-        // function getReports(); ?
+        // setReports(reportsData); ?
 
       } else {
         router.push('/');

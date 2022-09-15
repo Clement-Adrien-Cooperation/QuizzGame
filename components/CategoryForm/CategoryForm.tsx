@@ -1,6 +1,6 @@
 import { Category } from '@prisma/client';
-import { useRouter } from 'next/router';
 import { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction, useState } from 'react';
+import { api } from '../../api/api';
 import InputField from '../InputField/InputField';
 import Notification from '../Notification/Notification';
 import Warning from '../Warning/Warning';
@@ -18,8 +18,6 @@ const CategoryForm: FunctionComponent<Props> = ({
   setShowLoader
 }) => {
 
-  const router = useRouter();
-
   const [categoryName, setCategoryName] = useState<string>('');
 
   const [notification, setNotification] = useState<string>('');
@@ -29,8 +27,8 @@ const CategoryForm: FunctionComponent<Props> = ({
   const handleChangeCategoryName = (event: ChangeEvent<HTMLInputElement>) => {
     setCategoryName(event.target.value);
 
-    if(categoryName.length > 20) {
-      setWarningMessage("Le nom d'une catégorie ne doit pas excéder 20 caractères");
+    if(categoryName.length > 30) {
+      setWarningMessage("Le nom d'une catégorie ne doit pas excéder 30 caractères");
       setDisableButton(true);
     } else {
       setWarningMessage('');
@@ -39,8 +37,8 @@ const CategoryForm: FunctionComponent<Props> = ({
   };
 
   const checkForm = () => {
-    if(categoryName.length > 20) {
-      setWarningMessage("Le nom d'une catégorie ne doit pas excéder 20 caractères");
+    if(categoryName.length > 30) {
+      setWarningMessage("Le nom d'une catégorie ne doit pas excéder 30 caractères");
       setDisableButton(true);
       return false;
     } else {
@@ -59,7 +57,7 @@ const CategoryForm: FunctionComponent<Props> = ({
 
       const token = localStorage.getItem('token');
 
-      await fetch('/api/category/create', {
+      await fetch(`${api}/category/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

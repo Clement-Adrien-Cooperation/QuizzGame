@@ -2,6 +2,7 @@ import { User } from '@prisma/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { api } from '../../api/api';
 import AdminHeader from '../../components/AdminHeader/AdminHeader';
 import styles from '../../styles/admin/AdminUsers.module.scss';
 import Users from '../../components/Users/Users';
@@ -44,11 +45,13 @@ const AdminUsers: NextPage<Props> = ({
 
   const getUsers = async() => {
 
+    setShowLoader(true);
+
     // Get token from local storage for make sur this is an admin
     const token = localStorage.getItem('token');
 
     // Get users & banished users, then update states
-    await fetch('/api/user/getAll', {
+    await fetch(`${api}/user/getAll`, {
       method: 'GET',
       headers: { 
         'Content-Type': 'application/json',
@@ -66,7 +69,7 @@ const AdminUsers: NextPage<Props> = ({
       console.log(error);
     });
 
-    await fetch('/api/user/getBanishedUsers', {
+    await fetch(`${api}/user/getBanishedUsers`, {
       method: 'GET',
       headers: { 
         'Content-Type': 'application/json',
@@ -76,9 +79,6 @@ const AdminUsers: NextPage<Props> = ({
     .then(async(res) => {
       const banishedUsersDataFromAPI = await res.json();
       setBanishedUsers(banishedUsersDataFromAPI);
-    })
-    .then(() => {
-      setShowLoader(false);
     })
     .catch((error) => {
       console.log(error);
@@ -94,7 +94,7 @@ const AdminUsers: NextPage<Props> = ({
     const token = localStorage.getItem('token');
     const body = { user_id, is_admin }
 
-    await fetch('/api/user/promote', {
+    await fetch(`${api}/user/promote`, {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ const AdminUsers: NextPage<Props> = ({
     const token = localStorage.getItem('token');
   
     // Fetch our API
-    await fetch(`/api/user/moderate`, {
+    await fetch(`${api}/user/moderate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

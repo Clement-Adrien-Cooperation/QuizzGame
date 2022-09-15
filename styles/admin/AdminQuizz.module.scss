@@ -8,9 +8,12 @@
 .buttons {
   @include posAbsolute(100px, 20px, auto, auto);
   display: flex;
+  flex-direction: column;
+  gap: 15px;
  
   &__item {
     @include secondaryButton;
+    text-align: center
   }
 }
 
@@ -18,8 +21,7 @@
   @include flexCenter;
   flex-direction: column;
   gap: 100px;
-  padding-bottom: 30vh;
-  margin: 100px 0;
+  padding: 150px 0 30vh;
 }
 
 .quizz {

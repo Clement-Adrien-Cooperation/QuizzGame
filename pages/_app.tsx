@@ -4,6 +4,7 @@ import Container from '../components/Container/Container';
 import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { api } from '../api/api';
 import { User } from '@prisma/client';
 import Loader from '../components/Loader/Loader';
 
@@ -37,7 +38,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     setShowLoader(true);
 
-    await fetch('/api/user/checkToken', {
+    await fetch(`${api}/user/checkToken`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

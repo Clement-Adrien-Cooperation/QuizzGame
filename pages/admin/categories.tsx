@@ -3,6 +3,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { api } from '../../api/api';
 import AdminHeader from '../../components/AdminHeader/AdminHeader';
 import CategoryCard from '../../components/CategoryCard/CategoryCard';
 import CategoryForm from '../../components/CategoryForm/CategoryForm';
@@ -117,7 +118,7 @@ export default Categories;
 export async function getStaticProps() {
 
   // Get data from API
-  const categoriesDataFromAPI = await fetch('http://localhost:3000/api/category/getAll');
+  const categoriesDataFromAPI = await fetch(`${api}/category/getAll`);
 
   // Translate to JSON
   const categoriesData = await categoriesDataFromAPI.json();

@@ -1,7 +1,8 @@
 import { Quiz, User } from '@prisma/client';
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { api } from '../../api/api';
 import AdminHeader from '../../components/AdminHeader/AdminHeader';
 import AdminQuizz from '../../components/AdminQuizz/AdminQuizz';
 import AdminDeletedQuizz from '../../components/AdminDeletedQuizz/AdminDeletedQuizz';
@@ -10,13 +11,16 @@ import styles from '../../styles/admin/AdminQuizz.module.scss';
 type Props = {
   isLogged: boolean,
   userLogged: User,
-  setShowLoader: Dispatch<SetStateAction<boolean>>
+  setShowLoader: Dispatch<SetStateAction<boolean>>,
+  quizzData: Quiz[],
+  deletedQuizzData: Quiz[]
 };
 
 const Quizz: NextPage<Props> = ({
   isLogged,
   userLogged,
-  setShowLoader
+  setShowLoader,
+  quizzData
 }) => {
 
   const router = useRouter();
@@ -31,8 +35,12 @@ const Quizz: NextPage<Props> = ({
         router.push('/banned');
       } else if(userLogged.is_admin) {
 
+        setShowLoader(true);
+
         document.title = "Modérer les utilisateurs - s'Quizz Game";
-        getQuizz();
+        
+        setQuizz(quizzData);
+        getDeletedQuizz();
 
       } else {
         router.push('/');
@@ -44,9 +52,9 @@ const Quizz: NextPage<Props> = ({
 
   const getQuizz = async () => {
 
-    const token = localStorage.getItem('token');
+    setShowLoader(true);
 
-    await fetch('/api/quiz/getAll', {
+    await fetch(`${api}/quiz/getAll`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     })
@@ -57,8 +65,13 @@ const Quizz: NextPage<Props> = ({
     .catch((error) => {
       console.log(error);
     });
+  };
 
-    await fetch('/api/quiz/getDeletedQuizz', {
+  const getDeletedQuizz = async () => {
+
+    const token = localStorage.getItem('token');
+    
+    await fetch(`${api}/quiz/getDeletedQuizz`, {
       method: 'GET',
       headers: { 
         'Content-Type': 'application/json',
@@ -81,7 +94,7 @@ const Quizz: NextPage<Props> = ({
     setShowLoader(true);
     const token = localStorage.getItem('token');
 
-    await fetch('/api/quiz/moderate', {
+    await fetch(`${api}/quiz/moderate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -91,6 +104,7 @@ const Quizz: NextPage<Props> = ({
     })
     .then(() => {
       getQuizz();
+      getDeletedQuizz();
     })
     .catch((error) => {
       console.log(error);
@@ -102,7 +116,7 @@ const Quizz: NextPage<Props> = ({
     setShowLoader(true);
     const token = localStorage.getItem('token');
 
-    await fetch('/api/quiz/delete', {
+    await fetch(`${api}/quiz/delete`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -112,6 +126,7 @@ const Quizz: NextPage<Props> = ({
     })
     .then(() => {
       getQuizz();
+      getDeletedQuizz();
     })
     .catch((error) => {
       console.log(error);
@@ -123,7 +138,7 @@ const Quizz: NextPage<Props> = ({
       <AdminHeader />
 
       <aside className={styles.buttons}>
-        {quizz.length < 10 ? '' : (
+        {quizz?.length < 10 ? '' : (
           <a
             className={styles.buttons__item}
             href='#quizz'
@@ -132,8 +147,8 @@ const Quizz: NextPage<Props> = ({
           </a>
         )}
 
-        {deletedQuizz.length === 0 
-        || quizz.length < 10 ? '' : (
+        {deletedQuizz?.length === 0 
+        || quizz?.length < 10 ? '' : (
           <a
             className={styles.buttons__item}
             href='#deleted-quizz'
@@ -145,7 +160,7 @@ const Quizz: NextPage<Props> = ({
 
       <div className={styles.container}>
 
-        {quizz.length === 0 ? '' :
+        {quizz?.length === 0 ? '' :
           <section
             className={styles.quizz}
             id='quizz'
@@ -158,7 +173,7 @@ const Quizz: NextPage<Props> = ({
           </section>
         }
 
-        {deletedQuizz.length === 0 ? '' : (
+        {deletedQuizz?.length === 0 ? '' : (
 
           <section
             className={styles.quizz}
@@ -177,3 +192,15 @@ const Quizz: NextPage<Props> = ({
 };
 
 export default Quizz;
+
+export const getServerSideProps: GetServerSideProps = async () => {
+
+  const quizzDataFromAPI = await fetch(`${api}/quiz/getAll`);
+  const quizzData = await quizzDataFromAPI.json();
+
+  return {
+    props: {
+      quizzData
+    }
+  };
+};

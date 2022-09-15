@@ -1,6 +1,7 @@
-import { Category, Question, User } from '@prisma/client';
+import { Category, Question, Quiz, User } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
+import { api } from '../../api/api';
 import { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction, useEffect, useState } from 'react';
 import Notification from '../Notification/Notification';
 import Questions from '../Questions/Questions';
@@ -10,12 +11,18 @@ import styles from './EditQuiz.module.scss';
 
 type Props = {
   userLogged: User,
-  setShowLoader: Dispatch<SetStateAction<boolean>>
+  setShowLoader: Dispatch<SetStateAction<boolean>>,
+  quizData: Quiz,
+  questionsData: Question[],
+  categoriesData: Category[]
 };
 
 const EditQuiz: FunctionComponent<Props> = ({
   userLogged,
-  setShowLoader
+  setShowLoader,
+  quizData,
+  questionsData,
+  categoriesData
 }) => {
 
   const router = useRouter();
@@ -43,97 +50,48 @@ const EditQuiz: FunctionComponent<Props> = ({
   const [notification, setNotification] = useState<string>('');
 
   useEffect(() => {
-      
-    getCategories();
+
+    setCategories();
 
     if(router.pathname.includes('create')) {
       setPageTitle("Créer un s'Quizz");
     } else {
+      if(userLogged.id === quizData.user_id) {
 
-      setPageTitle(`Modifier le quiz "${router.query.slug}"`);
-      getQuiz();
+        setPageTitle(`Modifier le quiz "${router.query.slug}"`);
+        setPreviousData();
+
+      } else {
+        router.push('/');
+      };
     };
   }, []);
 
-  const getCategories = async() => {
-    setShowLoader(true);
+  const setCategories = () => {
 
-    await fetch('/api/category/getAll')
-    .then(async(res) => {
-      const data = await res.json();
+    const categoriesArray: string[] = [];
 
-      const categoriesArray: string[] = [];
+    categoriesData?.forEach((category: Category) => categoriesArray.push(category.name));
 
-      data.forEach((category: Category) => categoriesArray.push(category.name));
-
-      setCategoriesList(categoriesArray);
-      
-      setShowLoader(false);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    setCategoriesList(categoriesArray);
   };
 
-  const getQuiz = async() => {
-    setShowLoader(true);
+  const setPreviousData = () => {
+    
+    setQuizID(quizData.id);
 
-    await fetch('/api/quiz/getOne', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ title: router.query.slug })
-    })
-    .then(async(res) => {
-      const data = await res.json();
+    setCurrentTitle(quizData.title);
+    setTitle(quizData.title);
 
-      if(res.status === 404) {
-        router.push('/');
-      } else {
+    setCategory(quizData.category);
+    setDefaultCategory(quizData.category);
 
-        if(userLogged.id !== data.user_id) {
-          router.push('/');
-        } else {
-          
-          setQuizID(data.id);
+    setDifficulty(quizData.difficulty);
+    setPreviousDifficulty(quizData.difficulty);
 
-          setCurrentTitle(data.title);
-          setTitle(data.title);
-
-          setCategory(data.category);
-          setDefaultCategory(data.category);
-
-          setDifficulty(data.difficulty);
-          setPreviousDifficulty(data.difficulty);
-
-          if(data.nbOfQuestions > 0) {
-            await getQuestionsFromQuiz(data.id);
-          };
-          
-          setShowLoader(false);
-        };
-      };
-    })
-    .catch((error) => {
-      console.log(error);
-      setShowLoader(false);
-    });
-  };
-
-  const getQuestionsFromQuiz = async(quiz_id: string) => {
-
-    await fetch('/api/question/getAllFromQuiz', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ quiz_id })
-    })
-    .then(async(res) => {
-      const data = await res.json();
-      
-      setQuestions(data);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    if(quizData.nbOfQuestions > 0) {
+      setQuestions(questionsData);
+    };
   };
 
   const setPreviousDifficulty = (previousDifficulty: string) => {
@@ -309,7 +267,7 @@ const EditQuiz: FunctionComponent<Props> = ({
       date: new Date().toLocaleDateString()
     };
 
-    await fetch(`/api/quiz/create`, {
+    await fetch(`${api}/quiz/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -345,11 +303,8 @@ const EditQuiz: FunctionComponent<Props> = ({
       difficulty,
       nbOfQuestions: questions.length
     };
-
-    console.log(body);
     
-    
-    await fetch(`/api/quiz/update`, {
+    await fetch(`${api}/quiz/update`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -381,7 +336,7 @@ const EditQuiz: FunctionComponent<Props> = ({
 
     const token = localStorage.getItem('token');
 
-    await fetch('/api/question/deleteMany', {
+    await fetch(`${api}/question/deleteMany`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -414,7 +369,7 @@ const EditQuiz: FunctionComponent<Props> = ({
     console.log(questionsToSave);
       
       
-    await fetch('/api/question/createMany', {
+    await fetch(`${api}/question/createMany`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -442,7 +397,7 @@ const EditQuiz: FunctionComponent<Props> = ({
       question.quiz_id = quizID;
     });
 
-    await fetch('/api/question/createMany', {
+    await fetch(`${api}/question/createMany`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

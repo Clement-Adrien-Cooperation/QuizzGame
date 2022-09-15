@@ -1,6 +1,7 @@
 import { Quiz, User } from '@prisma/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { api } from '../../api/api';
 import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
 import InputField from '../../components/InputField/InputField';
 import UserProfileQuizCard from '../../components/UserProfileQuizCard/UserProfileQuizCard';
@@ -41,7 +42,7 @@ const UserProfile: NextPage<Props> = ({
     
     const pseudo = router.query.slug;
 
-    await fetch('/api/quiz/getUserQuizz', {
+    await fetch(`${api}/quiz/getUserQuizz`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ pseudo })

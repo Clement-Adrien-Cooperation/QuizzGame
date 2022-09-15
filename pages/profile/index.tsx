@@ -2,6 +2,7 @@ import { Quiz, User } from '@prisma/client';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { api } from '../../api/api';
 import { v4 as uuidv4 } from 'uuid';
 import ConfirmModal from '../../components/ConfirmModal/ConfirmModal';
 import EditUser from '../../components/EditUser/EditUser';
@@ -52,7 +53,7 @@ const Profile: NextPage<Props> = ({
 
   const getQuizzFromUser = async() => {
 
-    await fetch('/api/quiz/getUserQuizz', {
+    await fetch(`${api}/quiz/getUserQuizz`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ pseudo: userLogged.pseudo })
@@ -75,7 +76,7 @@ const Profile: NextPage<Props> = ({
     setShowLoader(true);
     const token = localStorage.getItem('token');
 
-    await fetch(`/api/user/delete`, {
+    await fetch(`${api}/user/delete`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -1,20 +1,19 @@
 import { User } from '@prisma/client';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { api } from '../api/api';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import styles from '../styles/Home.module.scss';
 
 type Props = {
   isLogged: boolean,
-  userLogged: User,
-  handleDisconnect: () => void,
+  userLogged: User
   setShowLoader: Dispatch<SetStateAction<boolean>>
 };
 
 const Home: NextPage<Props> = ({
   isLogged,
   userLogged,
-  handleDisconnect,
   setShowLoader
 }) => {
 
@@ -33,11 +32,11 @@ const Home: NextPage<Props> = ({
 
   const getUsers = async () => {
 
-    const token = localStorage.getItem('token');
-
     setShowLoader(true);
 
-    await fetch('/api/user/getAll', {
+    const token = localStorage.getItem('token');
+
+    await fetch(`${api}/user/getAll`, {
       method: 'GET',
       headers: { 
         'Content-Type': 'application/json',
@@ -45,11 +44,8 @@ const Home: NextPage<Props> = ({
       }
     })
     .then(async(res) => {
-      
 
-      if(res.status === 401) {
-        handleDisconnect();
-      } else if(res.status === 200) {
+      if(res.status === 200) {
         const data = await res.json();
         console.log(data);
       };

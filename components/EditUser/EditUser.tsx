@@ -1,5 +1,6 @@
 import { User } from '@prisma/client';
 import { useRouter } from 'next/router';
+import { api } from '../../api/api';
 import { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction, useEffect, useState } from 'react';
 import CheckButton from '../CheckButton/CheckButton';
 import InputField from '../InputField/InputField';
@@ -212,7 +213,7 @@ const EditUser: FunctionComponent<Props> = ({
       newPassword: password
     }
 
-    await fetch('/api/user/updatePassword', {
+    await fetch(`${api}/user/updatePassword`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -222,7 +223,6 @@ const EditUser: FunctionComponent<Props> = ({
     })
     .then(() => {
       console.log('Success');
-      
     })
     .catch((error) => {
       console.log(error);
@@ -245,7 +245,7 @@ const EditUser: FunctionComponent<Props> = ({
     const token = localStorage.getItem('token');
 
     // update user
-    await fetch(`/api/user/update`, {
+    await fetch(`${api}/user/update`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -302,7 +302,7 @@ const EditUser: FunctionComponent<Props> = ({
       rememberMe
     };
 
-    await fetch(`/api/user/create`, {
+    await fetch(`${api}/user/create`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
