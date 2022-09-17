@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'react';
+import Link from 'next/link';
 import styles from './GameOver.module.scss';
 
 type Props = {
@@ -24,6 +25,16 @@ const GameOver: FunctionComponent<Props> = ({
           {score}
         </span>/10
       </p>
+
+      <Link href='/'>
+        <a
+          className={styles.link}
+          aria-label="Revenir à la page d'accueil"
+          title="Revenir à la page d'accueil"
+        >
+          Accueil
+        </a>
+      </Link>
     </section>
   );
 };

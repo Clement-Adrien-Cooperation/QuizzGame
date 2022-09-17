@@ -1,5 +1,6 @@
-import { Question } from '@prisma/client';
+import { Question, Quiz, User } from '@prisma/client';
 import { FunctionComponent, useState } from 'react';
+import { api } from '../../api/api';
 import GameAnswer from '../GameAnswer/GameAnswer';
 import GameOver from '../GameOver/GameOver';
 import GameProposals from '../GameProposals/GameProposals';
@@ -9,16 +10,22 @@ type Props = {
   currentQuestion: Question,
   currentProposals: string[],
   currentIndex: number,
-  nextQuestion: () => void
+  nextQuestion: () => void,
+  isLogged: boolean,
+  userLogged: User,
+  quiz: Quiz
 };
 
 const GameScreen: FunctionComponent<Props> = ({
   currentQuestion,
   currentProposals,
   currentIndex,
-  nextQuestion
+  nextQuestion,
+  isLogged,
+  userLogged,
+  quiz
 }) => {
-  
+
   const [score, setScore] = useState<number>(0);
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
@@ -41,6 +48,7 @@ const GameScreen: FunctionComponent<Props> = ({
     
     if(currentIndex === 10) {
       // Game if over
+      handleGameOver();
       setGameOver(true);
     } else {
       // Launch next question
@@ -48,6 +56,36 @@ const GameScreen: FunctionComponent<Props> = ({
     };
 
     setShowAnswer(false);
+  };
+
+  const handleGameOver = async () => {
+
+    if(isLogged) {
+      const token = localStorage.getItem('token');
+
+      const body = {
+        user_id: userLogged.id,
+        quiz_id: quiz.id,
+        date: new Date().toLocaleDateString(),
+        score
+      };
+
+      await fetch(`${api}/played/create`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`
+        },
+        body: JSON.stringify(body)
+      })
+      .then(async(res) => {
+        const data = await res.json();
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    };
   };
 
   return (

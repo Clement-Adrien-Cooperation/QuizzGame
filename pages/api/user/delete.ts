@@ -12,6 +12,12 @@ export default checkUser(async function handle (
   await prisma.$connect();
 
   try {
+    await prisma.played.deleteMany({
+      where: {
+        user_id: req.body.user_id
+      }
+    });
+
     await prisma.comment.deleteMany({
       where: {
         user_id: req.body.user_id

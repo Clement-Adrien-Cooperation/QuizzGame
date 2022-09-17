@@ -35,12 +35,14 @@ const emptyQuestion: Question = {
 
 type Props = {
   userLogged: User,
+  isLogged: boolean,
   quizData: Quiz,
   questionsData: Question[]
 };
 
 const QuizGame: NextPage<Props> = ({
   userLogged,
+  isLogged,
   quizData,
   questionsData
 }) => {
@@ -116,7 +118,6 @@ const QuizGame: NextPage<Props> = ({
     randomizeProposals(gameQuestions[0]);
 
     console.log("questions : ", gameQuestions);
-    
   };
 
   const randomizeProposals = (question: Question) => {
@@ -183,6 +184,9 @@ const QuizGame: NextPage<Props> = ({
               currentProposals={currentProposals}
               currentIndex={currentIndex}
               nextQuestion={nextQuestion}
+              isLogged={isLogged}
+              userLogged={userLogged}
+              quiz={quiz}
             />
           :
             <main className={styles.presentation}>

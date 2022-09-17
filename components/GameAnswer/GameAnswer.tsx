@@ -39,7 +39,6 @@ const GameAnswer: FunctionComponent<Props> = ({
         }
       </p>
 
-
       {currentQuestion.description &&
         <aside className={styles.description}>
           {currentQuestion.description}
