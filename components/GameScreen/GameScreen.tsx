@@ -8,16 +8,17 @@ import styles from './GameScreen.module.scss';
 type Props = {
   currentQuestion: Question,
   currentProposals: string[],
+  currentIndex: number,
   nextQuestion: () => void
 };
 
 const GameScreen: FunctionComponent<Props> = ({
   currentQuestion,
   currentProposals,
+  currentIndex,
   nextQuestion
 }) => {
-
-  const [questionNumber, setQuestionNumber] = useState<number>(1);
+  
   const [score, setScore] = useState<number>(0);
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
@@ -37,13 +38,12 @@ const GameScreen: FunctionComponent<Props> = ({
 
   const handleNextQuestion = () => {
     // Check if this is the last question
-    if(questionNumber >= 10) {
+    
+    if(currentIndex === 10) {
       // Game if over
       setGameOver(true);
     } else {
-      // Incremente question number
-      setQuestionNumber(questionNumber + 1);
-      // Launch
+      // Launch next question
       nextQuestion();
     };
 
@@ -60,7 +60,7 @@ const GameScreen: FunctionComponent<Props> = ({
        <>
         <header className={styles.header}>
           <span className={styles.span}>
-            Question n°{questionNumber} :
+            Question n°{currentIndex} :
           </span>
 
           <h1 className={styles.question}>
@@ -71,7 +71,7 @@ const GameScreen: FunctionComponent<Props> = ({
         {showAnswer ?
           <GameAnswer
             currentQuestion={currentQuestion}
-            questionNumber={questionNumber}
+            currentIndex={currentIndex}
             goodAnswer={goodAnswer}
             handleNextQuestion={handleNextQuestion}
           />

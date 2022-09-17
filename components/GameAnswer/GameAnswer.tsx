@@ -4,14 +4,14 @@ import styles from './GameAnswer.module.scss';
 
 type Props = {
   currentQuestion: Question,
-  questionNumber: number,
+  currentIndex: number,
   goodAnswer: boolean,
   handleNextQuestion: () => void
 };
 
 const GameAnswer: FunctionComponent<Props> = ({
   currentQuestion,
-  questionNumber,
+  currentIndex,
   goodAnswer,
   handleNextQuestion
 }) => {
@@ -31,7 +31,10 @@ const GameAnswer: FunctionComponent<Props> = ({
             Mauvaise réponse
             <br/>
             <br/>
-            La bonne réponse était {currentQuestion.answer}
+            La bonne réponse était : 
+            <br/>
+            <br/>
+            "{currentQuestion.answer}"
           </>
         }
       </p>
@@ -46,11 +49,11 @@ const GameAnswer: FunctionComponent<Props> = ({
       <button
         className={styles.next}
         type="button"
-        aria-label={questionNumber < 10 ? "Passer à la question suivante" : "Terminer la partie"}
-        title={questionNumber < 10 ? "Passer à la question suivante" : "Terminer la partie"}
+        aria-label={currentIndex < 10 ? "Passer à la question suivante" : "Voir mon score"}
+        title={currentIndex < 10 ? "Passer à la question suivante" : "Voir mon score"}
         onClick={handleNextQuestion}
       >
-        {questionNumber < 10 ? "Question suivante" : "Terminer"}
+        {currentIndex < 10 ? "Question suivante" : "Résultats"}
       </button>
     </>
   );

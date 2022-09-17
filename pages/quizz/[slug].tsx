@@ -50,8 +50,8 @@ const QuizGame: NextPage<Props> = ({
   const [quiz, setQuiz] = useState<Quiz>(emptyQuiz);
   const [questions, setQuestions] = useState<Question[]>([emptyQuestion]);
 
+  const [currentIndex, setCurrentIndex] = useState<number>(1);
   const [currentQuestion, setCurrentQuestion] = useState<Question>(emptyQuestion);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [currentProposals, setCurrentProposals] = useState<string[]>(['']);
 
   const [playing, setPlaying] = useState<boolean>(false);
@@ -110,18 +110,21 @@ const QuizGame: NextPage<Props> = ({
     setQuestions(gameQuestions);
 
     // Set this randomized array in state
-    setCurrentQuestion(gameQuestions[currentIndex]);
+    setCurrentQuestion(gameQuestions[0]);
 
     // Do the same with proposals & answer from the first question
-    randomizeProposals(gameQuestions[currentIndex]);
+    randomizeProposals(gameQuestions[0]);
 
-    // Then, incremente currentIndex
-    setCurrentIndex(currentIndex => currentIndex + 1);
+    console.log("questions : ", gameQuestions);
+    
   };
 
   const randomizeProposals = (question: Question) => {
     // We need to randomize order of the 3 proposals from current question
     // & push the good answer
+
+    // console.log('La question où randomize les propositions : ', question);
+    
     const gameProposals = [];
     const availableProposals = [...question.proposals];
 
@@ -145,17 +148,15 @@ const QuizGame: NextPage<Props> = ({
   };
 
   const nextQuestion = () => {
-    // currentIndex was incremented first time in "randomizeQuestions" function
     // Set the next question with it
     const newQuestion = questions[currentIndex];
-
+    
     // Update state
     setCurrentQuestion(newQuestion);
-
+    
     // Randomize proposals from this new question
     randomizeProposals(newQuestion);
 
-    // Then, incremente again the currentIndex for the nextQuestion
     setCurrentIndex(currentIndex => currentIndex + 1);
   };
 
@@ -180,6 +181,7 @@ const QuizGame: NextPage<Props> = ({
             <GameScreen
               currentQuestion={currentQuestion}
               currentProposals={currentProposals}
+              currentIndex={currentIndex}
               nextQuestion={nextQuestion}
             />
           :

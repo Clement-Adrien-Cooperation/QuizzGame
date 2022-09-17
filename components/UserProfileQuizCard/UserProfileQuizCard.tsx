@@ -55,32 +55,32 @@ const UserProfileQuizCard: FunctionComponent<Props> = ({
 
       <section className={styles.body}>
 
-        <span
+        <p
           className={styles.difficulty}
           style={{background: `${backgroundColor}`}}
         >
           {quiz.difficulty}
-        </span>
+        </p>
 
-        <span className={styles.questions}>
+        <p className={styles.questions}>
           {quiz.nbOfQuestions} question{quiz.nbOfQuestions < 2 ? '' : 's'}
-        </span>
+        </p>
 
-        <span className={styles.category}>
+        <p className={styles.category}>
           {quiz.category}
-        </span>
+        </p>
 
-        <span className={styles.date}>
+        <p className={styles.date}>
           {quiz.date}
-        </span>
+        </p>
 
-        {quiz.rate === null ? '' :
+        {quiz.rate === 0 ? '' :
 
-          <span className={styles.rate}>
+          <p className={styles.rate}>
             <Stars
               rate={quiz.rate}
             />
-          </span>
+          </p>
         }
       </section>
     </article>

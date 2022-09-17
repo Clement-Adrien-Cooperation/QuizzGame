@@ -12,9 +12,8 @@
   background: var(--input-color);
   border-radius: var(--main-radius);
   border: var(--border-transparent);
-  padding: 9px 16px;
+  padding: var(--main-padding);
   font-family: inherit;
-  color: var(--text-color);
   cursor: pointer;
 
   &:hover {

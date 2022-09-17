@@ -25,11 +25,11 @@
   --text-color:  hsl(var(--hue-color), 8%, 30%);
   --text-color-light: hsl(var(--hue-color), 8%, 75%);
 
-  --main-title-size: clamp(35px, 15vw, 80px);
-  --title-size: clamp(25px, 10vw, 60px);
-  --subtitle-size: clamp(20px, 8vw, 40px);
-  --text-size: clamp(14px, 5vw, 16px);
-  --small-text-size: clamp(12px, 4vw, 14px);
+  --main-title-size: clamp(2.5rem, 5vw, 6rem);
+  --title-size: clamp(2rem, 3vw, 4rem);
+  --subtitle-size: clamp(1.5rem, 2vw, 2rem);
+  --text-size: clamp(0.9rem, 1vw, 1rem);
+  --small-text-size: clamp(0.5rem, 1vw, 0.8rem);
 
   --main-font: 'Poppins', sans-serif;
   --title-font: 'Rubik Moonrocks', cursive;
@@ -38,6 +38,8 @@
   --main-radius: 15px 5px;
   --medium-radius: 10px;
   --small-radius: 5px;
+
+  --main-padding: 0.7em 1.2em;
 
   --card-shadow: 5px 5px 15px rgba(10, 10, 10, 0.1);
   --box-shadow: 0 0 15px rgba(10, 10, 10, 0.1);

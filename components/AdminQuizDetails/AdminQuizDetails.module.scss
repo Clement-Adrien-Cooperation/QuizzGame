@@ -1,7 +1,7 @@
 @import '../../styles/mixins';
 
 .behind {
-  @include posFixed(79px, auto, auto, var(--navbar-width));
+  @include posFixed(0, auto, auto, var(--navbar-width));
   min-height: 100vh;
   width: 100%;
   background: rgba(10, 10, 10, 0.5);
@@ -11,17 +11,17 @@
 
 .card {
   position: absolute;
-  top: 35%;
+  top: 52%;
   left: 50%;
-  margin-top: 10vh;
+  transform: translate(-50%, -50%);
   min-width: 600px;
+  max-height: 90vh;
   background: var(--body-color);
   border-radius: var(--small-radius);
   box-shadow: var(--box-shadow);
   padding: 35px 50px;
   opacity: 0;
   transition: .3s;
-  transform: translate(-50%, 0);
   animation: animApparition 0.3s ease-out forwards;
 }
 

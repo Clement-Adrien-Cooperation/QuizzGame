@@ -39,8 +39,6 @@ const Quizz: NextPage<Props> = ({
       if(userLogged.is_banished) {
         router.push('/banned');
       };
-    } else {
-      router.push('/');
     };
   }, []);
 

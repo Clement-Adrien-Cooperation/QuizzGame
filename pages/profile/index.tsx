@@ -1,5 +1,5 @@
 import { Quiz, User } from '@prisma/client';
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { api } from '../../api/api';
