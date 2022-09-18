@@ -12,6 +12,12 @@ export default checkUser(async function handle (
   await prisma.$connect();
 
   try {
+    await prisma.report.deleteMany({
+      where: {
+        about_id: req.body.quiz_id
+      }
+    });
+
     await prisma.comment.deleteMany({
       where: {
         quiz_id: req.body.quiz_id

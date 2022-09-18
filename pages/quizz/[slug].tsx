@@ -19,6 +19,7 @@ const emptyQuiz: Quiz = {
   date: '',
   nbOfQuestions: 0,
   rate: 0,
+  nbOfRates: 0,
   reported: false
 };
 
@@ -123,9 +124,6 @@ const QuizGame: NextPage<Props> = ({
   const randomizeProposals = (question: Question) => {
     // We need to randomize order of the 3 proposals from current question
     // & push the good answer
-
-    // console.log('La question où randomize les propositions : ', question);
-    
     const gameProposals = [];
     const availableProposals = [...question.proposals];
 

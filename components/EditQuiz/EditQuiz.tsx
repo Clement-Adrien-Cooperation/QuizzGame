@@ -87,36 +87,36 @@ const EditQuiz: FunctionComponent<Props> = ({
     setDefaultCategory(quizData.category);
 
     setDifficulty(quizData.difficulty);
-    setPreviousDifficulty(quizData.difficulty);
+    setPreviousDifficulty();
 
     if(quizData.nbOfQuestions > 0) {
       setQuestions(questionsData);
     };
   };
 
-  const setPreviousDifficulty = (previousDifficulty: string) => {
+  const setPreviousDifficulty = () => {
     switch (true) {
-      case previousDifficulty === 'Très facile' :
+      case quizData.difficulty === 'Très facile' :
         setRangeColor(`var(--very-easy)`);
         setDifficultyRange(0);
         setColorDifficultyName('var(--text-color)');
         break;
-      case previousDifficulty === 'Facile' :
+      case quizData.difficulty === 'Facile' :
         setRangeColor(`var(--easy)`);
         setDifficultyRange(1);
         setColorDifficultyName('var(--green)');
         break;
-      case previousDifficulty === 'Normal' :
+      case quizData.difficulty === 'Normal' :
         setRangeColor(`var(--medium)`);
         setDifficultyRange(2);
         setColorDifficultyName('var(--yellow)');
         break;
-      case previousDifficulty === 'Difficile' :
+      case quizData.difficulty === 'Difficile' :
         setRangeColor(`var(--hard)`);
         setDifficultyRange(3);
         setColorDifficultyName('var(--orange)');
         break;
-      case previousDifficulty === 'Très difficile' :
+      case quizData.difficulty === 'Très difficile' :
         setRangeColor(`var(--very-hard)`);
         setDifficultyRange(4);
         setColorDifficultyName('var(--red)');
@@ -249,6 +249,12 @@ const EditQuiz: FunctionComponent<Props> = ({
       createQuiz();
     } else {
       updateQuiz();
+
+      if(questions.length === 0) {
+        deleteQuestions();
+      } else {
+        updateQuestions();
+      };
     };
   };
 
@@ -264,6 +270,7 @@ const EditQuiz: FunctionComponent<Props> = ({
       category,
       difficulty,
       rate: 0,
+      nbOfRates: 0,
       date: new Date().toLocaleDateString()
     };
 
@@ -294,45 +301,42 @@ const EditQuiz: FunctionComponent<Props> = ({
 
   const updateQuiz = async() => {
 
-    const token = localStorage.getItem('token');
-
-    const body = {
-      currentTitle,
-      title,
-      category,
-      difficulty,
-      nbOfQuestions: questions.length
-    };
-    
-    await fetch(`${api}/quiz/update`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `${token}`
-      },
-      body: JSON.stringify(body)
-    })
-    .then(async(res) => {
+    if(title !== quizData.title
+    || category !== quizData.category
+    || difficulty !== quizData.difficulty) {
       
-      if(res.status === 200) {
+      const token = localStorage.getItem('token');
 
-        const data = await res.json();
-
-        if(data.nbOfQuestions > 0) {
-          updateQuestions();
-        } else {
-          deleteQuestions(data.id);
-        };
-      } else {
-        setWarningMessage('Ce titre est déjà utilisé');
+      const body = {
+        currentTitle,
+        title,
+        category,
+        difficulty,
+        nbOfQuestions: questions.length
       };
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      
+      await fetch(`${api}/quiz/update`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`
+        },
+        body: JSON.stringify(body)
+      })
+      .then((res) => {
+        if(res.status === 200) {
+          console.log('ok');
+        } else {
+          setWarningMessage('Ce titre est déjà utilisé');
+        };
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    };
   };
 
-  const deleteQuestions = async(quizz_id: string) => {
+  const deleteQuestions = async() => {
 
     const token = localStorage.getItem('token');
 
@@ -342,11 +346,11 @@ const EditQuiz: FunctionComponent<Props> = ({
         'Content-Type': 'application/json',
         'Authorization': `${token}`
       },
-      body: JSON.stringify({ quizz_id })
+      body: JSON.stringify({ quiz_id: quizID })
     })
     .then((res) => {
       if(res.status === 404) {
-        console.log('Une erreur est survenue dans la suppression des questions');
+        setWarningMessage('Une erreur est survenue dans la suppression des questions');
       };
     })
     .catch((error) => {

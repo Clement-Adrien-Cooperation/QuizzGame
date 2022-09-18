@@ -93,6 +93,8 @@ const GameScreen: FunctionComponent<Props> = ({
       {gameOver ?
         <GameOver
           score={score}
+          isLogged={isLogged}
+          quiz={quiz}
         />
       :
        <>

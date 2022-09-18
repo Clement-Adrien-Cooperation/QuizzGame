@@ -27,12 +27,13 @@
   flex-direction: column;
   gap: 5px;
   color: var(--white);
-  height: 0;
+  max-height: 0;
   overflow: hidden;
-  transition: height .3s;
+  margin: 10px 0;
+  transition: max-height .5s;
 
   &.opened {
-    height: 200px;
+    max-height: 350px;
   }
 }
 
@@ -54,6 +55,12 @@
   text-align: center;
   background: var(--red);
   padding: 9px 16px;
+}
+
+.description {
+  background: var(--dark-grey);
+  border-radius: var(--small-radius);
+  padding: 10px;
 }
 
 .footer {

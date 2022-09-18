@@ -72,7 +72,10 @@ const QuestionCard: FunctionComponent<Props> = ({
         `${styles.card}`}
     >
       <header className={styles.header}>
-        <h3 className={styles.question}>
+        <h3
+          className={styles.question}
+          title={question}
+        >
           {question}
         </h3>
 
@@ -80,8 +83,8 @@ const QuestionCard: FunctionComponent<Props> = ({
           <button
             className={styles.icon}
             type='button'
-            title='Détails de la question'
-            aria-label='Détails de la question'
+            title={showDetails ? "Cacher les détails" : "Voir les détails"}
+            aria-label={showDetails ? "Cacher les détails" : "Voir les détails"}
             onClick={() => setShowDetails(!showDetails)}
           >
             <div

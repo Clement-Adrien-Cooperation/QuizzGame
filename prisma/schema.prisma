@@ -7,8 +7,8 @@ generator client {
 }
 
 datasource db {
+  url      = env("DATABASE_URL")
   provider = "postgresql"
-  url      = "postgresql://postgres:!xJeLth!P4!psnjT@localhost:5432/quizzdb?schema=public"
 }
 
 model User {
@@ -31,6 +31,7 @@ model Quiz {
   difficulty    String
   date          String
   rate          Int
+  nbOfRates     Int
   is_visible    Boolean     @default(true)
   reported      Boolean     @default(false)
 }

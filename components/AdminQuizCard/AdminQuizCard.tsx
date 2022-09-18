@@ -14,6 +14,7 @@ const emptyQuiz: Quiz = {
   date: '',
   nbOfQuestions: 0,
   rate: 0,
+  nbOfRates: 0,
   reported: false
 };
 

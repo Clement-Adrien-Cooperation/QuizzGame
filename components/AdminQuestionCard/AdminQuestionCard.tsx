@@ -62,6 +62,12 @@ const AdminQuestionCard: FunctionComponent<Props> = ({
               </li>  
             )}
           </ul>
+
+          {question.description &&
+            <p className={styles.description}>
+              {question.description}
+            </p>
+          }
         </div>
 
         <footer className={styles.footer}>

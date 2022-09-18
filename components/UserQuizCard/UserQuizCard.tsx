@@ -33,7 +33,7 @@ const UserQuizCard: FunctionComponent<Props> = ({
         'Content-Type': 'application/json',
         'Authorization': `${token}`
       },
-      body: JSON.stringify({ id: quiz.id })
+      body: JSON.stringify({ quiz_id: quiz.id })
     })
     .then(() => {
       getQuizzFromUser();

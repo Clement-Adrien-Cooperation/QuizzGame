@@ -13,45 +13,40 @@ const Stars: FunctionComponent<Props> = ({
   const filledStars: string[] = [];
   const emptyStars: string[] = [];
 
-  for(let i = 0; i < rate; i++) {
-    filledStars.push('+1');
-  };
+  useEffect(() => {
+    for(let i = 0; i < rate; i++) {
+      filledStars.push('+1');
+    };
 
-  for(let j = 0; j < 5-rate; j++) {
-    emptyStars.push('+1');
-  };
+    for(let j = 0; j < 5 - rate; j++) {
+      emptyStars.push('+1');
+    };
+  }, []);
   
   return (
-    <span
+    <section
       className={styles.stars}
       title={`Ce quiz a été noté ${rate}/5 par les utilisateurs`}
       aria-label={`Ce quiz a été noté ${rate}/5 par les utilisateurs`}
     >
-      {
-        filledStars?.map(star => (
+      {filledStars?.map(star => (
+        <span
+          className={styles.star}
+          key={uuidv4()}
+        >
+          &#9733;
+        </span>
+      ))}
 
-          <em
-            className={styles.star}
-            key={uuidv4()}
-          >
-            &#9733;
-          </em>
-        ))
-      }
-
-      {
-        emptyStars?.map(star => (
-
-          <em
-            className={styles.star}
-            key={uuidv4()}
-          >
-            &#9734;
-          </em>
-        ))
-      }
-
-    </span>
+      {emptyStars?.map(star => (
+        <span
+          className={styles.star}
+          key={uuidv4()}
+        >
+          &#9734;
+        </span>
+      ))}
+    </section>
   );
 };
 

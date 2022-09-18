@@ -1,13 +1,19 @@
 import { FunctionComponent } from 'react';
 import Link from 'next/link';
 import styles from './GameOver.module.scss';
+import { Quiz } from '@prisma/client';
+import GameRate from '../GameRate/GameRate';
 
 type Props = {
-  score: number
+  score: number,
+  isLogged: boolean,
+  quiz: Quiz
 };
 
 const GameOver: FunctionComponent<Props> = ({
-  score
+  score,
+  isLogged,
+  quiz
 }) => {
 
   return (
@@ -25,6 +31,13 @@ const GameOver: FunctionComponent<Props> = ({
           {score}
         </span>/10
       </p>
+
+      {isLogged &&
+        <GameRate
+          quiz={quiz}
+        />
+      }
+
 
       <Link href='/'>
         <a

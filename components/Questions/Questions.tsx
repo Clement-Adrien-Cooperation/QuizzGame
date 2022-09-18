@@ -99,7 +99,7 @@ const Questions: FunctionComponent<Props> = ({
                 <h2 className={styles.title}>
                   {questions.length} {questions.length < 2 ? 'question' : 'questions'}
                 </h2>
-
+                
                 <button
                   className={styles.button}
                   type='button'
