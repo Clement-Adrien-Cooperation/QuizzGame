@@ -1,0 +1,11 @@
+@import '../../styles/mixins';
+@include commonInput;
+
+.input {
+  max-width: 800px;
+  min-width: 300px;
+  min-height: 150px;
+  max-height: 50vh;
+  font-family: inherit;
+  outline: none;
+}

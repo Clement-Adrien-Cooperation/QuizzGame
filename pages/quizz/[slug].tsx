@@ -1,10 +1,11 @@
 import { Question, Quiz, User } from '@prisma/client';
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { api } from '../../api/api';
 import GameDetails from '../../components/GameDetails/GameDetails';
 import GameScreen from '../../components/GameScreen/GameScreen';
+import Report from '../../components/Report/Report';
 import Warning from '../../components/Warning/Warning';
 import styles from '../../styles/quizz/QuizGame.module.scss';
 
@@ -37,14 +38,16 @@ type Props = {
   userLogged: User,
   isLogged: boolean,
   quizData: Quiz,
-  questionsData: Question[]
+  questionsData: Question[],
+  setShowLoader: Dispatch<SetStateAction<boolean>>
 };
 
 const QuizGame: NextPage<Props> = ({
   userLogged,
   isLogged,
   quizData,
-  questionsData
+  questionsData,
+  setShowLoader
 }) => {
 
   const router = useRouter();
@@ -58,6 +61,7 @@ const QuizGame: NextPage<Props> = ({
 
   const [playing, setPlaying] = useState<boolean>(false);
   const [warningMessage, setWarningMessage] = useState<string>('');
+  const [report, setReport] = useState<boolean>(false);
 
   useEffect(() => {
 
@@ -207,6 +211,30 @@ const QuizGame: NextPage<Props> = ({
                   Jouer
                 </button>
               </section>
+
+              {isLogged &&
+                <>
+                  {report ?
+                    <Report
+                      pseudo={userLogged.pseudo}
+                      about={'quiz'}
+                      about_id={quizData.id}
+                      setShowReportForm={setReport}
+                      setShowLoader={setShowLoader}
+                    />
+                  :
+                    <button
+                      className={styles.report}
+                      type="button"
+                      title="Signaler ce quiz"
+                      aria-label="Signaler ce quiz"
+                      onClick={() => setReport(true)}
+                    >
+                      Signaler
+                    </button>
+                  }
+                </>
+              }
             </main>
           }
         </section>

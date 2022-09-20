@@ -3,6 +3,7 @@ import { Question } from '@prisma/client';
 import InputField from '../InputField/InputField';
 import Warning from '../Warning/Warning';
 import styles from './QuestionForm.module.scss';
+import TextArea from '../TextArea/TextArea';
 
 type Props = {
   question: string,
@@ -302,13 +303,15 @@ const QuestionForm: FunctionComponent<Props> = ({
           autoFocus={false}
           handleFunction={handleChangeProposal3}
         />
-
-        <textarea
-          className={styles.area}
-          placeholder="Vous pouvez ajouter des précisions ou anecdotes concernant votre question. Elle n'apparaitront qu'après que le joueur ai répondu."
-          value={description}
-          onChange={handleChangeDescription}
+        
+        <TextArea
+          inputID={"description"}
+          label={"Précisions / anecdotes"}
+          state={description}
+          handleFunction={handleChangeDescription}
+          title={"Vous pouvez ajouter des précisions ou anecdotes concernant votre question. Elle n'apparaitront qu'après que le joueur ai répondu."}
         />
+
 
         <button
           className={styles.submit}

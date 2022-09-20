@@ -128,7 +128,6 @@ const PasswordValidation: FunctionComponent<Props> = ({
         >
           Au moins 8 caractères
         </li>
-
       </ul>
     </>
   );

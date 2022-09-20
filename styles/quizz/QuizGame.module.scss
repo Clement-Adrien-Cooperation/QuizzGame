@@ -44,3 +44,8 @@
   @include flexCenter;
   padding: 100px;
 }
+
+.report {
+  @include posFixed(auto, 5rem, 3rem, auto);
+  @include underlineButton;
+}

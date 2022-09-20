@@ -43,6 +43,7 @@ const ContactForm: FunctionComponent = () => {
         name='message'
         placeholder='Envoyez nous un message'
       />
+      
       <ValidationError
         prefix='Message'
         field='message'
