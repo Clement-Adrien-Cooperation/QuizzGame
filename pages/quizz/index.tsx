@@ -31,7 +31,7 @@ const Quizz: NextPage<Props> = ({
   useEffect(() => {
 
     document.title = "Quizz - s'Quizz Game";
-
+    
     setQuizz(quizzData);
     setShowLoader(false);
 
@@ -96,8 +96,8 @@ const Quizz: NextPage<Props> = ({
             const userFilter = filter.toLowerCase();
             
             // If quiz doesn't have question, we don't render it
-            if(quizTitle.includes(userFilter) && quiz.nbOfQuestions > 0
-            || quizCreator.includes(userFilter) && quiz.nbOfQuestions > 0) {
+            if(quizTitle.includes(userFilter) && quiz.nbOfQuestions >= 10
+            || quizCreator.includes(userFilter) && quiz.nbOfQuestions >= 10) {
 
               return (
                 <li key={uuidv4()}>
@@ -128,7 +128,6 @@ export async function getStaticProps() {
   return {
     props: {
       quizzData
-    },
-    revalidate: 10
+    }
   };
 };

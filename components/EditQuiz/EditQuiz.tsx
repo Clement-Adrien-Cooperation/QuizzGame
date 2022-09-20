@@ -53,13 +53,18 @@ const EditQuiz: FunctionComponent<Props> = ({
 
     setCategories();
 
-    if(router.pathname.includes('create')) {
+    if(router.pathname.includes('quizz/create')) {
       setPageTitle("Créer un s'Quizz");
     } else {
+      
       if(userLogged.id === quizData.user_id) {
 
         setPageTitle(`Modifier le quiz "${router.query.slug}"`);
-        setPreviousData();
+        setPreviousData(quizData);
+
+        if(quizData.nbOfQuestions > 0) {
+          setQuestions(questionsData);
+        };
 
       } else {
         router.push('/');
@@ -76,7 +81,7 @@ const EditQuiz: FunctionComponent<Props> = ({
     setCategoriesList(categoriesArray);
   };
 
-  const setPreviousData = () => {
+  const setPreviousData = (quizData: Quiz) => {
     
     setQuizID(quizData.id);
 
@@ -84,14 +89,9 @@ const EditQuiz: FunctionComponent<Props> = ({
     setTitle(quizData.title);
 
     setCategory(quizData.category);
-    setDefaultCategory(quizData.category);
 
     setDifficulty(quizData.difficulty);
     setPreviousDifficulty();
-
-    if(quizData.nbOfQuestions > 0) {
-      setQuestions(questionsData);
-    };
   };
 
   const setPreviousDifficulty = () => {
@@ -222,7 +222,7 @@ const EditQuiz: FunctionComponent<Props> = ({
     setShowLoader(true);
     setWarningMessage('');
     setNotification('');
-    
+
     if(checkForm()) {
 
       await saveQuiz();
@@ -245,15 +245,21 @@ const EditQuiz: FunctionComponent<Props> = ({
 
   const saveQuiz = async() => {
 
-    if(router.pathname.includes('create')) {
+    if(router.pathname.includes('quizz/create')) {
       createQuiz();
     } else {
-      updateQuiz();
 
       if(questions.length === 0) {
         deleteQuestions();
       } else {
         updateQuestions();
+      };
+
+      if(title !== quizData.title
+      || category !== quizData.category
+      || difficulty !== quizData.difficulty
+      || questions.length !== quizData.nbOfQuestions) {
+        updateQuiz();
       };
     };
   };
@@ -269,8 +275,7 @@ const EditQuiz: FunctionComponent<Props> = ({
       nbOfQuestions: questions.length,
       category,
       difficulty,
-      rate: 0,
-      nbOfRates: 0,
+      rate: [],
       date: new Date().toLocaleDateString()
     };
 
@@ -283,14 +288,7 @@ const EditQuiz: FunctionComponent<Props> = ({
       body: JSON.stringify(body)
     })
     .then(async(res) => {
-      if(res.status === 201) {
-
-        const data = await res.json();
-
-        if(data.nbOfQuestions > 0) {
-          createQuestions(data.id);
-        };
-      } else {
+      if(res.status !== 201) {
         setWarningMessage('Ce titre est déjà utilisé');
       };
     })
@@ -300,40 +298,37 @@ const EditQuiz: FunctionComponent<Props> = ({
   };
 
   const updateQuiz = async() => {
-
-    if(title !== quizData.title
-    || category !== quizData.category
-    || difficulty !== quizData.difficulty) {
       
-      const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
-      const body = {
-        currentTitle,
-        title,
-        category,
-        difficulty,
-        nbOfQuestions: questions.length
-      };
-      
-      await fetch(`${api}/quiz/update`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `${token}`
-        },
-        body: JSON.stringify(body)
-      })
-      .then((res) => {
-        if(res.status === 200) {
-          console.log('ok');
-        } else {
-          setWarningMessage('Ce titre est déjà utilisé');
-        };
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const body = {
+      currentTitle,
+      title,
+      category,
+      difficulty,
+      nbOfQuestions: questions.length
     };
+
+    await fetch(`${api}/quiz/update`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      },
+      body: JSON.stringify(body)
+    })
+    .then(async(res) => {
+      if(res.status === 200) {
+
+        const data = await res.json();
+        setPreviousData(data);
+      } else {
+        setWarningMessage('Ce titre est déjà utilisé');
+      };
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   };
 
   const deleteQuestions = async() => {
@@ -352,37 +347,6 @@ const EditQuiz: FunctionComponent<Props> = ({
       if(res.status === 404) {
         setWarningMessage('Une erreur est survenue dans la suppression des questions');
       };
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  };
-
-  const createQuestions = async(quiz_id: string) => {
-
-    const token = localStorage.getItem('token');
-
-    const questionsToSave = [...questions];
-
-    questionsToSave.forEach(question => {
-      question.id = uuidv4();
-      question.user_id = userLogged.id;
-      question.quiz_id = quiz_id
-    });
-
-    console.log(questionsToSave);
-      
-      
-    await fetch(`${api}/question/createMany`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `${token}`
-      },
-      body: JSON.stringify(questionsToSave)
-    })
-    .then(() => {
-      setQuestions(questionsToSave);
     })
     .catch((error) => {
       console.log(error);
@@ -409,8 +373,10 @@ const EditQuiz: FunctionComponent<Props> = ({
       },
       body: JSON.stringify(questionsToSave)
     })
-    .then(() => {
-      setQuestions(questionsToSave);
+    .then((res) => {
+      if(res.status !== 201) {
+        setWarningMessage('Une erreur est survenue, veuillez réessayer ou nous contacter');
+      };
     })
     .catch((error) => {
       console.log(error);

@@ -61,7 +61,7 @@ const Home: NextPage<Props> = ({
     <>
       <header className={styles.header}>
         <h1 className={styles.title}>
-          s'Quizz Game
+          <strong>s'Quizz Game</strong>
         </h1>
 
         {isLogged && (

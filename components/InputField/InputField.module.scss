@@ -11,8 +11,8 @@
   position: absolute;
   width: 100%;
   background: var(--input-color);
-  padding: 0.8em 1.4em 0.6em;
   border-radius: 15px 5px;
+  padding: 0.9rem 1.8rem;
   border: var(--border-transparent);
 
   &:hover {
@@ -37,23 +37,28 @@
   }
 }
 
-.input:focus + .label,
-.input:valid + .label {
-  transform: translateY(-125%);
-  padding: 3px 6px;
-  background: var(--main-color);
-  color: var(--white);
-  font-size: 0.8em;
-  border-radius: 5px;
-}
-
 .label {
   position: absolute;
-  top: 13px;
-  left: 18px;
+  top: 1.4rem;
+  left: 1.8rem;
   pointer-events: none;
   display: block;
   font-size: 0.9em;
   transition: 0.4s;
   color: var(--text-color);
+}
+
+.input:focus,
+.input:valid {
+  padding: 1rem 1.8rem 0.8rem;
+}
+
+.input:focus + .label,
+.input:valid + .label {
+  transform: translateY(-140%);
+  padding: 0.3rem 0.6rem;
+  background: var(--main-color);
+  color: var(--white);
+  font-size: 0.8em;
+  border-radius: 5px;
 }

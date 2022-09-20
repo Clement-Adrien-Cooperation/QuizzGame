@@ -18,8 +18,7 @@ const emptyQuiz: Quiz = {
   is_visible: false,
   date: '',
   nbOfQuestions: 0,
-  rate: 0,
-  nbOfRates: 0,
+  rate: [],
   reported: false
 };
 

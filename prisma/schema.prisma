@@ -30,8 +30,7 @@ model Quiz {
   category      String
   difficulty    String
   date          String
-  rate          Int
-  nbOfRates     Int
+  rate          Int[]
   is_visible    Boolean     @default(true)
   reported      Boolean     @default(false)
 }
@@ -75,7 +74,7 @@ model Category {
 model Played {
   id            String    @id @unique
   user_id       String
-  quiz_id      String
+  quiz_id       String
   score         Int
   date          String
 }

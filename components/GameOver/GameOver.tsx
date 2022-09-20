@@ -38,7 +38,6 @@ const GameOver: FunctionComponent<Props> = ({
         />
       }
 
-
       <Link href='/'>
         <a
           className={styles.link}

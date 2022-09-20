@@ -36,7 +36,7 @@ const GameDetails: FunctionComponent<Props> = ({
         {quiz.category} ({quiz.difficulty})
       </p>
 
-      {quiz.rate === 0 ? '' :
+      {quiz.rate.length === 0 ? '' :
         <Stars
           rate={quiz.rate}
         />

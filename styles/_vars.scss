@@ -25,12 +25,12 @@
   --text-color:  hsl(var(--hue-color), 8%, 30%);
   --text-color-light: hsl(var(--hue-color), 8%, 75%);
 
-  --main-title-size: clamp(2.5rem, 5vw, 6rem);
+  --main-title-size: clamp(3rem, 5vw, 7rem);
   --title-size: clamp(2rem, 3vw, 4rem);
-  --subtitle-size: clamp(1.5rem, 2vw, 2rem);
-  --big-text-size: clamp(1.3rem, 1.5vw, 1.5rem);
-  --text-size: clamp(0.9rem, 1vw, 1rem);
-  --small-text-size: clamp(0.5rem, 1vw, 0.8rem);
+  --subtitle-size: clamp(1.8rem, 2vw, 2.4rem);
+  --big-text-size: clamp(1.5rem, 1.5vw, 2rem);
+  --text-size: clamp(1.2rem, 1vw, 1.7rem);
+  --small-text-size: clamp(0.8rem, 1vw, 1.2rem);
 
   --main-font: 'Poppins', sans-serif;
   --title-font: 'Rubik Moonrocks', cursive;
@@ -80,4 +80,10 @@
   --warning-border: #f5c6cb;
 
   --card-gradient: linear-gradient(45deg, var(--main-color), var(--main-color-alt), var(--main-color));
+
+  --very-easy: linear-gradient(90deg, var(--white) 0%, var(--input-color) 0%);
+  --easy: linear-gradient(90deg, var(--green) 25%, var(--input-color) 25%);
+  --medium: linear-gradient(90deg, var(--yellow) 50%, var(--input-color) 50%);
+  --hard: linear-gradient(90deg, var(--orange) 75%, var(--input-color) 75%);
+  --very-hard: linear-gradient(90deg, var(--red) 100%, var(--input-color) 100%);
 }

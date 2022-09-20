@@ -1,52 +1,70 @@
-import { FunctionComponent, useEffect } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './Stars.module.scss';
 
 type Props = {
-  rate: number
+  rate: number[]
 };
 
 const Stars: FunctionComponent<Props> = ({
   rate
 }) => {
 
-  const filledStars: string[] = [];
-  const emptyStars: string[] = [];
+  const [filled, setFilled] = useState<string[]>([]);
+  const [empty, setEmpty] = useState<string[]>([]);
+  const [quizRate, setQuizRate] = useState<number>(0);
 
   useEffect(() => {
-    for(let i = 0; i < rate; i++) {
-      filledStars.push('+1');
+
+    const filledStars: string[] = [];
+    const emptyStars: string[] = [];
+
+    let sum = 0;
+
+    for(let i = 0; i < rate.length; i++) {
+      sum += rate[i];
     };
 
-    for(let j = 0; j < 5 - rate; j++) {
+    const rating = Math.floor(sum / rate.length);
+    const average = Math.floor((sum / rate.length) * 10) / 10;
+    setQuizRate(average);
+
+    for(let j = 0; j < rating; j++) {
+      filledStars.push('+1');
+    };
+    
+    for(let k = 0; k < 5 - rating; k++) {
       emptyStars.push('+1');
     };
+
+    setEmpty(emptyStars);
+    setFilled(filledStars);
   }, []);
   
   return (
-    <section
+    <span
       className={styles.stars}
-      title={`Ce quiz a été noté ${rate}/5 par les utilisateurs`}
-      aria-label={`Ce quiz a été noté ${rate}/5 par les utilisateurs`}
+      title={`Ce quiz a été noté ${quizRate}/5 par ${rate.length} ${rate.length < 2 ? "utilisateur" : "utilisateurs"}`}
+      aria-label={`Ce quiz a été noté ${quizRate}/5 par ${rate.length} ${rate.length < 2 ? "utilisateur" : "utilisateurs"}`}
     >
-      {filledStars?.map(star => (
-        <span
+      {filled?.map(star => 
+        <em
           className={styles.star}
           key={uuidv4()}
         >
           &#9733;
-        </span>
-      ))}
-
-      {emptyStars?.map(star => (
-        <span
+        </em>
+      )}
+      
+      {empty?.map(star => 
+        <em
           className={styles.star}
           key={uuidv4()}
         >
           &#9734;
-        </span>
-      ))}
-    </section>
+        </em>
+      )}
+    </span>
   );
 };
 

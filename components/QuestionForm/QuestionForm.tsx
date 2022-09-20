@@ -89,7 +89,7 @@ const QuestionForm: FunctionComponent<Props> = ({
 
     if(proposal1.trim().length > 50) {
 
-      setWarningMessage('Les proposals ne doivent pas excéder 50 caractères');
+      setWarningMessage('Les propositions ne doivent pas excéder 50 caractères');
       setDisableButton(true);
 
     } else {
@@ -107,7 +107,7 @@ const QuestionForm: FunctionComponent<Props> = ({
 
     if(proposal2.trim().length > 50) {
 
-      setWarningMessage('Les proposals ne doivent pas excéder 50 caractères');
+      setWarningMessage('Les propositions ne doivent pas excéder 50 caractères');
       setDisableButton(true);
 
     } else {
@@ -125,7 +125,7 @@ const QuestionForm: FunctionComponent<Props> = ({
 
     if(proposal3.trim().length > 50) {
 
-      setWarningMessage('Les proposals ne doivent pas excéder 50 caractères');
+      setWarningMessage('Les propositions ne doivent pas excéder 50 caractères');
       setDisableButton(true);
 
     } else {

@@ -74,7 +74,7 @@ const UserProfileQuizCard: FunctionComponent<Props> = ({
           {quiz.date}
         </p>
 
-        {quiz.rate === 0 ? '' :
+        {quiz.rate.length === 0 ? '' :
 
           <p className={styles.rate}>
             <Stars

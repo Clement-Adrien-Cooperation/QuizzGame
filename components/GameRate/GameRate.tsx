@@ -2,6 +2,7 @@ import { Quiz } from '@prisma/client';
 import { FunctionComponent, useState } from 'react';
 import { v4 as uuidv4 } from "uuid";
 import { FaStar } from 'react-icons/fa';
+import { api } from '../../api/api';
 import styles from './GameRate.module.scss';
 
 type Props = {
@@ -17,17 +18,36 @@ const GameRate: FunctionComponent<Props> = ({
   const [hover, setHover] = useState(0);
   const [rated, setRated] = useState<boolean>(false);
 
-  const handleRateQuiz = (rate: number) => {
-    const previousRate = quiz.rate;
-    let newRate: number;
+  const handleRateQuiz = async(rate: number) => {
+    const newRate: number[] = [...quiz.rate, rate];
 
-    if(previousRate === 0) {
-      newRate = rate;
-    } else {
+    const token = localStorage.getItem('token');
 
-
-
+    const body = {
+      quiz_id: quiz.id,
+      rate: newRate
     };
+
+    await fetch(`${api}/quiz/rate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      },
+      body: JSON.stringify(body)
+    })
+    .then((res) => {
+      if(res.status === 200) {
+        console.log('ok');
+      } else {
+        console.log('error');
+      };
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+    setRated(true);
   };
 
   return (
@@ -35,7 +55,7 @@ const GameRate: FunctionComponent<Props> = ({
       {rated ?
         <section className={styles.rate}>
           <p className={styles.text}>
-            Merci pour votre note !
+            Vous avez donné une note de {hover}/5 à ce quiz
           </p>
         </section>
       :

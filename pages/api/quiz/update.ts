@@ -19,9 +19,9 @@ export default checkUser(async function handle (
       },
       data: {
         title: req.body.title,
-        nbOfQuestions: req.body.nbOfQuestions,
         category: req.body.category,
-        difficulty: req.body.difficulty
+        difficulty: req.body.difficulty,
+        nbOfQuestions: req.body.nbOfQuestions
       }
     });
 

@@ -21,7 +21,7 @@ export default authenticated(async function handle (
       }
     });
 
-    res.status(201).json(deletedQuizz);
+    res.status(200).json(deletedQuizz);
     
   } catch (error){
     res.status(404).json(error);
