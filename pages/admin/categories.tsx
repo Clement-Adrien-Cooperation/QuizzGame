@@ -4,9 +4,9 @@ import { useRouter } from 'next/router';
 import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { api } from '../../api/api';
-import AdminHeader from '../../components/AdminHeader/AdminHeader';
-import CategoryCard from '../../components/CategoryCard/CategoryCard';
-import CategoryForm from '../../components/CategoryForm/CategoryForm';
+import AdminHeader from '../../components/Admin/AdminHeader/AdminHeader';
+import CategoryCard from '../../components/Category/CategoryCard/CategoryCard';
+import CategoryForm from '../../components/Category/CategoryForm/CategoryForm';
 import InputField from '../../components/InputField/InputField';
 import styles from '../../styles/admin/Categories.module.scss';
 

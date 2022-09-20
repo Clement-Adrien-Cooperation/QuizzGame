@@ -117,18 +117,7 @@ const UserQuizCard: FunctionComponent<Props> = ({
       </section>
 
       <footer className={styles.footer}>
-
-        {quiz.reported && (
-          <span
-            className={styles.warning}
-            title="Ce quiz a été signalé par un utilisateur, cliquez pour en savoir plus"
-            aria-label="Ce quiz a été signalé par un utilisateur, cliquez pour en savoir plus"
-            onClick={() => console.log('⚠️ Ouvrir une modal de détails ⚠️')}
-          >
-            ⚠️
-          </span>
-        )}
-
+        
         {!quiz.is_visible && (
           <span
             className={styles.warning}
@@ -139,7 +128,6 @@ const UserQuizCard: FunctionComponent<Props> = ({
             🚫
           </span>
         )}
-
       </footer>
     </article>
   );

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { api } from '../../api/api';
 import { ChangeEvent, useEffect, useState } from 'react';
 import InputField from '../../components/InputField/InputField';
-import UserProfileQuizCard from '../../components/UserProfileQuizCard/UserProfileQuizCard';
+import ProfileQuizCard from '../../components/ProfileQuizCard/ProfileQuizCard';
 import styles from '../../styles/UserProfile.module.scss';
 
 type Props = {
@@ -80,7 +80,7 @@ const UserProfile: NextPage<Props> = ({
               ) {
                 return (
                   <li key={index}>
-                    <UserProfileQuizCard
+                    <ProfileQuizCard
                       quiz={quiz}
                     />
                   </li>

@@ -2,7 +2,7 @@ import { Report, User } from '@prisma/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import AdminHeader from '../../components/AdminHeader/AdminHeader';
+import AdminHeader from '../../components/Admin/AdminHeader/AdminHeader';
 import styles from '../../styles/admin/AdminReports.module.scss';
 
 type Props = {

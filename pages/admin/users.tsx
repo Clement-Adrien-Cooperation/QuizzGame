@@ -3,10 +3,10 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { api } from '../../api/api';
-import AdminHeader from '../../components/AdminHeader/AdminHeader';
+import AdminHeader from '../../components/Admin/AdminHeader/AdminHeader';
 import styles from '../../styles/admin/AdminUsers.module.scss';
-import Users from '../../components/Users/Users';
-import BanishedUsers from '../../components/BanishedUsers/BanishedUsers';
+import AdminUsers from '../../components/Admin/AdminUsers/AdminUsers';
+import BanishedUsers from '../../components/Admin/BanishedUsers/BanishedUsers';
 
 type Props = {
   isLogged: boolean,
@@ -14,7 +14,7 @@ type Props = {
   setShowLoader: Dispatch<SetStateAction<boolean>>
 };
 
-const AdminUsers: NextPage<Props> = ({
+const Users: NextPage<Props> = ({
   isLogged,
   userLogged,
   setShowLoader
@@ -163,7 +163,7 @@ const AdminUsers: NextPage<Props> = ({
       
       <section className={styles.container}>
         <div id='users'>
-          <Users
+          <AdminUsers
             users={users}
             userLogged={userLogged}
             handlePromotion={handlePromotion}
@@ -184,4 +184,4 @@ const AdminUsers: NextPage<Props> = ({
   );
 };
 
-export default AdminUsers;
+export default Users;

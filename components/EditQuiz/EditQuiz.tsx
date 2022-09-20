@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { api } from '../../api/api';
 import { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction, useEffect, useState } from 'react';
 import Notification from '../Notification/Notification';
-import Questions from '../Questions/Questions';
+import Questions from '../Question/Questions';
 import QuizForm from '../QuizForm/QuizForm';
 import Warning from '../Warning/Warning';
 import styles from './EditQuiz.module.scss';
@@ -89,6 +89,7 @@ const EditQuiz: FunctionComponent<Props> = ({
     setTitle(quizData.title);
 
     setCategory(quizData.category);
+    setDefaultCategory(quizData.category);
 
     setDifficulty(quizData.difficulty);
     setPreviousDifficulty();

@@ -38,9 +38,9 @@ model Question {
   user_id       String
   quiz_id       String
   question      String
-  description   String
-  proposals     String[]
   answer        String
+  proposals     String[]
+  description   String
 }
 
 model Comment {

@@ -14,8 +14,7 @@ const unLoggedUser: User = {
   email: '',
   password: '',
   is_admin: false,
-  is_banished: false,
-  reported: false
+  is_banished: false
 };
 
 function MyApp({ Component, pageProps }: AppProps) {

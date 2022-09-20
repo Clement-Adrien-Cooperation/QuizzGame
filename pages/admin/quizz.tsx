@@ -3,9 +3,9 @@ import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { api } from '../../api/api';
-import AdminHeader from '../../components/AdminHeader/AdminHeader';
-import AdminQuizz from '../../components/AdminQuizz/AdminQuizz';
-import AdminDeletedQuizz from '../../components/AdminDeletedQuizz/AdminDeletedQuizz';
+import AdminHeader from '../../components/Admin/AdminHeader/AdminHeader';
+import AdminQuizz from '../../components/Admin/AdminQuizz/AdminQuizz';
+import AdminDeletedQuizz from '../../components/Admin/AdminDeletedQuizz/AdminDeletedQuizz';
 import styles from '../../styles/admin/AdminQuizz.module.scss';
 
 type Props = {

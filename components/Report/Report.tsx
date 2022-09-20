@@ -1,7 +1,7 @@
 import { FunctionComponent, Dispatch, SetStateAction, useState } from 'react';
 import CloseButton from '../CloseButton/CloseButton';
 import Notification from '../Notification/Notification';
-import ReportForm from '../ReportForm/ReportForm';
+import ReportForm from './ReportForm/ReportForm';
 import Warning from '../Warning/Warning';
 import styles from './Report.module.scss';
 

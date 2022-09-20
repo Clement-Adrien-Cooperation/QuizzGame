@@ -1,0 +1,12 @@
+@import '../../../styles/mixins';
+
+.form {
+  margin: 200px 0 10px;
+  width: 500px;
+  position: relative;
+}
+
+.button {
+  @include posAbsolute(1rem, 0, auto, auto);
+  @include mainButton;
+}

@@ -3,8 +3,8 @@ import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { api } from '../../api/api';
-import GameDetails from '../../components/GameDetails/GameDetails';
-import GameScreen from '../../components/GameScreen/GameScreen';
+import GameDetails from '../../components/Game/GameDetails/GameDetails';
+import GameScreen from '../../components/Game/GameScreen/GameScreen';
 import Report from '../../components/Report/Report';
 import Warning from '../../components/Warning/Warning';
 import styles from '../../styles/quizz/QuizGame.module.scss';
@@ -19,8 +19,7 @@ const emptyQuiz: Quiz = {
   is_visible: true,
   date: '',
   nbOfQuestions: 0,
-  rate: [],
-  reported: false
+  rate: []
 };
 
 const emptyQuestion: Question = {
@@ -30,8 +29,7 @@ const emptyQuestion: Question = {
   question: '',
   description: '',
   proposals: [],
-  answer: '',
-  reported: false
+  answer: ''
 };
 
 type Props = {
@@ -120,8 +118,6 @@ const QuizGame: NextPage<Props> = ({
 
     // Do the same with proposals & answer from the first question
     randomizeProposals(gameQuestions[0]);
-
-    console.log("questions : ", gameQuestions);
   };
 
   const randomizeProposals = (question: Question) => {

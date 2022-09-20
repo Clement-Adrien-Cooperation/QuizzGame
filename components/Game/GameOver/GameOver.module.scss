@@ -1,0 +1,29 @@
+@import '../../../styles/mixins';
+
+.endgame {
+  @include posCenter;
+  @include flexCenter;
+  flex-direction: column;
+  gap: 50px;
+  box-shadow: var(--card-shadow);
+  padding: 50px 100px;
+  border-radius: var(--medium-radius);
+}
+
+.title {
+  font-size: var(--subtitle-size);
+  font-weight: 300;
+}
+
+.text {
+  font-size: var(--big-text-size);
+}
+
+.score {
+  margin-left: 0.4em;
+  font-weight: 600;
+}
+
+.link {
+  @include mainButton;
+}

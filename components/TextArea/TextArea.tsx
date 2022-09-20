@@ -6,7 +6,8 @@ type Props = {
   label: string,
   state: string,
   handleFunction: ChangeEventHandler<HTMLTextAreaElement>,
-  title: string
+  title: string,
+  required: boolean
 };
 
 const TextArea: FunctionComponent<Props> = ({
@@ -14,7 +15,8 @@ const TextArea: FunctionComponent<Props> = ({
   label,
   state,
   handleFunction,
-  title
+  title,
+  required
 }) => {
 
   return (
@@ -26,7 +28,7 @@ const TextArea: FunctionComponent<Props> = ({
         aria-label={title}
         value={state}
         id={inputID}
-        required={true}
+        required={required}
         onChange={handleFunction}
       />
 

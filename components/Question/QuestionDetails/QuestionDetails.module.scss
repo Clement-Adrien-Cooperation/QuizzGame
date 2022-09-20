@@ -1,0 +1,46 @@
+@import '../../../styles//mixins';
+
+.answers {
+  margin: 20px 0 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.answer {
+  background: var(--green);
+  padding: 7px 14px;
+  border-radius: var(--small-radius);
+  color: var(--white);
+  margin-right: 10px;
+  line-height: 125%;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 300;
+}
+
+.proposals {
+  display: flex;
+  gap: 10px;
+
+  &__item {
+    background-color: var(--red);
+    padding: 7px 14px;
+    border-radius: var(--small-radius);
+    color: var(--white);
+    line-height: 125%;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 300;
+  }
+}
+
+.description {
+  margin: 30px 0 10px;
+  padding: 12px 22px;
+  border-radius: var(--small-radius);
+  background: var(--light-grey);
+  text-align: center;
+  font-size: var(--small-text-size);
+  font-style: italic;
+  color: var(--black);
+}

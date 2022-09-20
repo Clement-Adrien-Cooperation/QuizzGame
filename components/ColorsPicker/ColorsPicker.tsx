@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState } from 'react';
 import styles from './ColorsPicker.module.scss';
 
-import ColorPicker from '../ColorPicker/ColorPicker';
+import ColorPicker from './ColorPicker/ColorPicker';
 
 const ColorsPicker: FunctionComponent = () => {
 

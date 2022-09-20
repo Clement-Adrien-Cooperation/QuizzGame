@@ -1,0 +1,17 @@
+@import '../../../styles/mixins';
+
+.title {
+  font-weight: 300;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+}
+
+.star {
+  margin-top: 15px;
+  font-size: 3em;
+  padding: 0.1em;
+  cursor: pointer;
+}

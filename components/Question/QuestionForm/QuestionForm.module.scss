@@ -1,0 +1,35 @@
+@import '../../../styles/mixins';
+
+.form {
+  @include flexCenter;
+  flex-direction: column;
+  margin-top: 20px;
+  width: 400px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: animApparition 0.3s ease-in-out forwards;
+  gap: 5px;
+}
+
+.area {
+  @include areaInput;
+  margin: 20px 0;
+}
+
+.submit {
+  @include secondaryButton;
+  font-size: 12px;
+  margin: 20px 0;
+}
+
+.cancel {
+  @include underlineButton;
+  font-size: 11px;
+}
+
+@keyframes animApparition {
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
