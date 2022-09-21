@@ -69,7 +69,7 @@ const Questions: FunctionComponent<Props> = ({
   return (
     <section className={styles.container}>
 
-      {showForm ? (
+      {showForm ?
         <QuestionForm
           question={question}
           setQuestion={setQuestion}
@@ -90,9 +90,9 @@ const Questions: FunctionComponent<Props> = ({
           updateIndex={updateIndex}
           questionID={questionID}
         />
-      ) : (
+      :
         <section className={styles.questions}>
-          {questions.length > 0 && (
+          {questions.length > 0 &&
             <>
               <section className={styles.header}>
                   
@@ -121,7 +121,7 @@ const Questions: FunctionComponent<Props> = ({
               }
 
 
-              {questions.length > 10 && (
+              {questions.length > 10 &&
                 <div
                   className={styles.input}
                   title='Vous pouvez filtrer avec la questions en elle-même ou avec la bonne réponse'
@@ -138,7 +138,7 @@ const Questions: FunctionComponent<Props> = ({
                     handleFunction={handleChangeQuestionFilter}
                   />
                 </div>
-              )}
+              }
 
               <ul className={styles.list}>
                 {questions?.map((question, index) => {
@@ -171,9 +171,9 @@ const Questions: FunctionComponent<Props> = ({
                 })}
               </ul>
             </>
-          )}
+          }
 
-          {questions.length > 0 && questions.length < 10 ? '' : (
+          {questions.length < 1 &&
             <button
               className={styles.button}
               type='button'
@@ -186,9 +186,9 @@ const Questions: FunctionComponent<Props> = ({
             >
               Ajouter une question
             </button>
-          )}
+          }
         </section>
-      )}
+      }
     </section>
   );
 };

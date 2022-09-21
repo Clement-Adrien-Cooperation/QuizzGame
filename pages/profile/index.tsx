@@ -168,7 +168,7 @@ const Profile: NextPage<Props> = ({
         </section>
       </div>
 
-      {userQuizz?.length === 0 ? (
+      {userQuizz?.length !== 0 ?
 
         <section className={styles.container}>
           <h2 className={styles.container__title}>
@@ -185,9 +185,7 @@ const Profile: NextPage<Props> = ({
             Créer un quiz
           </button>
         </section>
-
-      ) : (
-
+      :
         <section className={styles.container}>
           <h2 className={styles.container__title}>
             Mes Quizz
@@ -207,7 +205,7 @@ const Profile: NextPage<Props> = ({
             )}
           </ul>
         </section>
-      )}
+      }
 
       {showConfirmDelete && (
         <ConfirmModal

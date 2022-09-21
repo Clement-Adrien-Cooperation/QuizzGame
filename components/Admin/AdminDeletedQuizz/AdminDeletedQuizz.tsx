@@ -30,7 +30,7 @@ const AdminDeletedQuizz: FunctionComponent<Props> = ({
           Quizz supprimés
         </h2>
 
-        {deletedQuizz?.length < 10 ? '' : (
+        {deletedQuizz?.length > 10 &&
           <div
             className={styles.input}
             title='Vous pouvez trouver un quiz avec son titre ou le pseudo de son createur'
@@ -47,7 +47,7 @@ const AdminDeletedQuizz: FunctionComponent<Props> = ({
               handleFunction={handleChangeDeletedQuizzFilter}
             />
           </div>
-        )}
+        }
       </header>
 
       <ul className={styles.list}>

@@ -1,0 +1,29 @@
+@import '../mixins';
+
+.header {
+  margin-top: 100px;
+  padding: 10px 50px;
+}
+
+.title {
+  font-weight: 300;
+  font-size: 3rem;
+}
+
+.buttons {
+  @include posFixed(100px, 50px, auto, auto);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.link {
+  @include secondaryButton;
+}
+
+.reports {
+  @include flexCenter;
+  flex-direction: column;
+  margin-top: 150px;
+  gap: 100px;
+}

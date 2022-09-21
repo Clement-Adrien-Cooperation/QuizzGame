@@ -30,7 +30,7 @@ const AdminQuestionCard: FunctionComponent<Props> = ({
         </header>
 
         <div
-          className={showDetails ? 
+          className={showDetails ?
             `${styles.body} ${styles.opened}`
           : 
             `${styles.body}`
@@ -61,7 +61,7 @@ const AdminQuestionCard: FunctionComponent<Props> = ({
 
         <footer className={styles.footer}>
           <div
-            className={showDetails ? 
+            className={showDetails ?
               `${styles.arrow} ${styles.rotated}`
             : 
               `${styles.arrow}`

@@ -81,7 +81,7 @@ const QuizCard: FunctionComponent<Props> = ({
 
           </div>
 
-          {quiz.rate.length === 0 ? '' :
+          {quiz.rate.length !== 0 &&
             <span className={styles.rate}>
               
               <Stars

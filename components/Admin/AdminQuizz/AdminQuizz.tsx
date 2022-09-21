@@ -30,7 +30,7 @@ const AdminQuizz: FunctionComponent<Props> = ({
           Quizz visibles
         </h2>
 
-        {quizz?.length < 10 ? '' : (
+        {quizz?.length > 10 &&
           <div
             className={styles.input}
             title='Vous pouvez trouver un quiz avec son titre ou le pseudo de son createur'
@@ -47,7 +47,7 @@ const AdminQuizz: FunctionComponent<Props> = ({
               handleFunction={handleChangeQuizzFilter}
             />
           </div>
-        )}
+        }
       </header>
 
       <ul className={styles.list}>

@@ -48,7 +48,7 @@ const AdminQuizQuestions: FunctionComponent<Props> = ({
 
   return (
     <section className={styles.questions}>
-      {questions.length < 10 ? '' : (
+      {questions.length > 10 &&
         <div
           className={styles.input}
           title="Filtrer avec la question ou la bonne réponse"
@@ -65,7 +65,7 @@ const AdminQuizQuestions: FunctionComponent<Props> = ({
             handleFunction={handleChangeQuestionFilter}
           />
         </div>
-      )}
+      }
 
       <ul className={styles.list}>
         {questions?.map((question: Question) => {

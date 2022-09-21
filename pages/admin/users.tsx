@@ -142,23 +142,23 @@ const Users: NextPage<Props> = ({
 
       <section className={styles.buttons}>
 
-        {users.length === 0 ? '' : (
+        {users.length !== 0 &&
           <a
             className={styles.button}
             href='#users'
           >
             Utilisateurs
           </a>
-        )}
+        }
 
-        {banishedUsers.length === 0 ? '' : (
+        {banishedUsers.length !== 0 &&
           <a
             className={styles.button}
             href='#banned-users'
           >
             Bannis
           </a>
-        )}
+        }
       </section>
       
       <section className={styles.container}>

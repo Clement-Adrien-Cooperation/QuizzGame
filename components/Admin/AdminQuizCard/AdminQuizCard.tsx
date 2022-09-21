@@ -60,14 +60,14 @@ const AdminQuizCard: FunctionComponent<Props> = ({
 
       </section>
 
-      {quizDetails.id === '' ? '' : (
+      {quizDetails.id !== '' &&
         <AdminQuizDetails
           quiz={quiz}
           setQuizDetails={setQuizDetails}
           handleModerateQuiz={handleModerateQuiz}
           handleDeleteQuiz={handleDeleteQuiz}
         />
-      )}
+      }
     </>
   );
 };

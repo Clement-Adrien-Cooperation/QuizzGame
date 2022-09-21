@@ -2,7 +2,7 @@ import { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import { api } from '../../../api/api';
 import { Category } from '@prisma/client';
 import Image from 'next/image';
-import trash from '../../public/icons/delete.svg';
+import trash from '../../../public/icons/delete.svg';
 import styles from './CategoryCard.module.scss';
 
 type Props = {

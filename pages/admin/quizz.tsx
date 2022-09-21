@@ -138,29 +138,32 @@ const Quizz: NextPage<Props> = ({
       <AdminHeader />
 
       <aside className={styles.buttons}>
-        {quizz?.length < 10 ? '' : (
+        {quizz?.length > 10 &&
           <a
             className={styles.buttons__item}
             href='#quizz'
+            title="Aller aux quizz visibles"
+            aria-label="Aller aux quizz visibles"
           >
-            Aller aux quizz
+            Quizz
           </a>
-        )}
+        }
 
-        {deletedQuizz?.length === 0 
-        || quizz?.length < 10 ? '' : (
+        {deletedQuizz?.length !== 0 &&
           <a
             className={styles.buttons__item}
             href='#deleted-quizz'
+            title="Aller aux quizz modérés"
+            aria-label="Aller aux quizz modérés"
           >
-            Aller aux quizz supprimés
+            Quizz modérés
           </a>
-        )}
+        }
       </aside>
 
       <div className={styles.container}>
 
-        {quizz?.length === 0 ? '' :
+        {quizz?.length !== 0 &&
           <section
             className={styles.quizz}
             id='quizz'
@@ -173,7 +176,7 @@ const Quizz: NextPage<Props> = ({
           </section>
         }
 
-        {deletedQuizz?.length === 0 ? '' : (
+        {deletedQuizz?.length !== 0 &&
 
           <section
             className={styles.quizz}
@@ -185,7 +188,7 @@ const Quizz: NextPage<Props> = ({
               handleDeleteQuiz={handleDeleteQuiz}
             />
           </section>
-        )} 
+        } 
       </div>
     </section>
   );

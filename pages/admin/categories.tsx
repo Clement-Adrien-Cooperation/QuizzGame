@@ -63,7 +63,7 @@ const Categories: NextPage<Props> = ({
           setShowLoader={setShowLoader}
         />
 
-        {categories.length > 0 && (
+        {categories.length > 0 &&
           <div className={styles.categories}>
 
             <header className={styles.header}>
@@ -72,7 +72,7 @@ const Categories: NextPage<Props> = ({
               </h1>
             </header>
 
-            {categories?.length < 10 ? '' :
+            {categories?.length > 10 &&
             
               <InputField
                 name={'Filtrer les catégories...'}
@@ -107,7 +107,7 @@ const Categories: NextPage<Props> = ({
               })}
             </ul>
           </div>
-        )}
+        }
       </section>
     </>
   );

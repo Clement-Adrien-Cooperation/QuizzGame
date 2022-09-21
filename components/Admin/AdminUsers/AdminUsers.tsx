@@ -28,11 +28,11 @@ const AdminUsers: FunctionComponent<Props> = ({
   return (
     <section className={styles.container}>
 
-      <h3 className={styles.title}>
+      <h2 className={styles.title}>
         Utilisateurs actifs
-      </h3>
+      </h2>
 
-      {users.length < 10 ? '' :
+      {users.length > 10 &&
         <div className={styles.input}>
           <InputField
             name={'Rechercher un utilisateur'}

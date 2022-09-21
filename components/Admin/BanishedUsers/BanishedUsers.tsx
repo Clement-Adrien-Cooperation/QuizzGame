@@ -27,11 +27,11 @@ const BanishedUsers: FunctionComponent<Props> = ({
 
   return (
     <>
-      {banishedUsers.length === 0 ? '' : 
+      {banishedUsers.length < 1 &&
         <section className={styles.container}>
-          <h3 className={styles.title}>
+          <h2 className={styles.title}>
             Utilisateurs bannis
-          </h3>
+          </h2>
 
           <div className={styles.input}>
             <InputField

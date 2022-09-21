@@ -49,10 +49,9 @@ const UserProfile: NextPage<Props> = ({
       </header>
 
       {userQuizz ?
-      
         <section className={styles.container}>
 
-          {userQuizz?.length < 10 ? '' :
+          {userQuizz?.length > 10 &&
             <div className={styles.input}>
               <InputField
                 name={'Chercher un quiz...'}
@@ -76,8 +75,7 @@ const UserProfile: NextPage<Props> = ({
               const filter = quizzFilter.toLowerCase();
 
               if(quiz.nbOfQuestions > 0 && filteredTitle.includes(filter)
-              || quiz.nbOfQuestions > 0 && filteredCategory.includes(filter)
-              ) {
+              || quiz.nbOfQuestions > 0 && filteredCategory.includes(filter)) {
                 return (
                   <li key={index}>
                     <ProfileQuizCard

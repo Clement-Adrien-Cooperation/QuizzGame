@@ -41,7 +41,7 @@ const UserDetails: FunctionComponent<Props> = ({
 
       </div>
 
-      {userLogged.id === id ? (
+      {userLogged.id === id ?
 
         <div className={styles.footer}>
           <p className={styles.text}>
@@ -49,7 +49,7 @@ const UserDetails: FunctionComponent<Props> = ({
           </p>
         </div>
 
-      ) : (
+      :
         <div className={styles.footer}>
 
           <button
@@ -75,7 +75,7 @@ const UserDetails: FunctionComponent<Props> = ({
             </button>
           )}
         </div>
-      )}
+      }
     </section>
   );
 };

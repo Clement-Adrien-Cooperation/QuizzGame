@@ -420,27 +420,27 @@ const EditQuiz: FunctionComponent<Props> = ({
           handleChangeCategory={handleChangeCategory}
         />
 
-        {warningMessage && (
+        {warningMessage &&
           <Warning
             warningMessage={warningMessage}
             setWarningMessage={setWarningMessage}
           />
-        )}
+        }
       </form>
 
-      {router.pathname.includes('create') ? '' :
+      {router.pathname.includes('quizz/update') &&
         <Questions
           questions={questions}
           setQuestions={setQuestions}
         />
       }
 
-      {notification && (
+      {notification &&
         <Notification
           notification={notification}
           setNotification={setNotification}
         />
-      )}
+      }
     </>
   );
 };

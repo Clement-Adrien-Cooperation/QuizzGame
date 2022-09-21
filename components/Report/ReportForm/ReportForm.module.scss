@@ -3,9 +3,19 @@
 .form {
   @include flexCenter;
   flex-direction: column;
+  min-width: 30vw;
   width: 40rem;
+  max-width: 95vw;
 }
 
 .submit {
   @include secondaryButton;
+}
+
+.text {
+  padding: 1rem 2rem;
+  color: var(--green);
+  background: var(--green-secondary);
+  border-radius: var(--small-radius);
+  border: 1px solid var(--green-hover);
 }

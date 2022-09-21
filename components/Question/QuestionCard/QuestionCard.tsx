@@ -2,9 +2,9 @@ import { Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
 import { Question } from '@prisma/client';
 import Image from 'next/image';
 import styles from './QuestionCard.module.scss';
-import editIcon from '../../public/icons/edit.svg';
-import deleteIcon from '../../public/icons/delete.svg';
-import arrow from '../../public/icons/arrow.svg';
+import editIcon from '../../../public/icons/edit.svg';
+import deleteIcon from '../../../public/icons/delete.svg';
+import arrow from '../../../public/icons/arrow.svg';
 import QuestionDetails from '../QuestionDetails/QuestionDetails';
 
 type Props = {

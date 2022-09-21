@@ -42,7 +42,7 @@ const Connexion: NextPage<Props> = ({
   return (
     <section className={styles.container}>
 
-        {toggleForm ? (
+        {toggleForm ?
           <div className={styles.sign_up}>
 
             <SignUp
@@ -54,7 +54,7 @@ const Connexion: NextPage<Props> = ({
               setShowLoader={setShowLoader}
             />
           </div>
-        ) : (
+        :
           <div className={styles.sign_in}>
             <SignIn
               handleToggleForm={handleToggleForm}
@@ -63,7 +63,7 @@ const Connexion: NextPage<Props> = ({
               setShowLoader={setShowLoader}
             />
           </div>
-        )}
+        }
     </section>
   );
 };
