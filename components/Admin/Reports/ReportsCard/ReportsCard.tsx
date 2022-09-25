@@ -1,5 +1,6 @@
 import { Report } from '@prisma/client';
 import { FunctionComponent, useState } from 'react';
+import { api } from '../../../../api/api';
 import styles from './ReportsCard.module.scss';
 import eye from '../../../../public/icons/eye_visible.svg';
 import trash from '../../../../public/icons/delete.svg';
@@ -10,20 +11,47 @@ import Link from 'next/link';
 import Modal from '../../../Modal/Modal';
 
 type Props = {
-  report: Report
+  report: Report,
+  reportsSorting: (reports: Report[]) => void
 };
 
 const ReportsCard: FunctionComponent<Props> = ({
-  report
+  report,
+  reportsSorting
 }) => {
 
   const [showSubject, setShowSubject] = useState<boolean>(false);
+
+  const deleteReport = async() => {
+
+    // Get token from local storage
+    const token = localStorage.getItem('token');
+
+    // delete report from API with the right ID
+    await fetch(`${api}/report/delete`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `${token}`
+      },
+      body: JSON.stringify({ id: report.id })
+    })
+    .then(async(res) => {
+      if(res.status === 200) {
+        const newReports = await res.json();
+        // update state by sorting data received
+        reportsSorting(newReports);
+      };
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
 
   return (
     <>
       <article className={styles.card}>
         <header className={styles.header}>
-          <span>Sujet :</span>
           <h4>
             {report.about_title}
           </h4>
@@ -37,7 +65,7 @@ const ReportsCard: FunctionComponent<Props> = ({
 
           <div className={styles.container}>
             <p>
-              Signalé par 
+              Signalé par
               <Link href={`/profile/${report.pseudo}`}>
                 <a className={styles.link}>
                   {report.pseudo}
@@ -49,7 +77,6 @@ const ReportsCard: FunctionComponent<Props> = ({
               le {report.date}
             </span>
           </div>
-
         </section>
 
         <footer className={styles.footer}>
@@ -89,6 +116,7 @@ const ReportsCard: FunctionComponent<Props> = ({
             type="button"
             title="Supprimer ce signalement"
             aria-label="Supprimer ce signalement"
+            onClick={deleteReport}
           >
             <Image
               layout="responsive"

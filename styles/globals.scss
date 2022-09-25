@@ -10,6 +10,7 @@ body {
   font-family: var(--main-font);
   color: var(--text-color);
   font-size: var(--text-size);
+  line-height: 130%;
 
   ::selection {
     background-color: var(--main-color);

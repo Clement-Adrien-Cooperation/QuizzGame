@@ -40,6 +40,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 }
 
 .message {
@@ -59,14 +60,5 @@
 }
 
 .button {
-  width: 3em;
-  height: 3em;
-  padding: 0.5em;
-  border-radius: var(--small-radius);
-  opacity: 0.7;
-
-  &:hover {
-    background: rgba(0, 0, 0, 0.1);
-    opacity: 1;
-  }
+  @include imageButton;
 }

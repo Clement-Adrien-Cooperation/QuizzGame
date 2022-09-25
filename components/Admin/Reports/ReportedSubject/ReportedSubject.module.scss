@@ -4,10 +4,25 @@
   @include flexCenter;
   flex-direction: column;
   gap: 25px;
-  z-index: 10;
   box-shadow: var(--box-shadow);
   background: var(--body-color);
   border-radius: var(--small-radius);
   padding: 2em 4em;
   text-align: center;
+}
+
+.footer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.button {
+  @include imageButton;
+}
+
+.creator {
+  @include underlineButton;
+  margin-left: 0.4em;
+  font-size: 1.4rem;
 }

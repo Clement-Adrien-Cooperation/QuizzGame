@@ -1,9 +1,11 @@
 import { User } from '@prisma/client';
+import { useRouter } from 'next/router';
 import { FunctionComponent } from 'react';
 import styles from './UserDetails.module.scss';
 
 type Props = {
   id: string,
+  pseudo: string,
   email: string,
   is_admin: boolean,
   is_banished: boolean,
@@ -14,6 +16,7 @@ type Props = {
 
 const UserDetails: FunctionComponent<Props> = ({
   id,
+  pseudo,
   email,
   is_banished,
   is_admin,
@@ -22,24 +25,10 @@ const UserDetails: FunctionComponent<Props> = ({
   handleBanishment
 }) => {
 
+  const router = useRouter();
+
   return (
     <section className={styles.details}>
-
-      <div className={styles.body}>
-
-        <p className={styles.content}>
-          <span className={styles.subtitle}>ID :</span> {id}
-        </p>
-
-        <p className={styles.content}>
-          <span className={styles.subtitle}>Mail :</span> {email}
-        </p>
-
-        <p className={styles.content}>
-          <span className={styles.subtitle}>Administrateur :</span> {is_admin ? 'Oui' : 'Non'}
-        </p>
-
-      </div>
 
       {userLogged.id === id ?
 
@@ -74,6 +63,16 @@ const UserDetails: FunctionComponent<Props> = ({
               {is_admin ? "Rétrograder" : "Promouvoir"}
             </button>
           )}
+
+          <button
+            className={styles.button}
+            type='button'
+            title={is_banished ? 'Débannir cet utilisateur' : 'Bannir cet utilisateur'}
+            aria-label={is_banished ? 'Débannir cet utilisateur' : 'Bannir cet utilisateur'}
+            onClick={() => router.push(`/profile/${pseudo}`)}
+          >
+            Profil
+          </button>
         </div>
       }
     </section>

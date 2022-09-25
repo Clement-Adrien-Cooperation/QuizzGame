@@ -6,6 +6,7 @@
   @include posFixed(0, auto, auto, var(--navbar-width));
   width: calc(100vw - var(--navbar-width));
   height: 100vh;
+  z-index: 20;
 }
 
 .behind {

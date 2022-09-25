@@ -39,8 +39,10 @@ const ReportForm: FunctionComponent<Props> = ({
   const handleSubmitForm = async() => {
     setShowLoader(true);
 
+    // Get token from local storage
     const token = localStorage.getItem('token');
 
+    // set up the body
     const body = {
       pseudo,
       about,
@@ -50,6 +52,7 @@ const ReportForm: FunctionComponent<Props> = ({
       date: new Date().toLocaleDateString()
     };
 
+    // Create new report in API
     await fetch(`${api}/report/create`, {
       method: 'POST',
       headers: {

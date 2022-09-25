@@ -25,13 +25,15 @@ const Reports: NextPage<Props> = ({
   
   useEffect(() => {
     if(isLogged) {
+      // if user is banished
       if(userLogged.is_banished) {
+        // we push him to "banned" page
         router.push('/banned');
       } else if(userLogged.is_admin) {
-
+        // if user is admin, change title of document
         document.title = "Modérer les signalements - s'Quizz Game";
+        // and get reports
         getReports();
-
       } else {
         router.push('/');
       };
@@ -41,8 +43,10 @@ const Reports: NextPage<Props> = ({
   }, []);
 
   const getReports = async () => {
+    // Get token from local storage
     const token = localStorage.getItem('token');
 
+    // Get all reports from API
     await fetch(`${api}/report/getAll`, {
       method: 'POST',
       headers: {
@@ -52,8 +56,9 @@ const Reports: NextPage<Props> = ({
     })
     .then(async(res) => {
       if(res.status === 200) {
-        const data = await res.json();
-        reportsSorting(data);
+        const reports = await res.json();
+        // sort reports
+        reportsSorting(reports);
       } else {
         console.log('error');
       };
@@ -64,6 +69,8 @@ const Reports: NextPage<Props> = ({
   };
   
   const reportsSorting = (reports: Report[]) => {
+
+    // sort data by "user", "quizz" or "comment"
     const users = reports.filter(report => report.about === 'user');
     setUsersReported(users);
 
@@ -124,6 +131,7 @@ const Reports: NextPage<Props> = ({
         {usersReported.length > 0 &&
           <ReportsList
             reports={usersReported}
+            reportsSorting={reportsSorting}
             name={"Utilisateurs"}
           />
         }
@@ -131,6 +139,7 @@ const Reports: NextPage<Props> = ({
         {quizzReported.length > 0 &&
           <ReportsList
             reports={quizzReported}
+            reportsSorting={reportsSorting}
             name={"Quizz"}
           />
         }
@@ -138,6 +147,7 @@ const Reports: NextPage<Props> = ({
         {commentsReported.length > 0 &&
           <ReportsList
             reports={commentsReported}
+            reportsSorting={reportsSorting}
             name={"Commentaires"}
           />
         }

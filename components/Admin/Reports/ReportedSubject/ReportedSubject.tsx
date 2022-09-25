@@ -1,5 +1,5 @@
-import { Comment, Question, Quiz, Report, User } from '@prisma/client';
-import { FunctionComponent, useEffect, useState, Dispatch, SetStateAction } from 'react';
+import { Comment, Quiz, Report, User } from '@prisma/client';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { api } from '../../../../api/api';
 import styles from './ReportedSubject.module.scss';
 import ReportedUser from './ReportedUser';
@@ -26,13 +26,16 @@ const ReportedSubject: FunctionComponent<Props> = ({
  
   const getSubject = async() => {
 
+    // get token from local storage
     const token = localStorage.getItem('token');
 
+    // set up body for api request
     const body = {
       about: report.about,
       about_id: report.about_id
     };
 
+    // get our subject (quiz, user or comment) from API
     await fetch(`${api}/report/getSubject`, {
       method: 'POST',
       headers: {
@@ -44,7 +47,6 @@ const ReportedSubject: FunctionComponent<Props> = ({
     .then(async(res) => {
       if(res.status === 200) {
         const data = await res.json();
-        
         sortingSubject(data);
       };
     })
@@ -52,9 +54,9 @@ const ReportedSubject: FunctionComponent<Props> = ({
       console.log(error);
     });
   };
-
+  
   const sortingSubject = (data: any) => {
-
+    // sort subject
     switch(true) {
       case report.about === "user" :
         setUser(data);
@@ -72,7 +74,6 @@ const ReportedSubject: FunctionComponent<Props> = ({
   };
 
   return (
-
     <article className={styles.card}>
       <header>
         <h5>

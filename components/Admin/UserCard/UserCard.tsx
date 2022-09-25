@@ -61,6 +61,7 @@ const UserCard: FunctionComponent<Props> = ({
         { showDetails && (
           <UserDetails
             id={user.id}
+            pseudo={user.pseudo}
             email={user.email}
             is_banished={user.is_banished}
             is_admin={user.is_admin}

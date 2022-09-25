@@ -7,7 +7,7 @@
 
 .buttons {
   position: sticky;
-  top: 0;
+  top: 100px;
   display: flex;
   justify-content: flex-end;
   gap: 20px;
@@ -16,5 +16,5 @@
 
 .button {
   @include secondaryButton;
-  font-size: 12px;
+  font-size: 1rem;
 }

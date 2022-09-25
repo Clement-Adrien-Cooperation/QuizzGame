@@ -211,7 +211,7 @@ const QuizGame: NextPage<Props> = ({
             </main>
           }
 
-          {isLogged &&
+          {/* {userLogged.pseudo !== quizData.creator && isLogged && */}
             <>
               {report ?
                 <Report
@@ -234,7 +234,7 @@ const QuizGame: NextPage<Props> = ({
                 </button>
               }
             </>
-          }
+          {/* } */}
         </section>
       }
     </>

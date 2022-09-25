@@ -7,11 +7,13 @@ import styles from './ReportsList.module.scss';
 
 type Props = {
   reports: Report[],
+  reportsSorting: (reports: Report[]) => void,
   name: string
 };
 
 const ReportsLists: FunctionComponent<Props> = ({
   reports,
+  reportsSorting,
   name
 }) => {
 
@@ -64,6 +66,7 @@ const ReportsLists: FunctionComponent<Props> = ({
                 <li key={uuidv4()}>
                   <ReportsCard
                     report={report}
+                    reportsSorting={reportsSorting}
                   />
                 </li>
               );

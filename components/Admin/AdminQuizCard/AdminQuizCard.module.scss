@@ -26,7 +26,6 @@
   text-overflow: ellipsis;
   max-width: 300px;
   white-space: nowrap;
-  line-height: 130%;
   color: var(--text-color);
 }
 
@@ -38,7 +37,6 @@
 .details {
   @include flexCenter;
   flex-direction: column;
-  gap: 5px;
   padding: 0 20px;
   font-size: 12px;
 }

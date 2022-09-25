@@ -10,6 +10,8 @@ const ReportedComment: FunctionComponent<Props> = ({
   comment
 }) => {
 
+  
+
   return (
     <>
       

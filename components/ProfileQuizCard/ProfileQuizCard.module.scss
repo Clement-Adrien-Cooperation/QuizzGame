@@ -34,12 +34,11 @@
   aspect-ratio: 16/9;
   @include flexCenter;
   flex-direction: column;
-  gap: 10px;
   background: var(--main-color);
   font-size: 14px;
   color: var(--white);
   transition: .3s;
-  transform: translateY(100%);
+  transform: translateY(105%);
 }
 
 .difficulty {
