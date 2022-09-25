@@ -1,7 +1,7 @@
-import { FunctionComponent, Dispatch, SetStateAction, useState } from 'react';
-import CloseButton from '../CloseButton/CloseButton';
+import { FunctionComponent, Dispatch, SetStateAction } from 'react';
 import ReportForm from './ReportForm/ReportForm';
 import styles from './Report.module.scss';
+import Modal from '../Modal/Modal';
 
 type Props = {
   pseudo: string,
@@ -21,26 +21,15 @@ const Report: FunctionComponent<Props> = ({
   setShowLoader
 }) => {
 
-  const closeModal = () => {
-    setShowReportForm(false);
-  };
-
   return (
-    <div className={styles.container}>
-      <div 
-        className={styles.behind}
-        onClick={closeModal}
-      ></div>
-
-      <section className={styles.modal}>
+    <Modal
+      setShowModal={setShowReportForm}
+    >
+      <section className={styles.container}>
         <header className={styles.header}>
           <h4 className={styles.title}>
             Signalement
           </h4>
-
-          <CloseButton
-            handleFunction={closeModal}
-          />
         </header>
         
         <ReportForm
@@ -50,9 +39,8 @@ const Report: FunctionComponent<Props> = ({
           about_title={about_title}
           setShowLoader={setShowLoader}
         />
-
       </section>
-    </div>
+    </Modal>
   );
 };
 

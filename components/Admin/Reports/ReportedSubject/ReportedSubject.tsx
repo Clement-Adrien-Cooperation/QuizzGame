@@ -2,27 +2,22 @@ import { Comment, Question, Quiz, Report, User } from '@prisma/client';
 import { FunctionComponent, useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { api } from '../../../../api/api';
 import styles from './ReportedSubject.module.scss';
-import CloseButton from '../../../CloseButton/CloseButton';
 import ReportedUser from './ReportedUser';
 import ReportedQuiz from './ReportedQuiz';
-import ReportedQuestion from './ReportedQuestion';
 import ReportedComment from './ReportedComment';
 
 type Props = {
-  report: Report,
-  setShowSubject: Dispatch<SetStateAction<boolean>>
+  report: Report
 };
 
 const ReportedSubject: FunctionComponent<Props> = ({
-  report,
-  setShowSubject
+  report
 }) => {
 
   const [title, setTitle] = useState<string>(report.about_title);
 
   const [user, setUser] = useState<User>();
-  const [quiz, setQuiz] = useState<Quiz>();
-  const [question, setQuestion] = useState<Question>();
+  const [quiz, setQuiz] = useState<Quiz>()
   const [comment, setComment] = useState<Comment>();
 
   useEffect(() => {
@@ -59,6 +54,7 @@ const ReportedSubject: FunctionComponent<Props> = ({
   };
 
   const sortingSubject = (data: any) => {
+
     switch(true) {
       case report.about === "user" :
         setUser(data);
@@ -68,10 +64,6 @@ const ReportedSubject: FunctionComponent<Props> = ({
         setQuiz(data);
         setTitle(data.title);
       break;
-      case report.about === "question" :
-        setQuestion(data);
-        setTitle(data.question);
-      break;
       case report.about === "comment" :
         setComment(data);
         setTitle(data.content);
@@ -80,48 +72,32 @@ const ReportedSubject: FunctionComponent<Props> = ({
   };
 
   return (
-    <div className={styles.container}>
-      <div
-        className={styles.behind}
-        onClick={() => setShowSubject(false)}
-      ></div>
 
-      <article className={styles.card}>
-        <header>
-          <h5>
-            {title}
-          </h5>
-
-          <CloseButton
-            handleFunction={() => setShowSubject(false)}
-          />
-        </header>
-        
-        {user &&
-          <ReportedUser
-            user={user}
-          />
-        }
-        
-        {quiz &&
-          <ReportedQuiz
-            quiz={quiz}
-          />
-        }
-        
-        {question &&
-          <ReportedQuestion
-            question={question}
-          />
-        }
-        
-        {comment &&
-          <ReportedComment
-            comment={comment}
-          />
-        }
-      </article>
-    </div>
+    <article className={styles.card}>
+      <header>
+        <h5>
+          {title}
+        </h5>
+      </header>
+      
+      {user &&
+        <ReportedUser
+          user={user}
+        />
+      }
+      
+      {quiz &&
+        <ReportedQuiz
+          quiz={quiz}
+        />
+      }
+      
+      {comment &&
+        <ReportedComment
+          comment={comment}
+        />
+      }
+    </article>
   );
 };
 

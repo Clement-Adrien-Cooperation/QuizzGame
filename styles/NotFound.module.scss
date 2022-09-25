@@ -1,11 +1,11 @@
 @import './mixins';
 
 .container {
-  @include posFixed(0, auto, auto, 0);
+  @include posFixed(0, auto, auto, var(--navbar-width));
   @include flexCenter;
   flex-direction: column;
   background: var(--body-color);
-  width: 100vw;
+  width: calc(100vw - var(--navbar-width));
   height: 100vh;
   overflow: hidden;
   z-index: 100000;

@@ -1,27 +1,11 @@
 @import '../../styles/mixins';
 
 .container {
-  @include posFixed(0, auto, auto, var(--navbar-width));
-  width: calc(100vw - var(--navbar-width));
-  height: 100vh;
-  @include flexCenter;
-}
-
-.behind {
-  @include posFixed(0, auto, auto, var(--navbar-width));
-  width: calc(100vw - var(--navbar-width));
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.25);
-}
-
-.modal {
-  position: relative;
-  z-index: 10;
   padding: 2rem 4rem;
   box-shadow: var(--box-shadow);
   background: var(--body-color);
   border-radius: var(--small-radius);
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 15px;
 }

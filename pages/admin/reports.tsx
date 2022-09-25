@@ -21,7 +21,6 @@ const Reports: NextPage<Props> = ({
 
   const [usersReported, setUsersReported] = useState<Report[]>([]);
   const [quizzReported, setQuizzReported] = useState<Report[]>([]);
-  const [questionsReported, setQuestionsReported] = useState<Report[]>([]);
   const [commentsReported, setCommentsReported] = useState<Report[]>([]);
   
   useEffect(() => {
@@ -71,9 +70,6 @@ const Reports: NextPage<Props> = ({
     const quizz = reports.filter(report => report.about === 'quiz');
     setQuizzReported(quizz);
 
-    const questions = reports.filter(report => report.about === 'question');
-    setQuestionsReported(questions);
-
     const comments = reports.filter(report => report.about === 'comment');
     setCommentsReported(comments);
   };
@@ -110,17 +106,6 @@ const Reports: NextPage<Props> = ({
             </a>
           }
 
-          {questionsReported.length > 0 &&
-            <a
-              className={styles.link}
-              title="Aller aux questions signalées"
-              aria-label="Aller aux questions signalées"
-              href='#question'
-            >
-              Questions
-            </a>
-          }
-
           {commentsReported.length > 0 &&
             <a
               className={styles.link}
@@ -147,13 +132,6 @@ const Reports: NextPage<Props> = ({
           <ReportsList
             reports={quizzReported}
             name={"Quizz"}
-          />
-        }
-        
-        {questionsReported.length > 0 &&
-          <ReportsList
-            reports={questionsReported}
-            name={"Questions"}
           />
         }
         

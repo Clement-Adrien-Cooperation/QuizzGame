@@ -208,32 +208,32 @@ const QuizGame: NextPage<Props> = ({
                   Jouer
                 </button>
               </section>
-
-              {isLogged &&
-                <>
-                  {report ?
-                    <Report
-                      pseudo={userLogged.pseudo}
-                      about={'quiz'}
-                      about_id={quizData.id}
-                      about_title={quizData.title}
-                      setShowReportForm={setReport}
-                      setShowLoader={setShowLoader}
-                    />
-                  :
-                    <button
-                      className={styles.report}
-                      type="button"
-                      title="Signaler ce quiz"
-                      aria-label="Signaler ce quiz"
-                      onClick={() => setReport(true)}
-                    >
-                      Signaler
-                    </button>
-                  }
-                </>
-              }
             </main>
+          }
+
+          {isLogged &&
+            <>
+              {report ?
+                <Report
+                  pseudo={userLogged.pseudo}
+                  about={'quiz'}
+                  about_id={quizData.id}
+                  about_title={quizData.title}
+                  setShowReportForm={setReport}
+                  setShowLoader={setShowLoader}
+                />
+              :
+                <button
+                  className={styles.report}
+                  type="button"
+                  title="Signaler ce quiz"
+                  aria-label="Signaler ce quiz"
+                  onClick={() => setReport(true)}
+                >
+                  Signaler
+                </button>
+              }
+            </>
           }
         </section>
       }

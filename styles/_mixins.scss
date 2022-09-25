@@ -239,3 +239,14 @@
     }
   }
 }
+
+@mixin opacityApparition {
+  opacity: 0;
+  animation: animate 0.3s ease-in-out forwards;
+  
+  @keyframes animate {
+    100% {
+      opacity: 1;
+    }
+  }
+}

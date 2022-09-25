@@ -128,33 +128,6 @@ const GameScreen: FunctionComponent<Props> = ({
         }
        </>
       }
-
-      {isLogged &&
-        <>
-          {report ?
-            <Report
-              pseudo={userLogged.pseudo}
-              about={'question'}
-              about_id={currentQuestion.id}
-              about_title={currentQuestion.question}
-              setShowReportForm={setReport}
-              setShowLoader={setShowLoader}
-            />
-          :
-            <button
-              className={styles.report}
-              type="button"
-              title="Signaler cette question"
-              aria-label="Signaler cette question"
-              onClick={() => setReport(true)}
-            >
-              Signaler
-            </button>
-          }
-        </>
-
-      }
-
     </main>
   );
 };

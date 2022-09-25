@@ -7,6 +7,7 @@ import mail from '../../../../public/icons/mail.svg';
 import Image from 'next/image';
 import ReportedSubject from '../ReportedSubject/ReportedSubject';
 import Link from 'next/link';
+import Modal from '../../../Modal/Modal';
 
 type Props = {
   report: Report
@@ -101,10 +102,13 @@ const ReportsCard: FunctionComponent<Props> = ({
       </article>
 
       {showSubject &&
-        <ReportedSubject
-          report={report}
-          setShowSubject={setShowSubject}
-        />
+        <Modal
+          setShowModal={setShowSubject}
+        >
+          <ReportedSubject
+            report={report}
+          />
+        </Modal>
       }
     </>
   );
