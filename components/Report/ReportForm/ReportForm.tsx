@@ -8,6 +8,7 @@ type Props = {
   pseudo: string,
   about: string,
   about_id: string,
+  about_title: string,
   setShowLoader: Dispatch<SetStateAction<boolean>>,
 };
 
@@ -15,6 +16,7 @@ const ReportForm: FunctionComponent<Props> = ({
   pseudo,
   about,
   about_id,
+  about_title,
   setShowLoader,
 }) => {
 
@@ -43,6 +45,7 @@ const ReportForm: FunctionComponent<Props> = ({
       pseudo,
       about,
       about_id,
+      about_title,
       message,
       date: new Date().toLocaleDateString()
     };

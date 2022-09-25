@@ -7,6 +7,7 @@ type Props = {
   pseudo: string,
   about: string,
   about_id: string,
+  about_title: string,
   setShowReportForm: Dispatch<SetStateAction<boolean>>,
   setShowLoader: Dispatch<SetStateAction<boolean>>
 };
@@ -15,6 +16,7 @@ const Report: FunctionComponent<Props> = ({
   pseudo,
   about,
   about_id,
+  about_title,
   setShowReportForm,
   setShowLoader
 }) => {
@@ -45,6 +47,7 @@ const Report: FunctionComponent<Props> = ({
           pseudo={pseudo}
           about={about}
           about_id={about_id}
+          about_title={about_title}
           setShowLoader={setShowLoader}
         />
 

@@ -184,6 +184,7 @@ const QuizGame: NextPage<Props> = ({
               isLogged={isLogged}
               userLogged={userLogged}
               quiz={quiz}
+              setShowLoader={setShowLoader}
             />
           :
             <main className={styles.presentation}>
@@ -215,6 +216,7 @@ const QuizGame: NextPage<Props> = ({
                       pseudo={userLogged.pseudo}
                       about={'quiz'}
                       about_id={quizData.id}
+                      about_title={quizData.title}
                       setShowReportForm={setReport}
                       setShowLoader={setShowLoader}
                     />

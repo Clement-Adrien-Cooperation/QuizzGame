@@ -168,7 +168,7 @@ const Profile: NextPage<Props> = ({
         </section>
       </div>
 
-      {userQuizz?.length !== 0 ?
+      {userQuizz?.length === 0 ?
 
         <section className={styles.container}>
           <h2 className={styles.container__title}>

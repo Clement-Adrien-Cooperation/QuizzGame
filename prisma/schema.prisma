@@ -57,6 +57,7 @@ model Report {
   pseudo        String
   about         String
   about_id      String
+  about_title   String
   message       String
   date          String
 }

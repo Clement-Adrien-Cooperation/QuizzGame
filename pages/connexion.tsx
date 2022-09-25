@@ -44,7 +44,6 @@ const Connexion: NextPage<Props> = ({
 
         {toggleForm ?
           <div className={styles.sign_up}>
-
             <SignUp
               handleToggleForm={handleToggleForm}
               setIsLogged={setIsLogged}

@@ -1,8 +1,7 @@
 @import '../mixins';
 
 .header {
-  margin-top: 100px;
-  padding: 10px 50px;
+  padding: 150px 50px 0;
 }
 
 .title {
@@ -24,6 +23,4 @@
 .reports {
   @include flexCenter;
   flex-direction: column;
-  margin-top: 150px;
-  gap: 100px;
 }

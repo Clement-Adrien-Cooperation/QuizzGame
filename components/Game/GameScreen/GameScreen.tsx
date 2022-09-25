@@ -1,6 +1,7 @@
 import { Question, Quiz, User } from '@prisma/client';
-import { FunctionComponent, useState } from 'react';
+import { Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
 import { api } from '../../../api/api';
+import Report from '../../Report/Report';
 import GameAnswer from '../GameAnswer/GameAnswer';
 import GameOver from '../GameOver/GameOver';
 import GameProposals from '../GameProposals/GameProposals';
@@ -13,7 +14,8 @@ type Props = {
   nextQuestion: () => void,
   isLogged: boolean,
   userLogged: User,
-  quiz: Quiz
+  quiz: Quiz,
+  setShowLoader: Dispatch<SetStateAction<boolean>>
 };
 
 const GameScreen: FunctionComponent<Props> = ({
@@ -23,13 +25,16 @@ const GameScreen: FunctionComponent<Props> = ({
   nextQuestion,
   isLogged,
   userLogged,
-  quiz
+  quiz,
+  setShowLoader
 }) => {
 
   const [score, setScore] = useState<number>(0);
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
   const [goodAnswer, setGoodAnswer] = useState<boolean>(false);
+
+  const [report, setReport] = useState<boolean>(false);
   
   const handleUserAnswer = (userAnswer: string) => {
 
@@ -123,6 +128,33 @@ const GameScreen: FunctionComponent<Props> = ({
         }
        </>
       }
+
+      {isLogged &&
+        <>
+          {report ?
+            <Report
+              pseudo={userLogged.pseudo}
+              about={'question'}
+              about_id={currentQuestion.id}
+              about_title={currentQuestion.question}
+              setShowReportForm={setReport}
+              setShowLoader={setShowLoader}
+            />
+          :
+            <button
+              className={styles.report}
+              type="button"
+              title="Signaler cette question"
+              aria-label="Signaler cette question"
+              onClick={() => setReport(true)}
+            >
+              Signaler
+            </button>
+          }
+        </>
+
+      }
+
     </main>
   );
 };

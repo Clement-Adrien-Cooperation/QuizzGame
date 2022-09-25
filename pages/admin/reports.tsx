@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { api } from '../../api/api';
 import AdminHeader from '../../components/Admin/AdminHeader/AdminHeader';
-import ReportedList from '../../components/Admin/Reports/ReportedList/ReportedList';
+import ReportsList from '../../components/Admin/Reports/ReportsList/ReportsList';
 import styles from '../../styles/admin/AdminReports.module.scss';
 
 type Props = {
@@ -91,8 +91,8 @@ const Reports: NextPage<Props> = ({
           {usersReported.length > 0 &&
             <a
               className={styles.link}
-              title="Allez aux utilisateurs signalés"
-              aria-label="Allez aux utilisateurs signalés"
+              title="Aller aux utilisateurs signalés"
+              aria-label="Aller aux utilisateurs signalés"
               href='#user'
             >
               Utilisateurs
@@ -102,8 +102,8 @@ const Reports: NextPage<Props> = ({
           {quizzReported.length > 0 &&
             <a
               className={styles.link}
-              title="Allez aux quizz signalés"
-              aria-label="Allez aux quizz signalés"
+              title="Aller aux quizz signalés"
+              aria-label="Aller aux quizz signalés"
               href='#quiz'
             >
               Quizz
@@ -113,8 +113,8 @@ const Reports: NextPage<Props> = ({
           {questionsReported.length > 0 &&
             <a
               className={styles.link}
-              title="Allez aux questions signalées"
-              aria-label="Allez aux questions signalées"
+              title="Aller aux questions signalées"
+              aria-label="Aller aux questions signalées"
               href='#question'
             >
               Questions
@@ -124,8 +124,8 @@ const Reports: NextPage<Props> = ({
           {commentsReported.length > 0 &&
             <a
               className={styles.link}
-              title="Allez aux commentaires signalés"
-              aria-label="Allez aux commentaires signalés"
+              title="Aller aux commentaires signalés"
+              aria-label="Aller aux commentaires signalés"
               href='#comment'
             >
               Commentaires
@@ -137,28 +137,28 @@ const Reports: NextPage<Props> = ({
       <section className={styles.reports}>
 
         {usersReported.length > 0 &&
-          <ReportedList
+          <ReportsList
             reports={usersReported}
             name={"Utilisateurs"}
           />
         }
 
         {quizzReported.length > 0 &&
-          <ReportedList
+          <ReportsList
             reports={quizzReported}
             name={"Quizz"}
           />
         }
         
         {questionsReported.length > 0 &&
-          <ReportedList
+          <ReportsList
             reports={questionsReported}
             name={"Questions"}
           />
         }
         
         {commentsReported.length > 0 &&
-          <ReportedList
+          <ReportsList
             reports={commentsReported}
             name={"Commentaires"}
           />

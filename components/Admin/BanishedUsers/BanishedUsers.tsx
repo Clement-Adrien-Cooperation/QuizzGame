@@ -27,24 +27,26 @@ const BanishedUsers: FunctionComponent<Props> = ({
 
   return (
     <>
-      {banishedUsers.length < 1 &&
+      {banishedUsers.length > 1 &&
         <section className={styles.container}>
           <h2 className={styles.title}>
             Utilisateurs bannis
           </h2>
 
-          <div className={styles.input}>
-            <InputField
-              name={'Rechercher un utilisateur'}
-              state={banishedUsersFilter}
-              inputID={'banished-users-filter'}
-              type={'text'}
-              isDisabled={false}
-              required={true}
-              autoFocus={false}
-              handleFunction={handleChangeFilter}
-            />
-          </div>
+          {banishedUsers.length > 10 &&
+            <div className={styles.input}>
+              <InputField
+                name={'Rechercher un utilisateur'}
+                state={banishedUsersFilter}
+                inputID={'banished-users-filter'}
+                type={'text'}
+                isDisabled={false}
+                required={true}
+                autoFocus={false}
+                handleFunction={handleChangeFilter}
+              />
+            </div>
+          }
 
           <ul>
             {banishedUsers?.map((user: User) => {
