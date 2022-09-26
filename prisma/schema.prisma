@@ -50,6 +50,7 @@ model Comment {
   author        String
   content       String
   likes         Int
+  users_like    String[]
 }
 
 model Report {

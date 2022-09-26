@@ -1,30 +1,36 @@
-import { Comment, Quiz, Report, User } from '@prisma/client';
-import { FunctionComponent, useEffect, useState } from 'react';
+import type { Comment, Quiz, Report, User } from '@prisma/client';
+import type { FunctionComponent, Dispatch, SetStateAction } from 'react';
+import { useState, useEffect } from 'react';
 import { api } from '../../../../api/api';
 import styles from './ReportedSubject.module.scss';
 import ReportedUser from './ReportedUser';
 import ReportedQuiz from './ReportedQuiz';
 import ReportedComment from './ReportedComment';
+import Loader from '../../../Loader/Loader';
 
 type Props = {
-  report: Report
+  report: Report,
+  getReports: () => void
 };
 
 const ReportedSubject: FunctionComponent<Props> = ({
-  report
+  report,
+  getReports
 }) => {
 
   const [title, setTitle] = useState<string>(report.about_title);
 
   const [user, setUser] = useState<User>();
-  const [quiz, setQuiz] = useState<Quiz>()
+  const [quiz, setQuiz] = useState<Quiz>();
   const [comment, setComment] = useState<Comment>();
+  const [showLoader, setShowLoader] = useState<boolean>(false);
 
   useEffect(() => {
     getSubject();
   }, []);
  
   const getSubject = async() => {
+    setShowLoader(true);
 
     // get token from local storage
     const token = localStorage.getItem('token');
@@ -53,6 +59,8 @@ const ReportedSubject: FunctionComponent<Props> = ({
     .catch((error) => {
       console.log(error);
     });
+
+    setShowLoader(false);
   };
   
   const sortingSubject = (data: any) => {
@@ -74,31 +82,38 @@ const ReportedSubject: FunctionComponent<Props> = ({
   };
 
   return (
-    <article className={styles.card}>
-      <header>
-        <h5>
-          {title}
-        </h5>
-      </header>
-      
-      {user &&
-        <ReportedUser
-          user={user}
-        />
+    <>
+      <article className={styles.card}>
+        <header>
+          <h5>
+            {title}
+          </h5>
+        </header>
+        
+        {user &&
+          <ReportedUser
+            user={user}
+          />
+        }
+        
+        {quiz &&
+          <ReportedQuiz
+            quiz={quiz}
+          />
+        }
+        
+        {comment &&
+          <ReportedComment
+            comment={comment}
+            getReports={getReports}
+          />
+        }
+      </article>
+
+      {showLoader &&
+        <Loader />
       }
-      
-      {quiz &&
-        <ReportedQuiz
-          quiz={quiz}
-        />
-      }
-      
-      {comment &&
-        <ReportedComment
-          comment={comment}
-        />
-      }
-    </article>
+    </>
   );
 };
 

@@ -28,3 +28,8 @@
   flex-wrap: wrap;
   max-width: 1200px;
 }
+
+.report {
+  @include posFixed(auto, 5rem, 3rem, auto);
+  @include underlineButton;
+}

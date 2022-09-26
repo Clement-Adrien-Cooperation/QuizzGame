@@ -31,7 +31,6 @@ const Home: NextPage<Props> = ({
   }, []);
 
   const getUsers = async () => {
-
     setShowLoader(true);
 
     const token = localStorage.getItem('token');

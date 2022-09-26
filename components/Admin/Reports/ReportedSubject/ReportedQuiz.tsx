@@ -1,16 +1,21 @@
-import { Quiz } from '@prisma/client';
-import { FunctionComponent, useState } from 'react';
+import type { FunctionComponent } from 'react';
+import type { Quiz } from '@prisma/client';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { api } from '../../../../api/api';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './ReportedSubject.module.scss';
 import mail from '../../../../public/icons/mail.svg';
 import eye from '../../../../public/icons/eye_visible.svg';
 import trash from '../../../../public/icons/delete.svg';
 import restore from '../../../../public/icons/restore.svg';
+import ban from '../../../../public/icons/ban.svg';
+import unban from '../../../../public/icons/unban.svg';
+import Loader from '../../../Loader/Loader';
 
 type Props = {
-  quiz: Quiz
+  quiz: Quiz,
 };
 
 const ReportedQuiz: FunctionComponent<Props> = ({
@@ -20,8 +25,46 @@ const ReportedQuiz: FunctionComponent<Props> = ({
   const router = useRouter();
 
   const [visible, setVisible] = useState<boolean>(quiz.is_visible);
+  const [banned, setBanned] = useState<boolean>(false);
+  const [showLoader, setShowLoader] = useState<boolean>(false);
+
+  useEffect(() => {
+    getCreator();
+  }, []);
+
+  const getCreator = async() => {
+    setShowLoader(true);
+
+    // get token for authorization
+    const token = localStorage.getItem('token');
+
+    await fetch(`${api}/user/getOne`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `${token}`
+      },
+      body: JSON.stringify({ user_id: quiz.user_id })
+    })
+    .then(async(res) => {
+      if(res.status === 200) {
+        const user = await res.json();
+        // if user is found, update banishment state
+        setBanned(user.is_banished);
+      } else {
+        console.log("Cet utilisateur n'existe plus");
+      };
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+    setShowLoader(false);
+  };
 
   const moderateQuiz = async() => {
+    setShowLoader(true);
+
     // We need token to proove that we are admin
     const token = localStorage.getItem('token');
 
@@ -49,6 +92,40 @@ const ReportedQuiz: FunctionComponent<Props> = ({
     .catch((error) => {
       console.log(error);
     });
+
+    setShowLoader(false);
+  };
+
+  const moderateCreator = async() => {
+    setShowLoader(true);
+
+    // get token for authorization
+    const token = localStorage.getItem('token');
+
+    // set body
+    const body = {
+      user_id: quiz.user_id,
+      is_banished: banned
+    };
+
+    await fetch(`${api}/user/moderate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `${token}`
+      },
+      body: JSON.stringify(body)
+    })
+    .then((res) => {
+      if(res.status === 200) {
+        setBanned(!banned);
+      };
+    })
+    .catch((error) => {
+      console.log(error); 
+    });
+
+    setShowLoader(false);
   };
 
   return (
@@ -56,12 +133,15 @@ const ReportedQuiz: FunctionComponent<Props> = ({
       <section className={styles.details}>
         <p>
           Créé par 
-          <span
-            className={styles.creator}
-            onClick={() => router.push('/admin/users')}
-          >
-            {quiz.creator}
-          </span>
+          <Link href={`/profile/${quiz.creator}`}>
+            <a
+              className={styles.creator}
+              title={`Voir le profil de ${quiz.creator}`}
+              aria-label={`Voir le profil de ${quiz.creator}`}
+            >
+              {quiz.creator}
+            </a>
+          </Link>
         </p>
 
         <p>
@@ -81,7 +161,7 @@ const ReportedQuiz: FunctionComponent<Props> = ({
         </p>
 
         <p>
-          Visible par les utilisateurs : {quiz.is_visible ? "✅" : "🚫"}
+          Visible par les utilisateurs : {visible ? "✅" : "🚫"}
         </p>
       </section>
 
@@ -133,8 +213,27 @@ const ReportedQuiz: FunctionComponent<Props> = ({
             src={visible ? trash : restore}
           />
         </button>
-        
+
+        <button
+          className={styles.button}
+          type="button"
+          title={banned ? "Débannir le créateur de ce quiz" : "Bannir le créateur de ce quiz"}
+          aria-label={banned ? "Débannir le créateur de ce quiz" : "Bannir le créateur de ce quiz"}
+          onClick={moderateCreator}
+        >
+          <Image
+            layout="responsive"
+            width='32'
+            height='32'
+            alt={banned ? "Une flèche entrant dans une porte" : "Une flèche sortant d'une porte"}
+            src={banned ? unban : ban}
+          />
+        </button>
       </footer>
+
+      {showLoader &&
+        <Loader />
+      }
     </>
   );
 };

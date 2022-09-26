@@ -1,29 +1,36 @@
-import { Quiz, User } from '@prisma/client';
-import { GetServerSideProps, NextPage } from 'next';
+import type { Quiz, User } from '@prisma/client';
+import type { GetServerSideProps, NextPage } from 'next';
+import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { useRouter } from 'next/router';
 import { api } from '../../api/api';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import InputField from '../../components/InputField/InputField';
 import ProfileQuizCard from '../../components/ProfileQuizCard/ProfileQuizCard';
 import styles from '../../styles/UserProfile.module.scss';
+import Report from '../../components/Report/Report';
 
 type Props = {
   isLogged: boolean,
   userLogged: User,
-  userQuizzData: Quiz[]
+  userData: User,
+  userQuizzData: Quiz[],
+  setShowLoader: Dispatch<SetStateAction<boolean>>
 };
 
 const UserProfile: NextPage<Props> = ({
   isLogged,
   userLogged,
-  userQuizzData
+  userData,
+  userQuizzData,
+  setShowLoader
 }) => {
 
   const router = useRouter();
 
   const [userQuizz, setUserQuizz] = useState<Quiz[]>([]);
   const [quizzFilter, setQuizzFilter] = useState<string>('');
-  
+  const [report, setReport] = useState<boolean>(false);
+
   useEffect(() => {
 
     document.title = `Profil de ${router.query.slug} - s'Quizz Game`;
@@ -94,6 +101,31 @@ const UserProfile: NextPage<Props> = ({
           </p>
         </section>
       }
+
+      {userLogged.pseudo !== userData.pseudo && isLogged &&
+        <>
+          {report ?
+            <Report
+              pseudo={userLogged.pseudo}
+              about={'user'}
+              about_id={userData.id}
+              about_title={userData.pseudo}
+              setShowReportForm={setReport}
+              setShowLoader={setShowLoader}
+            />
+          :
+            <button
+              className={styles.report}
+              type="button"
+              title="Signaler cet utilisateur"
+              aria-label="Signaler cet utilisateur"
+              onClick={() => setReport(true)}
+            >
+              Signaler
+            </button>
+          }
+        </>
+      }
     </>
   );
 };
@@ -104,6 +136,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const pseudo = context.query.slug;
 
+  const userDataFromAPI = await fetch(`${api}/user/getSafeInfos`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ pseudo })
+  });
+  const userData = await userDataFromAPI.json();
+
   const userQuizzDataFromAPI = await fetch(`${api}/quiz/getUserQuizz`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -113,6 +152,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
+      userData,
       userQuizzData
     }
   };
