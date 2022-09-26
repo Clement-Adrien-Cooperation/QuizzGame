@@ -1,7 +1,8 @@
-import { Category, Question, Quiz, User } from '@prisma/client';
-import { GetServerSideProps, NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
+import type { Dispatch, SetStateAction } from 'react';
+import type { Category, Question, Quiz, User } from '@prisma/client';
 import { useRouter } from 'next/router';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { useEffect } from 'react';
 import { api } from '../../../api/api';
 import EditQuiz from '../../../components/EditQuiz/EditQuiz';
 import styles from '../../../styles/UpdateQuizz.module.scss';

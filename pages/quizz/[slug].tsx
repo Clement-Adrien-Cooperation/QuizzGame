@@ -1,7 +1,8 @@
-import { Question, Quiz, User } from '@prisma/client';
-import { GetServerSideProps, NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
+import type { Question, Quiz, User } from '@prisma/client';
+import type { Dispatch, SetStateAction } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { api } from '../../api/api';
 import GameDetails from '../../components/Game/GameDetails/GameDetails';
 import GameScreen from '../../components/Game/GameScreen/GameScreen';

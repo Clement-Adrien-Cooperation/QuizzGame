@@ -1,5 +1,5 @@
+import type { FunctionComponent } from 'react';
 import type { Comment, Quiz, Report, User } from '@prisma/client';
-import type { FunctionComponent, Dispatch, SetStateAction } from 'react';
 import { useState, useEffect } from 'react';
 import { api } from '../../../../api/api';
 import styles from './ReportedSubject.module.scss';

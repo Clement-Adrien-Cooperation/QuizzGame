@@ -1,6 +1,7 @@
-import { Quiz, User } from '@prisma/client';
-import { NextPage } from 'next';
-import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
+import type { NextPage } from 'next';
+import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import type { Quiz, User } from '@prisma/client';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
 import { api } from '../../api/api';

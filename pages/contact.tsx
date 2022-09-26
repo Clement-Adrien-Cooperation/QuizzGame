@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import ContactForm from '../components/ContactForm/ContactForm';
 import styles from '../styles/Contact.module.scss';

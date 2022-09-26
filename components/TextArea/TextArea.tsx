@@ -1,4 +1,4 @@
-import { FunctionComponent, ChangeEventHandler } from 'react';
+import type { FunctionComponent, ChangeEventHandler } from 'react';
 import styles from './TextArea.module.scss';
 
 type Props = {

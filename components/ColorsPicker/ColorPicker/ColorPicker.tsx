@@ -1,4 +1,4 @@
-import { FunctionComponent, PropsWithChildren } from 'react';
+import type { FunctionComponent, PropsWithChildren } from 'react';
 import styles from './ColorPicker.module.scss';
 
 type Props = PropsWithChildren<{

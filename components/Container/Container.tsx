@@ -1,5 +1,5 @@
-import { FunctionComponent, PropsWithChildren } from "react";
-import { User } from "@prisma/client";
+import type { FunctionComponent, PropsWithChildren } from "react";
+import type { User } from "@prisma/client";
 import Head from "../Head/Head";
 import Navbar from '../Navbar/Navbar';
 

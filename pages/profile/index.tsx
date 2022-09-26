@@ -1,7 +1,8 @@
-import { Quiz, User } from '@prisma/client';
-import type { GetServerSideProps, NextPage } from 'next';
+import type { NextPage } from 'next';
+import type { Dispatch, SetStateAction } from 'react';
+import type { Quiz, User } from '@prisma/client';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { api } from '../../api/api';
 import { v4 as uuidv4 } from 'uuid';
 import ConfirmModal from '../../components/ConfirmModal/ConfirmModal';

@@ -1,8 +1,9 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import type { FunctionComponent } from 'react';
+import type { Quiz } from '@prisma/client';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from './QuizCard.module.scss';
 import Stars from '../Stars/Stars';
-import { Quiz } from '@prisma/client';
 
 type Props = {
   quiz: Quiz

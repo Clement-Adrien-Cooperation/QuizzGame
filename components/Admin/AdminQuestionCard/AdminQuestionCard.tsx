@@ -1,5 +1,6 @@
-import { Question } from '@prisma/client';
-import { FunctionComponent, useState } from 'react';
+import type { FunctionComponent } from 'react';
+import type { Question } from '@prisma/client';
+import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Image from 'next/image';
 import styles from './AdminQuestionCard.module.scss';

@@ -1,7 +1,8 @@
-import { Quiz, User } from '@prisma/client';
-import { GetServerSideProps, NextPage } from 'next';
+import type { Dispatch, SetStateAction } from 'react';
+import type { GetServerSideProps, NextPage } from 'next';
+import type { Quiz, User } from '@prisma/client';
 import { useRouter } from 'next/router';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { api } from '../../api/api';
 import AdminHeader from '../../components/Admin/AdminHeader/AdminHeader';
 import AdminQuizz from '../../components/Admin/AdminQuizz/AdminQuizz';

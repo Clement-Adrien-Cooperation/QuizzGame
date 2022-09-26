@@ -1,8 +1,9 @@
-import { Category, Question, Quiz, User } from '@prisma/client';
+import type { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction } from 'react';
+import type { Category, Question, Quiz, User } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
 import { api } from '../../api/api';
-import { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Notification from '../Notification/Notification';
 import Questions from '../Question/Questions';
 import QuizForm from '../QuizForm/QuizForm';
@@ -65,7 +66,6 @@ const EditQuiz: FunctionComponent<Props> = ({
         if(quizData.nbOfQuestions > 0) {
           setQuestions(questionsData);
         };
-
       } else {
         router.push('/');
       };
@@ -303,6 +303,7 @@ const EditQuiz: FunctionComponent<Props> = ({
     const token = localStorage.getItem('token');
 
     const body = {
+      user_id: userLogged.id,
       currentTitle,
       title,
       category,
@@ -336,13 +337,18 @@ const EditQuiz: FunctionComponent<Props> = ({
 
     const token = localStorage.getItem('token');
 
+    const body = {
+      user_id: userLogged.id,
+      quiz_id: quizID
+    };
+
     await fetch(`${api}/question/deleteMany`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `${token}`
       },
-      body: JSON.stringify({ quiz_id: quizID })
+      body: JSON.stringify(body)
     })
     .then((res) => {
       if(res.status === 404) {

@@ -1,5 +1,5 @@
+import type { FunctionComponent } from 'react';
 import { useRouter } from 'next/router';
-import { FunctionComponent } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Link from 'next/link';
 import styles from './AdminHeader.module.scss';

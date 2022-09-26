@@ -1,5 +1,6 @@
-import { Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
-import { Question } from '@prisma/client';
+import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
+import type { Question } from '@prisma/client';
+import { useState } from 'react';
 import Image from 'next/image';
 import styles from './QuestionCard.module.scss';
 import editIcon from '../../../public/icons/edit.svg';

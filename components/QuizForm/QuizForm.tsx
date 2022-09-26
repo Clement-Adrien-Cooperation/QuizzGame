@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FunctionComponent } from 'react';
+import type { ChangeEventHandler, FunctionComponent } from 'react';
 import InputField from '../InputField/InputField';
 import RangeSlider from '../RangeSlider/RangeSlider';
 import SelectField from '../SelectField/SelectField';

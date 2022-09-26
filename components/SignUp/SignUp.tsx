@@ -1,5 +1,5 @@
-import { User } from '@prisma/client';
-import { Dispatch, FunctionComponent, SetStateAction } from 'react';
+import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
+import type { User } from '@prisma/client';
 import styles from './SignUp.module.scss';
 import EditUser from '../EditUser/EditUser';
 

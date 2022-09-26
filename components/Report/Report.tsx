@@ -1,4 +1,4 @@
-import { FunctionComponent, Dispatch, SetStateAction } from 'react';
+import type { FunctionComponent, Dispatch, SetStateAction } from 'react';
 import ReportForm from './ReportForm/ReportForm';
 import styles from './Report.module.scss';
 import Modal from '../Modal/Modal';

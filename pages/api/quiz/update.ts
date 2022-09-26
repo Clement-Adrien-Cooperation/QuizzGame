@@ -12,7 +12,6 @@ export default checkUser(async function handle (
   await prisma.$connect();
 
   try {
-
     const quiz = await prisma.quiz.update({
       where: {
         title: req.body.currentTitle
@@ -29,8 +28,6 @@ export default checkUser(async function handle (
     
   } catch (error){
     res.status(404).json(error);
-    console.log(error);
-    
   };
 
   await prisma.$disconnect();

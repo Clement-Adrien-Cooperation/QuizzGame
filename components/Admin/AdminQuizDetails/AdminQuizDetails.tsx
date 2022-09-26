@@ -1,5 +1,5 @@
-import { Quiz } from '@prisma/client';
-import { Dispatch, FunctionComponent, SetStateAction } from 'react';
+import type { Quiz } from '@prisma/client';
+import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import { useRouter } from 'next/router';
 import CloseButton from '../../CloseButton/CloseButton';
 import styles from './AdminQuizDetails.module.scss';

@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import ContactForm from '../components/ContactForm/ContactForm';
 import styles from '../styles/Banned.module.scss';
 

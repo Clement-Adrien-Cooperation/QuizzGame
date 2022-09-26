@@ -1,5 +1,6 @@
-import { Quiz } from '@prisma/client';
-import { FunctionComponent, useState } from 'react';
+import type { FunctionComponent } from 'react';
+import type { Quiz } from '@prisma/client';
+import { useState } from 'react';
 import { v4 as uuidv4 } from "uuid";
 import { FaStar } from 'react-icons/fa';
 import { api } from '../../../api/api';

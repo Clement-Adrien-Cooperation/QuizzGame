@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FunctionComponent, useEffect } from 'react';
+import type { ChangeEventHandler, FunctionComponent } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './SelectField.module.scss';
 

@@ -1,4 +1,4 @@
-import { Dispatch, FunctionComponent, SetStateAction } from 'react';
+import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import styles from './CheckButton.module.scss';
 
 type Props = {

@@ -1,5 +1,6 @@
-import { Quiz } from '@prisma/client';
-import { FunctionComponent, useState } from 'react';
+import type { FunctionComponent } from 'react';
+import type { Quiz } from '@prisma/client';
+import { useState } from 'react';
 import AdminQuizDetails from '../AdminQuizDetails/AdminQuizDetails';
 import styles from './AdminQuizCard.module.scss';
 

@@ -1,8 +1,9 @@
-import { User } from '@prisma/client';
 import type { NextPage } from 'next';
+import type { Dispatch, SetStateAction } from 'react';
+import type { User } from '@prisma/client';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { api } from '../api/api';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import styles from '../styles/Home.module.scss';
 
 type Props = {

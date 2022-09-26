@@ -1,4 +1,5 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import type { FunctionComponent } from 'react';
+import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './Stars.module.scss';
 

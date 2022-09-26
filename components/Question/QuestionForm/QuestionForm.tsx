@@ -1,5 +1,6 @@
-import { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction, useState } from 'react';
-import { Question } from '@prisma/client';
+import type { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction } from 'react';
+import type { Question } from '@prisma/client';
+import { useState } from 'react';
 import InputField from '../../InputField/InputField';
 import Warning from '../../Warning/Warning';
 import styles from './QuestionForm.module.scss';

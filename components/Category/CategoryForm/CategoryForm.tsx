@@ -1,5 +1,6 @@
-import { Category } from '@prisma/client';
-import { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction, useState } from 'react';
+import type { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction } from 'react';
+import type { Category } from '@prisma/client';
+import { useState } from 'react';
 import { api } from '../../../api/api';
 import InputField from '../../InputField/InputField';
 import Notification from '../../Notification/Notification';

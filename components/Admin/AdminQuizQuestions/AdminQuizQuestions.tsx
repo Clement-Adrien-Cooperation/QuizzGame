@@ -1,5 +1,6 @@
-import { Question } from '@prisma/client';
-import { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
+import type { Question } from '@prisma/client';
+import type { ChangeEvent, FunctionComponent } from 'react';
+import { useEffect, useState } from 'react';
 import { api } from '../../../api/api';
 import { v4 as uuidv4 } from 'uuid';
 import AdminQuestionCard from '../AdminQuestionCard/AdminQuestionCard';

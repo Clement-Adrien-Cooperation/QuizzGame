@@ -1,5 +1,6 @@
-import { User } from '@prisma/client';
-import { FunctionComponent, useState } from 'react';
+import type { FunctionComponent } from 'react';
+import type { User } from '@prisma/client';
+import { useState } from 'react';
 import Image from 'next/image';
 import styles from './UserCard.module.scss';
 import arrow from '../../../public/icons/arrow.svg';

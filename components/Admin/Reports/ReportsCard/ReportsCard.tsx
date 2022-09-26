@@ -1,5 +1,5 @@
 import { Report } from '@prisma/client';
-import { FunctionComponent, useState, Dispatch, SetStateAction } from 'react';
+import { FunctionComponent, useState } from 'react';
 import { api } from '../../../../api/api';
 import styles from './ReportsCard.module.scss';
 import eye from '../../../../public/icons/eye_visible.svg';
@@ -13,15 +13,13 @@ import Modal from '../../../Modal/Modal';
 type Props = {
   report: Report,
   getReports: () => void,
-  reportsSorting: (reports: Report[]) => void,
-  setShowLoader: Dispatch<SetStateAction<boolean>>
+  reportsSorting: (reports: Report[]) => void
 };
 
 const ReportsCard: FunctionComponent<Props> = ({
   report,
   getReports,
-  reportsSorting,
-  setShowLoader
+  reportsSorting
 }) => {
 
   const [showSubject, setShowSubject] = useState<boolean>(false);
@@ -144,7 +142,6 @@ const ReportsCard: FunctionComponent<Props> = ({
           <ReportedSubject
             report={report}
             getReports={getReports}
-            setShowLoader={setShowLoader}
           />
         </Modal>
       }

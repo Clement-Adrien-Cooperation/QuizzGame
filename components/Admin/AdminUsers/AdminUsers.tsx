@@ -1,9 +1,10 @@
-import { User } from '@prisma/client';
-import { ChangeEvent, FunctionComponent, useState } from 'react';
+import type { ChangeEvent, FunctionComponent } from 'react';
+import type { User } from '@prisma/client';
+import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import InputField from '../../InputField/InputField';
 import UserCard from '../UserCard/UserCard';
-import styles from './Users.module.scss';
+import styles from './AdminUsers.module.scss';
 
 type Props = {
   users: User[],

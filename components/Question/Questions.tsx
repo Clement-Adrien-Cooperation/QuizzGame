@@ -1,5 +1,6 @@
-import { Question } from '@prisma/client';
-import { ChangeEvent, Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
+import type { ChangeEvent, Dispatch, FunctionComponent, SetStateAction } from 'react';
+import type { Question } from '@prisma/client';
+import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import InputField from '../InputField/InputField';
 import QuestionCard from './QuestionCard/QuestionCard';

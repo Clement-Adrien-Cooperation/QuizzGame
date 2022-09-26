@@ -1,6 +1,6 @@
-import { User } from '@prisma/client';
+import type { FunctionComponent } from 'react';
+import type { User } from '@prisma/client';
 import { useRouter } from 'next/router';
-import { FunctionComponent } from 'react';
 import styles from './UserDetails.module.scss';
 
 type Props = {

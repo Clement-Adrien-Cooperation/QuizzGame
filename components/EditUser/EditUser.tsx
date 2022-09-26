@@ -1,7 +1,8 @@
-import { User } from '@prisma/client';
+import type { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction } from 'react';
+import type { User } from '@prisma/client';
 import { useRouter } from 'next/router';
 import { api } from '../../api/api';
-import { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CheckButton from '../CheckButton/CheckButton';
 import InputField from '../InputField/InputField';
 import PasswordField from '../PasswordField/PasswordField';

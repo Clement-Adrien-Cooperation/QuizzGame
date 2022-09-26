@@ -1,5 +1,5 @@
-import { Quiz } from '@prisma/client';
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import type { Quiz } from '@prisma/client';
 import Link from 'next/link';
 import styles from './GameDetails.module.scss';
 import Stars from '../../Stars/Stars';

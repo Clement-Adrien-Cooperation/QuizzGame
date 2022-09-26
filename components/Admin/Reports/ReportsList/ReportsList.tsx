@@ -1,5 +1,6 @@
-import { Report } from '@prisma/client';
-import { FunctionComponent, ChangeEvent, useState, Dispatch, SetStateAction } from 'react';
+import type { FunctionComponent, ChangeEvent } from 'react';
+import type { Report } from '@prisma/client';
+import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import InputField from '../../../InputField/InputField';
 import ReportsCard from '../ReportsCard/ReportsCard';
@@ -9,16 +10,14 @@ type Props = {
   reports: Report[],
   reportsSorting: (reports: Report[]) => void,
   name: string,
-  getReports: () => void,
-  setShowLoader: Dispatch<SetStateAction<boolean>>
+  getReports: () => void
 };
 
 const ReportsLists: FunctionComponent<Props> = ({
   reports,
   reportsSorting,
   name,
-  getReports,
-  setShowLoader
+  getReports
 }) => {
 
   const [reportFilter, setReportFilter] = useState<string>('');
@@ -72,7 +71,6 @@ const ReportsLists: FunctionComponent<Props> = ({
                     report={report}
                     getReports={getReports}
                     reportsSorting={reportsSorting}
-                    setShowLoader={setShowLoader}
                   />
                 </li>
               );

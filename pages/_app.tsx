@@ -1,12 +1,12 @@
-import '../styles/reset.css';
-import '../styles/globals.scss';
-import Container from '../components/Container/Container';
 import type { AppProps } from 'next/app';
+import type { User } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { api } from '../api/api';
-import { User } from '@prisma/client';
+import Container from '../components/Container/Container';
 import Loader from '../components/Loader/Loader';
+import '../styles/reset.css';
+import '../styles/globals.scss';
 
 const unLoggedUser: User = {
   id: '',

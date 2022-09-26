@@ -1,4 +1,5 @@
-import { ChangeEvent, Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
+import type { ChangeEvent, Dispatch, FunctionComponent, SetStateAction } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import styles from './PasswordField.module.scss';
 import InputField from '../InputField/InputField';

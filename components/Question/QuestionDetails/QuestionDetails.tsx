@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './QuestionDetails.module.scss';
 

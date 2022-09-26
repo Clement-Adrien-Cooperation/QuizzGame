@@ -1,10 +1,11 @@
 import type { NextPage } from 'next';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
+import type { User } from '@prisma/client';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../styles/Connexion.module.scss';
 import SignUp from '../components/SignUp/SignUp';
 import SignIn from '../components/SignIn/SignIn';
-import { User } from '@prisma/client';
 
 type Props = {
   isLogged: boolean,

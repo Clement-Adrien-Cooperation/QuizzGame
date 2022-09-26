@@ -4,7 +4,7 @@
   cursor: pointer;
   margin: 25px;
   padding: 20px 30px;
-  width: 300px;
+  width: 20em;
   aspect-ratio: 16/9;
   box-shadow: var(--card-shadow);
   border-radius: var(--small-radius);
@@ -42,7 +42,7 @@
 }
 
 .difficulty {
-  padding: 9px 16px;
+  padding: 0.4em 1.4em;
   border-radius: 50px;
   border: 2px solid var(--black);
   font-size: 12px;

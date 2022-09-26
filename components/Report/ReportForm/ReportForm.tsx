@@ -1,4 +1,5 @@
-import { ChangeEvent, FunctionComponent, useState, Dispatch, SetStateAction } from 'react';
+import type { ChangeEvent, FunctionComponent, Dispatch, SetStateAction } from 'react';
+import { useState } from 'react';
 import { api } from '../../../api/api';
 import TextArea from '../../TextArea/TextArea';
 import Warning from '../../Warning/Warning';

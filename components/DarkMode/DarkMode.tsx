@@ -1,4 +1,5 @@
-import { FunctionComponent, useEffect, useState } from "react";
+import type { FunctionComponent } from "react";
+import { useEffect, useState } from 'react';
 import styles from './DarkMode.module.scss';
 import CheckButton from "../CheckButton/CheckButton";
 

@@ -1,4 +1,5 @@
-import React, { Dispatch, FunctionComponent, SetStateAction, useEffect, useState } from 'react';
+import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
+import { useEffect, useState } from 'react';
 import CloseButton from '../CloseButton/CloseButton';
 import styles from './Notification.module.scss';
 

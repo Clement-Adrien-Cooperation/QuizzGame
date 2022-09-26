@@ -1,5 +1,5 @@
-import { Question } from '@prisma/client';
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import type { Question } from '@prisma/client';
 import styles from './GameAnswer.module.scss';
 
 type Props = {

@@ -1,5 +1,5 @@
-import { Quiz } from '@prisma/client';
-import { Dispatch, FunctionComponent, SetStateAction } from 'react';
+import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
+import type { Quiz } from '@prisma/client';
 import { api } from '../../api/api';
 import { useRouter } from 'next/router';
 import Image from 'next/image';

@@ -1,7 +1,8 @@
-import { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction, useState } from 'react';
+import type { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction } from 'react';
+import type { User } from '@prisma/client';
+import { useState } from 'react';
 import { api } from '../../api/api';
 import { useRouter } from 'next/router';
-import { User } from '@prisma/client';
 import styles from './SignIn.module.scss';
 import InputField from '../InputField/InputField';
 import Warning from '../Warning/Warning';

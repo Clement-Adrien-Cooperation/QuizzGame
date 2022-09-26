@@ -1,8 +1,8 @@
-import { User } from '@prisma/client';
+import type { FunctionComponent } from 'react';
+import type { User } from '@prisma/client';
 import Link from 'next/link';
 import styles from './Navbar.module.scss';
 import Theme from '../Theme/Theme';
-import { FunctionComponent } from 'react';
 
 type Props = {
   isLogged: boolean,

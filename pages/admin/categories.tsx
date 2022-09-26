@@ -1,7 +1,8 @@
-import { Category, User } from '@prisma/client';
-import { NextPage } from 'next';
+import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import type { Category, User } from '@prisma/client';
+import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { api } from '../../api/api';
 import AdminHeader from '../../components/Admin/AdminHeader/AdminHeader';

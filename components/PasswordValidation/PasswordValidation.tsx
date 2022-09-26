@@ -1,4 +1,5 @@
-import { Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
+import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
+import { useState } from 'react';
 import PasswordField from '../PasswordField/PasswordField';
 import styles from './PasswordValidation.module.scss';
 

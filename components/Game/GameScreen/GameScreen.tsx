@@ -1,7 +1,7 @@
-import { Question, Quiz, User } from '@prisma/client';
-import { Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
+import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
+import type { Question, Quiz, User } from '@prisma/client';
+import { useState } from 'react';
 import { api } from '../../../api/api';
-import Report from '../../Report/Report';
 import GameAnswer from '../GameAnswer/GameAnswer';
 import GameOver from '../GameOver/GameOver';
 import GameProposals from '../GameProposals/GameProposals';

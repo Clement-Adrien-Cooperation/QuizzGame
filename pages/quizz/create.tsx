@@ -1,6 +1,7 @@
-import { Category, Question, Quiz, User } from '@prisma/client';
-import { GetServerSideProps, NextPage } from 'next';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import type { GetServerSideProps, NextPage } from 'next';
+import type { Dispatch, SetStateAction } from 'react';
+import type { Category, Question, Quiz, User } from '@prisma/client';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { api } from '../../api/api';
 import EditQuiz from '../../components/EditQuiz/EditQuiz';
@@ -15,8 +16,7 @@ const emptyQuiz: Quiz = {
   is_visible: false,
   date: '',
   nbOfQuestions: 0,
-  rate: [],
-  reported: false
+  rate: []
 };
 
 const emptyQuestion: Question = {
@@ -26,8 +26,7 @@ const emptyQuestion: Question = {
   question: '',
   description: '',
   proposals: [],
-  answer: '',
-  reported: false
+  answer: ''
 };
 
 type Props = {

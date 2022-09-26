@@ -1,7 +1,7 @@
-import { Report, User } from '@prisma/client';
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
+import type { Report, User } from '@prisma/client';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { api } from '../../api/api';
 import AdminHeader from '../../components/Admin/AdminHeader/AdminHeader';
 import ReportsList from '../../components/Admin/Reports/ReportsList/ReportsList';
@@ -9,14 +9,12 @@ import styles from '../../styles/admin/AdminReports.module.scss';
 
 type Props = {
   isLogged: boolean,
-  userLogged: User,
-  setShowLoader: Dispatch<SetStateAction<boolean>>
+  userLogged: User
 };
 
 const Reports: NextPage<Props> = ({
   isLogged,
-  userLogged,
-  setShowLoader
+  userLogged
 }) => {
 
   const router = useRouter();
@@ -136,7 +134,6 @@ const Reports: NextPage<Props> = ({
             reportsSorting={reportsSorting}
             name={"Utilisateurs"}
             getReports={getReports}
-            setShowLoader={setShowLoader}
           />
         }
 
@@ -146,7 +143,6 @@ const Reports: NextPage<Props> = ({
             reportsSorting={reportsSorting}
             name={"Quizz"}
             getReports={getReports}
-            setShowLoader={setShowLoader}
           />
         }
         
@@ -156,7 +152,6 @@ const Reports: NextPage<Props> = ({
             reportsSorting={reportsSorting}
             name={"Commentaires"}
             getReports={getReports}
-            setShowLoader={setShowLoader}
           />
         }
       </section>

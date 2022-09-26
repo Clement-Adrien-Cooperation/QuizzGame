@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import type { FunctionComponent } from "react";
 import Head from "next/head";
 
 const NextHead: FunctionComponent = () => {

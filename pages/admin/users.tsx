@@ -1,7 +1,8 @@
-import { User } from '@prisma/client';
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
+import type { Dispatch, SetStateAction } from 'react';
+import type { User } from '@prisma/client';
 import { useRouter } from 'next/router';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { api } from '../../api/api';
 import AdminHeader from '../../components/Admin/AdminHeader/AdminHeader';
 import styles from '../../styles/admin/AdminUsers.module.scss';

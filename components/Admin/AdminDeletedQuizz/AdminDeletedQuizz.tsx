@@ -1,6 +1,7 @@
-import { Quiz } from '@prisma/client';
+import type { ChangeEvent, FunctionComponent } from 'react';
+import type { Quiz } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
-import { ChangeEvent, FunctionComponent, useState } from 'react';
+import { useState } from 'react';
 import AdminQuizCard from '../AdminQuizCard/AdminQuizCard';
 import InputField from '../../InputField/InputField';
 import styles from './AdminDeletedQuizz.module.scss';

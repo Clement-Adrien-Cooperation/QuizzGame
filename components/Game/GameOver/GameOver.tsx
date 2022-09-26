@@ -1,7 +1,7 @@
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import type { Quiz } from '@prisma/client';
 import Link from 'next/link';
 import styles from './GameOver.module.scss';
-import { Quiz } from '@prisma/client';
 import GameRate from '../GameRate/GameRate';
 
 type Props = {
