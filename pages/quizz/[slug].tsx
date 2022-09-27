@@ -221,7 +221,6 @@ const QuizGame: NextPage<Props> = ({
                   about_id={quizData.id}
                   about_title={quizData.title}
                   setShowReportForm={setReport}
-                  setShowLoader={setShowLoader}
                 />
               :
                 <button

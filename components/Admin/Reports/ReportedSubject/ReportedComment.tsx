@@ -77,7 +77,7 @@ const ReportedComment: FunctionComponent<Props> = ({
       </section>
 
       <footer>
-        <button
+        {/* <button
           className={styles.button}
           type="button"
           title="Envoyer un message au créateur du commentaire"
@@ -91,7 +91,7 @@ const ReportedComment: FunctionComponent<Props> = ({
             alt='Une enveloppe'
             src={mail}
           />
-        </button>
+        </button> */}
         
         <button
           className={styles.button}

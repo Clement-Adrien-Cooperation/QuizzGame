@@ -8,8 +8,7 @@ type Props = {
   about: string,
   about_id: string,
   about_title: string,
-  setShowReportForm: Dispatch<SetStateAction<boolean>>,
-  setShowLoader: Dispatch<SetStateAction<boolean>>
+  setShowReportForm: Dispatch<SetStateAction<boolean>>
 };
 
 const Report: FunctionComponent<Props> = ({
@@ -17,8 +16,7 @@ const Report: FunctionComponent<Props> = ({
   about,
   about_id,
   about_title,
-  setShowReportForm,
-  setShowLoader
+  setShowReportForm
 }) => {
 
   return (
@@ -37,7 +35,6 @@ const Report: FunctionComponent<Props> = ({
           about={about}
           about_id={about_id}
           about_title={about_title}
-          setShowLoader={setShowLoader}
         />
       </section>
     </Modal>

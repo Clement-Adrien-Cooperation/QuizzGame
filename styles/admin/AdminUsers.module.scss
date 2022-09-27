@@ -1,13 +1,18 @@
 @import '../mixins';
 
-.container {
-  @include flexCenter;
-  flex-direction: column;
+.message {
+  display: flex;
+  justify-content: center;
+  margin-top: 150px;
+
+  &_button {
+    @include imageButton;
+  }
 }
 
 .buttons {
   position: sticky;
-  top: 100px;
+  top: 150px;
   display: flex;
   justify-content: flex-end;
   gap: 20px;
@@ -17,4 +22,9 @@
 .button {
   @include secondaryButton;
   font-size: 1rem;
+}
+
+.container {
+  @include flexCenter;
+  flex-direction: column;
 }

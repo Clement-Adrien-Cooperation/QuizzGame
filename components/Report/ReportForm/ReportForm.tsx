@@ -1,6 +1,7 @@
-import type { ChangeEvent, FunctionComponent, Dispatch, SetStateAction } from 'react';
+import type { ChangeEvent, FunctionComponent } from 'react';
 import { useState } from 'react';
 import { api } from '../../../api/api';
+import Loader from '../../Loader/Loader';
 import TextArea from '../../TextArea/TextArea';
 import Warning from '../../Warning/Warning';
 import styles from './ReportForm.module.scss';
@@ -9,8 +10,7 @@ type Props = {
   pseudo: string,
   about: string,
   about_id: string,
-  about_title: string,
-  setShowLoader: Dispatch<SetStateAction<boolean>>,
+  about_title: string
 };
 
 const ReportForm: FunctionComponent<Props> = ({
@@ -18,13 +18,13 @@ const ReportForm: FunctionComponent<Props> = ({
   about,
   about_id,
   about_title,
-  setShowLoader,
 }) => {
 
   const [message, setMessage] = useState<string>('');
 
   const [reported, setReported] = useState<boolean>(false);
   const [warningMessage, setWarningMessage] = useState<string>('');
+  const [showLoader, setShowLoader] = useState<boolean>(false);
 
   const handleChangeMessage = (event: ChangeEvent<HTMLTextAreaElement>) => {
 
@@ -111,6 +111,10 @@ const ReportForm: FunctionComponent<Props> = ({
             Envoyer
           </button>
         </form>
+      }
+
+      {showLoader &&
+        <Loader />
       }
     </>
   );

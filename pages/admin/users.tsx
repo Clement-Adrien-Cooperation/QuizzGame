@@ -8,6 +8,10 @@ import AdminHeader from '../../components/Admin/AdminHeader/AdminHeader';
 import styles from '../../styles/admin/AdminUsers.module.scss';
 import AdminUsers from '../../components/Admin/AdminUsers/AdminUsers';
 import BanishedUsers from '../../components/Admin/BanishedUsers/BanishedUsers';
+import AdminMessage from '../../components/Admin/AdminMessage/AdminMessage';
+import Message from '../../components/Message/Message';
+import Image from 'next/image';
+import mail from '../../public/icons/mail.svg';
 
 type Props = {
   isLogged: boolean,
@@ -25,6 +29,9 @@ const Users: NextPage<Props> = ({
 
   const [users, setUsers] = useState<User[]>([]);
   const [banishedUsers, setBanishedUsers] = useState<User[]>([]);
+
+  const [message, setMessage] = useState<string>('');
+  const [showMessageForm, setShowMessageForm] = useState<boolean>(false);
   
   useEffect(() => {
 
@@ -52,7 +59,7 @@ const Users: NextPage<Props> = ({
     const token = localStorage.getItem('token');
 
     // Get users & banished users, then update states
-    await fetch(`${api}/user/getAll`, {
+    await fetch(`${api}/user/getUsers`, {
       method: 'GET',
       headers: { 
         'Content-Type': 'application/json',
@@ -141,6 +148,24 @@ const Users: NextPage<Props> = ({
     <>
       <AdminHeader />
 
+      <section className={styles.message}>
+        <button
+          className={styles.message_button}
+          type="button"
+          title="Envoyer un message à tous les utilisateurs"
+          aria-label="Envoyer un message à tous les utilisateurs"
+          onClick={() => setShowMessageForm(true)}
+        >
+          <Image
+            layout="responsive"
+            width='32'
+            height='32'
+            alt='Une enveloppe'
+            src={mail}
+          />
+        </button>
+      </section>
+
       <section className={styles.buttons}>
 
         {users?.length > 0 &&
@@ -181,6 +206,22 @@ const Users: NextPage<Props> = ({
           />
         </div>
       </section>
+
+      {showMessageForm &&
+        <AdminMessage
+          recipient='tous les utilisateurs'
+          userID=''
+          setNotification={setMessage}
+          setShowMessageForm={setShowMessageForm}
+        />
+      }
+
+      {message &&
+        <Message
+          message={message}
+          setMessage={setMessage}
+        />
+      }
     </>
   );
 };

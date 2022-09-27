@@ -1,4 +1,4 @@
-import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import type { ChangeEvent } from 'react';
 import type { GetServerSideProps, NextPage } from 'next';
 import type { Quiz, User } from '@prisma/client';
 import { useRouter } from 'next/router';
@@ -13,16 +13,14 @@ type Props = {
   isLogged: boolean,
   userLogged: User,
   userData: User,
-  userQuizzData: Quiz[],
-  setShowLoader: Dispatch<SetStateAction<boolean>>
+  userQuizzData: Quiz[]
 };
 
 const UserProfile: NextPage<Props> = ({
   isLogged,
   userLogged,
   userData,
-  userQuizzData,
-  setShowLoader
+  userQuizzData
 }) => {
 
   const router = useRouter();
@@ -111,7 +109,6 @@ const UserProfile: NextPage<Props> = ({
               about_id={userData.id}
               about_title={userData.pseudo}
               setShowReportForm={setReport}
-              setShowLoader={setShowLoader}
             />
           :
             <button

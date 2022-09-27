@@ -1,0 +1,24 @@
+@import "../../../styles/mixins";
+
+.container {
+  padding: 3em 6em;
+  background: var(--body-color);
+  border-radius: var(--small-radius);
+  @include flexCenter;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5em;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.submit {
+  @include mainButton;
+  margin-top: 10px;
+}

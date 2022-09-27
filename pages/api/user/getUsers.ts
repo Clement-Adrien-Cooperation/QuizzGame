@@ -11,8 +11,14 @@ export default isAdmin(async function getAllUsers (
     const prisma = new PrismaClient();
     await prisma.$connect();
 
-    const users = await prisma.user.findMany();
-    
+    const users = await prisma.user.findMany({
+      where: {
+        is_banished: false
+      },
+      orderBy: [{
+        pseudo: 'asc'
+      }]
+    });
     res.status(200).json(users);
 
     await prisma.$disconnect();

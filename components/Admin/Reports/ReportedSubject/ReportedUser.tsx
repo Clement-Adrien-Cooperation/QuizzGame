@@ -7,7 +7,9 @@ import styles from './ReportedSubject.module.scss';
 import mail from '../../../../public/icons/mail.svg';
 import ban from '../../../../public/icons/ban.svg';
 import unban from '../../../../public/icons/unban.svg';
+import eye from '../../../../public/icons/eye_visible.svg';
 import Loader from '../../../Loader/Loader';
+import Link from 'next/link';
 
 type Props = {
   user: User
@@ -55,23 +57,37 @@ const ReportedUser: FunctionComponent<Props> = ({
   return (
     <>
       <section className={styles.details}>
-        <p>
-          Adresse mail : {user.email}
+        <p className={styles.info}>
+          Administrateur : <span className={styles.content}>{user.is_admin ? '✅' : '❌'}</span>
         </p>
-        <p>
-          Administrateur : {user.is_admin ? '✅' : '❌'}
-        </p>
-        <p>
-           Banni : {banned ? '✅' : '❌'}
+        
+        <p className={styles.info}>
+          Banni : <span className={styles.content}>{banned ? '✅' : '❌'}</span>
         </p>
       </section>
 
-      <footer>
+      <footer className={styles.footer}>
+        <Link href={`/profile/${user.pseudo}`}>
+          <a
+            className={styles.button}
+            title={`Voir le profil de ${user.pseudo}`}
+            aria-label={`Voir le profil de ${user.pseudo}`}
+          >
+            <Image
+              layout="responsive"
+              width='32'
+              height='32'
+              alt='Un oeil'
+              src={eye}
+            />
+          </a>
+        </Link>
+
         <button
           className={styles.button}
           type="button"
-          title="Envoyer un message à cet utilisateur"
-          aria-label="Envoyer un message à cet utilisateur"
+          title={`Envoyer un message à ${user.pseudo}`}
+          aria-label={`Envoyer un message à ${user.pseudo}`}
           onClick={() => console.log('créer lenvoi de message')}
         >
           <Image
@@ -86,8 +102,8 @@ const ReportedUser: FunctionComponent<Props> = ({
         <button
           className={styles.button}
           type="button"
-          title={banned ? "Débannir cet utilisateur" : "Bannir cet utilisateur"}
-          aria-label={banned ? "Débannir cet utilisateur" : "Bannir cet utilisateur"}
+          title={banned ? `Débannir ${user.pseudo}` : `Bannir ${user.pseudo} de s'Quizz Game`}
+          aria-label={banned ? `Débannir ${user.pseudo}` : `Bannir ${user.pseudo} de s'Quizz Game`}
           onClick={moderateUser}
         >
           <Image

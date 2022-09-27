@@ -85,7 +85,7 @@ const ReportedSubject: FunctionComponent<Props> = ({
     <>
       <article className={styles.card}>
         <header>
-          <h5>
+          <h5 className={styles.title}>
             {title}
           </h5>
         </header>

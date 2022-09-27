@@ -82,5 +82,5 @@ model Notification {
   title         String
   message       String
   date          String
-  seen          Boolean
+  seen          Boolean   @default(false)
 }

@@ -1,0 +1,47 @@
+@import '../../../styles/mixins';
+
+.card {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.5em 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  font-size: 1.4rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--black);
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.15);
+  }
+
+  &.seen {
+    background: transparent;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    & .title {
+      font-weight: 400;
+    }
+  }
+}
+
+.title {
+  align-self: flex-start;
+  font-weight: 600;
+}
+
+.date {
+  align-self: flex-end;
+}
+
+.button {
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  padding: 0.8em;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+}

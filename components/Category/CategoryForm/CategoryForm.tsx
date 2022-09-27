@@ -3,7 +3,7 @@ import type { Category } from '@prisma/client';
 import { useState } from 'react';
 import { api } from '../../../api/api';
 import InputField from '../../InputField/InputField';
-import Notification from '../../Notification/Notification';
+import Message from '../../Message/Message';
 import Warning from '../../Warning/Warning';
 import styles from './CategoryForm.module.scss';
 
@@ -21,7 +21,7 @@ const CategoryForm: FunctionComponent<Props> = ({
 
   const [categoryName, setCategoryName] = useState<string>('');
 
-  const [notification, setNotification] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [disableButton, setDisableButton] = useState<boolean>(false);
 
@@ -54,7 +54,7 @@ const CategoryForm: FunctionComponent<Props> = ({
       setDisableButton(true);
       setShowLoader(true);
       setWarningMessage('');
-      setNotification('');
+      setMessage('');
 
       const token = localStorage.getItem('token');
 
@@ -76,7 +76,7 @@ const CategoryForm: FunctionComponent<Props> = ({
           // update state with this new array
           setCategories(newCategories);
 
-          setNotification('Catégorie ajoutée ✅');
+          setMessage('Catégorie ajoutée ✅');
 
           // then, reset state
           setCategoryName('');
@@ -132,10 +132,10 @@ const CategoryForm: FunctionComponent<Props> = ({
         </button>
       </form>
 
-      {notification && (
-        <Notification
-          notification={notification}
-          setNotification={setNotification}
+      {message && (
+        <Message
+          message={message}
+          setMessage={setMessage}
         />
       )}
 

@@ -1,16 +1,16 @@
 import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
 import CloseButton from '../CloseButton/CloseButton';
-import styles from './Notification.module.scss';
+import styles from './Message.module.scss';
 
 type Props = {
-  notification: string,
-  setNotification: Dispatch<SetStateAction<string>>
+  message: string,
+  setMessage: Dispatch<SetStateAction<string>>
 };
 
-const Notification: FunctionComponent<Props> = ({
-  notification,
-  setNotification
+const Message: FunctionComponent<Props> = ({
+  message,
+  setMessage
 }) => {
 
   const [opened, setOpened] = useState(false);
@@ -19,7 +19,7 @@ const Notification: FunctionComponent<Props> = ({
     setOpened(true);
 
     const timeoutID = setTimeout(() => {
-      closeNotification();
+      closeMessage();
     }, 5000);
 
     return () => {
@@ -27,11 +27,11 @@ const Notification: FunctionComponent<Props> = ({
     };
   }, []);
 
-  const closeNotification = () => {
+  const closeMessage = () => {
     setOpened(false);
 
     setTimeout(() => {
-      setNotification('');
+      setMessage('');
     }, 300);
   };
 
@@ -45,14 +45,14 @@ const Notification: FunctionComponent<Props> = ({
     >
       <header className={styles.header}>
         <CloseButton
-          handleFunction={closeNotification}
+          handleFunction={closeMessage}
         />
       </header>
 
       <div className={styles.body}>
 
         <p className={styles.text}>
-          {notification}
+          {message}
         </p>
 
       </div>
@@ -60,4 +60,4 @@ const Notification: FunctionComponent<Props> = ({
   );
 };
 
-export default Notification;
+export default Message;

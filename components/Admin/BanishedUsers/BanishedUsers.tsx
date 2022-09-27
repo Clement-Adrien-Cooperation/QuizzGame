@@ -28,7 +28,7 @@ const BanishedUsers: FunctionComponent<Props> = ({
 
   return (
     <>
-      {banishedUsers.length > 1 &&
+      {banishedUsers.length > 0 &&
         <section className={styles.container}>
           <h2 className={styles.title}>
             Utilisateurs bannis

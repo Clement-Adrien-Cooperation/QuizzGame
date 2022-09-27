@@ -10,15 +10,16 @@
 }
 
 .buttons {
-  @include posFixed(100px, 50px, auto, auto);
+  @include posFixed(120px, 60px, auto, auto);
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
 }
 
 .link {
   @include secondaryButton;
   width: 100%;
+  text-align: center;
 }
 
 .reports {

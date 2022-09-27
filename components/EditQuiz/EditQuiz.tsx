@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
 import { api } from '../../api/api';
 import { useEffect, useState } from 'react';
-import Notification from '../Notification/Notification';
+import Message from '../Message/Message';
 import Questions from '../Question/Questions';
 import QuizForm from '../QuizForm/QuizForm';
 import Warning from '../Warning/Warning';
@@ -45,10 +45,9 @@ const EditQuiz: FunctionComponent<Props> = ({
 
   const [questions, setQuestions] = useState<Question[]>([]);
   
+  const [message, setMessage] = useState<string>('');
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [disableButton, setDisableButton] = useState<boolean>(false);
-
-  const [notification, setNotification] = useState<string>('');
 
   useEffect(() => {
 
@@ -222,13 +221,13 @@ const EditQuiz: FunctionComponent<Props> = ({
     setDisableButton(true);
     setShowLoader(true);
     setWarningMessage('');
-    setNotification('');
+    setMessage('');
 
     if(checkForm()) {
 
       await saveQuiz();
 
-      setNotification('✅ Quiz enregistré');
+      setMessage('✅ Quiz enregistré');
 
       setDisableButton(false);
       setShowLoader(false);
@@ -441,10 +440,10 @@ const EditQuiz: FunctionComponent<Props> = ({
         />
       }
 
-      {notification &&
-        <Notification
-          notification={notification}
-          setNotification={setNotification}
+      {message &&
+        <Message
+          message={message}
+          setMessage={setMessage}
         />
       }
     </>

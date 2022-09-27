@@ -131,7 +131,7 @@ const ReportedQuiz: FunctionComponent<Props> = ({
   return (
     <>
       <section className={styles.details}>
-        <p>
+        <p className={styles.info}>
           Créé par 
           <Link href={`/profile/${quiz.creator}`}>
             <a
@@ -139,29 +139,29 @@ const ReportedQuiz: FunctionComponent<Props> = ({
               title={`Voir le profil de ${quiz.creator}`}
               aria-label={`Voir le profil de ${quiz.creator}`}
             >
-              {quiz.creator}
+              <span className={styles.content}>{quiz.creator}</span>
             </a>
           </Link>
         </p>
 
-        <p>
-          Le {quiz.date}
+        <p className={styles.info}>
+          Le <span className={styles.content}>{quiz.date}</span>
         </p>
 
-        <p>
-          Catégorie : {quiz.category}
+        <p className={styles.info}>
+          Catégorie : <span className={styles.content}>{quiz.category}</span>
         </p>
 
-        <p>
-          Difficulté : {quiz.difficulty}
+        <p className={styles.info}>
+          Difficulté : <span className={styles.content}>{quiz.difficulty}</span>
         </p>
 
-        <p>
-          Nombre de questions : {quiz.nbOfQuestions}
+        <p className={styles.info}>
+          Nombre de questions : <span className={styles.content}>{quiz.nbOfQuestions}</span>
         </p>
 
-        <p>
-          Visible par les utilisateurs : {visible ? "✅" : "🚫"}
+        <p className={styles.info}>
+          Visible par les utilisateurs : <span className={styles.content}>{visible ? "✅" : "🚫"}</span>
         </p>
       </section>
 
