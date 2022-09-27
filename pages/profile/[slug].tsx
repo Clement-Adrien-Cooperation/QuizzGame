@@ -104,6 +104,7 @@ const UserProfile: NextPage<Props> = ({
         <>
           {report ?
             <Report
+              user_id={userLogged.id}
               pseudo={userLogged.pseudo}
               about={'user'}
               about_id={userData.id}

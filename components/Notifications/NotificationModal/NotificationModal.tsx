@@ -24,8 +24,8 @@ const NotificationModal: FunctionComponent<Props> = ({
           </h2>
         </header>
 
-        <section className={styles.content}>
-          <p>
+        <section>
+          <p className={styles.content}>
             {currentNotification.message}
           </p>
         </section>

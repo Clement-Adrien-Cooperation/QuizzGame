@@ -7,6 +7,7 @@ import Warning from '../../Warning/Warning';
 import styles from './ReportForm.module.scss';
 
 type Props = {
+  user_id: string,
   pseudo: string,
   about: string,
   about_id: string,
@@ -14,6 +15,7 @@ type Props = {
 };
 
 const ReportForm: FunctionComponent<Props> = ({
+  user_id,
   pseudo,
   about,
   about_id,
@@ -45,6 +47,7 @@ const ReportForm: FunctionComponent<Props> = ({
 
     // set up the body
     const body = {
+      user_id,
       pseudo,
       about,
       about_id,

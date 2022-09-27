@@ -50,11 +50,12 @@ model Comment {
   author        String
   content       String
   likes         Int
-  users_like    String[]
+  likes_IDs     String[]
 }
 
 model Report {
   id            String    @id @unique
+  user_id       String
   pseudo        String
   about         String
   about_id      String

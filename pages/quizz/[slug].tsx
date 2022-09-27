@@ -216,6 +216,7 @@ const QuizGame: NextPage<Props> = ({
             <>
               {report ?
                 <Report
+                  user_id={userLogged.id}
                   pseudo={userLogged.pseudo}
                   about={'quiz'}
                   about_id={quizData.id}

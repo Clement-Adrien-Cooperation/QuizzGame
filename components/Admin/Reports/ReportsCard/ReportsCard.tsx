@@ -9,6 +9,8 @@ import Image from 'next/image';
 import ReportedSubject from '../ReportedSubject/ReportedSubject';
 import Link from 'next/link';
 import Modal from '../../../Modal/Modal';
+import AdminMessage from '../../AdminMessage/AdminMessage';
+import Message from '../../../Message/Message';
 
 type Props = {
   report: Report,
@@ -23,6 +25,8 @@ const ReportsCard: FunctionComponent<Props> = ({
 }) => {
 
   const [showSubject, setShowSubject] = useState<boolean>(false);
+  const [showMessage, setShowMessage] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>('');
 
   const deleteReport = async() => {
 
@@ -107,6 +111,7 @@ const ReportsCard: FunctionComponent<Props> = ({
             type="button"
             title="Envoyer un message au plaignant"
             aria-label="Envoyer un message au plaignant"
+            onClick={() => setShowMessage(true)}
           >
             <Image
               layout="responsive"
@@ -144,6 +149,26 @@ const ReportsCard: FunctionComponent<Props> = ({
             getReports={getReports}
           />
         </Modal>
+      }
+
+      {showMessage &&
+        <Modal
+          setShowModal={setShowMessage}
+        >
+          <AdminMessage
+            recipient={report.pseudo}
+            userID={report.user_id}
+            setNotification={setMessage}
+            setShowMessageForm={setShowMessage}
+          />
+        </Modal>
+      }
+
+      {message &&
+        <Message
+          message={message}
+          setMessage={setMessage}
+        />
       }
     </>
   );

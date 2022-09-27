@@ -4,6 +4,7 @@ import styles from './Report.module.scss';
 import Modal from '../Modal/Modal';
 
 type Props = {
+  user_id: string,
   pseudo: string,
   about: string,
   about_id: string,
@@ -12,6 +13,7 @@ type Props = {
 };
 
 const Report: FunctionComponent<Props> = ({
+  user_id,
   pseudo,
   about,
   about_id,
@@ -31,6 +33,7 @@ const Report: FunctionComponent<Props> = ({
         </header>
         
         <ReportForm
+          user_id={user_id}
           pseudo={pseudo}
           about={about}
           about_id={about_id}

@@ -17,7 +17,7 @@ const Notifications: FunctionComponent<Props> = ({
 }) => {
 
   const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [nbOfNotifications, setNbOfNotifications] = useState<string[]>([]);
+  const [nbOfNotifications, setNbOfNotifications] = useState<number>(0);
   const [showNotifications, setShowNotifications] = useState<boolean>(false);
 
   const [currentNotification, setCurrentNotification] = useState<Notification>(notifications[0]);
@@ -53,13 +53,15 @@ const Notifications: FunctionComponent<Props> = ({
   };
 
   const sortNotifications = (notifications: Notification[]) => {
+    let nb = 0;
+
     notifications.forEach(notification => {
-      if(!notification.seen) {
-        const notifs = [...nbOfNotifications];
-        const newNotifs = [...notifs, '+1'];
-        setNbOfNotifications(newNotifs);
+      if(notification.seen === false) {
+        nb++
       };
     });
+
+    setNbOfNotifications(nb);
   };
 
   return (
@@ -67,13 +69,13 @@ const Notifications: FunctionComponent<Props> = ({
       {notifications &&
         <>
           <button
-            className={nbOfNotifications.length > 0 ?
+            className={nbOfNotifications > 0 ?
               `${styles.button} ${styles.button_new}`
             :
               `${styles.button}`
             }
-            title={nbOfNotifications.length > 0 ? 
-              `${nbOfNotifications.length} nouvelle(s) notification(s)`
+            title={nbOfNotifications > 0 ? 
+              `${nbOfNotifications} ${nbOfNotifications > 1 ? "nouvelles notifications" : "nouvelle notification"}`
               : 
               "Pas de nouvelle notification"
             }
@@ -81,7 +83,7 @@ const Notifications: FunctionComponent<Props> = ({
             type="button"
             onClick={() => setShowNotifications(true)}
           >
-            {nbOfNotifications.length}
+            {nbOfNotifications}
           </button>
 
           <section
@@ -96,21 +98,20 @@ const Notifications: FunctionComponent<Props> = ({
               handleFunction={() => setShowNotifications(false)}
             />
 
-
             <ul className={styles.list}>
 
-              {notifications?.map(notification =>
-                <li
-                  key={uuidv4()}
-                  onClick={() => {
-                    setShowCurrentNotification(false);
-                    setCurrentNotification(notification);
-                    setShowCurrentNotification(true);
-                  }}
-                >
+              {notifications?.map((notification, index) =>
+
+                <li key={uuidv4()}>
                   <NotificationCard
                     notification={notification}
                     userLogged={userLogged}
+                    index={index}
+                    notifications={notifications}
+                    setCurrentNotification={setCurrentNotification}
+                    setShowCurrentNotification={setShowCurrentNotification}
+                    nbOfNotifications={nbOfNotifications}
+                    setNbOfNotifications={setNbOfNotifications}
                   />
                 </li>
               )}
