@@ -53,6 +53,15 @@ model Comment {
   likes_IDs     String[]
 }
 
+model Notification {
+  id            String    @id @unique
+  user_id       String
+  title         String
+  message       String
+  date          String
+  seen          Boolean   @default(false)
+}
+
 model Report {
   id            String    @id @unique
   user_id       String
@@ -64,11 +73,6 @@ model Report {
   date          String
 }
 
-model Category {
-  id            Int       @id @default(autoincrement())
-  name          String    @unique
-}
-
 model Played {
   id            String    @id @unique
   user_id       String
@@ -77,11 +81,7 @@ model Played {
   date          String
 }
 
-model Notification {
-  id            String    @id @unique
-  user_id       String
-  title         String
-  message       String
-  date          String
-  seen          Boolean   @default(false)
+model Category {
+  id            Int       @id @default(autoincrement())
+  name          String    @unique
 }

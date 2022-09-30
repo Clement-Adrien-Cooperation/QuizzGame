@@ -10,14 +10,16 @@ type Props = {
   banishedUsers: User[],
   userLogged: User,
   handlePromotion: (user_id: string, is_admin: boolean) => void,
-  handleBanishment: (user_id: string, is_banished: boolean) => void
+  handleBanishment: (user_id: string, is_banished: boolean) => void,
+  handleDeleteUser: (user_id: string) => void
 };
 
 const BanishedUsers: FunctionComponent<Props> = ({ 
   banishedUsers,
   userLogged,
   handlePromotion,
-  handleBanishment
+  handleBanishment,
+  handleDeleteUser
 }) => {
 
   const [banishedUsersFilter, setBanishedUsersFilter] = useState<string>('');
@@ -61,9 +63,10 @@ const BanishedUsers: FunctionComponent<Props> = ({
                   <li key={uuidv4()}>
                     <UserCard
                       user={user}
+                      userLogged={userLogged}
                       handleBanishment={handleBanishment}
                       handlePromotion={handlePromotion}
-                      userLogged={userLogged}
+                      handleDeleteUser={handleDeleteUser}
                     />
                   </li>
                 );

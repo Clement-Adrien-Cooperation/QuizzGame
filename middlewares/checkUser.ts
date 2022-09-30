@@ -24,7 +24,6 @@ export const checkUser = (fn: NextApiHandler) => async (
 
         // if user still exist
         if(user) {
-
           // verify if user is admin
           if(user.is_admin === true) {
             

@@ -86,11 +86,8 @@ const Profile: NextPage<Props> = ({
       body: JSON.stringify({ user_id: userLogged.id })
     })
     .then(async(res) => {
-
       if(res.status === 200) {
-
         handleDisconnect();
-
       } else {
         setWarningMessage('Une erreur est survenue. Réessayez ou contactez-nous');
       };
@@ -199,6 +196,7 @@ const Profile: NextPage<Props> = ({
               <li key={uuidv4()}>
                 <UserQuizCard
                   quiz={quiz}
+                  userLogged={userLogged}
                   getQuizzFromUser={getQuizzFromUser}
                   setShowLoader={setShowLoader}
                 />

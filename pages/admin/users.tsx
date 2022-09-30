@@ -12,6 +12,7 @@ import AdminMessage from '../../components/Admin/AdminMessage/AdminMessage';
 import Message from '../../components/Message/Message';
 import Image from 'next/image';
 import mail from '../../public/icons/mail.svg';
+import ImageButton from '../../components/ImageButton/ImageButton';
 
 type Props = {
   isLogged: boolean,
@@ -67,8 +68,8 @@ const Users: NextPage<Props> = ({
       }
     })
     .then(async(res) => {
-      const usersDataFromAPI = await res.json();
-      setUsers(usersDataFromAPI);
+      const usersData = await res.json();
+      setUsers(usersData);
     })
     .then(() => {
       setShowLoader(false);
@@ -85,8 +86,8 @@ const Users: NextPage<Props> = ({
       }
     })
     .then(async(res) => {
-      const banishedUsersDataFromAPI = await res.json();
-      setBanishedUsers(banishedUsersDataFromAPI);
+      const banishedUsersData = await res.json();
+      setBanishedUsers(banishedUsersData);
     })
     .catch((error) => {
       console.log(error);
@@ -100,7 +101,6 @@ const Users: NextPage<Props> = ({
     setShowLoader(true);
 
     const token = localStorage.getItem('token');
-    const body = { user_id, is_admin }
 
     await fetch(`${api}/user/promote`, {
       method: 'POST',
@@ -108,23 +108,19 @@ const Users: NextPage<Props> = ({
         'Content-Type': 'application/json',
         'Authorization': `${token}`
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify({ user_id, is_admin })
     })
     .then(async() => {
-      getUsers();
+      await getUsers();
     })
     .catch((error) => {
       console.log(error);
     });
   };
 
-  // Function for bann a user
   const handleBanishment = async (user_id: string, is_banished: boolean) => {
 
     setShowLoader(true);
-
-    // Set up the body for the request with user ID & new status of bannishement
-    const body = { user_id, is_banished };
     const token = localStorage.getItem('token');
   
     // Fetch our API
@@ -134,14 +130,36 @@ const Users: NextPage<Props> = ({
         'Content-Type': 'application/json',
         'Authorization': `${token}`
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify({ user_id, is_banished })
     })
     .then(async() => {
-      getUsers();
+      await getUsers();
     })
     .catch((error) => {
       console.log(error);
     });
+  };
+
+  const handleDeleteUser = async(user_id: string) => {
+    setShowLoader(true);
+    const token = localStorage.getItem('token');
+
+    await fetch(`${api}/user/delete`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      },
+      body: JSON.stringify({ user_id })
+    })
+    .then(async(res) => {
+      await getUsers();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+    setShowLoader(false);
   };
 
   return (
@@ -149,7 +167,7 @@ const Users: NextPage<Props> = ({
       <AdminHeader />
 
       <section className={styles.message}>
-        <button
+        {/* <button
           className={styles.message_button}
           type="button"
           title="Envoyer un message à tous les utilisateurs"
@@ -163,7 +181,14 @@ const Users: NextPage<Props> = ({
             alt='Une enveloppe'
             src={mail}
           />
-        </button>
+        </button> */}
+
+        <ImageButton
+          title={"Envoyer un message à tous les utilisateurs"}
+          img={mail}
+          alt={'Une enveloppe'}
+          handleFunction={() => setShowMessageForm(true)}
+        />
       </section>
 
       <section className={styles.buttons}>
@@ -194,6 +219,7 @@ const Users: NextPage<Props> = ({
             userLogged={userLogged}
             handlePromotion={handlePromotion}
             handleBanishment={handleBanishment}
+            handleDeleteUser={handleDeleteUser}
           />
         </div>
 
@@ -203,6 +229,7 @@ const Users: NextPage<Props> = ({
             userLogged={userLogged}
             handlePromotion={handlePromotion}
             handleBanishment={handleBanishment}
+            handleDeleteUser={handleDeleteUser}
           />
         </div>
       </section>

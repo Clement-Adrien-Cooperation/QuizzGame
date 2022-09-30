@@ -13,6 +13,9 @@ import restore from '../../../../public/icons/restore.svg';
 import ban from '../../../../public/icons/ban.svg';
 import unban from '../../../../public/icons/unban.svg';
 import Loader from '../../../Loader/Loader';
+import AdminMessage from '../../AdminMessage/AdminMessage';
+import Message from '../../../Message/Message';
+import Modal from '../../../Modal/Modal';
 
 type Props = {
   quiz: Quiz,
@@ -27,6 +30,8 @@ const ReportedQuiz: FunctionComponent<Props> = ({
   const [visible, setVisible] = useState<boolean>(quiz.is_visible);
   const [banned, setBanned] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(false);
+  const [showMessage, setShowMessage] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>('');
 
   useEffect(() => {
     getCreator();
@@ -187,7 +192,7 @@ const ReportedQuiz: FunctionComponent<Props> = ({
           type="button"
           title="Envoyer un message au créateur du quiz"
           aria-label="Envoyer un message au créateur du quiz"
-          onClick={() => console.log('créer lenvoi de message')}
+          onClick={() => setShowMessage(true)}
         >
           <Image
             layout="responsive"
@@ -230,6 +235,26 @@ const ReportedQuiz: FunctionComponent<Props> = ({
           />
         </button>
       </footer>
+
+      {showMessage &&
+        <Modal
+          setShowModal={setShowMessage}
+        >
+          <AdminMessage
+            recipient={quiz.creator}
+            userID={quiz.user_id}
+            setNotification={setMessage}
+            setShowMessageForm={setShowMessage}
+          />
+        </Modal>
+      }
+
+      {message &&
+        <Message
+          message={message}
+          setMessage={setMessage}
+        />
+      }
 
       {showLoader &&
         <Loader />

@@ -43,8 +43,7 @@ const Notifications: FunctionComponent<Props> = ({
       if(res.status === 200) {
         const data = await res.json();
         setNotifications(data);
-        sortNotifications(data);
-        console.log(data);
+        countNotifications(data);
       };
     })
     .catch((error) => {
@@ -52,7 +51,7 @@ const Notifications: FunctionComponent<Props> = ({
     });
   };
 
-  const sortNotifications = (notifications: Notification[]) => {
+  const countNotifications = (notifications: Notification[]) => {
     let nb = 0;
 
     notifications.forEach(notification => {
@@ -94,9 +93,16 @@ const Notifications: FunctionComponent<Props> = ({
                 `${styles.container}`
             }
           >
-            <CloseButton
-              handleFunction={() => setShowNotifications(false)}
-            />
+
+            <header>
+              <h1 className={styles.title}>
+                Notifications
+              </h1>
+
+              <CloseButton
+                handleFunction={() => setShowNotifications(false)}
+              />
+            </header>
 
             <ul className={styles.list}>
 

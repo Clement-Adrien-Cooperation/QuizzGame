@@ -4,7 +4,7 @@
   box-shadow: var(--card-shadow);
   background: var(--body-color);
   border-radius: var(--small-radius);
-  padding: 3em 5em;
+  padding: 2em 4.5em 1.5em;
   max-width: 70vw;
   @include flexCenter;
   flex-direction: column;
@@ -12,6 +12,9 @@
 
 .content {
   margin: 2em 0;
+  background: rgba(0, 0, 0, 0.1);
+  padding: 1em 2em;
+  border-radius: var(--main-radius);
 }
 
 .footer {

@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from "@prisma/client";
 
-export default async function getAllQuizz (
+export default async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {

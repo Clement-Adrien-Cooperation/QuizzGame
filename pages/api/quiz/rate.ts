@@ -12,7 +12,7 @@ export default authenticated(async function handle (
   await prisma.$connect();
 
   try {
-    const deletedQuizz = await prisma.quiz.update({
+    const quiz = await prisma.quiz.update({
       where: {
         id: req.body.quiz_id
       },
@@ -21,7 +21,7 @@ export default authenticated(async function handle (
       }
     });
 
-    res.status(200).json(deletedQuizz);
+    res.status(200).json(quiz);
     
   } catch (error){
     res.status(404).json(error);

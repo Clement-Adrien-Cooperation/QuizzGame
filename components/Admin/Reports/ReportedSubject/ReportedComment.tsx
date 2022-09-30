@@ -8,6 +8,9 @@ import mail from '../../../../public/icons/mail.svg';
 import trash from '../../../../public/icons/delete.svg';
 import Link from 'next/link';
 import Loader from '../../../Loader/Loader';
+import Modal from '../../../Modal/Modal';
+import AdminMessage from '../../AdminMessage/AdminMessage';
+import Message from '../../../Message/Message';
 
 type Props = {
   comment: Comment,
@@ -20,6 +23,8 @@ const ReportedComment: FunctionComponent<Props> = ({
 }) => {
   
   const [showLoader, setShowLoader] = useState<boolean>(false);
+  const [showMessage, setShowMessage] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>('');
 
   const deleteComment = async() => {
     setShowLoader(true);
@@ -77,28 +82,13 @@ const ReportedComment: FunctionComponent<Props> = ({
       </section>
 
       <footer>
-        {/* <button
-          className={styles.button}
-          type="button"
-          title="Envoyer un message au créateur du commentaire"
-          aria-label="Envoyer un message au créateur du commentaire"
-          onClick={() => console.log('créer lenvoi de message')}
-        >
-          <Image
-            layout="responsive"
-            width='32'
-            height='32'
-            alt='Une enveloppe'
-            src={mail}
-          />
-        </button> */}
         
         <button
           className={styles.button}
           type="button"
           title="Envoyer un message au créateur du commentaire"
           aria-label="Envoyer un message au créateur du commentaire"
-          onClick={() => console.log('créer lenvoi de message')}
+          onClick={() => setShowMessage(true)}
         >
           <Image
             layout="responsive"
@@ -125,6 +115,26 @@ const ReportedComment: FunctionComponent<Props> = ({
           />
         </button>
       </footer>
+
+      {showMessage &&
+        <Modal
+          setShowModal={setShowMessage}
+        >
+          <AdminMessage
+            recipient={comment.author}
+            userID={comment.user_id}
+            setNotification={setMessage}
+            setShowMessageForm={setShowMessage}
+          />
+        </Modal>
+      }
+
+      {message &&
+        <Message
+          message={message}
+          setMessage={setMessage}
+        />
+      }
 
       {showLoader &&
         <Loader />

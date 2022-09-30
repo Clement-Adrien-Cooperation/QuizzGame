@@ -10,14 +10,16 @@ type Props = {
   user: User,
   userLogged: User,
   handlePromotion: (user_id: string, is_admin: boolean) => void,
-  handleBanishment: (user_id: string, is_banished: boolean) => void
+  handleBanishment: (user_id: string, is_banished: boolean) => void,
+  handleDeleteUser: (user_id: string) => void
 };
 
 const UserCard: FunctionComponent<Props> = ({
   user,
   userLogged,
   handlePromotion,
-  handleBanishment
+  handleBanishment,
+  handleDeleteUser
 }) => {
   
   const [showDetails, setShowDetails] = useState<boolean>(false);
@@ -63,12 +65,12 @@ const UserCard: FunctionComponent<Props> = ({
           <UserDetails
             id={user.id}
             pseudo={user.pseudo}
-            email={user.email}
             is_banished={user.is_banished}
             is_admin={user.is_admin}
+            userLogged={userLogged}
             handleBanishment={handleBanishment}
             handlePromotion={handlePromotion}
-            userLogged={userLogged}
+            handleDeleteUser={handleDeleteUser}
           />
         )}
       </label>

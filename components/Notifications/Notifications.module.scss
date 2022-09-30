@@ -2,6 +2,7 @@
 
 .button {
   @include posFixed(5vh, auto, auto, calc(var(--navbar-width) / 2));
+  z-index: 10001;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   border: 2px solid var(--white);
@@ -17,9 +18,10 @@
 
 .container {
   @include posFixed(0, auto, auto, 0);
+  z-index: 10002;
   width: var(--navbar-width);
   height: 100vh;
-  background: var(--main-color-secondary);
+  background: var(--main-color-light);
   transform: translateX(-100%);
   transition: transform 0.2s;
 
@@ -28,9 +30,12 @@
   }
 }
 
+.title {
+  padding: 0.6em 1em;
+}
+
 .list {
   display: flex;
   flex-direction: column;
-  margin-top: 50px;
   border-top: 1px solid var(--black);
 }

@@ -33,3 +33,7 @@
   @include posFixed(auto, 5rem, 3rem, auto);
   @include underlineButton;
 }
+
+.banned {
+  @include posCenter;
+}

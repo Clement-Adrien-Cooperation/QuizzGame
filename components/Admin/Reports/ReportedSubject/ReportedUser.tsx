@@ -10,6 +10,9 @@ import unban from '../../../../public/icons/unban.svg';
 import eye from '../../../../public/icons/eye_visible.svg';
 import Loader from '../../../Loader/Loader';
 import Link from 'next/link';
+import AdminMessage from '../../AdminMessage/AdminMessage';
+import Message from '../../../Message/Message';
+import Modal from '../../../Modal/Modal';
 
 type Props = {
   user: User
@@ -21,6 +24,8 @@ const ReportedUser: FunctionComponent<Props> = ({
 
   const [banned, setBanned] = useState<boolean>(user.is_banished);
   const [showLoader, setShowLoader] = useState<boolean>(false);
+  const [showMessage, setShowMessage] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>('');
 
   const moderateUser = async() => {
     setShowLoader(true);
@@ -88,7 +93,7 @@ const ReportedUser: FunctionComponent<Props> = ({
           type="button"
           title={`Envoyer un message à ${user.pseudo}`}
           aria-label={`Envoyer un message à ${user.pseudo}`}
-          onClick={() => console.log('créer lenvoi de message')}
+          onClick={() => setShowMessage(true)}
         >
           <Image
             layout="responsive"
@@ -115,6 +120,26 @@ const ReportedUser: FunctionComponent<Props> = ({
           />
         </button>
       </footer>
+
+      {showMessage &&
+        <Modal
+          setShowModal={setShowMessage}
+        >
+          <AdminMessage
+            recipient={user.pseudo}
+            userID={user.id}
+            setNotification={setMessage}
+            setShowMessageForm={setShowMessage}
+          />
+        </Modal>
+      }
+
+      {message &&
+        <Message
+          message={message}
+          setMessage={setMessage}
+        />
+      }
 
       {showLoader &&
         <Loader />

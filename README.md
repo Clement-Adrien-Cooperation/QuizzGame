@@ -16,7 +16,7 @@ Un jeu de quizz participatif en ligne. Vous pouvez créer vos propres quizz et j
 - [Github](https://github.com/AdrienLcp)
 - [LinkedIn](https://www.linkedin.com/in/adrien-lacourpaille/)
 
-## Langages
+## Langages / Librairies principales
 
 Ce projet a été créé avec :
 - JavaScript
@@ -29,3 +29,4 @@ Ce projet a été créé avec :
 - Json Web Token
 - Bcrypt
 - Uuid
+- Formspree

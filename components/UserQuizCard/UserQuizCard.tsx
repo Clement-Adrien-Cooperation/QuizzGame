@@ -1,5 +1,5 @@
 import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
-import type { Quiz } from '@prisma/client';
+import type { Quiz, User } from '@prisma/client';
 import { api } from '../../api/api';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -10,22 +10,29 @@ import deleteIcon from '../../public/icons/delete.svg';
 
 type Props = {
   quiz: Quiz,
+  userLogged: User,
   getQuizzFromUser: () => void,
   setShowLoader: Dispatch<SetStateAction<boolean>>
 };
 
 const UserQuizCard: FunctionComponent<Props> = ({
   quiz,
+  userLogged,
   getQuizzFromUser,
-  setShowLoader
+  setShowLoader,
 }) => {
 
   const router = useRouter();
 
   const handleDeleteQuiz = async () => {
-
     setShowLoader(true);
+
     const token = localStorage.getItem('token');
+
+    const body = {
+      user_id: userLogged.id,
+      quiz_id: quiz.id
+    };
 
     await fetch(`${api}/quiz/delete`, {
       method: 'POST',
@@ -33,7 +40,7 @@ const UserQuizCard: FunctionComponent<Props> = ({
         'Content-Type': 'application/json',
         'Authorization': `${token}`
       },
-      body: JSON.stringify({ quiz_id: quiz.id })
+      body: JSON.stringify(body)
     })
     .then(() => {
       getQuizzFromUser();

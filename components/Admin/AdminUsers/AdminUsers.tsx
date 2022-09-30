@@ -11,13 +11,15 @@ type Props = {
   userLogged: User,
   handlePromotion: (user_id: string, is_banished: boolean) => void,
   handleBanishment: (user_id: string, is_banished: boolean) => void,
+  handleDeleteUser: (user_id: string) => void
 };
 
 const AdminUsers: FunctionComponent<Props> = ({
   users,
   userLogged,
   handlePromotion,
-  handleBanishment
+  handleBanishment,
+  handleDeleteUser
 }) => {
 
   const [usersFilter, setUsersFilter] = useState<string>('');
@@ -63,6 +65,7 @@ const AdminUsers: FunctionComponent<Props> = ({
                   userLogged={userLogged}
                   handleBanishment={handleBanishment}
                   handlePromotion={handlePromotion}
+                  handleDeleteUser={handleDeleteUser}
                 />
               </li>
             );

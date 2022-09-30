@@ -58,6 +58,12 @@ const Categories: NextPage<Props> = ({
 
       <section className={styles.container}>
 
+        <header className={styles.header}>
+          <h1 className={styles.title}>
+            Catégories
+          </h1>
+        </header>
+
         <CategoryForm
           categories={categories}
           setCategories={setCategories}
@@ -67,14 +73,7 @@ const Categories: NextPage<Props> = ({
         {categories.length > 0 &&
           <div className={styles.categories}>
 
-            <header className={styles.header}>
-              <h1 className={styles.title}>
-                Catégories
-              </h1>
-            </header>
-
             {categories?.length > 10 &&
-            
               <InputField
                 name={'Filtrer les catégories...'}
                 state={categoryFilter}

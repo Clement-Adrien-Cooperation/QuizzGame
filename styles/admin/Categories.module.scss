@@ -3,6 +3,7 @@
 .container {
   @include flexCenter;
   flex-direction: column;
+  margin-top: 150px;
 }
 
 .categories {

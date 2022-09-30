@@ -30,9 +30,10 @@ const UserProfile: NextPage<Props> = ({
   const [report, setReport] = useState<boolean>(false);
 
   useEffect(() => {
-
-    document.title = `Profil de ${router.query.slug} - s'Quizz Game`;
-    setUserQuizz(userQuizzData);
+    if(!userData.is_banished) {
+      document.title = `Profil de ${router.query.slug} - s'Quizz Game`;
+      setUserQuizz(userQuizzData);
+    };
 
     if(isLogged) {
       if(userLogged.is_banished) {
@@ -47,80 +48,87 @@ const UserProfile: NextPage<Props> = ({
 
   return (
     <>
-      <header className={styles.header}>
-        <h1 className={styles.title}>
-          Page de {router.query.slug}
-        </h1>
-      </header>
+      {userData.is_banished ?
+        <p className={styles.banned}>
+          Cet utilisateur a été banni
+        </p>
+      :
+        <>
+          <header className={styles.header}>
+            <h1 className={styles.title}>
+              Page de {router.query.slug}
+            </h1>
+          </header>      
+          {userQuizz ?
+            <section className={styles.container}>
 
-      {userQuizz ?
-        <section className={styles.container}>
+              {userQuizz?.length > 10 &&
+                <div className={styles.input}>
+                  <InputField
+                    name={'Chercher un quiz...'}
+                    state={quizzFilter}
+                    inputID={'quizz-filter'}
+                    type={'text'}
+                    isDisabled={false}
+                    required={true}
+                    autoFocus={true}
+                    handleFunction={handleChangeQuizzFilter}
+                  />
+                </div>
+              }
 
-          {userQuizz?.length > 10 &&
-            <div className={styles.input}>
-              <InputField
-                name={'Chercher un quiz...'}
-                state={quizzFilter}
-                inputID={'quizz-filter'}
-                type={'text'}
-                isDisabled={false}
-                required={true}
-                autoFocus={true}
-                handleFunction={handleChangeQuizzFilter}
-              />
-            </div>
+              <ul className={styles.list}>
+
+                {userQuizz?.map((quiz: Quiz, index: number) => {
+                  
+                  const filteredTitle = quiz.title.toLowerCase();
+                  const filteredCategory = quiz.category.toLowerCase();
+                  const filter = quizzFilter.toLowerCase();
+
+                  if(quiz.nbOfQuestions > 10 && filteredTitle.includes(filter)
+                  || quiz.nbOfQuestions > 10 && filteredCategory.includes(filter)) {
+                    return (
+                      <li key={index}>
+                        <ProfileQuizCard
+                          quiz={quiz}
+                        />
+                      </li>
+                    );
+                  };
+                })}
+              </ul>
+            </section>
+          :
+            <section className={styles.container}>
+              <p className={styles.no_quiz}>
+                {router.query.slug} n'a créé aucun quiz pour le moment
+              </p>
+            </section>
           }
 
-          <ul className={styles.list}>
-
-            {userQuizz?.map((quiz: Quiz, index: number) => {
-              
-              const filteredTitle = quiz.title.toLowerCase();
-              const filteredCategory = quiz.category.toLowerCase();
-              const filter = quizzFilter.toLowerCase();
-
-              if(quiz.nbOfQuestions > 0 && filteredTitle.includes(filter)
-              || quiz.nbOfQuestions > 0 && filteredCategory.includes(filter)) {
-                return (
-                  <li key={index}>
-                    <ProfileQuizCard
-                      quiz={quiz}
-                    />
-                  </li>
-                );
-              };
-            })}
-          </ul>
-        </section>
-      :
-        <section className={styles.container}>
-          <p className={styles.no_quiz}>
-            {router.query.slug} n'a créé aucun quiz pour le moment
-          </p>
-        </section>
-      }
-
-      {userLogged.pseudo !== userData.pseudo && isLogged &&
-        <>
-          {report ?
-            <Report
-              user_id={userLogged.id}
-              pseudo={userLogged.pseudo}
-              about={'user'}
-              about_id={userData.id}
-              about_title={userData.pseudo}
-              setShowReportForm={setReport}
-            />
-          :
-            <button
-              className={styles.report}
-              type="button"
-              title="Signaler cet utilisateur"
-              aria-label="Signaler cet utilisateur"
-              onClick={() => setReport(true)}
-            >
-              Signaler
-            </button>
+          {isLogged && userLogged.pseudo !== userData.pseudo &&
+            <>
+              {report ?
+                <Report
+                  user_id={userLogged.id}
+                  pseudo={userLogged.pseudo}
+                  about={'user'}
+                  about_id={userData.id}
+                  about_title={userData.pseudo}
+                  setShowReportForm={setReport}
+                />
+              :
+                <button
+                  className={styles.report}
+                  type="button"
+                  title="Signaler cet utilisateur"
+                  aria-label="Signaler cet utilisateur"
+                  onClick={() => setReport(true)}
+                >
+                  Signaler
+                </button>
+              }
+            </>
           }
         </>
       }
