@@ -6,27 +6,25 @@ export default checkUser(async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-
   const prisma = new PrismaClient();
 
   await prisma.$connect();
-
+  
   try {
-    const quiz = await prisma.quiz.update({
+    const comment = await prisma.comment.update({
       where: {
-        id: req.body.quiz_id
+        id: req.body.id
       },
       data: {
-        rate: req.body.rate,
-        rates_IDs: req.body.rates_IDs
+        content: req.body.content
       }
     });
 
-    res.status(200).json(quiz);
+    res.status(200).json(comment);
     
   } catch (error){
     res.status(404).json(error);
   };
-
+  
   await prisma.$disconnect();
-}); 
+});

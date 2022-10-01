@@ -30,6 +30,7 @@ model Quiz {
   difficulty    String
   date          String
   rate          Int[]
+  rates_IDs     String[]
   is_visible    Boolean     @default(true)
 }
 
@@ -49,6 +50,7 @@ model Comment {
   quiz_id       String
   author        String
   content       String
+  date          String
   likes         Int
   likes_IDs     String[]
 }

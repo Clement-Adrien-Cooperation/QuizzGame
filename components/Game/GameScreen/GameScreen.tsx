@@ -100,6 +100,7 @@ const GameScreen: FunctionComponent<Props> = ({
           score={score}
           isLogged={isLogged}
           quiz={quiz}
+          userLogged={userLogged}
         />
       :
        <>
