@@ -12,17 +12,27 @@ export default checkUser(async function handle (
   await prisma.$connect();
 
   try {
-    const quiz = await prisma.quiz.update({
+
+    const quiz: any = await prisma.quiz.findUnique({
       where: {
         id: req.body.quiz_id
-      },
-      data: {
-        rate: req.body.rate,
-        rates_IDs: req.body.rates_IDs
       }
     });
 
-    res.status(200).json(quiz);
+    const newRate = [...quiz.rate, req.body.user_rate];
+    const newIDs = [...quiz.rates_IDs, req.body.user_id];
+
+    const rated = await prisma.quiz.update({
+      where: {
+        id: quiz.id
+      },
+      data: {
+        rate: newRate,
+        rates_IDs: newIDs
+      }
+    });
+
+    res.status(200).json(rated);
     
   } catch (error){
     res.status(404).json(error);

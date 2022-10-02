@@ -14,8 +14,7 @@ type Props = {
   nextQuestion: () => void,
   isLogged: boolean,
   userLogged: User,
-  quiz: Quiz,
-  setShowLoader: Dispatch<SetStateAction<boolean>>
+  quiz: Quiz
 };
 
 const GameScreen: FunctionComponent<Props> = ({
@@ -25,16 +24,13 @@ const GameScreen: FunctionComponent<Props> = ({
   nextQuestion,
   isLogged,
   userLogged,
-  quiz,
-  setShowLoader
+  quiz
 }) => {
 
   const [score, setScore] = useState<number>(0);
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
   const [goodAnswer, setGoodAnswer] = useState<boolean>(false);
-
-  const [report, setReport] = useState<boolean>(false);
   
   const handleUserAnswer = (userAnswer: string) => {
 

@@ -1,30 +1,33 @@
 import type { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction } from 'react'
-import type { User } from '@prisma/client';
+import type { Comment, User } from '@prisma/client';
 import { useState } from 'react';
+import { api } from '../../../api/api';
 import styles from './CommentForm.module.scss';
 import TextArea from '../../TextArea/TextArea';
 import Loader from '../../Loader/Loader';
-import { api } from '../../../api/api';
 import Warning from '../../Warning/Warning';
-import Message from '../../Message/Message';
+import Modal from '../../Modal/Modal';
 
 type Props = {
   userLogged: User,
-  quizID: string,
+  quiz_id: string,
   comments: Comment[],
   setComments: Dispatch<SetStateAction<Comment[]>>
+  setShowCommentForm: Dispatch<SetStateAction<boolean>>,
+  setNotification: Dispatch<SetStateAction<string>>
 };
 
 const CommentForm: FunctionComponent<Props> = ({
   userLogged,
-  quizID,
+  quiz_id,
   comments,
-  setComments
+  setComments,
+  setShowCommentForm,
+  setNotification
 }) => {
 
   const [comment, setComment] = useState<string>('');
 
-  const [notification, setNotification] = useState<string>('');
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [disableButton, setDisableButton] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(false);
@@ -54,7 +57,7 @@ const CommentForm: FunctionComponent<Props> = ({
     // Set the body with required elements for creating comment
     const body = {
       user_id: userLogged.id,
-      quiz_id: quizID,
+      quiz_id,
       author: userLogged.pseudo,
       content: comment,
       date: new Date().toLocaleDateString(),
@@ -62,6 +65,7 @@ const CommentForm: FunctionComponent<Props> = ({
       likes_IDs: []
     };
 
+    // create comment in database
     await fetch(`${api}/comment/create`, {
       method: 'POST',
       headers: {
@@ -72,17 +76,20 @@ const CommentForm: FunctionComponent<Props> = ({
     })
     .then(async(res) => {
       if(res.status === 201) {
-        setNotification("Commentaire envoyé ✅");
+        // set notification
+        setNotification('Commentaire envoyé ✅');
 
+        // await data from api
         const newComment = await res.json();
 
+        // create new list of comments with our new comment
         const newList = [...comments, newComment];
 
+        // update state
         setComments(newList);
 
-
-        // ! Est-ce que cette action re-rend le composant, et donc efface la notification ou autre ??
-
+        // hide form
+        setShowCommentForm(false);
       } else {
         setWarningMessage("Un problème est survenu. Veuillez réessayer ou nous contacter si le problème persiste.");
       };
@@ -95,11 +102,19 @@ const CommentForm: FunctionComponent<Props> = ({
   };
 
   return (
-    <>
+    <Modal
+      setShowModal={setShowCommentForm}
+    >
       <form
         className={styles.form}
         onSubmit={handleSubmitForm}
       >
+        <header className={styles.header}>
+          <h4>
+            Ajouter un commentaire
+          </h4>
+        </header>
+
         {warningMessage &&
           <Warning
             warningMessage={warningMessage}
@@ -127,17 +142,10 @@ const CommentForm: FunctionComponent<Props> = ({
         </button>
       </form>
 
-      {notification &&
-        <Message
-          message={notification}
-          setMessage={setNotification}
-        />
-      }
-
       {showLoader &&
         <Loader />
       }
-    </>
+    </Modal>
   );
 };
 

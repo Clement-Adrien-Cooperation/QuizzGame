@@ -2,6 +2,7 @@
 
 .card {
   @include posFixed(auto, 20px, 0, auto);
+  z-index: 100;
   aspect-ratio: 16/9;
   padding: 30px 60px;
   background: var(--main-color-secondary);

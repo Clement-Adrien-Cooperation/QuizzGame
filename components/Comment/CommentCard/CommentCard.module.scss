@@ -1,0 +1,42 @@
+@import '../../../styles/mixins';
+
+.card {
+  border-radius: 5px;
+  box-shadow: var(--box-shadow);
+  padding: 1em 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  min-width: 400px;
+  max-width: 60rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.author {
+  @include underlineButton;
+  font-size: 1.6rem;
+}
+
+.date {
+  font-style: italic;
+  font-size: 1.2rem;
+}
+
+.text {
+  padding: 1em 1.5em;
+  border-radius: var(--main-radius);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  @include underlineButton;
+}

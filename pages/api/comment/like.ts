@@ -11,17 +11,27 @@ export default checkUser(async function handle (
   await prisma.$connect();
   
   try {
-    const comment = await prisma.comment.update({
+
+    const comment: any = await prisma.comment.findUnique({
       where: {
         id: req.body.id
-      },
-      data: {
-        likes: req.body.content,
-        likes_IDs: req.body.likes_IDs
       }
     });
 
-    res.status(200).json(comment);
+    const newLikes = comment.likes + 1;
+    const newIDs = [...comment.likes_IDs, req.body.user_id];
+
+    const liked = await prisma.comment.update({
+      where: {
+        id: comment.id
+      },
+      data: {
+        likes: newLikes,
+        likes_IDs: newIDs
+      }
+    });
+
+    res.status(200).json(liked);
     
   } catch (error){
     res.status(404).json(error);

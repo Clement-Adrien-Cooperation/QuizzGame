@@ -23,9 +23,6 @@ const GameRate: FunctionComponent<Props> = ({
   const [rated, setRated] = useState<boolean>(false);
 
   const handleRateQuiz = async(rate: number) => {
-    // Push new rate & user ID with previous on new arrays
-    const newRate: number[] = [...quiz.rate, rate];
-    const newRates_IDs: string[] = [...quiz.rates_IDs, userLogged.id];
 
     // Get token from local storage for authorization
     const token = localStorage.getItem('token');
@@ -33,8 +30,7 @@ const GameRate: FunctionComponent<Props> = ({
     // Set body with required data
     const body = {
       quiz_id: quiz.id,
-      rate: newRate,
-      rates_IDs: newRates_IDs,
+      user_rate: rate,
       user_id: userLogged.id
     };
 

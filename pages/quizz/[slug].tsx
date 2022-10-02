@@ -1,6 +1,5 @@
 import type { GetServerSideProps, NextPage } from 'next';
-import type { Question, Quiz, User } from '@prisma/client';
-import type { Dispatch, SetStateAction } from 'react';
+import type { Question, Quiz, User, Comment } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { api } from '../../api/api';
@@ -9,6 +8,7 @@ import GameScreen from '../../components/Game/GameScreen/GameScreen';
 import Report from '../../components/Report/Report';
 import Warning from '../../components/Warning/Warning';
 import styles from '../../styles/quizz/QuizGame.module.scss';
+import QuizComments from '../../components/Comment/QuizComments/QuizComments';
 
 const emptyQuiz: Quiz = {
   id: '',
@@ -20,7 +20,8 @@ const emptyQuiz: Quiz = {
   is_visible: true,
   date: '',
   nbOfQuestions: 0,
-  rate: []
+  rate: [],
+  rates_IDs: []
 };
 
 const emptyQuestion: Question = {
@@ -38,7 +39,7 @@ type Props = {
   isLogged: boolean,
   quizData: Quiz,
   questionsData: Question[],
-  setShowLoader: Dispatch<SetStateAction<boolean>>
+  commentsData: Comment[]
 };
 
 const QuizGame: NextPage<Props> = ({
@@ -46,7 +47,7 @@ const QuizGame: NextPage<Props> = ({
   isLogged,
   quizData,
   questionsData,
-  setShowLoader
+  commentsData
 }) => {
 
   const router = useRouter();
@@ -185,7 +186,6 @@ const QuizGame: NextPage<Props> = ({
               isLogged={isLogged}
               userLogged={userLogged}
               quiz={quiz}
-              setShowLoader={setShowLoader}
             />
           :
             <main className={styles.presentation}>
@@ -209,6 +209,13 @@ const QuizGame: NextPage<Props> = ({
                   Jouer
                 </button>
               </section>
+
+              <QuizComments
+                commentsData={commentsData}
+                quiz_id={quiz.id}
+                userLogged={userLogged}
+                isLogged={isLogged}
+              />
             </main>
           }
 
@@ -258,7 +265,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   // Translate to JSON
   const quizData = await quizDataFromAPI.json();
 
-  if(!quizData) {
+  if(!quizData || quizData.nbOfQuestions < 10) {
     return {
       notFound: true
     };
@@ -274,10 +281,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const questionsData = await questionsDataFromAPI.json();
 
+    const commentsDataFromAPI = await fetch(`${api}/comment/getAllFromQuiz`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ quiz_id })
+    });
+
+    const commentsData = await commentsDataFromAPI.json();
+
     return {
       props: {
         quizData,
-        questionsData
+        questionsData,
+        commentsData
       }
     };
   };

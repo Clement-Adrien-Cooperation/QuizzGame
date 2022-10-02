@@ -1,30 +1,29 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from "@prisma/client";
-import { checkUser } from '../../../middlewares/checkUser';
 
-export default checkUser(async function handle (
+export default async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const prisma = new PrismaClient();
 
   await prisma.$connect();
-  
+
   try {
-    const comment = await prisma.comment.update({
+    const comments = await prisma.comment.findMany({
       where: {
-        id: req.body.id
+        user_id: req.body.user_id
       },
-      data: {
-        content: req.body.content
+      orderBy: {
+        date: "asc"
       }
     });
 
-    res.status(200).json(comment);
-    
+    res.status(200).json(comments);
+
   } catch (error){
     res.status(404).json(error);
   };
   
   await prisma.$disconnect();
-});
+};

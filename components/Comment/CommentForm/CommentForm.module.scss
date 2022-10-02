@@ -1,2 +1,20 @@
 @import '../../../styles/mixins';
 
+.form {
+  @include flexCenter;
+  flex-direction: column;
+  gap: 1.5em;
+  background: var(--body-color);
+  border-radius: var(--small-radius);
+  padding: 2em 4.5em;
+  min-width: 60rem;
+}
+
+.header {
+  align-self: flex-start;
+}
+
+.submit {
+  @include mainButton;
+  align-self: flex-end;
+}

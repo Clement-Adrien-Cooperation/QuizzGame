@@ -125,8 +125,8 @@ const Questions: FunctionComponent<Props> = ({
               {questions.length > 10 &&
                 <div
                   className={styles.input}
-                  title='Vous pouvez filtrer avec la questions en elle-même ou avec la bonne réponse'
-                  aria-label='Vous pouvez filtrer avec la questions en elle-même ou avec la bonne réponse'
+                  title='Vous pouvez filtrer avec la question en elle-même ou avec la bonne réponse'
+                  aria-label='Vous pouvez filtrer avec la question en elle-même ou avec la bonne réponse'
                 >
                   <InputField
                     name={'Rechercher une question'}

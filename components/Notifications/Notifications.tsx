@@ -106,6 +106,12 @@ const Notifications: FunctionComponent<Props> = ({
 
             <ul className={styles.list}>
 
+              {notifications.length === 0 &&
+                <span className={styles.span}>
+                  Vous n'avez aucune notification
+                </span>
+              }
+
               {notifications?.map((notification, index) =>
 
                 <li key={uuidv4()}>
