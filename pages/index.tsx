@@ -44,7 +44,6 @@ const Home: NextPage<Props> = ({
       }
     })
     .then(async(res) => {
-
       if(res.status === 200) {
         const data = await res.json();
         console.log(data);
@@ -56,7 +55,7 @@ const Home: NextPage<Props> = ({
 
     setShowLoader(false);
   };
-  
+
   return (
     <>
       <header className={styles.header}>

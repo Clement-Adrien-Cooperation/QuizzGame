@@ -1,6 +1,5 @@
-import type { FunctionComponent } from 'react';
+import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import type { User } from '@prisma/client';
-import { useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from './UserDetails.module.scss';
 import ImageButton from '../../ImageButton/ImageButton';
@@ -11,108 +10,80 @@ import ban from '../../../public/icons/ban.svg';
 import unban from '../../../public/icons/unban.svg';
 import trash from '../../../public/icons/delete.svg';
 import mail from '../../../public/icons/mail.svg';
-import AdminMessage from '../AdminMessage/AdminMessage';
-import Message from '../../Message/Message';
 
 type Props = {
-  id: string,
-  pseudo: string,
-  is_admin: boolean,
-  is_banished: boolean,
+  user: User,
   userLogged: User,
   handlePromotion: (user_id: string, is_admin: boolean) => void,
-  handleBanishment: (user_id: string, is_banished: boolean) => void
-  handleDeleteUser: (user_id: string) => void
+  handleBanishment: (user_id: string, is_banished: boolean) => void,
+  handleDeleteUser: (user_id: string) => void,
+  setShowMessageForm: Dispatch<SetStateAction<boolean>>
 };
 
 const UserDetails: FunctionComponent<Props> = ({
-  id,
-  pseudo,
-  is_banished,
-  is_admin,
+  user,
   userLogged,
   handlePromotion,
   handleBanishment,
-  handleDeleteUser
+  handleDeleteUser,
+  setShowMessageForm
 }) => {
 
   const router = useRouter();
 
-  const [showMessageForm, setShowMessageForm] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>('');
-
   return (
-    <>
-      <section className={styles.details}>
-      {userLogged.id === id ?
+    <section className={styles.details}>
+      {userLogged.id === user.id ?
 
-        <div className={styles.footer}>
+        <footer className={styles.footer}>
           <p className={styles.text}>
             Vous ne pouvez pas vous administrer vous-même
           </p>
-        </div>
+        </footer>
       :
-        <div className={styles.footer}>
+        <footer className={styles.footer}>
 
           <ImageButton
-            title={`Voir le profil de ${pseudo}`}
+            title={`Voir le profil de ${user.pseudo}`}
             img={avatar}
             alt={"Bonhomme dessiné"}
-            handleFunction={() => router.push(`/profile/${pseudo}`)}
+            handleFunction={() => router.push(`/profile/${user.pseudo}`)}
           />
 
           <ImageButton
-            title={`Envoyer un message à ${pseudo}`}
+            title={`Envoyer un message à ${user.pseudo}`}
             img={mail}
             alt={"Une enveloppe"}
             handleFunction={() => setShowMessageForm(true)}
           />
 
-          {!is_admin &&
+          {!user.is_admin &&
             <ImageButton
-              title={is_banished ? `Débannir ${pseudo}` : `Bannir ${pseudo}`}
-              img={is_banished ? unban : ban}
-              alt={is_banished ? "Port avec une flèche qui rentre dedans" : "Porte avec une flèche qui en sort"}
-              handleFunction={() => handleBanishment(id, is_banished)}
+              title={user.is_banished ? `Débannir ${user.pseudo}` : `Bannir ${user.pseudo}`}
+              img={user.is_banished ? unban : ban}
+              alt={user.is_banished ? "Port avec une flèche qui rentre dedans" : "Porte avec une flèche qui en sort"}
+              handleFunction={() => handleBanishment(user.id, user.is_banished)}
             />
           }
 
-          {is_banished ?
+          {user.is_banished ?
             <ImageButton
-              title={`Supprimer le compte de ${pseudo} définitivement`}
+              title={`Supprimer le compte de ${user.pseudo} définitivement`}
               img={trash}
               alt={"Une poubelle"}
-              handleFunction={() => handleDeleteUser(id)}
+              handleFunction={() => handleDeleteUser(user.id)}
             />
           :
             <ImageButton
-              title={is_admin ? `Retirer les droits d'administrateurs à ${pseudo}` : `Donner les droits d'administration à ${pseudo}`}
-              img={is_admin ? downgrade : promote}
-              alt={is_admin ? "Bonhomme avec un sigle moins" : "Bonhomme avec un sigle moins"}
-              handleFunction={() => handlePromotion(id, is_admin)}
+              title={user.is_admin ? `Retirer les droits d'administrateurs à ${user.pseudo}` : `Donner les droits d'administration à ${user.pseudo}`}
+              img={user.is_admin ? downgrade : promote}
+              alt={user.is_admin ? "Bonhomme avec un sigle moins" : "Bonhomme avec un sigle moins"}
+              handleFunction={() => handlePromotion(user.id, user.is_admin)}
             />
           }
-        </div>
+        </footer>
       }
-      </section>
-
-      {showMessageForm &&
-        <AdminMessage
-          recipient={pseudo}
-          userID={id}
-          setNotification={setMessage}
-          setShowMessageForm={setShowMessageForm}
-        />
-      }
-
-      {message &&
-        <Message
-          message={message}
-          setMessage={setMessage}
-        />
-      }
-    </>
-
+    </section>
   );
 };
 

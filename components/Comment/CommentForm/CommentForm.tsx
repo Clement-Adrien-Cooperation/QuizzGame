@@ -12,7 +12,7 @@ type Props = {
   userLogged: User,
   quiz_id: string,
   comments: Comment[],
-  setComments: Dispatch<SetStateAction<Comment[]>>
+  setComments: Dispatch<SetStateAction<Comment[]>>,
   setShowCommentForm: Dispatch<SetStateAction<boolean>>,
   setNotification: Dispatch<SetStateAction<string>>
 };

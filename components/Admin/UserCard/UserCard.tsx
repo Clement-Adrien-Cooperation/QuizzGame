@@ -5,6 +5,8 @@ import Image from 'next/image';
 import styles from './UserCard.module.scss';
 import arrow from '../../../public/icons/arrow.svg';
 import UserDetails from '../UserDetails/UserDetails';
+import AdminMessage from '../AdminMessage/AdminMessage';
+import Message from '../../Message/Message';
 
 type Props = {
   user: User,
@@ -23,58 +25,76 @@ const UserCard: FunctionComponent<Props> = ({
 }) => {
   
   const [showDetails, setShowDetails] = useState<boolean>(false);
+  const [showMessageForm, setShowMessageForm] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>('');
 
   const toggleDetails = () => {
     setShowDetails(!showDetails);
   };
 
   return (
-    <article className={styles.container}>
+    <>
+      <article className={styles.container}>
 
-      <input
-        className={styles.input}
-        type='checkbox'
-        id={user.pseudo}
-        name='user'
-      />
+        <input
+          className={styles.input}
+          type='checkbox'
+          id={user.pseudo}
+          name='user'
+        />
 
-      <label
-        className={styles.card}
-        htmlFor={user.pseudo}
-        onClick={toggleDetails}
-      >
-        <section className={styles.header}>
+        <label
+          className={styles.card}
+          htmlFor={user.pseudo}
+          onClick={toggleDetails}
+        >
+          <section className={styles.header}>
 
-          <h3 className={styles.pseudo}>
-            {user.pseudo}
-          </h3>
+            <h3 className={styles.pseudo}>
+              {user.pseudo}
+            </h3>
 
-          <div className={styles.toggle_icon}>
-            <Image
-              src={arrow}
-              width='32'
-              height='32'
-              layout='responsive'
-              alt="Ouvrir les détails de l'utilisateur"
+            <div className={styles.toggle_icon}>
+              <Image
+                src={arrow}
+                width='32'
+                height='32'
+                layout='responsive'
+                alt="Ouvrir les détails de l'utilisateur"
+              />
+            </div>
+
+          </section>
+
+          { showDetails && (
+            <UserDetails
+              user={user}
+              userLogged={userLogged}
+              handleBanishment={handleBanishment}
+              handlePromotion={handlePromotion}
+              handleDeleteUser={handleDeleteUser}
+              setShowMessageForm={setShowMessageForm}
             />
-          </div>
+          )}
+        </label>
+      </article>
 
-        </section>
+      {showMessageForm &&
+        <AdminMessage
+          recipient={user.pseudo}
+          userID={user.id}
+          setNotification={setMessage}
+          setShowMessageForm={setShowMessageForm}
+        />
+      }
 
-        { showDetails && (
-          <UserDetails
-            id={user.id}
-            pseudo={user.pseudo}
-            is_banished={user.is_banished}
-            is_admin={user.is_admin}
-            userLogged={userLogged}
-            handleBanishment={handleBanishment}
-            handlePromotion={handlePromotion}
-            handleDeleteUser={handleDeleteUser}
-          />
-        )}
-      </label>
-    </article>
+      {message &&
+        <Message
+          message={message}
+          setMessage={setMessage}
+        />
+      }
+    </>
   );
 };
 

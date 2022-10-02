@@ -11,6 +11,7 @@ import Loader from '../../../Loader/Loader';
 import Modal from '../../../Modal/Modal';
 import AdminMessage from '../../AdminMessage/AdminMessage';
 import Message from '../../../Message/Message';
+import ImageButton from '../../../ImageButton/ImageButton';
 
 type Props = {
   comment: Comment,
@@ -69,51 +70,33 @@ const ReportedComment: FunctionComponent<Props> = ({
           </Link>
         </p>
 
-        <p>
-          <span className={styles.message}>
-            Message :
-          </span>
-          {comment.content}
-        </p>
+        <div className={styles.message}>
+          Message :
 
-        <p>
+          <p className={styles.message__content}>
+            {comment.content}
+          </p>
+        </div>
+
+        <p className={styles.likes}>
           {comment.likes} ❤️️
         </p>
       </section>
 
-      <footer>
-        
-        <button
-          className={styles.button}
-          type="button"
-          title="Envoyer un message au créateur du commentaire"
-          aria-label="Envoyer un message au créateur du commentaire"
-          onClick={() => setShowMessage(true)}
-        >
-          <Image
-            layout="responsive"
-            width='32'
-            height='32'
-            alt='Une enveloppe'
-            src={mail}
-          />
-        </button>
+      <footer className={styles.footer}>
+        <ImageButton
+          title={"Envoyer un message au créateur du commentaire"}
+          img={mail}
+          alt={'Une enveloppe'}
+          handleFunction={() => setShowMessage(true)}
+        />
 
-        <button
-          className={styles.button}
-          type="button"
-          title="Supprimer ce commentaire"
-          aria-label="Supprimer ce commentaire"
-          onClick={deleteComment}
-        >
-          <Image
-            layout="responsive"
-            width='32'
-            height='32'
-            alt='Une poubelle'
-            src={trash}
-          />
-        </button>
+        <ImageButton
+          title={"Supprimer ce commentaire"}
+          img={trash}
+          alt={'Une poubelle'}
+          handleFunction={deleteComment}
+        />
       </footer>
 
       {showMessage &&

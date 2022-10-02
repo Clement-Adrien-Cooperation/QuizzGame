@@ -9,21 +9,18 @@ export default async function handle (
   const prisma = new PrismaClient();
 
   await prisma.$connect();
-
+  
   try {
-    const user = await prisma.user.findUnique({
+    const played = await prisma.played.findMany({
       where: {
-        pseudo: req.body.pseudo
+        user_id: req.body.user_id
       }
     });
     
-    res.status(200).json({
-      id: user?.id,
-      pseudo: user?.pseudo,
-      is_banished: user?.is_banished
-    });
+    res.status(200).json(played);
     
   } catch (error){
+    
     res.status(404).json(error);
   };
   

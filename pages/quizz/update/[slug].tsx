@@ -29,11 +29,13 @@ const UpdateQuiz: NextPage<Props> = ({
   
   useEffect(() => {
 
-    document.title = `Modifier "${router.query.slug}" - s'Quizz Game`;
-
     if(isLogged) {
       if(userLogged.is_banished) {
         router.push('/banned');
+      } else if(userLogged.id !== quizData.user_id) {
+        router.push('/404');
+      } else {
+        document.title = `Modifier "${router.query.slug}" - s'Quizz Game`;
       };
     } else {
       router.push('/');

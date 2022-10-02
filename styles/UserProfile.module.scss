@@ -1,16 +1,15 @@
 @import './mixins';
 
-.title {
-  margin: 50px;
-  font-weight: 300;
-  font-size: 25px;
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5rem;
 }
 
-.no_quiz {
-  font-size: 20px;
+.title {
   font-weight: 300;
-  margin-top: 40vh;
-  text-align: center;
+  font-size: 3rem;
 }
 
 .container {

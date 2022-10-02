@@ -13,6 +13,7 @@ import Link from 'next/link';
 import AdminMessage from '../../AdminMessage/AdminMessage';
 import Message from '../../../Message/Message';
 import Modal from '../../../Modal/Modal';
+import ImageButton from '../../../ImageButton/ImageButton';
 
 type Props = {
   user: User
@@ -88,37 +89,19 @@ const ReportedUser: FunctionComponent<Props> = ({
           </a>
         </Link>
 
-        <button
-          className={styles.button}
-          type="button"
+        <ImageButton
           title={`Envoyer un message à ${user.pseudo}`}
-          aria-label={`Envoyer un message à ${user.pseudo}`}
-          onClick={() => setShowMessage(true)}
-        >
-          <Image
-            layout="responsive"
-            width='32'
-            height='32'
-            alt='Une enveloppe'
-            src={mail}
-          />
-        </button>
+          img={mail}
+          alt={'Une enveloppe'}
+          handleFunction={() => setShowMessage(true)}
+        />
 
-        <button
-          className={styles.button}
-          type="button"
+        <ImageButton
           title={banned ? `Débannir ${user.pseudo}` : `Bannir ${user.pseudo} de s'Quizz Game`}
-          aria-label={banned ? `Débannir ${user.pseudo}` : `Bannir ${user.pseudo} de s'Quizz Game`}
-          onClick={moderateUser}
-        >
-          <Image
-            layout="responsive"
-            width='32'
-            height='32'
-            alt='Une poubelle'
-            src={banned ? unban : ban}
-          />
-        </button>
+          img={banned ? unban : ban}
+          alt={banned ? "Une flèche qui rentre dans un carré" : "Une flèche qui sort d'un carré"}
+          handleFunction={moderateUser}
+        />
       </footer>
 
       {showMessage &&

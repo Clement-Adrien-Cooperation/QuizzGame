@@ -16,6 +16,7 @@ import Loader from '../../../Loader/Loader';
 import AdminMessage from '../../AdminMessage/AdminMessage';
 import Message from '../../../Message/Message';
 import Modal from '../../../Modal/Modal';
+import ImageButton from '../../../ImageButton/ImageButton';
 
 type Props = {
   quiz: Quiz,
@@ -171,69 +172,33 @@ const ReportedQuiz: FunctionComponent<Props> = ({
       </section>
 
       <footer className={styles.footer}>
-        <button
-          className={styles.button}
-          type="button"
-          title="Voir les questions de ce quiz"
-          aria-label="Voir les questions de ce quiz"
-          onClick={() => router.push('/admin/quizz')}
-        >
-          <Image
-            layout="responsive"
-            width='32'
-            height='32'
-            alt='Un oeil'
-            src={eye}
-          />
-        </button>
+        <ImageButton
+          title={"Voir les questions de ce quiz"}
+          img={eye}
+          alt={'Un oeil'}
+          handleFunction={() => router.push('/admin/quizz')}
+        />
 
-        <button
-          className={styles.button}
-          type="button"
-          title="Envoyer un message au créateur du quiz"
-          aria-label="Envoyer un message au créateur du quiz"
-          onClick={() => setShowMessage(true)}
-        >
-          <Image
-            layout="responsive"
-            width='32'
-            height='32'
-            alt='Une enveloppe'
-            src={mail}
-          />
-        </button>
+        <ImageButton
+          title={"Envoyer un message au créateur du quiz"}
+          img={mail}
+          alt={'Une enveloppe'}
+          handleFunction={() => setShowMessage(true)}
+        />
 
-        <button
-          className={styles.button}
-          type="button"
+        <ImageButton
           title={visible ? "Supprimer temporairement ce quiz" : "Restaurer ce quiz dans s'Quizz Game"}
-          aria-label={visible ? "Supprimer temporairement ce quiz" : "Restaurer ce quiz dans s'Quizz Game"}
-          onClick={moderateQuiz}
-        >
-          <Image
-            layout="responsive"
-            width='32'
-            height='32'
-            alt='Une poubelle'
-            src={visible ? trash : restore}
-          />
-        </button>
+          img={visible ? trash : restore}
+          alt={"Une poubelle"}
+          handleFunction={moderateQuiz}
+        />
 
-        <button
-          className={styles.button}
-          type="button"
+        <ImageButton
           title={banned ? "Débannir le créateur de ce quiz" : "Bannir le créateur de ce quiz"}
-          aria-label={banned ? "Débannir le créateur de ce quiz" : "Bannir le créateur de ce quiz"}
-          onClick={moderateCreator}
-        >
-          <Image
-            layout="responsive"
-            width='32'
-            height='32'
-            alt={banned ? "Une flèche entrant dans une porte" : "Une flèche sortant d'une porte"}
-            src={banned ? unban : ban}
-          />
-        </button>
+          img={banned ? unban : ban}
+          alt={banned ? "Une flèche entrant dans une porte" : "Une flèche sortant d'une porte"}
+          handleFunction={moderateCreator}
+        />
       </footer>
 
       {showMessage &&

@@ -25,7 +25,18 @@
 .footer {
   display: flex;
   width: 100%;
-  justify-content: space-between;
+  justify-content: space-evenly;
+}
+
+
+
+.message {
+  &__content {
+    margin-top: 5px;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 1em 2em;
+    border-radius: var(--main-radius);
+  }
 }
 
 .button {
