@@ -1,36 +1,53 @@
 import type { NextPage } from 'next';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import type { User } from '@prisma/client';
+import { useState } from 'react';
 import { api } from '../api/api';
 import ConfirmModal from '../components/ConfirmModal/ConfirmModal';
 import ContactForm from '../components/ContactForm/ContactForm';
 import styles from '../styles/Banned.module.scss';
 import Warning from '../components/Warning/Warning';
+import { useRouter } from 'next/router';
 
 type Props = {
   userLogged: User,
+  isLogged: boolean,
   handleDisconnect: () => void,
   setShowLoader: Dispatch<SetStateAction<boolean>>
 }
 
 const Banned: NextPage<Props> = ({
   userLogged,
+  isLogged,
   handleDisconnect,
   setShowLoader
 }) => {
 
+  const router = useRouter();
+
   const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
   const [warningMessage, setWarningMessage] = useState<string>('');
+
+  useEffect(() => {
+    if(isLogged) {
+      if(!userLogged.is_banished) {
+        router.push('/');
+      };
+    } else {
+      router.push('/');
+    };
+  }, []);
 
   const handleDeleteUser = async() => {
     setShowLoader(true);
     setWarningMessage('');
+    setShowConfirmDelete(false);
 
     // Get token from local storage for authorization
     const token = localStorage.getItem('token');
 
     // Delete the right user from database
-    await fetch(`${api}/user/delete`, {
+    await fetch(`${api}/user/deleteBanishedUser`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -90,7 +107,7 @@ const Banned: NextPage<Props> = ({
       {showConfirmDelete &&
         <ConfirmModal
           message={'Êtes vous certain de vouloir supprimer votre compte ?'}
-          text={'Tous les quizz et les questions liées, ainsi que tous vos commentaires seront supprimés définitivement.'}
+          text={'Tous les quizz et les questions qui y sont liées, ainsi que tous vos commentaires seront supprimés définitivement.'}
           handleFunction={handleDeleteUser}
           closeModal={() => setShowConfirmDelete(false)}
         />

@@ -53,16 +53,15 @@ const SignIn: FunctionComponent<Props> = ({
       if(res.status === 200) {
 
         const data = await res.json();
+        localStorage.setItem('token', data.token);
+        setUserLogged(data.user);
+        setIsLogged(true);
+        setShowLoader(false);
+
         
-        if(data.user.is_banished === true) {
+        if(data.user.is_banished) {
           router.push('/banned');
         } else {
-      
-          localStorage.setItem('token', data.token);
-          setUserLogged(data.user);
-          setIsLogged(true);
-          setShowLoader(false);
-
           router.push('/');
         };
       } else {

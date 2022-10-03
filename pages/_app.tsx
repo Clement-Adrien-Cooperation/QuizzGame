@@ -44,7 +44,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const checkToken = async (token: string) => {
 
-    setShowLoader(true);
+    // setShowLoader(true);
 
     await fetch(`${api}/user/checkToken`, {
       method: 'POST',
@@ -56,12 +56,15 @@ function MyApp({ Component, pageProps }: AppProps) {
     .then(async(res) => {
       const userData = await res.json();
 
+      console.log(res.status);
+
       if(res.status === 200) {
 
         setUserLogged(userData);
         setIsLogged(true);
 
         if(userData.is_banished) {
+          setShowLoader(false);
           router.push('/banned');
         };
       } else {
@@ -84,6 +87,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     setIsLogged(false);
     setUserLogged(unLoggedUser);
 
+    router.push('/');
     router.reload();
   };
 

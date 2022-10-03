@@ -2,7 +2,6 @@
 
 .button {
   @include posFixed(5vh, auto, auto, calc(var(--navbar-width) / 2));
-  z-index: 10001;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   border: 2px solid var(--white);
@@ -11,6 +10,7 @@
   width: 2em;
   height: 2em;
   transition: transform 0.2s;
+  z-index: 10001;
 
   &:hover {
     background: rgba(0, 0, 0, 0.1);

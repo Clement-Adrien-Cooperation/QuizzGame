@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { isAdmin } from '../../../middlewares/isAdmin';
+import { v4 as uuidv4 } from 'uuid';
 import db from '../../../lib/prisma';
 
 export default isAdmin(async function handle (
@@ -13,6 +14,19 @@ export default isAdmin(async function handle (
       },
       data: {
         is_banished: !req.body.is_banished
+      }
+    });
+
+    const newDate = new Date().toLocaleDateString();
+
+    await db.notification.create({
+      data: {
+        id: uuidv4(),
+        user_id: user.id,
+        title: "Bannissement de votre compte",
+        message: `Votre compte a été banni. Surveillez votre langage ou l'exactitude de vos questions/réponses`,
+        date: newDate,
+        seen: false
       }
     });
 

@@ -16,7 +16,8 @@ const emptyQuiz: Quiz = {
   is_visible: false,
   date: '',
   nbOfQuestions: 0,
-  rate: []
+  rate: [],
+  rates_IDs: []
 };
 
 const emptyQuestion: Question = {
@@ -59,15 +60,13 @@ const CreateQuizz: NextPage<Props> = ({
   }, []);
 
   return (
-    <>
-      <EditQuiz
-        userLogged={userLogged}
-        setShowLoader={setShowLoader}
-        quizData={emptyQuiz}
-        questionsData={[emptyQuestion]}
-        categoriesData={categoriesData}
-      />
-    </>
+    <EditQuiz
+      userLogged={userLogged}
+      setShowLoader={setShowLoader}
+      quizData={emptyQuiz}
+      questionsData={[emptyQuestion]}
+      categoriesData={categoriesData}
+    />
   );
 };
 
@@ -77,7 +76,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   const categoriesDataFromAPI = await fetch(`${api}/category/getAll`);
   const categoriesData = await categoriesDataFromAPI.json();
-  
+
   return {
     props: {
       categoriesData

@@ -19,11 +19,7 @@ export default async function handle (
         });
 
         if(user) {
-          if(user.is_banished === true) {
-            res.status(401).json({message: "Vous avez été banni"});
-          } else {
-            res.status(200).json(user);
-          };
+          res.status(200).json(user);
         } else {
           res.status(404).json({message: 'Utilisateur inexistant'});
         };

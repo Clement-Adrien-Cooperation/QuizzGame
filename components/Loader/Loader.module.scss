@@ -10,6 +10,7 @@
   cursor: wait;
   opacity: 0;
   animation: apparition 0.1s ease-in forwards;
+  z-index: 10000;
 }
 
 .loader {
