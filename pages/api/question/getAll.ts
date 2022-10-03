@@ -1,25 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from "@prisma/client";
 import { isAdmin } from '../../../middlewares/isAdmin';
+import db from '../../../lib/prisma';
 
 export default isAdmin(async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-
-  const prisma = new PrismaClient();
-
-  await prisma.$connect();
-
   try {
-    
-    const questions = await prisma.question.findMany();
+    const questions = await db.question.findMany();
 
     res.status(201).json(questions);
     
   } catch (error){
     res.status(404).json(error);
   };
-  
-  await prisma.$disconnect();
 });

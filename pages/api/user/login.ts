@@ -1,22 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from "@prisma/client";
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
+import db from '../../../lib/prisma';
 
 export default async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-
   const secret: any = process.env.JWT_SECRET;
-  
-  const prisma = new PrismaClient();
-
-  await prisma.$connect();
 
   if(req.body.pseudoOrEmail.includes('@') && req.body.pseudoOrEmail.includes('.')) {
     try {
-      const user: any = await prisma.user.findUnique({
+      const user: any = await db.user.findUnique({
         where: {
           email: req.body.pseudoOrEmail
         }
@@ -33,11 +28,7 @@ export default async function handle (
             token = sign(user, secret, {expiresIn: '12h'});
           };
 
-          res.status(200).json({
-            user,
-            token,
-            message: 'OK'
-          });
+          res.status(200).json({user, token});
         } else {
           res.status(401).json({message: 'Le mot de passe ne correspond pas'});
         };
@@ -49,7 +40,7 @@ export default async function handle (
 
   } else {
     try {
-      const user: any = await prisma.user.findUnique({
+      const user: any = await db.user.findUnique({
         where: {
           pseudo: req.body.pseudoOrEmail
         }
@@ -66,20 +57,13 @@ export default async function handle (
             token = sign(user, secret, {expiresIn: '12h'});
           };
 
-          res.status(200).json({
-            user,
-            token,
-            message: 'OK'
-          });
+          res.status(200).json({user, token});
         } else {
           res.status(401).json({message: 'Le mot de passe ne correspond pas'});
         };
       });
-    }
-    catch (error){
+    } catch (error){
       res.status(401).json(error);
     };
   };
-  
-  await prisma.$disconnect();
 };

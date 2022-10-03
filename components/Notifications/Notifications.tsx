@@ -1,67 +1,30 @@
+import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import { Notification, User } from '@prisma/client';
-import type { FunctionComponent } from 'react'
-import { useEffect, useState } from 'react'
-import { api } from '../../api/api';
-import CloseButton from '../CloseButton/CloseButton';
+import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import CloseButton from '../CloseButton/CloseButton';
 import NotificationCard from './NotificationCard/NotificationCard';
 import styles from './Notifications.module.scss';
 import NotificationModal from './NotificationModal/NotificationModal';
 
 type Props = {
-  userLogged: User
+  userLogged: User,
+  notifications: Notification[],
+  nbOfNotifications: number,
+  setNbOfNotifications: Dispatch<SetStateAction<number>>
 };
 
 const Notifications: FunctionComponent<Props> = ({
-  userLogged
+  userLogged,
+  notifications,
+  nbOfNotifications,
+  setNbOfNotifications
 }) => {
 
-  const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [nbOfNotifications, setNbOfNotifications] = useState<number>(0);
   const [showNotifications, setShowNotifications] = useState<boolean>(false);
 
   const [currentNotification, setCurrentNotification] = useState<Notification>(notifications[0]);
   const [showCurrentNotification, setShowCurrentNotification] = useState<boolean>(false);
-
-  useEffect(() => {
-    getUserNotifications();
-  }, []);
-
-  const getUserNotifications = async() => {
-    // Get token from local storage
-    const token = localStorage.getItem('token');
-
-    await fetch(`${api}/notification/getAllFromUser`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `${token}`
-      },
-      body: JSON.stringify({ user_id: userLogged.id })
-    })
-    .then(async(res) => {
-      if(res.status === 200) {
-        const data = await res.json();
-        setNotifications(data);
-        countNotifications(data);
-      };
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  };
-
-  const countNotifications = (notifications: Notification[]) => {
-    let nb = 0;
-
-    notifications.forEach(notification => {
-      if(notification.seen === false) {
-        nb++
-      };
-    });
-
-    setNbOfNotifications(nb);
-  };
 
   return (
     <>

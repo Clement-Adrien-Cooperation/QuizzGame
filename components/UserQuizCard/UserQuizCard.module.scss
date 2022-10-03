@@ -54,13 +54,9 @@
 }
 
 .warning {
-  cursor: pointer;
+  cursor: default;
   background: var(--warning-bg);
   border: 2px solid var(--warning-border);
   border-radius: var(--small-radius);
   padding: 10px;
-  
-  &:hover {
-    background: var(--warning-border);
-  }
 }

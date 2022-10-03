@@ -128,9 +128,8 @@ const UserQuizCard: FunctionComponent<Props> = ({
         {!quiz.is_visible && (
           <span
             className={styles.warning}
-            title="Ce quiz a été supprimé par la modération, cliquez pour en savoir plus"
-            aria-label="Ce quiz a été supprimé par la modération, cliquez pour en savoir plus"
-            onClick={() => console.log('⚠️ Ouvrir une modal de détails ⚠️')}
+            title="Ce quiz a été supprimé par la modération. Contactez-nous quand le quiz sera corrigé"
+            aria-label="Ce quiz a été supprimé par la modération. Contactez-nous quand le quiz sera corrigé"
           >
             🚫
           </span>

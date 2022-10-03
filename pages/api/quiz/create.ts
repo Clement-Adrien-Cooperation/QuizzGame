@@ -1,19 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from "@prisma/client";
 import { v4 as uuidv4 } from 'uuid';
 import { authenticated } from '../../../middlewares/authenticated';
+import db from '../../../lib/prisma';
 
 export default authenticated(async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-
-  const prisma = new PrismaClient();
-
-  await prisma.$connect();
-  
   try {
-    const quiz = await prisma.quiz.create({
+    const quiz = await db.quiz.create({
       data: {
         id: uuidv4(),
         ...req.body
@@ -25,6 +20,4 @@ export default authenticated(async function handle (
   } catch (error){
     res.status(404).json(error);
   };
-  
-  await prisma.$disconnect();
 });

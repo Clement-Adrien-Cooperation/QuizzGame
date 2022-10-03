@@ -1,18 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from "@prisma/client";
 import { checkUser } from '../../../middlewares/checkUser';
+import db from '../../../lib/prisma';
 
 export default checkUser(async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-
-  const prisma = new PrismaClient();
-
-  await prisma.$connect();
-
   try {
-    const deletedQuizz = await prisma.quiz.update({
+    const deletedQuizz = await db.quiz.update({
       where: {
         id: req.body.quiz_id
       },
@@ -26,6 +21,4 @@ export default checkUser(async function handle (
   } catch (error){
     res.status(404).json(error);
   };
-
-  await prisma.$disconnect();
 }); 

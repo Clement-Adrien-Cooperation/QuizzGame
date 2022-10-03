@@ -1,5 +1,5 @@
 import type { AppProps } from 'next/app';
-import type { User } from '@prisma/client';
+import { Notification, User } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { api } from '../api/api';
@@ -25,6 +25,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [userLogged, setUserLogged] = useState<User>(unLoggedUser);
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [nbOfNotifications, setNbOfNotifications] = useState<number>(0);
+
   useEffect(() => {
     const token = localStorage.getItem('token');
 
@@ -32,6 +35,12 @@ function MyApp({ Component, pageProps }: AppProps) {
       checkToken(token);
     };
   }, []);
+
+  useEffect(() => {
+    if(isLogged) {
+      getUserNotifications();
+    };
+  }, [isLogged]);
 
   const checkToken = async (token: string) => {
 
@@ -75,7 +84,43 @@ function MyApp({ Component, pageProps }: AppProps) {
     setIsLogged(false);
     setUserLogged(unLoggedUser);
 
-    router.push('/');
+    router.reload();
+  };
+
+  const getUserNotifications = async() => {
+    // Get token from local storage
+    const token = localStorage.getItem('token');
+
+    await fetch(`${api}/notification/getAllFromUser`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      },
+      body: JSON.stringify({ user_id: userLogged.id })
+    })
+    .then(async(res) => {
+      if(res.status === 200) {
+        const data = await res.json();
+        setNotifications(data);
+        countNotifications(data);
+      };
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+
+  const countNotifications = (notifications: Notification[]) => {
+    let nb = 0;
+
+    notifications.forEach(notification => {
+      if(notification.seen === false) {
+        nb++
+      };
+    });
+
+    setNbOfNotifications(nb);
   };
 
   return (
@@ -83,6 +128,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       isLogged={isLogged}
       userLogged={userLogged}
       handleDisconnect={handleDisconnect}
+      notifications={notifications}
+      nbOfNotifications={nbOfNotifications}
+      setNbOfNotifications={setNbOfNotifications}
     >
       <Component
         {...pageProps}
@@ -93,6 +141,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         handleDisconnect={handleDisconnect}
         setShowLoader={setShowLoader}
       />
+
       {showLoader && (
         <Loader />
       )}

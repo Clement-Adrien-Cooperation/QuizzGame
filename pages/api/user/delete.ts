@@ -1,42 +1,37 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from "@prisma/client";
 import { checkUser } from '../../../middlewares/checkUser';
+import db from '../../../lib/prisma';
 
 export default checkUser(async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-
-  const prisma = new PrismaClient();
-
-  await prisma.$connect();
-
   try {
-    await prisma.played.deleteMany({
+    await db.played.deleteMany({
       where: {
         user_id: req.body.user_id
       }
     });
 
-    await prisma.comment.deleteMany({
+    await db.comment.deleteMany({
       where: {
         user_id: req.body.user_id
       }
     });
 
-    await prisma.question.deleteMany({
+    await db.question.deleteMany({
       where: {
         user_id: req.body.user_id
       }
     });
 
-    await prisma.quiz.deleteMany({
+    await db.quiz.deleteMany({
       where: {
         user_id: req.body.user_id
       }
     });
 
-    const deleteUser = await prisma.user.delete({
+    const deleteUser = await db.user.delete({
       where: {
         id: req.body.user_id
       }
@@ -47,6 +42,4 @@ export default checkUser(async function handle (
   } catch (error){
     res.status(404).json(error);
   };
-
-  await prisma.$disconnect();
 });

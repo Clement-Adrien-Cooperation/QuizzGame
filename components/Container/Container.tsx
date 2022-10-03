@@ -1,5 +1,5 @@
-import type { FunctionComponent, PropsWithChildren } from "react";
-import type { User } from "@prisma/client";
+import type { Dispatch, FunctionComponent, PropsWithChildren, SetStateAction } from "react";
+import type { Notification, User } from "@prisma/client";
 import Head from "../Head/Head";
 import Navbar from '../Navbar/Navbar';
 import Notifications from "../Notifications/Notifications";
@@ -7,14 +7,20 @@ import Notifications from "../Notifications/Notifications";
 type Props = PropsWithChildren<{
   isLogged: boolean,
   userLogged: User,
-  handleDisconnect: () => void
+  handleDisconnect: () => void,
+  notifications: Notification[],
+  nbOfNotifications: number,
+  setNbOfNotifications: Dispatch<SetStateAction<number>>
 }>;
 
 const Container: FunctionComponent<Props> = ({
   isLogged,
   userLogged,
   handleDisconnect,
-  children
+  children,
+  notifications,
+  nbOfNotifications,
+  setNbOfNotifications
 }) => {
 
   return (
@@ -30,6 +36,9 @@ const Container: FunctionComponent<Props> = ({
       {isLogged &&
         <Notifications
           userLogged={userLogged}
+          notifications={notifications}
+          nbOfNotifications={nbOfNotifications}
+          setNbOfNotifications={setNbOfNotifications}
         />
       }
 

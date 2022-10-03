@@ -1,24 +1,19 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Notification, PrismaClient } from "@prisma/client";
+import { Notification } from "@prisma/client";
 import { v4 as uuidv4 } from 'uuid';
 import { isAdmin } from '../../../middlewares/isAdmin';
+import db from '../../../lib/prisma';
 
 export default isAdmin(async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-
-  const prisma = new PrismaClient();
-
-  await prisma.$connect();
-  
   try {
     const messages: Notification[] = [];
-    const users = await prisma.user.findMany();
+    const users = await db.user.findMany();
 
     // for each user found
     users.forEach(user => {
-
       // set new message with data received
       const message: Notification = {
         id: uuidv4(),
@@ -32,7 +27,7 @@ export default isAdmin(async function handle (
       messages.push(message);
     });
 
-    const notifications = await prisma.notification.createMany({
+    const notifications = await db.notification.createMany({
       data: [
         ...messages
       ],
@@ -44,6 +39,4 @@ export default isAdmin(async function handle (
   } catch (error){
     res.status(404).json(error);
   };
-  
-  await prisma.$disconnect();
 });

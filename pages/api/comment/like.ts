@@ -1,18 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from "@prisma/client";
 import { checkUser } from '../../../middlewares/checkUser';
+import db from '../../../lib/prisma';
 
 export default checkUser(async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const prisma = new PrismaClient();
-
-  await prisma.$connect();
-  
   try {
 
-    const comment: any = await prisma.comment.findUnique({
+    const comment: any = await db.comment.findUnique({
       where: {
         id: req.body.id
       }
@@ -21,7 +17,7 @@ export default checkUser(async function handle (
     const newLikes = comment.likes + 1;
     const newIDs = [...comment.likes_IDs, req.body.user_id];
 
-    const liked = await prisma.comment.update({
+    const liked = await db.comment.update({
       where: {
         id: comment.id
       },
@@ -36,6 +32,4 @@ export default checkUser(async function handle (
   } catch (error){
     res.status(404).json(error);
   };
-  
-  await prisma.$disconnect();
 });

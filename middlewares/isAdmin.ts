@@ -1,6 +1,6 @@
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from "@prisma/client";
 import { verify } from 'jsonwebtoken';
+import db from '../lib/prisma';
 
 export const isAdmin = (fn: NextApiHandler) => async (
   req: NextApiRequest,
@@ -12,18 +12,13 @@ export const isAdmin = (fn: NextApiHandler) => async (
 
     if(!err && decoded) {
       try {
-
-        const prisma = new PrismaClient();
-        await prisma.$connect();
-
-        const user: any = await prisma.user.findUnique({
+        const user: any = await db.user.findUnique({
           where: {
             id: decoded.id
           }
         });
 
         if(user) {
-          
           if(user.is_admin === true) {
             return await fn(req, res);
           } else {
@@ -32,9 +27,6 @@ export const isAdmin = (fn: NextApiHandler) => async (
         } else {
           res.status(404).json({message: "Utilisateur inexistant"});
         };
-
-        await prisma.$disconnect();
-
       } catch (error){
         res.status(404).json(error);
       };

@@ -1,17 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from "@prisma/client";
+import db from '../../../lib/prisma';
 
 export default async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-
-  const prisma = new PrismaClient();
-
-  await prisma.$connect();
-
   try {
-    const questions = await prisma.question.findMany({
+    const questions = await db.question.findMany({
       where: {
         quiz_id: req.body.quiz_id
       }
@@ -22,6 +17,4 @@ export default async function handle (
   } catch (error){
     res.status(404).json(error);
   };
-  
-  await prisma.$disconnect();
 };

@@ -1,24 +1,19 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from "@prisma/client";
 import { isAdmin } from '../../../middlewares/isAdmin';
+import db from '../../../lib/prisma';
 
 export default isAdmin(async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-
-  const prisma = new PrismaClient();
-
-  await prisma.$connect();
-  
   try {
-    await prisma.category.delete({
+    await db.category.delete({
       where: {
         id: req.body.id
       }
     });
 
-    const categories = await prisma.category.findMany({
+    const categories = await db.category.findMany({
       orderBy: {
         name: 'asc'
       }
@@ -29,6 +24,4 @@ export default isAdmin(async function handle (
   } catch (error){
     res.status(404).json(error);
   };
-  
-  await prisma.$disconnect();
 });

@@ -1,22 +1,18 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from "@prisma/client";
 import { verify } from 'jsonwebtoken';
+import db from '../../../lib/prisma';
 
 export default async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-
   const secret: any = process.env.JWT_SECRET;
 
   verify(req.headers.authorization!, secret, async(err: any, decoded: any) => {
 
     if(!err && decoded) {
       try {
-        const prisma = new PrismaClient();
-        await prisma.$connect();
-
-        const user = await prisma.user.findUnique({
+        const user = await db.user.findUnique({
           where: {
             id: decoded.id
           }
@@ -31,9 +27,6 @@ export default async function handle (
         } else {
           res.status(404).json({message: 'Utilisateur inexistant'});
         };
-
-        await prisma.$disconnect();
-
       } catch (error){
         res.status(404).json(error);
       };

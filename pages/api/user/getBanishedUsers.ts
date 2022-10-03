@@ -1,18 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from "@prisma/client";
 import { isAdmin } from '../../../middlewares/isAdmin';
+import db from '../../../lib/prisma';
 
 export default isAdmin(async function handle (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-
-  const prisma = new PrismaClient();
-
-  await prisma.$connect();
-
   try {
-    const users = await prisma.user.findMany({
+    const users = await db.user.findMany({
       where: {
         is_banished: true
       },
@@ -20,11 +15,10 @@ export default isAdmin(async function handle (
         id: 'asc'
       }]
     });
+
     res.status(200).json(users);
     
   } catch (error){
     res.status(404).json(error);
   };
-  
-  await prisma.$disconnect();
 });
