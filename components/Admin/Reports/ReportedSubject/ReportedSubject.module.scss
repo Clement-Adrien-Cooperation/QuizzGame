@@ -9,6 +9,7 @@
   border-radius: var(--small-radius);
   padding: 2em 4em;
   text-align: center;
+  width: 100%;
 }
 
 .title {
@@ -27,8 +28,6 @@
   width: 100%;
   justify-content: space-evenly;
 }
-
-
 
 .message {
   &__content {

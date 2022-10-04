@@ -1,4 +1,4 @@
-import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
+import type { FunctionComponent } from 'react';
 import type { Question, Quiz, User } from '@prisma/client';
 import { useState } from 'react';
 import { api } from '../../../api/api';

@@ -23,9 +23,13 @@ const Container: FunctionComponent<Props> = ({
   setNbOfNotifications
 }) => {
 
+  const pageTitle = "s'Quizz Game - créez et jouez aux quizz de la communauté";
+
   return (
     <>
-      <Head />
+      <Head 
+        pageTitle={pageTitle}
+      />
       
       <Navbar
         isLogged={isLogged}

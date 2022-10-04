@@ -7,7 +7,7 @@
 @mixin posCenter {
   position: absolute;
   top: 45%;
-  left: cacl(var(--navbar-width) + 50%);
+  left: calc(var(--navbar-width) + 50%);
   transform: translate(calc(-50% + var(--navbar-width)), -50%);
 }
 
@@ -42,7 +42,7 @@
 
 @mixin commonButton {
   cursor: pointer;
-  font-size: 12px;
+  font-size: 1.2rem;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 500;
@@ -155,6 +155,7 @@
     border-radius: var(--main-radius);
     border: var(--border-transparent);
     padding: 0.9rem 1.8rem;
+    color: inherit;
 
     &:hover {
       border-color: var(--main-color-light);
@@ -267,5 +268,13 @@
 
   &:active {
     transform: scale(0.95);
+  }
+
+  & .icon {
+    filter: var(--icon-filter);
+  }
+
+  &.icon {
+    filter: var(--icon-filter);
   }
 }

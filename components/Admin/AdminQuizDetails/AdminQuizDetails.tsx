@@ -7,6 +7,7 @@ import trash from '../../../public/icons/delete.svg';
 import restore from '../../../public/icons/restore.svg';
 import Image from 'next/image';
 import AdminQuizQuestions from '../AdminQuizQuestions/AdminQuizQuestions';
+import ImageButton from '../../ImageButton/ImageButton';
 
 const emptyQuiz: Quiz = {
   id: '',
@@ -18,7 +19,8 @@ const emptyQuiz: Quiz = {
   is_visible: false,
   date: '',
   nbOfQuestions: 0,
-  rate: []
+  rate: [],
+  rates_IDs: []
 };
 
 type Props = {
@@ -121,21 +123,12 @@ const AdminQuizDetails: FunctionComponent<Props> = ({
             </button>
           )}
 
-          <button
-            className={styles.moderate}
-            type='button'
+          <ImageButton
             title={quiz.is_visible ? "Envoyer ce quiz à la corbeille" : "Restaurer ce quiz"}
-            aria-label={quiz.is_visible ? "Envoyer ce quiz à la corbeille" : "Restaurer ce quiz"}
-            onClick={() => handleModerateQuiz(quiz.id, quiz.is_visible)}
-          >
-            <Image
-              layout="responsive"
-              width='32'
-              height='32'
-              alt={quiz.is_visible ? 'Petite poubelle avec une croix' : 'Petite poubelle avec une flèche qui en ressort'}
-              src={quiz.is_visible ? trash : restore}
-            />
-          </button>
+            img={quiz.is_visible ? trash : restore}
+            alt={quiz.is_visible ? 'Petite poubelle avec une croix' : 'Petite poubelle avec une flèche qui en ressort'}
+            handleFunction={() => handleModerateQuiz(quiz.id, quiz.is_visible)}
+          />
         </div>
 
         <AdminQuizQuestions

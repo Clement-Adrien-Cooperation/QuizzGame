@@ -14,7 +14,8 @@ const emptyQuiz: Quiz = {
   is_visible: false,
   date: '',
   nbOfQuestions: 0,
-  rate: []
+  rate: [],
+  rates_IDs: []
 };
 
 type Props = {

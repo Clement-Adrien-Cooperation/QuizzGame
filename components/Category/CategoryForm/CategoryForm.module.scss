@@ -2,7 +2,9 @@
 
 .form {
   margin: 10px 0;
-  width: 500px;
+  min-width: 30rem;
+  width: 100%;
+  max-width: 50rem;
   position: relative;
 }
 

@@ -11,6 +11,7 @@ import Link from 'next/link';
 import Modal from '../../../Modal/Modal';
 import AdminMessage from '../../AdminMessage/AdminMessage';
 import Message from '../../../Message/Message';
+import ImageButton from '../../../ImageButton/ImageButton';
 
 type Props = {
   report: Report,
@@ -90,53 +91,26 @@ const ReportsCard: FunctionComponent<Props> = ({
         </section>
 
         <footer className={styles.footer}>
-          <button
-            className={styles.button}
-            type="button"
-            title="Voir les détails du sujet"
-            aria-label="Voir les détails du sujet"
-            onClick={() => setShowSubject(true)}
-          >
-            <Image
-              layout="responsive"
-              width='32'
-              height='32'
-              alt={'Un oeil'}
-              src={eye}
-            />
-          </button>
-          
-          <button
-            className={styles.button}
-            type="button"
-            title="Envoyer un message au plaignant"
-            aria-label="Envoyer un message au plaignant"
-            onClick={() => setShowMessage(true)}
-          >
-            <Image
-              layout="responsive"
-              width='32'
-              height='32'
-              alt={'Une enveloppe'}
-              src={mail}
-            />
-          </button>
-          
-          <button
-            className={styles.button}
-            type="button"
-            title="Supprimer ce signalement"
-            aria-label="Supprimer ce signalement"
-            onClick={deleteReport}
-          >
-            <Image
-              layout="responsive"
-              width='32'
-              height='32'
-              alt={'Une poubelle'}
-              src={trash}
-            />
-          </button>
+          <ImageButton
+            title={"Voir les détails du sujet"}
+            img={eye}
+            alt={'Un oeil'}
+            handleFunction={() => setShowSubject(true)}
+          />
+
+          <ImageButton
+            title={"Envoyer un message au plaignant"}
+            img={mail}
+            alt={"Une enveloppe"}
+            handleFunction={() => setShowMessage(true)}
+          />
+
+          <ImageButton
+            title={"Supprimer ce signalement"}
+            img={trash}
+            alt={"Une poubelle"}
+            handleFunction={deleteReport}
+          />
         </footer>
       </article>
 

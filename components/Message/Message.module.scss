@@ -1,12 +1,11 @@
 @import '../../styles/mixins';
 
 .card {
-  @include posFixed(auto, 20px, 0, auto);
+  @include posFixed(auto, 2rem, 1.5rem, auto);
   z-index: 100;
-  aspect-ratio: 16/9;
-  padding: 30px 60px;
+  padding: 1.5em 2.5em;
   background: var(--main-color-secondary);
-  border-radius: var(--small-radius) var(--small-radius) 0 0;
+  border-radius: var(--small-radius);
   box-shadow: var(--box-shadow);
   opacity: 0;
   transform: translateY(100%);
@@ -31,8 +30,7 @@
 }
 
 .text {
-  margin-top: 15px;
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: 600;
 }
 

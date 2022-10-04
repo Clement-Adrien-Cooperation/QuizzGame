@@ -12,18 +12,18 @@ import styles from './EditQuiz.module.scss';
 
 type Props = {
   userLogged: User,
-  setShowLoader: Dispatch<SetStateAction<boolean>>,
   quizData: Quiz,
   questionsData: Question[],
-  categoriesData: Category[]
+  categoriesData: Category[],
+  setShowLoader: Dispatch<SetStateAction<boolean>>
 };
 
 const EditQuiz: FunctionComponent<Props> = ({
   userLogged,
-  setShowLoader,
   quizData,
   questionsData,
-  categoriesData
+  categoriesData,
+  setShowLoader
 }) => {
 
   const router = useRouter();
@@ -70,6 +70,8 @@ const EditQuiz: FunctionComponent<Props> = ({
       };
     };
   }, []);
+
+    console.log(" ----   RENDER   ----  ");
 
   const setCategories = () => {
 

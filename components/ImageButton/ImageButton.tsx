@@ -17,21 +17,22 @@ const ImageButton: FunctionComponent<Props> = ({
 }) => {
 
   return (
-    <button
-      className={styles.button}
-      type="button"
-      title={title}
-      aria-label={title}
-      onClick={handleFunction}
-    >
-      <Image
-        layout="responsive"
-        width='32'
-        height='32'
-        alt={alt}
-        src={img}
-      />
-    </button>
+      <button
+        className={styles.button}
+        type="button"
+        title={title}
+        aria-label={title}
+        onClick={handleFunction}
+      >
+        <Image
+          className={styles.icon}
+          layout="responsive"
+          width='32'
+          height='32'
+          alt={alt}
+          src={img}
+        />
+      </button>
   );
 };
 

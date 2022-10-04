@@ -1,7 +1,13 @@
 import type { FunctionComponent } from "react";
 import Head from "next/head";
 
-const NextHead: FunctionComponent = () => {
+type Props = {
+  pageTitle: string
+};
+
+const NextHead: FunctionComponent<Props> = ({
+  pageTitle
+}) => {
 
   return (
     <Head>
@@ -22,7 +28,7 @@ const NextHead: FunctionComponent = () => {
         content="Site de quiz français : créez et jouez à des quizz de culture générale, cinéma, musique, sport, histoire, sciences, ..."
       />
       
-      <title>s'Quizz Game - créez et jouez aux quizz de la communauté</title>
+      <title>{pageTitle}</title>
     </Head>
   );
 };

@@ -19,36 +19,39 @@ body {
 
   &.dark {
     --main-color-secondary: hsl(var(--hue-color), 90%, 80%);
+    --main-color-light: hsl(var(--hue-color), 70%, 80%);
 
-    --title-color:  hsl(var(--hue-color), 8%, 95%);
+    --title-color:  hsl(var(--hue-color), 8%, 70%);
     --text-color:  hsl(var(--hue-color), 8%, 40%);
   
     --input-color: hsl(var(--hue-color), 29%, 16%);
     --body-color: hsl(var(--hue-color), 28%, 12%);
 
-    --box-shadow: 0 0 15px rgba(50, 50, 50, 0.3);
-    --box-shadow-hover: 0 0 25px rgba(50, 50, 50, 0.35);
+    --card-shadow: 5px 5px 15px rgba(230, 230, 230, 0.3);
+    --box-shadow: 0 0 15px rgba(230, 230, 230, 0.15);
+    --box-shadow-hover: 0 0 15px rgba(230, 230, 230, 0.25);
+
+    --icon-filter: brightness(400%);
+
+    --sm-opacity: rgba(250, 250, 250, 0.05);
+    --md-opacity: rgba(250, 250, 250, 0.1);
+    --lg-opacity: rgba(250, 250, 250, 0.25);
   }
+
+  --very-easy: linear-gradient(90deg, var(--white) 0%, var(--input-color) 0%);
+  --easy: linear-gradient(90deg, var(--green) 25%, var(--input-color) 25%);
+  --medium: linear-gradient(90deg, var(--yellow) 50%, var(--input-color) 50%);
+  --hard: linear-gradient(90deg, var(--orange) 75%, var(--input-color) 75%);
+  --very-hard: linear-gradient(90deg, var(--red) 100%, var(--input-color) 100%);
+}
+
+.icon {
+  filter: brightness(100%)
 }
 
 h1, h2, h3, h4{
   color: var(--title-color);
   font-weight: 500;
-}
-
-input {
-  color: var(--text-color);
-}
-
-@media screen and (max-width: 850px) {
-  body {
-    --main-title-size: clamp(3rem, 5vh, 7rem);
-    --title-size: clamp(2rem, 3vh, 4rem);
-    --subtitle-size: clamp(1.8rem, 2vh, 2.4rem);
-    --big-text-size: clamp(1.5rem, 1.5vh, 2rem);
-    --text-size: clamp(1.2rem, 1vh, 1.7rem);
-    --small-text-size: clamp(0.8rem, 1vh, 1.2rem);
-  }
 }
 
 @media screen and (min-width: 850px) {

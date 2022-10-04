@@ -4,6 +4,7 @@ import { api } from '../../../api/api';
 import Image from 'next/image';
 import trash from '../../../public/icons/delete.svg';
 import styles from './CategoryCard.module.scss';
+import ImageButton from '../../ImageButton/ImageButton';
 
 type Props = {
   id: number,
@@ -60,21 +61,12 @@ const CategoryCard: FunctionComponent<Props> = ({
       </header>
 
       <footer>
-        <button
-          className={styles.button}
-          type='button'
-          title='Supprimer cette catégorie'
-          aria-label='Supprimer cette catégorie'
-          onClick={handleDeleteCategory}
-        >
-          <Image
-            layout="responsive"
-            width='32'
-            height='32'
-            alt={'Une flèche'}
-            src={trash}
-          />
-        </button>
+        <ImageButton
+          title={"Supprimer cette catégorie"}
+          img={trash}
+          alt={"Une poubelle"}
+          handleFunction={handleDeleteCategory}
+        />
       </footer>
     </article>
   );

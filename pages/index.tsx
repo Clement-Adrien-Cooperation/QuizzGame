@@ -12,6 +12,11 @@ type Props = {
   setShowLoader: Dispatch<SetStateAction<boolean>>
 };
 
+export const getRandomNumber = (min: number, max: number) => {
+  // Classic random number generator
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
 const Home: NextPage<Props> = ({
   isLogged,
   userLogged,
@@ -22,7 +27,7 @@ const Home: NextPage<Props> = ({
   
   useEffect(() => {
 
-    document.title = "s'Quizz Game";
+    // document.title = "s'Quizz Game";
 
     if(isLogged) {
       if(userLogged.is_banished) {
