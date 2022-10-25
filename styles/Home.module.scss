@@ -15,20 +15,31 @@
 }
 
 .container {
-  @include flexCenter;
+  display: flex;
   flex-direction: column;
-  margin-top: 10vh;
-  gap: 30px;
+  margin-top: 8vh;
+  gap: 15rem;
+  overflow-x: hidden;
+  padding-bottom: 10vh;
 }
 
-.button1 {
-  @include mainButton;
-}
+.filter {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  background: var(--body-color);
+  margin-left: var(--navbar-width);
+  z-index: 10;
+  
+  &_left {
+    left: 0;
+    background: linear-gradient(270deg, transparent, var(--body-color));
+    width: 20rem;
+  }
 
-.button2 {
-  @include secondaryButton;
-}
-
-.button3 {
-  @include underlineButton;
+  &_right {
+    right: 0;
+    background: linear-gradient(90deg, transparent, var(--body-color));
+    width: 8rem;
+  }
 }

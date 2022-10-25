@@ -87,6 +87,20 @@ const GameScreen: FunctionComponent<Props> = ({
         console.log(error);
       });
     };
+
+    await fetch(`${api}/quiz/played`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ quiz_id: quiz.id })
+    })
+    .then((res) => {
+      if(res.status === 200) {
+        console.log('Partie terminée');
+      };
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   };
 
   return (

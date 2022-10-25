@@ -12,46 +12,11 @@
   --hue-color: var(--purple-hue);
 
   --main-color: hsl(var(--hue-color), 69%, 61%);
+  --main-color-light:  hsl(var(--hue-color), 92%, 85%);
   --main-color-lighter: hsl(var(--hue-color), 69%, 70%);
-  --main-color-secondary: hsl(var(--hue-color), 50%, 80%); // A REVOIR
+  --main-color-secondary: hsl(var(--hue-color), 50%, 80%);
   --main-color-third: hsl(var(--hue-color), 50%, 75%);
   --main-color-alt:  hsl(var(--hue-color), 57%, 53%);
-  --main-color-light:  hsl(var(--hue-color), 92%, 85%);
-
-  --body-color: hsl(var(--hue-color), 60%, 98%);
-  --input-color: hsl(var(--hue-color), 70%, 95%);
-
-  --title-color:  hsl(var(--hue-color), 8%, 15%);
-  --text-color:  hsl(var(--hue-color), 8%, 30%);
-  --text-color-light: hsl(var(--hue-color), 8%, 75%);
-
-  --sm-opacity: rgba(10, 10, 10, 0.05);
-  --md-opacity: rgba(10, 10, 10, 0.1);
-  --lg-opacity: rgba(10, 10, 10, 0.25);
-
-  --main-title-size: clamp(3rem, 5vw, 7rem);
-  --title-size: clamp(2rem, 3vw, 4rem);
-  --subtitle-size: clamp(1.8rem, 2vw, 2.4rem);
-  --big-text-size: clamp(1.5rem, 1.5vw, 2rem);
-  --text-size: clamp(1.2rem, 1vw, 1.7rem);
-  --small-text-size: clamp(0.8rem, 1vw, 1.2rem);
-
-  --main-font: 'Poppins', sans-serif;
-  --title-font: 'Rubik Moonrocks', cursive;
-
-  --border-transparent: 2px solid transparent;
-  --main-radius: 1.5rem 0.5rem;
-  --medium-radius: 1em;
-  --small-radius: 0.5em;
-
-  --main-padding: 0.7em 1.2em;
-
-  --card-shadow: 5px 5px 15px rgba(10, 10, 10, 0.1);
-  --box-shadow: 0 0 15px rgba(10, 10, 10, 0.1);
-  --box-shadow-hover: 0 0 25px rgba(10, 10, 10, 0.1);
-  --inner-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.1);
-
-  --navbar-width: 300px;
 
   --black: hsl(var(--hue-color), 10%, 10%);
   --white: hsl(var(--hue-color), 10%, 90%);
@@ -81,7 +46,40 @@
   --warning-bg: #f8d7da;
   --warning-border: #f5c6cb;
 
-  --card-gradient: linear-gradient(45deg, var(--main-color), var(--main-color-alt), var(--main-color));
+  --title-color:  hsl(var(--hue-color), 8%, 15%);
+  --text-color:  hsl(var(--hue-color), 8%, 30%);
+  --text-color-light: hsl(var(--hue-color), 8%, 75%);
 
+  --body-color: hsl(var(--hue-color), 60%, 86%);
+  --input-color: hsl(var(--hue-color), 70%, 95%);
+  --card-gradient: linear-gradient(45deg, var(--main-color), var(--main-color-alt), var(--main-color));
   --icon-filter: brightness(90%);
+
+  --sm-opacity: rgba(10, 10, 10, 0.05);
+  --md-opacity: rgba(10, 10, 10, 0.1);
+  --lg-opacity: rgba(10, 10, 10, 0.25);
+
+  --main-title-size: clamp(3rem, 5vw, 7rem);
+  --title-size: clamp(2rem, 3vw, 4rem);
+  --subtitle-size: clamp(1.8rem, 2vw, 2.4rem);
+  --big-text-size: clamp(1.5rem, 1.5vw, 2rem);
+  --text-size: clamp(1.2rem, 1vw, 1.7rem);
+  --small-text-size: clamp(0.8rem, 1vw, 1.2rem);
+
+  --main-font: 'Poppins', sans-serif;
+  --title-font: 'Rubik Moonrocks', cursive;
+
+  --border-transparent: 2px solid transparent;
+  --main-radius: 1.5rem 0.5rem;
+  --medium-radius: 1em;
+  --small-radius: 0.5em;
+
+  --main-padding: 0.7em 1.2em;
+
+  --card-shadow: 5px 5px 15px rgba(10, 10, 10, 0.1);
+  --box-shadow: 0 0 15px rgba(10, 10, 10, 0.1);
+  --box-shadow-hover: 0 0 25px rgba(10, 10, 10, 0.1);
+  --inner-shadow: inset 0 5px 15px rgba(10, 10, 10, 0.1);
+
+  --navbar-width: 35rem;
 }

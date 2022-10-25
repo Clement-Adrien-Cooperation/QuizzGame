@@ -20,6 +20,7 @@ const emptyQuiz: Quiz = {
   is_visible: true,
   date: '',
   nbOfQuestions: 0,
+  nbOfPlayed: 0,
   rate: [],
   rates_IDs: []
 };

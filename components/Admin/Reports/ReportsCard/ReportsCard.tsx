@@ -5,7 +5,6 @@ import styles from './ReportsCard.module.scss';
 import eye from '../../../../public/icons/eye_visible.svg';
 import trash from '../../../../public/icons/delete.svg';
 import mail from '../../../../public/icons/mail.svg';
-import Image from 'next/image';
 import ReportedSubject from '../ReportedSubject/ReportedSubject';
 import Link from 'next/link';
 import Modal from '../../../Modal/Modal';

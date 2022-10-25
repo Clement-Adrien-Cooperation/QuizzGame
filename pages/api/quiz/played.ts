@@ -6,15 +6,24 @@ export default async function handle (
   res: NextApiResponse
 ) {
   try {
-    const quizz = await db.quiz.findMany({
+    const quiz: any = await db.quiz.findUnique({
       where: {
-        is_visible: true
-      },
-      orderBy: [{
-        title: 'desc'
-      }]
+        id: req.body.quiz_id
+      }
     });
-    res.status(200).json(quizz);
+
+    const newNbOfPlayed = quiz?.nbOfPlayed + 1;
+
+    await db.quiz.update({
+      where: {
+        id: req.body.quiz_id
+      },
+      data: {
+        nbOfPlayed: newNbOfPlayed
+      }
+    });
+
+    res.status(200);
     
   } catch (error){
     res.status(404).json(error);

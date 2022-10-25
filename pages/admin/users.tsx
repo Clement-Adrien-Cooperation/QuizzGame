@@ -153,7 +153,9 @@ const Users: NextPage<Props> = ({
       body: JSON.stringify({ user_id })
     })
     .then(async(res) => {
-      await getUsers();
+      if(res.status === 200) {
+        await getUsers();
+      };
     })
     .catch((error) => {
       console.log(error);
@@ -165,31 +167,6 @@ const Users: NextPage<Props> = ({
   return (
     <>
       <AdminHeader />
-
-      <section className={styles.message}>
-        {/* <button
-          className={styles.message_button}
-          type="button"
-          title="Envoyer un message à tous les utilisateurs"
-          aria-label="Envoyer un message à tous les utilisateurs"
-          onClick={() => setShowMessageForm(true)}
-        >
-          <Image
-            layout="responsive"
-            width='32'
-            height='32'
-            alt='Une enveloppe'
-            src={mail}
-          />
-        </button> */}
-
-        <ImageButton
-          title={"Envoyer un message à tous les utilisateurs"}
-          img={mail}
-          alt={'Une enveloppe'}
-          handleFunction={() => setShowMessageForm(true)}
-        />
-      </section>
 
       <section className={styles.buttons}>
 
@@ -210,6 +187,13 @@ const Users: NextPage<Props> = ({
             Bannis
           </a>
         }
+
+        <ImageButton
+          title={"Envoyer un message à tous les utilisateurs"}
+          img={mail}
+          alt={'Une enveloppe'}
+          handleFunction={() => setShowMessageForm(true)}
+        />
       </section>
       
       <section className={styles.container}>

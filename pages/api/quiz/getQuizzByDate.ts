@@ -11,7 +11,7 @@ export default async function handle (
         is_visible: true
       },
       orderBy: [{
-        title: 'desc'
+        date: 'desc'
       }]
     });
     res.status(200).json(quizz);

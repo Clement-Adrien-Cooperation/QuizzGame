@@ -9,6 +9,10 @@
   font-size: 3rem;
 }
 
+.text {
+  @include posCenter;
+}
+
 .buttons {
   @include posFixed(120px, 60px, auto, auto);
   display: flex;

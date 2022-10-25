@@ -3,6 +3,7 @@ import type { Notification, User } from "@prisma/client";
 import Head from "../Head/Head";
 import Navbar from '../Navbar/Navbar';
 import Notifications from "../Notifications/Notifications";
+import Background from "../Background/Background";
 
 type Props = PropsWithChildren<{
   isLogged: boolean,
@@ -17,10 +18,10 @@ const Container: FunctionComponent<Props> = ({
   isLogged,
   userLogged,
   handleDisconnect,
-  children,
   notifications,
   nbOfNotifications,
-  setNbOfNotifications
+  setNbOfNotifications,
+  children
 }) => {
 
   const pageTitle = "s'Quizz Game - créez et jouez aux quizz de la communauté";
@@ -30,6 +31,8 @@ const Container: FunctionComponent<Props> = ({
       <Head 
         pageTitle={pageTitle}
       />
+
+      <Background />
       
       <Navbar
         isLogged={isLogged}

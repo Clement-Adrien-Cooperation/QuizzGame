@@ -44,7 +44,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const checkToken = async (token: string) => {
 
-    // setShowLoader(true);
+    setShowLoader(true);
 
     await fetch(`${api}/user/checkToken`, {
       method: 'POST',
@@ -55,8 +55,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     })
     .then(async(res) => {
       const userData = await res.json();
-
-      console.log(res.status);
 
       if(res.status === 200) {
 

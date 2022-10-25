@@ -19,10 +19,12 @@ export default async function handle (
       try {
         const user = await db.user.create({
           data: {
-            id: uuidv4(),
+            // id: uuidv4(),
+            id: '1',
             pseudo: req.body.pseudo,
             email: req.body.email,
-            password: hash
+            password: hash,
+            is_admin: true
           }
         });
 

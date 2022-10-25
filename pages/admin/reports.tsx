@@ -90,6 +90,14 @@ const Reports: NextPage<Props> = ({
           Signalements
         </h2>
 
+        {usersReported.length === 0 &&
+        quizzReported.length === 0 &&
+        commentsReported.length === 0 &&
+          <p className={styles.text}>
+            Aucun signalement à afficher
+          </p>
+        }
+
         <div className={styles.buttons}>
           {usersReported.length > 0 &&
             <a

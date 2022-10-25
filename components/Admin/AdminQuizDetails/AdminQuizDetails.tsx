@@ -19,6 +19,7 @@ const emptyQuiz: Quiz = {
   is_visible: false,
   date: '',
   nbOfQuestions: 0,
+  nbOfPlayed: 0,
   rate: [],
   rates_IDs: []
 };
@@ -40,6 +41,7 @@ const AdminQuizDetails: FunctionComponent<Props> = ({
   const router = useRouter();
 
   return (
+    // <div className={styles.modal}>
     <>
       <div
         className={styles.behind}
@@ -136,6 +138,7 @@ const AdminQuizDetails: FunctionComponent<Props> = ({
         />
       </section>
     </>
+    // </div>
   );
 };
 

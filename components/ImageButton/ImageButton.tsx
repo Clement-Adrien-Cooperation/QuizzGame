@@ -31,6 +31,7 @@ const ImageButton: FunctionComponent<Props> = ({
           height='32'
           alt={alt}
           src={img}
+          loading="lazy"
         />
       </button>
   );

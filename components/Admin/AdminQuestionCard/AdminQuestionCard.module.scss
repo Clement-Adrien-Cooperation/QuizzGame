@@ -33,7 +33,7 @@
   transition: max-height .5s;
 
   &.opened {
-    max-height: 500px;
+    max-height: 32rem;
   }
 }
 
@@ -71,7 +71,7 @@
 .arrow {
   width: 25px;
   height: 25px;
-  transition: .3s;
+  transition: .5s;
 
   &.rotated {
     transform: rotate(180deg);

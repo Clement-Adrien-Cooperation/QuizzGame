@@ -26,6 +26,7 @@ model Quiz {
   creator       String
   title         String      @unique
   nbOfQuestions Int
+  nbOfPlayed    Int
   category      String
   difficulty    String
   date          String

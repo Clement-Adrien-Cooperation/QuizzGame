@@ -83,7 +83,7 @@ const CommentForm: FunctionComponent<Props> = ({
         const newComment = await res.json();
 
         // create new list of comments with our new comment
-        const newList = [...comments, newComment];
+        const newList = [newComment, ...comments];
 
         // update state
         setComments(newList);

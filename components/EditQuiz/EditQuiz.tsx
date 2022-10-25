@@ -275,10 +275,13 @@ const EditQuiz: FunctionComponent<Props> = ({
       creator: userLogged.pseudo,
       title,
       nbOfQuestions: questions.length,
+      nbOfPlayed: 0,
       category,
       difficulty,
+      date: new Date().toLocaleDateString(),
       rate: [],
-      date: new Date().toLocaleDateString()
+      rates_IDs: [],
+      is_visible: true
     };
 
     await fetch(`${api}/quiz/create`, {

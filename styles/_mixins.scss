@@ -7,8 +7,8 @@
 @mixin posCenter {
   position: absolute;
   top: 45%;
-  left: calc(var(--navbar-width) + 50%);
-  transform: translate(calc(-50% + var(--navbar-width)), -50%);
+  left: calc(50% + var(--navbar-width));
+  transform: translate(calc(50% - var(--navbar-width)), -50%);
 }
 
 @mixin posAbsolute ($top: auto, $right: auto, $bottom: auto, $left: auto) {

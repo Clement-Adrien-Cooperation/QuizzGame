@@ -55,25 +55,6 @@ const AdminHeader: FunctionComponent = () => {
               </a>
             </Link>
           </li>
-          
-          <li
-            key={uuidv4()}
-            title="Gérer les signalements"
-            aria-label="Gérer les signalements"
-          >
-            <Link href='/admin/reports'>
-              <a
-                className={
-                  router.pathname == '/admin/reports' ?
-                    `${styles.button} ${styles.button_active}`
-                  :
-                    styles.button
-                }
-              >
-                Signalements
-              </a>
-            </Link>
-          </li>
 
           <li
             key={uuidv4()}
@@ -90,6 +71,25 @@ const AdminHeader: FunctionComponent = () => {
                 }
               >
                 Catégories
+              </a>
+            </Link>
+          </li>
+          
+          <li
+            key={uuidv4()}
+            title="Gérer les signalements"
+            aria-label="Gérer les signalements"
+          >
+            <Link href='/admin/reports'>
+              <a
+                className={
+                  router.pathname == '/admin/reports' ?
+                    `${styles.button} ${styles.button_active}`
+                  :
+                    styles.button
+                }
+              >
+                Signalements
               </a>
             </Link>
           </li>
