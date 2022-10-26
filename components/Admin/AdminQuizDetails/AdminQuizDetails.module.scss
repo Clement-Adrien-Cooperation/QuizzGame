@@ -2,6 +2,7 @@
 
 .modal {
   @include posFixed(0, auto, auto, var(--navbar-width));
+  @include flexCenter;
   width: calc(100vw - var(--navbar-width));
   height: 100vh;
 }
@@ -16,11 +17,9 @@
 }
 
 .card {
-  // position: fixed;
-  // top: 52%;
-  // left: calc();
-  // transform: translate(-50%, -50%);
-  min-width: 600px;
+  position: relative;
+  min-width: 400px;
+  max-width: 50vw;
   max-height: 90vh;
   background: var(--body-color);
   border-radius: var(--small-radius);

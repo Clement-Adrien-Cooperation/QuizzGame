@@ -209,6 +209,31 @@
     font-size: 1.1rem;
     border-radius: var(--small-radius);
   }
+
+  .delete {
+    display: none;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.6rem;
+    border-radius: 50%;
+    transition: transform .2s;
+
+    &:hover {
+      background: var(--md-opacity);
+    }
+
+    &:active {
+      transform: translateY(-50%) scale(0.95);
+    }
+  }
+
+  .input:valid ~ .delete {
+    display: block;
+  }
 }
 
 @mixin areaInput {

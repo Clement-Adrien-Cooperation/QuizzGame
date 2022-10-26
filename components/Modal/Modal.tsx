@@ -26,6 +26,7 @@ const Modal: FunctionComponent<Props> = ({
         />
       
         {children}
+        
       </section>
     </div>
   );

@@ -1,6 +1,6 @@
 import type { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction } from 'react';
 import type { Category, Question, Quiz, User } from '@prisma/client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
 import { api } from '../../api/api';

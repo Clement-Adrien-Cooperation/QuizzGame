@@ -1,4 +1,5 @@
 import type { ChangeEventHandler, FunctionComponent } from 'react';
+import { useRef } from 'react';
 import styles from './InputField.module.scss';
 
 type Props = {
@@ -23,11 +24,19 @@ const InputField: FunctionComponent<Props> = ({
   handleFunction,
 }) => {
 
+  const inputRef: any = useRef<HTMLInputElement>(null);
+
+  const erase = () => {
+    inputRef.current.focus();
+    inputRef.current.value = '';
+  };
+
   return (
     <div className={styles.field}>
 
       <input
         className={styles.input}
+        ref={inputRef}
         type={type}
         id={inputID}
         value={state}
@@ -43,6 +52,16 @@ const InputField: FunctionComponent<Props> = ({
       >
         {name}
       </label>
+
+      <button
+        className={styles.delete}
+        type="button"
+        title="Effacer"
+        aria-label="Effacer la saisie"
+        onClick={erase}
+      >
+        &times;
+      </button>
       
     </div>
   );

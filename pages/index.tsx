@@ -54,13 +54,13 @@ const Home: NextPage<Props> = ({
         <div className={`${styles.filter} ${styles.filter_left}`} />
 
         <QuizzSlider
-          quizz={bestRatedQuizz}
-          title={"Quizz les mieux notés"}
+          quizz={mostPlayedQuizz}
+          title={"Quizz les plus joués"}
         />
 
         <QuizzSlider
-          quizz={mostPlayedQuizz}
-          title={"Quizz les plus joués"}
+          quizz={bestRatedQuizz}
+          title={"Quizz les mieux notés"}
         />
 
         <QuizzSlider

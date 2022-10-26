@@ -41,15 +41,13 @@ const AdminQuizDetails: FunctionComponent<Props> = ({
   const router = useRouter();
 
   return (
-    // <div className={styles.modal}>
-    <>
+    <div className={styles.modal}>
       <div
         className={styles.behind}
         onClick={() => setQuizDetails(emptyQuiz)}
       ></div>
 
-      <section
-        className={styles.card}>
+      <section className={styles.card}>
         <header className={styles.header}>
           <h5 className={styles.title}>
             Titre :
@@ -137,8 +135,7 @@ const AdminQuizDetails: FunctionComponent<Props> = ({
           id={quiz.id}
         />
       </section>
-    </>
-    // </div>
+    </div>
   );
 };
 

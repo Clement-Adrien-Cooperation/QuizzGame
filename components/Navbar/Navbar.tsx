@@ -123,7 +123,7 @@ const Navbar: FunctionComponent<Props> = ({
             aria-label="Se déconnecter"
           >
             <Link href='/'>
-              <a onClick={() => handleDisconnect()}>
+              <a onClick={handleDisconnect}>
                 Déconnexion
               </a>
             </Link>
