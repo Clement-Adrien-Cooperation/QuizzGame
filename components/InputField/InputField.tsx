@@ -1,4 +1,4 @@
-import type { ChangeEventHandler, FunctionComponent } from 'react';
+import type { FunctionComponent, Dispatch, SetStateAction } from 'react';
 import { useRef } from 'react';
 import styles from './InputField.module.scss';
 
@@ -10,7 +10,7 @@ type Props = {
   isDisabled: boolean,
   required: boolean,
   autoFocus: boolean,
-  handleFunction: ChangeEventHandler<HTMLInputElement>
+  setState: Dispatch<SetStateAction<string>>
 };
 
 const InputField: FunctionComponent<Props> = ({
@@ -21,14 +21,14 @@ const InputField: FunctionComponent<Props> = ({
   isDisabled,
   required,
   autoFocus,
-  handleFunction,
+  setState
 }) => {
 
   const inputRef: any = useRef<HTMLInputElement>(null);
 
   const erase = () => {
     inputRef.current.focus();
-    inputRef.current.value = '';
+    setState('');
   };
 
   return (
@@ -40,7 +40,7 @@ const InputField: FunctionComponent<Props> = ({
         type={type}
         id={inputID}
         value={state}
-        onChange={handleFunction}
+        onChange={e => setState(e.target.value)}
         disabled={isDisabled}
         required={required}
         autoFocus={autoFocus}
@@ -62,7 +62,7 @@ const InputField: FunctionComponent<Props> = ({
       >
         &times;
       </button>
-      
+
     </div>
   );
 };

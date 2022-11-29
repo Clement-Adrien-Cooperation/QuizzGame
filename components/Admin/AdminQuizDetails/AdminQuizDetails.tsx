@@ -1,13 +1,14 @@
 import type { Quiz } from '@prisma/client';
 import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import { useRouter } from 'next/router';
-import CloseButton from '../../CloseButton/CloseButton';
 import styles from './AdminQuizDetails.module.scss';
-import trash from '../../../public/icons/delete.svg';
-import restore from '../../../public/icons/restore.svg';
-import Image from 'next/image';
+
+import CloseButton from '../../CloseButton/CloseButton';
 import AdminQuizQuestions from '../AdminQuizQuestions/AdminQuizQuestions';
-import ImageButton from '../../ImageButton/ImageButton';
+
+import IconButton from '../../IconButton/IconButton';
+import IconTrash from '../../Icons/IconTrash';
+import IconRestore from '../../Icons/IconRestore';
 
 const emptyQuiz: Quiz = {
   id: '',
@@ -62,14 +63,14 @@ const AdminQuizDetails: FunctionComponent<Props> = ({
         </header>
 
         <div className={styles.body}>
-          
+
           <p className={styles.text}>
             <span className={styles.span__nbOfQuestions}>
               {quiz.nbOfQuestions}
             </span>
             {quiz.nbOfQuestions < 2 ? 'question' : 'questions'}
           </p>
-          
+
           <p className={styles.text}>
             Créé par
             <span
@@ -81,21 +82,21 @@ const AdminQuizDetails: FunctionComponent<Props> = ({
               {quiz.creator}
             </span>
           </p>
-          
+
           <p className={styles.text}>
             Le
             <span className={styles.span}>
               {quiz.date}
             </span>
           </p>
-          
+
           <p className={styles.text}>
             Catégorie :
             <span className={styles.span}>
               {quiz.category}
             </span>
           </p>
-          
+
           <p className={styles.text}>
             Difficulté :
             <span className={styles.span}>
@@ -123,12 +124,12 @@ const AdminQuizDetails: FunctionComponent<Props> = ({
             </button>
           )}
 
-          <ImageButton
+          <IconButton
             title={quiz.is_visible ? "Envoyer ce quiz à la corbeille" : "Restaurer ce quiz"}
-            img={quiz.is_visible ? trash : restore}
-            alt={quiz.is_visible ? 'Petite poubelle avec une croix' : 'Petite poubelle avec une flèche qui en ressort'}
             handleFunction={() => handleModerateQuiz(quiz.id, quiz.is_visible)}
-          />
+          >
+            {quiz.is_visible ? <IconTrash /> : <IconRestore />}
+          </IconButton>
         </div>
 
         <AdminQuizQuestions

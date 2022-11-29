@@ -2,14 +2,15 @@ import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import type { User } from '@prisma/client';
 import { useRouter } from 'next/router';
 import styles from './UserDetails.module.scss';
-import ImageButton from '../../ImageButton/ImageButton';
-import avatar from '../../../public/icons/defaultAvatar.svg';
-import promote from '../../../public/icons/promote.svg';
-import downgrade from '../../../public/icons/downgrade.svg';
-import ban from '../../../public/icons/ban.svg';
-import unban from '../../../public/icons/unban.svg';
-import trash from '../../../public/icons/delete.svg';
-import mail from '../../../public/icons/mail.svg';
+
+import IconButton from '../../IconButton/IconButton';
+import IconDowngrade from '../../Icons/IconDowngrade';
+import IconPromote from '../../Icons/IconPromote';
+import IconTrash from '../../Icons/IconTrash';
+import IconUnban from '../../Icons/IconUnban';
+import IconBan from '../../Icons/IconBan';
+import IconMail from '../../Icons/IconMail';
+import IconAvatar from '../../Icons/IconAvatar';
 
 type Props = {
   user: User,
@@ -43,43 +44,44 @@ const UserDetails: FunctionComponent<Props> = ({
       :
         <footer className={styles.footer}>
 
-          <ImageButton
+          <IconButton
             title={`Voir le profil de ${user.pseudo}`}
-            img={avatar}
-            alt={"Bonhomme dessiné"}
             handleFunction={() => router.push(`/profile/${user.pseudo}`)}
-          />
+          >
+            <IconAvatar />
+          </IconButton>
 
-          <ImageButton
+          <IconButton
             title={`Envoyer un message à ${user.pseudo}`}
-            img={mail}
-            alt={"Une enveloppe"}
             handleFunction={() => setShowMessageForm(true)}
-          />
+          >
+            <IconMail />
+          </IconButton>
 
           {!user.is_admin &&
-            <ImageButton
+            <IconButton
               title={user.is_banished ? `Débannir ${user.pseudo}` : `Bannir ${user.pseudo}`}
-              img={user.is_banished ? unban : ban}
-              alt={user.is_banished ? "Port avec une flèche qui rentre dedans" : "Porte avec une flèche qui en sort"}
               handleFunction={() => handleBanishment(user.id, user.is_banished)}
-            />
+            >
+              {user.is_banished ? <IconUnban /> : <IconBan />}
+            </IconButton>
           }
 
           {user.is_banished ?
-            <ImageButton
+            <IconButton
               title={`Supprimer le compte de ${user.pseudo} définitivement`}
-              img={trash}
-              alt={"Une poubelle"}
               handleFunction={() => handleDeleteUser(user.id)}
-            />
+            >
+              <IconTrash />
+            </IconButton>
           :
-            <ImageButton
+            <IconButton
               title={user.is_admin ? `Retirer les droits d'administrateurs à ${user.pseudo}` : `Donner les droits d'administration à ${user.pseudo}`}
-              img={user.is_admin ? downgrade : promote}
-              alt={user.is_admin ? "Bonhomme avec un sigle moins" : "Bonhomme avec un sigle moins"}
               handleFunction={() => handlePromotion(user.id, user.is_admin)}
-            />
+            >
+
+              {user.is_admin ? <IconDowngrade /> : <IconPromote />}
+            </IconButton>
           }
         </footer>
       }

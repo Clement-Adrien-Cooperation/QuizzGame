@@ -2,18 +2,20 @@ import type { FunctionComponent } from 'react';
 import type { User } from '@prisma/client';
 import { useState } from 'react';
 import { api } from '../../../../api/api';
-import Image from 'next/image';
-import styles from './ReportedSubject.module.scss';
-import mail from '../../../../public/icons/mail.svg';
-import ban from '../../../../public/icons/ban.svg';
-import unban from '../../../../public/icons/unban.svg';
-import eye from '../../../../public/icons/eye_visible.svg';
-import Loader from '../../../Loader/Loader';
 import Link from 'next/link';
+
+import styles from './ReportedSubject.module.scss';
+
+import Loader from '../../../Loader/Loader';
 import AdminMessage from '../../AdminMessage/AdminMessage';
 import Message from '../../../Message/Message';
 import Modal from '../../../Modal/Modal';
-import ImageButton from '../../../ImageButton/ImageButton';
+
+import IconBan from '../../../Icons/IconBan';
+import IconButton from '../../../IconButton/IconButton';
+import IconMail from '../../../Icons/IconMail';
+import IconEye from '../../../Icons/IconEye';
+import IconUnban from '../../../Icons/IconUnban';
 
 type Props = {
   user: User
@@ -79,29 +81,24 @@ const ReportedUser: FunctionComponent<Props> = ({
             title={`Voir le profil de ${user.pseudo}`}
             aria-label={`Voir le profil de ${user.pseudo}`}
           >
-            <Image
-              layout="responsive"
-              width='32'
-              height='32'
-              alt='Un oeil'
-              src={eye}
-            />
+            <IconEye />
           </a>
         </Link>
 
-        <ImageButton
+        <IconButton
           title={`Envoyer un message à ${user.pseudo}`}
-          img={mail}
-          alt={'Une enveloppe'}
           handleFunction={() => setShowMessage(true)}
-        />
+        >
+          <IconMail />
+        </IconButton>
 
-        <ImageButton
+        <IconButton
           title={banned ? `Débannir ${user.pseudo}` : `Bannir ${user.pseudo} de s'Quizz Game`}
-          img={banned ? unban : ban}
-          alt={banned ? "Une flèche qui rentre dans un carré" : "Une flèche qui sort d'un carré"}
           handleFunction={moderateUser}
-        />
+        >
+          {banned ? <IconUnban /> : <IconBan />}
+        </IconButton>
+
       </footer>
 
       {showMessage &&

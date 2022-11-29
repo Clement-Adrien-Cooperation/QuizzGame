@@ -2,11 +2,11 @@ import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import type { Quiz, User } from '@prisma/client';
 import { api } from '../../api/api';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import styles from './UserQuizCard.module.scss';
-import playIcon from '../../public/icons/play.svg';
-import editIcon from '../../public/icons/edit.svg';
-import deleteIcon from '../../public/icons/delete.svg';
+import IconButton from '../IconButton/IconButton';
+import IconTrash from '../Icons/IconTrash';
+import IconPen from '../Icons/IconPen';
+import IconPlay from '../Icons/IconPlay';
 
 type Props = {
   quiz: Quiz,
@@ -70,62 +70,31 @@ const UserQuizCard: FunctionComponent<Props> = ({
       </header>
 
       <section className={styles.buttons}>
-        <button
-          className={styles.button}
-          type='button'
+        <IconButton
           title='Jouer à ce quiz'
-          aria-label='Jouer à ce quiz'
-          onClick={() => router.push(`/quizz/${quiz.title}`)}
+          handleFunction={() => router.push(`/quizz/${quiz.title}`)}
         >
-          <div className={styles.icon}>
-            <Image
-              src={playIcon}
-              width='32px'
-              height='32px'
-              layout='responsive'
-              alt='Un triangle qui pointe vers la droite'
-            />
-          </div>
-        </button>
-        <button
-          className={styles.button}
-          type='button'
+          <IconPlay />
+        </IconButton>
+
+        <IconButton
           title='Modifier ce quiz'
-          aria-label='Modifier ce quiz'
-          onClick={() => router.push(`/quizz/update/${quiz.title}`)}
+          handleFunction={() => router.push(`/quizz/update/${quiz.title}`)}
         >
-          <div className={styles.icon}>
-            <Image
-              src={editIcon}
-              width='32px'
-              height='32px'
-              layout='responsive'
-              alt='Un crayon avec une gomme'
-            />
-          </div>
-        </button>
-        <button
-          className={styles.button}
-          type='button'
+          <IconPen />
+        </IconButton>
+
+        <IconButton
           title='Supprimer ce quiz'
-          aria-label='Supprimer ce quiz'
-          onClick={handleDeleteQuiz}
+          handleFunction={handleDeleteQuiz}
         >
-          <div className={styles.icon}>
-            <Image
-              src={deleteIcon}
-              width='32px'
-              height='32px'
-              layout='responsive'
-              alt='Une poubelle avec une croix dessinée dessus'
-            />
-          </div>
-        </button>
+          <IconTrash />
+        </IconButton>
       </section>
 
       <footer className={styles.footer}>
         
-        {!quiz.is_visible && (
+        {!quiz.is_visible &&
           <span
             className={styles.warning}
             title="Ce quiz a été supprimé par la modération. Contactez-nous quand le quiz sera corrigé"
@@ -133,7 +102,7 @@ const UserQuizCard: FunctionComponent<Props> = ({
           >
             🚫
           </span>
-        )}
+        }
       </footer>
     </article>
   );

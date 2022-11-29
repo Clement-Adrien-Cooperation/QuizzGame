@@ -3,15 +3,16 @@ import type { Comment } from '@prisma/client';
 import { useState } from 'react';
 import { api } from '../../../../api/api';
 import styles from './ReportedSubject.module.scss';
-import Image from 'next/image';
-import mail from '../../../../public/icons/mail.svg';
-import trash from '../../../../public/icons/delete.svg';
+
 import Link from 'next/link';
 import Loader from '../../../Loader/Loader';
 import Modal from '../../../Modal/Modal';
 import AdminMessage from '../../AdminMessage/AdminMessage';
 import Message from '../../../Message/Message';
-import ImageButton from '../../../ImageButton/ImageButton';
+
+import IconButton from '../../../IconButton/IconButton';
+import IconTrash from '../../../Icons/IconTrash';
+import IconMail from '../../../Icons/IconMail';
 
 type Props = {
   comment: Comment,
@@ -84,19 +85,19 @@ const ReportedComment: FunctionComponent<Props> = ({
       </section>
 
       <footer className={styles.footer}>
-        <ImageButton
-          title={"Envoyer un message au créateur du commentaire"}
-          img={mail}
-          alt={'Une enveloppe'}
+        <IconButton
+          title="Envoyer un message au créateur du commentaire"
           handleFunction={() => setShowMessage(true)}
-        />
+        >
+          <IconMail />
+        </IconButton>
 
-        <ImageButton
-          title={"Supprimer ce commentaire"}
-          img={trash}
-          alt={'Une poubelle'}
+        <IconButton
+          title="Supprimer ce commentaire"
           handleFunction={deleteComment}
-        />
+        >
+          <IconTrash />
+        </IconButton>
       </footer>
 
       {showMessage &&

@@ -22,15 +22,15 @@
   @include flexCenter;
   flex-direction: column;
   width: 250px;
+  gap: 1.5rem;
 }
 
 .submit_button {
-  margin-top: 20px;
+  margin-top: 2rem;
   @include mainButton;
 }
 
 .secondary_button {
-  font-size: 12px;
-  margin-top: 30px;
+  margin-top: 3rem;
   @include underlineButton;
 }

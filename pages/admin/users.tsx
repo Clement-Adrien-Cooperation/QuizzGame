@@ -4,15 +4,17 @@ import type { User } from '@prisma/client';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { api } from '../../api/api';
-import AdminHeader from '../../components/Admin/AdminHeader/AdminHeader';
+
 import styles from '../../styles/admin/AdminUsers.module.scss';
+
+import AdminHeader from '../../components/Admin/AdminHeader/AdminHeader';
 import AdminUsers from '../../components/Admin/AdminUsers/AdminUsers';
 import BanishedUsers from '../../components/Admin/BanishedUsers/BanishedUsers';
 import AdminMessage from '../../components/Admin/AdminMessage/AdminMessage';
 import Message from '../../components/Message/Message';
-import Image from 'next/image';
-import mail from '../../public/icons/mail.svg';
-import ImageButton from '../../components/ImageButton/ImageButton';
+
+import IconButton from '../../components/IconButton/IconButton';
+import IconMail from '../../components/Icons/IconMail';
 
 type Props = {
   isLogged: boolean,
@@ -188,12 +190,12 @@ const Users: NextPage<Props> = ({
           </a>
         }
 
-        <ImageButton
-          title={"Envoyer un message à tous les utilisateurs"}
-          img={mail}
-          alt={'Une enveloppe'}
+        <IconButton
+          title="Envoyer un message à tous les utilisateurs"
           handleFunction={() => setShowMessageForm(true)}
-        />
+        >
+          <IconMail />
+        </IconButton>
       </section>
       
       <section className={styles.container}>

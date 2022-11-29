@@ -154,35 +154,35 @@
     background: var(--input-color);
     border-radius: var(--main-radius);
     border: var(--border-transparent);
-    padding: 0.9rem 1.8rem;
+    padding: 1rem 4rem 0.8rem 1.8rem;
     color: inherit;
 
     &:hover {
       border-color: var(--main-color-light);
     }
-  
+
     &:focus {
       border-color: var(--main-color);
     }
-  
+
     &:disabled {
       background: var(--grey);
-    
+
       & + .label {
         color: var(--text-color-light);
         text-decoration: line-through;
       }
-  
+
       &:hover {
         border-color: transparent;
       }
-  
+
       &:focus {
         border-color: transparent;
       }
     }
   }
-  
+
   .label {
     line-height: 1;
     color: var(--text-color);
@@ -193,11 +193,6 @@
     display: block;
     font-size: 1.3rem;
     transition: 0.4s;
-  }
-
-  .input:focus,
-  .input:valid {
-    padding: 1rem 1.8rem 0.8rem;
   }
 
   .input:focus + .label,
@@ -216,14 +211,15 @@
     right: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
     font-size: 1.6rem;
+    background: var(--input-color);
     border-radius: 50%;
     transition: transform .2s;
 
     &:hover {
-      background: var(--md-opacity);
+      background: var(--light-grey);
     }
 
     &:active {
@@ -278,28 +274,20 @@
   }
 }
 
-@mixin imageButton {
+@mixin iconButton {
   width: 3em;
   height: 3em;
-  padding: 0.5em;
+  padding: 0.7em;
   border-radius: var(--small-radius);
   opacity: 0.7;
   transition: transform 0.2s;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.1);
+    background: var(--md-opacity);
     opacity: 1;
   }
 
   &:active {
     transform: scale(0.95);
-  }
-
-  & .icon {
-    filter: var(--icon-filter);
-  }
-
-  &.icon {
-    filter: var(--icon-filter);
   }
 }

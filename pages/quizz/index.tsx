@@ -43,10 +43,6 @@ const Quizz: NextPage<Props> = ({
     };
   }, []);
 
-  const handleChangeFilter = (event: ChangeEvent<HTMLInputElement>) => {
-    setFilter(event.target.value);
-  };
-  
   return (
     <>
       <header className={styles.header}>
@@ -67,7 +63,7 @@ const Quizz: NextPage<Props> = ({
             isDisabled={false}
             required={true}
             autoFocus={true}
-            handleFunction={handleChangeFilter}
+            setState={setFilter}
           />
         </div>
 
@@ -87,9 +83,9 @@ const Quizz: NextPage<Props> = ({
         )}
       </header>
 
-      <section className={styles.container}>
+      <section>
 
-        <ul>
+        <ul className={styles.container}>
           {quizz?.map((quiz: Quiz) => {
 
             const quizTitle = quiz.title.toLowerCase();

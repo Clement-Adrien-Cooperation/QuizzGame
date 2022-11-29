@@ -1,12 +1,11 @@
 import type { FunctionComponent } from 'react';
 import type { User } from '@prisma/client';
 import { useState } from 'react';
-import Image from 'next/image';
 import styles from './UserCard.module.scss';
-import arrow from '../../../public/icons/arrow.svg';
 import UserDetails from '../UserDetails/UserDetails';
 import AdminMessage from '../AdminMessage/AdminMessage';
 import Message from '../../Message/Message';
+import IconArrow from '../../Icons/IconArrow';
 
 type Props = {
   user: User,
@@ -55,18 +54,12 @@ const UserCard: FunctionComponent<Props> = ({
             </h3>
 
             <div className={styles.toggle_icon}>
-              <Image
-                src={arrow}
-                width='32'
-                height='32'
-                layout='responsive'
-                alt="Ouvrir les détails de l'utilisateur"
-              />
+              <IconArrow />
             </div>
 
           </section>
 
-          { showDetails && (
+          {showDetails &&
             <UserDetails
               user={user}
               userLogged={userLogged}
@@ -75,7 +68,7 @@ const UserCard: FunctionComponent<Props> = ({
               handleDeleteUser={handleDeleteUser}
               setShowMessageForm={setShowMessageForm}
             />
-          )}
+          }
         </label>
       </article>
 

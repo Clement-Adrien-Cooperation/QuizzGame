@@ -23,7 +23,7 @@ const Home: NextPage<Props> = ({
 }) => {
 
   const router = useRouter();
-  
+
   useEffect(() => {
 
     document.title = "s'Quizz Game";

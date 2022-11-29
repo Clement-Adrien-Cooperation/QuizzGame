@@ -1,16 +1,19 @@
 import { Report } from '@prisma/client';
 import { FunctionComponent, useState } from 'react';
 import { api } from '../../../../api/api';
+
 import styles from './ReportsCard.module.scss';
-import eye from '../../../../public/icons/eye_visible.svg';
-import trash from '../../../../public/icons/delete.svg';
-import mail from '../../../../public/icons/mail.svg';
+
 import ReportedSubject from '../ReportedSubject/ReportedSubject';
 import Link from 'next/link';
 import Modal from '../../../Modal/Modal';
 import AdminMessage from '../../AdminMessage/AdminMessage';
 import Message from '../../../Message/Message';
-import ImageButton from '../../../ImageButton/ImageButton';
+
+import IconButton from '../../../IconButton/IconButton';
+import IconTrash from '../../../Icons/IconTrash';
+import IconMail from '../../../Icons/IconMail';
+import IconEye from '../../../Icons/IconEye';
 
 type Props = {
   report: Report,
@@ -90,26 +93,26 @@ const ReportsCard: FunctionComponent<Props> = ({
         </section>
 
         <footer className={styles.footer}>
-          <ImageButton
+          <IconButton
             title={"Voir les détails du sujet"}
-            img={eye}
-            alt={'Un oeil'}
             handleFunction={() => setShowSubject(true)}
-          />
+          >
+            <IconEye />
+          </IconButton>
 
-          <ImageButton
-            title={"Envoyer un message au plaignant"}
-            img={mail}
-            alt={"Une enveloppe"}
+          <IconButton
+            title="Envoyer un message au plaignant"
             handleFunction={() => setShowMessage(true)}
-          />
+          >
+            <IconMail />
+          </IconButton>
 
-          <ImageButton
-            title={"Supprimer ce signalement"}
-            img={trash}
-            alt={"Une poubelle"}
+          <IconButton
+            title="Supprimer ce signalement"
             handleFunction={deleteReport}
-          />
+          >
+            <IconTrash />
+          </IconButton>
         </footer>
       </article>
 

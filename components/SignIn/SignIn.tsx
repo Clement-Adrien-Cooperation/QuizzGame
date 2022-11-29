@@ -41,7 +41,7 @@ const SignIn: FunctionComponent<Props> = ({
       pseudoOrEmail,
       password,
       rememberMe
-    }
+    };
   
     await fetch(`${api}/user/login`, {
       method: 'POST',
@@ -74,13 +74,9 @@ const SignIn: FunctionComponent<Props> = ({
       setWarningMessage("L'identifiant et le mot de passe ne correspondent pas");
       setShowLoader(false);
     });
-    
+
     setPassword('');
     setDisableButton(false);
-  };
-
-  const handleChangePseudoOrEmail = (event: ChangeEvent<HTMLInputElement>) => {
-    setPseudoOrEmail(event.target.value);
   };
 
   return (
@@ -104,7 +100,7 @@ const SignIn: FunctionComponent<Props> = ({
             isDisabled={false}
             required={true}
             autoFocus={true}
-            handleFunction={handleChangePseudoOrEmail}
+            setState={setPseudoOrEmail}
           />
 
           <PasswordField
@@ -122,12 +118,12 @@ const SignIn: FunctionComponent<Props> = ({
             setState={setRememberMe}
           />
 
-          { warningMessage && (
+          {warningMessage && 
             <Warning
               warningMessage={warningMessage}
               setWarningMessage={setWarningMessage}
             />
-          )}
+          }
           
           <input
             className={styles.submit_button}

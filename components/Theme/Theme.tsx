@@ -6,6 +6,8 @@ import styles from './Theme.module.scss';
 import ColorsPicker from "../ColorsPicker/ColorsPicker";
 import DarkMode from "../DarkMode/DarkMode";
 import CloseButton from '../CloseButton/CloseButton';
+import IconButton from '../IconButton/IconButton';
+import IconSettings from '../Icons/IconSettings';
 
 const Theme: FunctionComponent = () => {
 
@@ -21,13 +23,7 @@ const Theme: FunctionComponent = () => {
         aria-label='Ouvrir les paramètres de thème et couleurs'
         onClick={() => setShowSettings(true)}
       >
-        <Image
-          src={settings}
-          width='32px'
-          height='32px'
-          layout="responsive"
-          alt='Engrenage'
-        />
+        <IconSettings />
       </button>
 
       <section

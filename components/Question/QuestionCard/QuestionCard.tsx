@@ -1,12 +1,13 @@
 import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import type { Question } from '@prisma/client';
 import { useState } from 'react';
-import Image from 'next/image';
 import styles from './QuestionCard.module.scss';
-import editIcon from '../../../public/icons/edit.svg';
-import deleteIcon from '../../../public/icons/delete.svg';
-import arrow from '../../../public/icons/arrow.svg';
+
 import QuestionDetails from '../QuestionDetails/QuestionDetails';
+import IconTrash from '../../Icons/IconTrash';
+import IconButton from '../../IconButton/IconButton';
+import IconPen from '../../Icons/IconPen';
+import IconArrow from '../../Icons/IconArrow';
 
 type Props = {
   questions: Question[],
@@ -88,53 +89,30 @@ const QuestionCard: FunctionComponent<Props> = ({
             aria-label={showDetails ? "Cacher les détails" : "Voir les détails"}
             onClick={() => setShowDetails(!showDetails)}
           >
-            <div
-            className={showDetails ?
-              `${styles.arrow_icon} ${styles.rotated}`
-            :
-              `${styles.arrow_icon}`
-            }>
-              <Image
-                src={arrow}
-                width='32px'
-                height='32px'
-                layout='responsive'
-                alt='Une flèche vers le bas'
-              />
-            </div>
+            <span
+              className={showDetails ?
+                `${styles.arrow_icon} ${styles.rotated}`
+              :
+                `${styles.arrow_icon}`
+              }
+            >
+              <IconArrow />
+            </span>
           </button>
 
-          <button
-            className={styles.icon}
-            type='button'
-            title='Modifier la question'
-            aria-label='Modifier la question'
-            onClick={handleUpdateQuestion}
+          <IconButton
+            title='Modifier cette question'
+            handleFunction={handleUpdateQuestion}
           >
-            <Image
-              src={editIcon}
-              width='32'
-              height='32'
-              layout='responsive'
-              alt='Un crayon avec une gomme'
-            />
-          </button>
+            <IconPen />
+          </IconButton>
 
-          <button
-            className={styles.icon}
-            type='button'
-            title='Supprimer la question'
-            aria-label='Supprimer la question'
-            onClick={handleDeleteQuestion}
+          <IconButton
+            title='Supprimer cette question'
+            handleFunction={handleDeleteQuestion}
           >
-            <Image
-              src={deleteIcon}
-              width='32'
-              height='32'
-              layout='responsive'
-              alt='Une poubelle avec une choix dessinée dessus'
-            />
-          </button>
+            <IconTrash />
+          </IconButton>
         </aside>
       </header>
 

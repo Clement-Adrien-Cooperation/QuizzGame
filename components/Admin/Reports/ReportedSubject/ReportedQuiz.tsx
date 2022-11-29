@@ -3,20 +3,22 @@ import type { Quiz } from '@prisma/client';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { api } from '../../../../api/api';
-import Image from 'next/image';
 import Link from 'next/link';
+
 import styles from './ReportedSubject.module.scss';
-import mail from '../../../../public/icons/mail.svg';
-import eye from '../../../../public/icons/eye_visible.svg';
-import trash from '../../../../public/icons/delete.svg';
-import restore from '../../../../public/icons/restore.svg';
-import ban from '../../../../public/icons/ban.svg';
-import unban from '../../../../public/icons/unban.svg';
+
 import Loader from '../../../Loader/Loader';
 import AdminMessage from '../../AdminMessage/AdminMessage';
 import Message from '../../../Message/Message';
 import Modal from '../../../Modal/Modal';
-import ImageButton from '../../../ImageButton/ImageButton';
+
+import IconButton from '../../../IconButton/IconButton';
+import IconUnban from '../../../Icons/IconUnban';
+import IconBan from '../../../Icons/IconBan';
+import IconTrash from '../../../Icons/IconTrash';
+import IconRestore from '../../../Icons/IconRestore';
+import IconMail from '../../../Icons/IconMail';
+import IconEye from '../../../Icons/IconEye';
 
 type Props = {
   quiz: Quiz,
@@ -172,33 +174,33 @@ const ReportedQuiz: FunctionComponent<Props> = ({
       </section>
 
       <footer className={styles.footer}>
-        <ImageButton
-          title={"Voir les questions de ce quiz"}
-          img={eye}
-          alt={'Un oeil'}
+        <IconButton
+          title="Voir les questions de ce quiz"
           handleFunction={() => router.push('/admin/quizz')}
-        />
+        >
+          <IconEye />
+        </IconButton>
 
-        <ImageButton
-          title={"Envoyer un message au créateur du quiz"}
-          img={mail}
-          alt={'Une enveloppe'}
+        <IconButton
+          title="Envoyer un message au créateur du quiz"
           handleFunction={() => setShowMessage(true)}
-        />
+        >
+          <IconMail />
+        </IconButton>
 
-        <ImageButton
+        <IconButton
           title={visible ? "Supprimer temporairement ce quiz" : "Restaurer ce quiz dans s'Quizz Game"}
-          img={visible ? trash : restore}
-          alt={"Une poubelle"}
           handleFunction={moderateQuiz}
-        />
+        >
+          {visible ? <IconTrash /> : <IconRestore />}
+        </IconButton>
 
-        <ImageButton
+        <IconButton
           title={banned ? "Débannir le créateur de ce quiz" : "Bannir le créateur de ce quiz"}
-          img={banned ? unban : ban}
-          alt={banned ? "Une flèche entrant dans une porte" : "Une flèche sortant d'une porte"}
           handleFunction={moderateCreator}
-        />
+        >
+          {banned ? <IconUnban /> : <IconBan />}
+        </IconButton>
       </footer>
 
       {showMessage &&

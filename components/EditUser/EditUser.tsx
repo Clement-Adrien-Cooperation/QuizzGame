@@ -1,4 +1,4 @@
-import type { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction } from 'react';
+import type { Dispatch, FormEvent, FunctionComponent, SetStateAction } from 'react';
 import type { User } from '@prisma/client';
 import { useRouter } from 'next/router';
 import { api } from '../../api/api';
@@ -54,7 +54,7 @@ const EditUser: FunctionComponent<Props> = ({
 
   const checkPasswords = () => {
 
-    if( password !== '' && password === confirmPassword) {
+    if(password !== '' && password === confirmPassword) {
       setNotification('Les deux mots de passe correspondent ✅');
       setWarningMessage('');
     } else {
@@ -104,43 +104,42 @@ const EditUser: FunctionComponent<Props> = ({
   const checkForm = () => {
 
     if(!email.includes('@') && !email.includes('.')) {
-      
+
       setWarningMessage('Veuillez entrer un email valide');
       setDisableButton(true);
       return false;
 
-    } else if (pseudo.includes('@') && pseudo.includes('.')) {
+    } else if(pseudo.includes('@') && pseudo.includes('.')) {
 
       setWarningMessage(`Votre pseudo ne doit pas contenir de "@" ou de ".", ces caractères sont réservés au champs "Adresse mail"`);
       setDisableButton(true);
       return false;
 
-    } else if (password !== confirmPassword) {
+    } else if(password !== confirmPassword) {
 
       setWarningMessage('Les deux mots de passe ne correspondent pas');
       setDisableButton(true);
       return false;
 
-    } else if (pseudo.length < 3|| pseudo.length > 30) {
-      
+    } else if(pseudo.trim().length < 3|| pseudo.trim().length > 30) {
+
       setWarningMessage('Votre pseudo doit contenir entre 3 et 30 caractères');
       setDisableButton(true);
       return false;
 
-    } else if (email.length < 7 || email.length > 100) {
+    } else if(email.trim().length < 7 || email.trim().length > 100) {
 
-      setWarningMessage('Entrez une adresse mail valide');
+      setWarningMessage('Veuillez entrer une adresse mail valide');
       setDisableButton(true);
+      return false;
+
+    } else if(pseudo.trim() === '') {
+      setWarningMessage('Veuillez entrer un pseudo valide');
       return false;
     };
 
     if(isLogged) {
-      if(pseudo.trim() === ''
-      || email.trim() === '') {
-
-        setWarningMessage("Veuillez remplir tous les champs");
-        return false;
-      } else if(previousPassword !== ''
+      if(previousPassword !== ''
       && password !== ''
       && confirmPassword !== '') {
 
@@ -169,7 +168,7 @@ const EditUser: FunctionComponent<Props> = ({
         !validNumber ||
         !validSpecial ||
         !validLength) {
-          
+
         setWarningMessage('Votre mot de passe doit contenir 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère spécial et 8 caractères au minimum');
         setDisableButton(true);
         return false;
@@ -179,7 +178,7 @@ const EditUser: FunctionComponent<Props> = ({
     return true;
   };
 
-  const handleSubmitForm = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmitForm = (event: FormEvent<HTMLFormElement>) => {
     // Prevent the refresh
     event.preventDefault();
     setDisableButton(true);
@@ -192,7 +191,7 @@ const EditUser: FunctionComponent<Props> = ({
       // Show loader
       setShowLoader(true);
 
-      await editUser();
+      editUser();
 
       // Reset states & hide loader
       setPseudo('');
@@ -212,7 +211,7 @@ const EditUser: FunctionComponent<Props> = ({
       id: userLogged.id,
       previousPassword,
       newPassword: password
-    }
+    };
 
     await fetch(`${api}/user/updatePassword`, {
       method: 'POST',
@@ -231,11 +230,11 @@ const EditUser: FunctionComponent<Props> = ({
   };
 
   const updateUser = async () => {
-      
+
     let body = {
       id: userLogged.id,
-      pseudo,
-      email
+      pseudo: pseudo.trim(),
+      email: email.trim()
     };
 
     // If user try to change his password
@@ -271,19 +270,17 @@ const EditUser: FunctionComponent<Props> = ({
           setWarningMessage('Un problème est survenu, veuillez réessayer ou nous contacter');
         };
         
+      // If response status is 200 (OK),
       } else if(res.status === 200) {
-        // If response status is 200 (OK),
-
         // update state with user's data
         setPseudo(data.pseudo);
         setEmail(data.email);
-
         setUserLogged(data);
 
       } else {
         setWarningMessage('Un problème est survenu, veuillez réessayer ou nous contacter');
       };
-      
+
       setShowLoader(false);
     })
     .catch((error) => {
@@ -297,8 +294,8 @@ const EditUser: FunctionComponent<Props> = ({
   const createUser = async () => {
 
     const body = {
-      pseudo,
-      email,
+      pseudo: pseudo.trim(),
+      email: email.trim(),
       password,
       rememberMe
     };
@@ -329,13 +326,15 @@ const EditUser: FunctionComponent<Props> = ({
 
         // save the token in local storage
         localStorage.setItem('token', data.token);
-        
+
         // update states with user's data and push to home page
         setUserLogged(data.user);
         setIsLogged(true);
         setShowLoader(false);
-        
+
         router.push('/');
+      } else {
+        setWarningMessage('Un problème est survenu, veuillez réessayer ou nous contacter');
       };
 
       setShowLoader(false);
@@ -345,11 +344,9 @@ const EditUser: FunctionComponent<Props> = ({
       setWarningMessage('Un problème est survenu, veuillez réessayer ou nous contacter');
       setShowLoader(false);
     });
-
   };
 
   const editUser = () => {
-
     // If user is logged, this is an update
     if(isLogged) {
       updateUser();
@@ -359,8 +356,7 @@ const EditUser: FunctionComponent<Props> = ({
     };
   };
 
-  const handleChangePseudo = (event: ChangeEvent<HTMLInputElement>) => {
-
+  useEffect(() => {
     // If pseudo is longer than 30 letters
     if(pseudo.length > 30) {
       // We warn user
@@ -375,12 +371,9 @@ const EditUser: FunctionComponent<Props> = ({
       setWarningMessage('');
       setDisableButton(false);
     };
+  }, [pseudo]);
 
-    setPseudo(event.target.value);
-  };
-
-  const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
-
+  useEffect(() => {
     if(email.length > 100) {
       setWarningMessage('Votre adresse mail ne doit pas excéder 100 caractères');
       setDisableButton(true);
@@ -388,11 +381,9 @@ const EditUser: FunctionComponent<Props> = ({
       setWarningMessage('');
       setDisableButton(false);
     };
+  }, [email]);
 
-    setEmail(event.target.value);
-  };
-
-  return (    
+  return (
     <form
       className={styles.form}
       onSubmit={handleSubmitForm}
@@ -405,7 +396,7 @@ const EditUser: FunctionComponent<Props> = ({
         isDisabled={false}
         required={true}
         autoFocus={true}
-        handleFunction={handleChangePseudo}
+        setState={setPseudo}
       />
 
       <InputField
@@ -416,18 +407,18 @@ const EditUser: FunctionComponent<Props> = ({
         isDisabled={false}
         required={true}
         autoFocus={false}
-        handleFunction={handleChangeEmail}
+        setState={setEmail}
       />
-      
-      {isLogged && (
+
+      {isLogged && 
         <PasswordField
           name={'Ancien mot de passe'}
           inputID={'previous-password'}
           password={previousPassword}
           setPassword={setPreviousPassword}
         />
-      )}
-      
+      }
+
       <PasswordValidation
         isLogged={isLogged}
         password={password}
@@ -443,7 +434,7 @@ const EditUser: FunctionComponent<Props> = ({
         checkPasswords={checkPasswords}
       />
 
-      {!isLogged && (
+      {!isLogged &&
         <CheckButton
           label={"Se souvenir de moi"}
           id={"remember-me"}
@@ -451,21 +442,21 @@ const EditUser: FunctionComponent<Props> = ({
           state={rememberMe}
           setState={setRememberMe}
         />
-      )}
+      }
 
-      {notification && (
+      {notification &&
         <p className={styles.notification}>
           {notification}
         </p>
-      )}
+      }
 
-      { warningMessage && (
+      {warningMessage &&
         <Warning
           warningMessage={warningMessage}
           setWarningMessage={setWarningMessage}
         />
-      )}
-      
+      }
+
       <input
         className={styles.submit_button}
         type='submit'

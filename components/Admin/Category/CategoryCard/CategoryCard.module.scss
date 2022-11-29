@@ -1,11 +1,10 @@
-@import '../../../styles/mixins';
-
 .card {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-radius: var(--small-radius);
   box-shadow: var(--box-shadow);
+  background: var(--body-color);
   min-width: 10rem;
   width: 50rem;
   margin: 20px 0;

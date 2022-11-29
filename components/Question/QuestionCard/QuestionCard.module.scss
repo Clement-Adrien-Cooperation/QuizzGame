@@ -8,6 +8,7 @@
   margin: 10px 0;
   box-shadow: var(--box-shadow);
   border-radius: var(--small-radius);
+  background: var(--body-color);
   animation: animApparition .3s ease-out;
   transition: .3s;
 
@@ -32,19 +33,11 @@
 }
 
 .icon {
-  height: 50px;
-  width: 50px;
-  padding: 13px;
-  border-radius: var(--small-radius);
-  opacity: 0.7;
-
-  &:hover {
-    opacity: 1;
-    background: var(--md-opacity);
-  }
+  @include iconButton;
 }
 
 .arrow_icon {
+  @include flexCenter;
   transition: .3s;
 
   &.rotated {

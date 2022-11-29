@@ -8,10 +8,11 @@
   box-shadow: var(--box-shadow);
   margin: 10px 0;
   position: relative;
+  background: var(--body-color);
 }
 
 .header {
-  padding: 18px 32px;
+  padding: 0 32px;
   display: flex;
   align-items: center;
   gap: 20px;
@@ -29,28 +30,16 @@
   font-size: 12px;
 }
 
-.button {
-  padding: 18px 24px;
-  border-radius: var(--small-radius);
-  opacity: 0.5;
-
-  &:hover {
-    background: var(--md-opacity);
-    opacity: 1;
-  }
-}
-
-.icon {
-  height: 25px;
-  width: 25px;
-}
-
 .footer {
   position: absolute;
   left: 100%;
   display: flex;
   gap: 10px;
   padding-left: 10px;
+}
+
+.buttons {
+  height: 100%;
 }
 
 .warning {

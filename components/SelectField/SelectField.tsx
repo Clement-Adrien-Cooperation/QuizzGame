@@ -1,21 +1,23 @@
-import type { ChangeEventHandler, FunctionComponent } from 'react';
+import type { FunctionComponent, Dispatch, SetStateAction } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './SelectField.module.scss';
 
 type Props = {
   name: string,
-  defaultOption: string,
   options: string[],
+  defaultOption: string,
   isDisabled: boolean,
-  handleFunction: ChangeEventHandler<HTMLSelectElement>
+  state: string,
+  setState: Dispatch<SetStateAction<string>>
 };
 
 const SelectField: FunctionComponent<Props> = ({
   name,
-  defaultOption,
   options,
+  defaultOption,
   isDisabled,
-  handleFunction
+  state,
+  setState
 }) => {
 
   return (
@@ -24,7 +26,7 @@ const SelectField: FunctionComponent<Props> = ({
       <select
         className={styles.select}
         id={name}
-        onChange={handleFunction}
+        onChange={e => setState(e.target.value)}
         disabled={isDisabled}
         required
       >
@@ -33,7 +35,7 @@ const SelectField: FunctionComponent<Props> = ({
           key={uuidv4()}
           value={defaultOption}
         >
-          {defaultOption}
+          {state ? state : defaultOption}
         </option>
 
         {options?.map((option: string) =>

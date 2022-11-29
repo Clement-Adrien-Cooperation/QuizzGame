@@ -40,7 +40,7 @@ const QuizCard: FunctionComponent<Props> = ({
       break;
     };
   }, []);
-
+  
   return (
     <article className={styles.card}>
 

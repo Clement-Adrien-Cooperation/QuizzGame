@@ -1,6 +1,6 @@
-import type { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction } from 'react';
+import type { Dispatch, FormEvent, FunctionComponent, SetStateAction } from 'react';
 import type { Question } from '@prisma/client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import InputField from '../../InputField/InputField';
 import Warning from '../../Warning/Warning';
 import styles from './QuestionForm.module.scss';
@@ -51,9 +51,8 @@ const QuestionForm: FunctionComponent<Props> = ({
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [disableButton, setDisableButton] = useState<boolean>(false);
 
-  const handleChangeQuestion = (event: ChangeEvent<HTMLInputElement>) => {
-
-    if(question.trim().length > 100) {
+  useEffect(() => {
+    if(question.length > 100) {
 
       setWarningMessage('La question ne doit pas excéder 100 caractères');
       setDisableButton(true);
@@ -65,33 +64,15 @@ const QuestionForm: FunctionComponent<Props> = ({
         setDisableButton(false);
       };
     };
+  }, [question]);
 
-    setQuestion(event.target.value);
-  };
+  useEffect(() => {
+    if(answer.length > 50
+    || proposal1.length > 50
+    || proposal2.length > 50
+    || proposal3.length > 50) {
 
-  const handleChangeAnswer = (event: ChangeEvent<HTMLInputElement>) => {
-
-    if(answer.trim().length > 50) {
-
-      setWarningMessage('La réponse ne doit pas excéder 50 caractères');
-      setDisableButton(true);
-
-    } else {
-      setWarningMessage('');
-      
-      if(disableButton) {
-        setDisableButton(false);
-      };
-    };
-
-    setAnswer(event.target.value);
-  };
-
-  const handleChangeProposal1 = (event: ChangeEvent<HTMLInputElement>) => {
-
-    if(proposal1.trim().length > 50) {
-
-      setWarningMessage('Les propositions ne doivent pas excéder 50 caractères');
+      setWarningMessage('La réponse et les propositions ne doivent pas excéder 50 caractères');
       setDisableButton(true);
 
     } else {
@@ -101,50 +82,10 @@ const QuestionForm: FunctionComponent<Props> = ({
         setDisableButton(false);
       };
     };
+  }, [answer, proposal1, proposal2, proposal3]);
 
-    setProposal1(event.target.value);
-  };
-
-  const handleChangeProposal2 = (event: ChangeEvent<HTMLInputElement>) => {
-
-    if(proposal2.trim().length > 50) {
-
-      setWarningMessage('Les propositions ne doivent pas excéder 50 caractères');
-      setDisableButton(true);
-
-    } else {
-      setWarningMessage('');
-
-      if(disableButton) {
-        setDisableButton(false);
-      };
-    };
-
-    setProposal2(event.target.value);
-  };
-
-  const handleChangeProposal3 = (event: ChangeEvent<HTMLInputElement>) => {
-
-    if(proposal3.trim().length > 50) {
-
-      setWarningMessage('Les propositions ne doivent pas excéder 50 caractères');
-      setDisableButton(true);
-
-    } else {
-      setWarningMessage('');
-
-      if(disableButton) {
-        setDisableButton(false);
-      };
-    };
-
-    setProposal3(event.target.value);
-  };
-
-  const handleChangeDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
-
-    if(description.trim().length > 500) {
-
+  useEffect(() => {
+    if(description.length > 500) {
       setWarningMessage('La description ne doit pas excéder 500 caractères');
       setDisableButton(true);
     } else {
@@ -154,18 +95,24 @@ const QuestionForm: FunctionComponent<Props> = ({
         setDisableButton(false);
       };
     };
-    
-    setDescription(event.target.value);
-  };
+  }, [description]);
 
   const checkForm = () => {
-    
-    if (question.length > 100) {
+
+    if(question.trim() === ''
+    || answer.trim() === ''
+    || proposal1.trim() === ''
+    || proposal2.trim() === ''
+    || proposal3.trim() === '') {
+
+      setWarningMessage('La question, la bonne réponse et les propositions doivent être valides');
+
+    } else if(question.length > 100) {
 
       setWarningMessage('La question ne doit pas excéder 100 caractères');
       setDisableButton(true);
 
-    } else if (description.length > 500) {
+    } else if(description.length > 500) {
 
       setWarningMessage('La description ne doit pas excéder 500 caractères');
       setDisableButton(true);
@@ -178,7 +125,6 @@ const QuestionForm: FunctionComponent<Props> = ({
     ) {
       setWarningMessage('Les proposositions et la réponse ne doivent pas excéder 100 caractères');
       setDisableButton(true);
-
     } else {
       return true;
     };
@@ -186,14 +132,13 @@ const QuestionForm: FunctionComponent<Props> = ({
 
   const handleSubmitForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-      
+
     if(checkForm()) {
-      
       // Copy array from state
       const previousQuestions = [...questions];
 
       // push updated proposals in a new array
-      const proposals = [proposal1, proposal2, proposal3];
+      const proposals = [proposal1.trim(), proposal2.trim(), proposal3.trim()];
 
       if(updating) {
         // set up the new question
@@ -201,10 +146,10 @@ const QuestionForm: FunctionComponent<Props> = ({
           id: questionID,
           quiz_id: '',
           user_id: '',
-          question,
-          answer,
+          question: question.trim(),
+          answer: answer.trim(),
           proposals,
-          description
+          description: description.trim()
         };
 
         // If user is currently updating a question, update the good one
@@ -218,14 +163,14 @@ const QuestionForm: FunctionComponent<Props> = ({
           id: '',
           quiz_id: '',
           user_id: '',
-          question,
-          answer,
+          question: question.trim(),
+          answer: answer.trim(),
           proposals,
-          description
+          description: description.trim()
         };
         // If user is creating a new question, add it to previous questions
         const newQuestions = [...previousQuestions, newQuestion];
-        
+
         // Then update the state
         setQuestions(newQuestions);
       };
@@ -235,13 +180,13 @@ const QuestionForm: FunctionComponent<Props> = ({
   };
 
   return (
-    <>        
-      {warningMessage && (
+    <>
+      {warningMessage &&
         <Warning
           warningMessage={warningMessage}
           setWarningMessage={setWarningMessage}
         />
-      )}
+      }
 
       <form
         className={styles.form}
@@ -256,7 +201,7 @@ const QuestionForm: FunctionComponent<Props> = ({
           isDisabled={false}
           required={true}
           autoFocus={true}
-          handleFunction={handleChangeQuestion}
+          setState={setQuestion}
         />
 
         <InputField
@@ -267,7 +212,7 @@ const QuestionForm: FunctionComponent<Props> = ({
           isDisabled={false}
           required={true}
           autoFocus={false}
-          handleFunction={handleChangeAnswer}
+          setState={setAnswer}
         />
 
         <InputField
@@ -278,7 +223,7 @@ const QuestionForm: FunctionComponent<Props> = ({
           isDisabled={false}
           required={true}
           autoFocus={false}
-          handleFunction={handleChangeProposal1}
+          setState={setProposal1}
         />
 
         <InputField
@@ -289,7 +234,7 @@ const QuestionForm: FunctionComponent<Props> = ({
           isDisabled={false}
           required={true}
           autoFocus={false}
-          handleFunction={handleChangeProposal2}
+          setState={setProposal2}
         />
 
         <InputField
@@ -300,18 +245,17 @@ const QuestionForm: FunctionComponent<Props> = ({
           isDisabled={false}
           required={true}
           autoFocus={false}
-          handleFunction={handleChangeProposal3}
+          setState={setProposal3}
         />
-        
+
         <TextArea
           inputID={"description"}
           label={"Précisions / anecdotes"}
           state={description}
-          handleFunction={handleChangeDescription}
+          setState={setDescription}
           title={"Vous pouvez ajouter des précisions ou anecdotes concernant votre question. Elle n'apparaitront qu'après que le joueur ai répondu."}
           required={false}
         />
-
 
         <button
           className={styles.submit}

@@ -1,6 +1,6 @@
 import type { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction } from 'react';
 import type { Category, Question, Quiz, User } from '@prisma/client';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
 import { api } from '../../api/api';
@@ -35,16 +35,15 @@ const EditQuiz: FunctionComponent<Props> = ({
   const [title, setTitle] = useState<string>('');
 
   const [category, setCategory] = useState<string>('');
-  const [defaultCategory, setDefaultCategory] = useState<string>('Choisir une catégorie...');
   const [categoriesList, setCategoriesList] = useState<string[]>([]);
-  
+
   const [difficulty, setDifficulty] = useState<string>('Normal');
   const [difficultyRange, setDifficultyRange] = useState<number>(2);
   const [rangeColor, setRangeColor] = useState<string>(`var(--medium)`);
   const [colorDifficultyName, setColorDifficultyName] = useState<string>('var(--yellow)');
 
   const [questions, setQuestions] = useState<Question[]>([]);
-  
+
   const [message, setMessage] = useState<string>('');
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [disableButton, setDisableButton] = useState<boolean>(false);
@@ -56,7 +55,7 @@ const EditQuiz: FunctionComponent<Props> = ({
     if(router.pathname.includes('quizz/create')) {
       setPageTitle("Créer un s'Quizz");
     } else {
-      
+
       if(userLogged.id === quizData.user_id) {
 
         setPageTitle(`Modifier le quiz "${router.query.slug}"`);
@@ -71,8 +70,6 @@ const EditQuiz: FunctionComponent<Props> = ({
     };
   }, []);
 
-    console.log(" ----   RENDER   ----  ");
-
   const setCategories = () => {
 
     const categoriesArray: string[] = [];
@@ -83,14 +80,13 @@ const EditQuiz: FunctionComponent<Props> = ({
   };
 
   const setPreviousData = (quizData: Quiz) => {
-    
+
     setQuizID(quizData.id);
 
     setCurrentTitle(quizData.title);
     setTitle(quizData.title);
 
     setCategory(quizData.category);
-    setDefaultCategory(quizData.category);
 
     setDifficulty(quizData.difficulty);
     setPreviousDifficulty();
@@ -131,26 +127,29 @@ const EditQuiz: FunctionComponent<Props> = ({
         break;
     };
   };
-  
+
   const checkForm = () => {
 
     if(title.trim() === '') {
       setWarningMessage('Vous devez choisir un titre');
 
-    } else if(category.trim() === '' || !categoriesList.includes(category)) {
+    } else if(title.trim().length > 50) {
+      setWarningMessage('Le titre de votre quiz ne doit pas contenir plus de 50 caractères');
+
+    } else if(!categoriesList.includes(category)) {
       setWarningMessage('Vous devez choisir une catégorie valide');
 
     } else if(difficultyRange < 0 || difficultyRange > 4 ) {
       setWarningMessage("La difficulté n'est pas valide");
-      
+
     } else {
       return true;
     };
   };
 
-  const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
-    if(event.target.value.length > 50) {
-      setWarningMessage('Le titre de votre quizz ne doit pas contenir plus de 50 caractères');
+  useEffect(() => {
+    if(title.trim().length > 50) {
+      setWarningMessage('Le titre de votre quiz ne doit pas contenir plus de 50 caractères');
       setDisableButton(true);
     } else {
       setWarningMessage('');
@@ -158,13 +157,7 @@ const EditQuiz: FunctionComponent<Props> = ({
         setDisableButton(false);
       };
     };
-
-    setTitle(event.target.value);
-  };
-
-  const handleChangeCategory = (event: ChangeEvent<HTMLSelectElement>) => {
-    setCategory(event.target.value);
-  };
+  }, [title]);
 
   const handleChangeDifficulty = (event: ChangeEvent<HTMLInputElement>) => {
     
@@ -273,7 +266,7 @@ const EditQuiz: FunctionComponent<Props> = ({
     const body = {
       user_id: userLogged.id,
       creator: userLogged.pseudo,
-      title,
+      title: title.trim(),
       nbOfQuestions: questions.length,
       nbOfPlayed: 0,
       category,
@@ -303,13 +296,13 @@ const EditQuiz: FunctionComponent<Props> = ({
   };
 
   const updateQuiz = async() => {
-      
+
     const token = localStorage.getItem('token');
 
     const body = {
       user_id: userLogged.id,
       currentTitle,
-      title,
+      title: title.trim(),
       category,
       difficulty,
       nbOfQuestions: questions.length
@@ -420,14 +413,14 @@ const EditQuiz: FunctionComponent<Props> = ({
         <QuizForm
           title={title}
           categoriesList={categoriesList}
-          defaultCategory={defaultCategory}
+          category={category}
           difficulty={difficulty}
           difficultyRange={difficultyRange}
           rangeColor={rangeColor}
           colorDifficultyName={colorDifficultyName}
           handleChangeDifficulty={handleChangeDifficulty}
-          handleChangeTitle={handleChangeTitle}
-          handleChangeCategory={handleChangeCategory}
+          setTitle={setTitle}
+          setCategory={setCategory}
         />
 
         {warningMessage &&

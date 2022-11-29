@@ -33,5 +33,7 @@
 
 .container {
   @include flexCenter;
-  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 3rem;
+  padding: 10rem 4rem;
 }

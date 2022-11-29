@@ -1,5 +1,5 @@
-import type { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction } from 'react';
-import { useState } from 'react';
+import type { Dispatch, FormEvent, FunctionComponent, SetStateAction } from 'react';
+import { useState, useEffect } from 'react';
 import { api } from '../../../api/api';
 import InputField from '../../InputField/InputField';
 import Loader from '../../Loader/Loader';
@@ -28,35 +28,37 @@ const AdminMessage: FunctionComponent<Props> = ({
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
-  const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
     if(title.length > 50) {
       setWarningMessage("Le titre ne doit pas excéder 50 caractères");
     } else {
       setWarningMessage('');
     };
+  }, [title]);
 
-    setTitle(event.target.value);
-  };
-
-  const handleChangeMessage = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  useEffect(() => {
     if(message.length > 1000) {
       setWarningMessage("Le message ne doit pas excéder 1000 caractères");
     } else {
       setWarningMessage('');
     };
-
-    setMessage(event.target.value);
-  };
+  }, [message]);
 
   const checkForm = () => {
-    // If message is too long
+    // If message is too long, we warn admin
     if(message.length > 1000) {
-      // Warn admin
+
       setWarningMessage('Le message ne doit pas excéder 1000 caractères');
       return false;
 
     } else if(title.length > 50) {
+
       setWarningMessage('Le titre ne doit pas excéder 50 caractères');
+      return false;
+
+    } else if(title.trim() === '' || message.trim() === '') {
+
+      setWarningMessage('Veuillez remplir tous les champs');
       return false;
 
     } else {
@@ -181,14 +183,14 @@ const AdminMessage: FunctionComponent<Props> = ({
             isDisabled={false}
             required={true}
             autoFocus={true}
-            handleFunction={handleChangeTitle}
+            setState={setTitle}
           />
 
           <TextArea
             inputID={'admin-message'}
             label={'Message'}
             state={message}
-            handleFunction={handleChangeMessage}
+            setState={setMessage}
             title={`Écrivez un message à ${recipient}`}
             required={true}
           />

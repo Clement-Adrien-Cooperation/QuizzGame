@@ -45,8 +45,8 @@ body {
   --very-hard: linear-gradient(90deg, var(--red) 100%, var(--input-color) 100%);
 }
 
-.icon {
-  filter: brightness(100%)
+svg {
+  filter: var(--icon-filter);
 }
 
 h1, h2, h3, h4{
@@ -57,20 +57,5 @@ h1, h2, h3, h4{
 @media screen and (min-width: 850px) {
   body {
     margin-left: var(--navbar-width);
-  }
-}
-
-@keyframes animShake {
-  10% {
-    transform: rotate(15deg);
-  }
-  20% {
-    transform: rotate(-15deg);
-  }
-  30% {
-    transform: rotate(15deg);
-  }
-  40% {
-    transform: rotate(-15deg);
   }
 }

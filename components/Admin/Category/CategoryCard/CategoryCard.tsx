@@ -1,10 +1,10 @@
 import type { Category } from '@prisma/client';
 import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
-import { api } from '../../../api/api';
-import Image from 'next/image';
-import trash from '../../../public/icons/delete.svg';
+import { api } from '../../../../api/api';
+
 import styles from './CategoryCard.module.scss';
-import ImageButton from '../../ImageButton/ImageButton';
+import IconButton from '../../../IconButton/IconButton';
+import IconTrash from '../../../Icons/IconTrash';
 
 type Props = {
   id: number,
@@ -61,12 +61,12 @@ const CategoryCard: FunctionComponent<Props> = ({
       </header>
 
       <footer>
-        <ImageButton
-          title={"Supprimer cette catégorie"}
-          img={trash}
-          alt={"Une poubelle"}
+        <IconButton
+          title="Supprimer cette catégorie"
           handleFunction={handleDeleteCategory}
-        />
+        >
+          <IconTrash />
+        </IconButton>
       </footer>
     </article>
   );

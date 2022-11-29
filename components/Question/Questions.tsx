@@ -63,10 +63,6 @@ const Questions: FunctionComponent<Props> = ({
     };
   };
 
-  const handleChangeQuestionFilter = (event: ChangeEvent<HTMLInputElement>) => {
-    setQuestionFilter(event.target.value);
-  };
-
   return (
     <section className={styles.container}>
 
@@ -96,11 +92,11 @@ const Questions: FunctionComponent<Props> = ({
           {questions.length > 0 &&
             <>
               <section className={styles.header}>
-                  
+
                 <h2 className={styles.title}>
                   {questions.length} {questions.length < 2 ? 'question' : 'questions'}
                 </h2>
-                
+
                 <button
                   className={styles.button}
                   type='button'
@@ -114,13 +110,12 @@ const Questions: FunctionComponent<Props> = ({
                   Ajouter une question
                 </button>
               </section>
-              
+
               {questions.length < 10 &&
                 <span className={styles.warning}>
                   Pour être jouable, votre quiz doit contenir au moins 10 questions
                 </span>
               }
-
 
               {questions.length > 10 &&
                 <div
@@ -136,7 +131,7 @@ const Questions: FunctionComponent<Props> = ({
                     isDisabled={false}
                     required={true}
                     autoFocus={true}
-                    handleFunction={handleChangeQuestionFilter}
+                    setState={setQuestionFilter}
                   />
                 </div>
               }

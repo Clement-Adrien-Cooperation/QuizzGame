@@ -1,11 +1,11 @@
-import type { FunctionComponent, ChangeEventHandler } from 'react';
+import type { FunctionComponent, Dispatch, SetStateAction } from 'react';
 import styles from './TextArea.module.scss';
 
 type Props = {
   inputID: string,
   label: string,
   state: string,
-  handleFunction: ChangeEventHandler<HTMLTextAreaElement>,
+  setState: Dispatch<SetStateAction<string>>,
   title: string,
   required: boolean
 };
@@ -14,7 +14,7 @@ const TextArea: FunctionComponent<Props> = ({
   inputID,
   label,
   state,
-  handleFunction,
+  setState,
   title,
   required
 }) => {
@@ -29,7 +29,7 @@ const TextArea: FunctionComponent<Props> = ({
         value={state}
         id={inputID}
         required={required}
-        onChange={handleFunction}
+        onChange={e => setState(e.target.value)}
       />
 
       <label

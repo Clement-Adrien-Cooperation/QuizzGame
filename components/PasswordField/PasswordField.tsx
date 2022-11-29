@@ -1,10 +1,9 @@
-import type { ChangeEvent, Dispatch, FunctionComponent, SetStateAction } from 'react';
+import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import { useState } from 'react';
-import Image from 'next/image';
 import styles from './PasswordField.module.scss';
 import InputField from '../InputField/InputField';
-import eye_visible from '../../public/icons/eye_visible.svg';
-import eye_hidden from '../../public/icons/eye_hidden.svg';
+import IconEye from '../Icons/IconEye';
+import IconHiddenEye from '../Icons/IconHiddenEye';
 
 type Props = {
   name: string,
@@ -22,10 +21,6 @@ const PasswordField: FunctionComponent<Props> = ({
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const handleChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
-
   return(
     <div className={styles.input}>
       <InputField
@@ -36,10 +31,10 @@ const PasswordField: FunctionComponent<Props> = ({
         isDisabled={false}
         required={true}
         autoFocus={false}
-        handleFunction={handleChangePassword}
+        setState={setPassword}
       />
 
-      {password.length < 1 ? '' :
+      {password.length > 0 &&
         <button
           className={styles.icon}
           type='button'
@@ -47,13 +42,7 @@ const PasswordField: FunctionComponent<Props> = ({
           aria-label={showPassword ? "Cacher le mot de passe" : "Montrer le mot de passe"}
           onClick={() => setShowPassword(!showPassword)}
         >
-          <Image
-            layout="responsive"
-            width='32'
-            height='32'
-            alt={showPassword ? "Un oeil" : "Un oeil barré"}
-            src={showPassword ? eye_hidden : eye_visible}
-          />
+          {showPassword ? <IconEye /> : <IconHiddenEye />}
         </button>
       }
     </div>

@@ -1,11 +1,10 @@
 import type { FunctionComponent } from 'react';
 import { useForm, ValidationError } from '@formspree/react';
 import styles from './ContactForm.module.scss';
-import Image from 'next/image';
-import send from '../../public/icons/send.svg';
+import IconSend from '../Icons/IconSend';
 
 const ContactForm: FunctionComponent = () => {
-  
+
   const [state, handleSubmit] = useForm('mknkynke');
 
   if (state.succeeded) {
@@ -19,7 +18,7 @@ const ContactForm: FunctionComponent = () => {
   };
 
   return (
-  <form
+    <form
       className={styles.form}
       onSubmit={handleSubmit}
     >
@@ -31,6 +30,7 @@ const ContactForm: FunctionComponent = () => {
         autoFocus
         placeholder='Votre adresse mail'
       />
+
       <ValidationError
         prefix='Email'
         field='email'
@@ -43,7 +43,7 @@ const ContactForm: FunctionComponent = () => {
         name='message'
         placeholder='Envoyez nous un message'
       />
-      
+
       <ValidationError
         prefix='Message'
         field='message'
@@ -58,14 +58,9 @@ const ContactForm: FunctionComponent = () => {
         disabled={state.submitting}
       >
         <div className={styles.icon}>
-          <Image
-            src={send}
-            width='32px'
-            height='32px'
-            layout='responsive'
-            alt='Envoyer le message'
-          />
+          <IconSend color={"var(--white)"} />
         </div>
+
         <span className={styles.span}>
           Envoyer
         </span>

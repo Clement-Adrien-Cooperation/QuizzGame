@@ -1,10 +1,10 @@
-import type { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction } from 'react';
+import type { Dispatch, FormEvent, FunctionComponent, SetStateAction } from 'react';
 import type { Category } from '@prisma/client';
-import { useState } from 'react';
-import { api } from '../../../api/api';
-import InputField from '../../InputField/InputField';
-import Message from '../../Message/Message';
-import Warning from '../../Warning/Warning';
+import { useState, useEffect } from 'react';
+import { api } from '../../../../api/api';
+import InputField from '../../../InputField/InputField';
+import Message from '../../../Message/Message';
+import Warning from '../../../Warning/Warning';
 import styles from './CategoryForm.module.scss';
 
 type Props = {
@@ -25,9 +25,7 @@ const CategoryForm: FunctionComponent<Props> = ({
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [disableButton, setDisableButton] = useState<boolean>(false);
 
-  const handleChangeCategoryName = (event: ChangeEvent<HTMLInputElement>) => {
-    setCategoryName(event.target.value);
-
+  useEffect(() => {
     if(categoryName.length > 30) {
       setWarningMessage("Le nom d'une catégorie ne doit pas excéder 30 caractères");
       setDisableButton(true);
@@ -35,13 +33,19 @@ const CategoryForm: FunctionComponent<Props> = ({
       setWarningMessage('');
       setDisableButton(false);
     };
-  };
+  }, [categoryName]);
 
   const checkForm = () => {
     if(categoryName.length > 30) {
       setWarningMessage("Le nom d'une catégorie ne doit pas excéder 30 caractères");
       setDisableButton(true);
       return false;
+
+    } else if(categoryName.trim() === '') {
+      setWarningMessage("Entre un nom de catégorie valide");
+      setDisableButton(true);
+      return false;
+
     } else {
       return true;
     };
@@ -118,7 +122,7 @@ const CategoryForm: FunctionComponent<Props> = ({
           isDisabled={false}
           required={true}
           autoFocus={false}
-          handleFunction={handleChangeCategoryName}
+          setState={setCategoryName}
         />
         
         <button
@@ -132,19 +136,19 @@ const CategoryForm: FunctionComponent<Props> = ({
         </button>
       </form>
 
-      {message && (
+      {message &&
         <Message
           message={message}
           setMessage={setMessage}
         />
-      )}
+      }
 
-      {warningMessage && (
+      {warningMessage &&
         <Warning
           warningMessage={warningMessage}
           setWarningMessage={setWarningMessage}
         />
-      )}
+      }
     </>
   );
 };

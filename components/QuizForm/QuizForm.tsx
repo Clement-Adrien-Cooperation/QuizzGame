@@ -1,4 +1,4 @@
-import type { ChangeEventHandler, FunctionComponent } from 'react';
+import type { ChangeEventHandler, FunctionComponent, Dispatch, SetStateAction } from 'react';
 import InputField from '../InputField/InputField';
 import RangeSlider from '../RangeSlider/RangeSlider';
 import SelectField from '../SelectField/SelectField';
@@ -7,27 +7,27 @@ import styles from './QuizForm.module.scss';
 type Props = {
   title: string,
   categoriesList: string[],
-  defaultCategory: string,
+  category: string,
   difficulty: string,
   difficultyRange: number,
   rangeColor: string,
   colorDifficultyName: string,
   handleChangeDifficulty: ChangeEventHandler<HTMLInputElement>,
-  handleChangeTitle: ChangeEventHandler<HTMLInputElement>,
-  handleChangeCategory: ChangeEventHandler<HTMLSelectElement>
+  setCategory: Dispatch<SetStateAction<string>>,
+  setTitle: Dispatch<SetStateAction<string>>
 };
 
 const QuizForm: FunctionComponent<Props> = ({
   title,
   categoriesList,
-  defaultCategory,
+  category,
   difficulty,
   difficultyRange,
   rangeColor,
   colorDifficultyName,
   handleChangeDifficulty,
-  handleChangeTitle,
-  handleChangeCategory
+  setTitle,
+  setCategory
 }) => {
 
   return (
@@ -40,15 +40,16 @@ const QuizForm: FunctionComponent<Props> = ({
         isDisabled={false}
         required={true}
         autoFocus={true}
-        handleFunction={(e) => handleChangeTitle(e)}
+        setState={setTitle}
       />
 
       <SelectField
         name={'Catégorie'}
-        defaultOption={defaultCategory}
+        state={category}
         options={categoriesList}
+        defaultOption={"Choisir une catégorie..."}
         isDisabled={false}
-        handleFunction={(e) => handleChangeCategory(e)}
+        setState={setCategory}
       />
 
       <RangeSlider
