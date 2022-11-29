@@ -1,0 +1,28 @@
+@import '../../styles/mixins';
+
+.infos {
+  @include flexCenter;
+  flex-direction: column;
+  height: 0;
+  overflow: hidden;
+  transition: height .3s;
+
+  &__title {
+    margin: 30px 0;
+    font-size: 20px;
+    font-weight: 300;
+  }
+
+  &.opened {
+    height: 600px;
+  }
+}
+
+.cancel {
+  @include secondaryButton;
+  margin-bottom: 20px;
+}
+
+.delete {
+  @include underlineButton;
+}

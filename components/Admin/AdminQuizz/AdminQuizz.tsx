@@ -20,10 +20,6 @@ const AdminQuizz: FunctionComponent<Props> = ({
 
   const [quizzFilter, setQuizzFilter] = useState<string>('');
 
-  const handleChangeQuizzFilter = (event: ChangeEvent<HTMLInputElement>) => {
-    setQuizzFilter(event.target.value);
-  };
-
   return (
     <>
       <header className={styles.header}>
@@ -45,7 +41,7 @@ const AdminQuizz: FunctionComponent<Props> = ({
               isDisabled={false}
               required={true}
               autoFocus={true}
-              handleFunction={handleChangeQuizzFilter}
+              setState={setQuizzFilter}
             />
           </div>
         }

@@ -4,12 +4,9 @@ import type { Quiz, User } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { api } from '../../api/api';
-import { v4 as uuidv4 } from 'uuid';
-import ConfirmModal from '../../components/ConfirmModal/ConfirmModal';
-import EditUser from '../../components/EditUser/EditUser';
-import UserQuizCard from '../../components/UserQuizCard/UserQuizCard';
-import Warning from '../../components/Warning/Warning';
 import styles from '../../styles/Profile.module.scss';
+import UserQuizz from '../../components/UserQuizz/UserQuizz';
+import UserInfos from '../../components/UserInfos/UserInfos';
 
 type Props = {
   isLogged: boolean,
@@ -32,13 +29,10 @@ const Profile: NextPage<Props> = ({
   const router = useRouter();
 
   const [userQuizz, setUserQuizz] = useState<Quiz[]>([]);
-  
-  const [updateProfile, setUpdateProfile] = useState<boolean>(false);
-  const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
-  const [warningMessage, setWarningMessage] = useState<string>('');
-  
-  useEffect(() => {
 
+  const [updateProfile, setUpdateProfile] = useState<boolean>(false);
+
+  useEffect(() => {
     if(isLogged) {
       if(userLogged.is_banished) {
         router.push('/banned');
@@ -72,40 +66,13 @@ const Profile: NextPage<Props> = ({
     });
   };
 
-  const handleDeleteUser = async () => {
-    
-    setShowLoader(true);
-    const token = localStorage.getItem('token');
-
-    await fetch(`${api}/user/delete`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'authorization': `${token}`
-      },
-      body: JSON.stringify({ user_id: userLogged.id })
-    })
-    .then(async(res) => {
-      if(res.status === 200) {
-        handleDisconnect();
-      } else {
-        setWarningMessage('Une erreur est survenue. Réessayez ou contactez-nous');
-      };
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-
-    setShowLoader(false);
-  };
-
   return (
     <>
       <header className={styles.header}>
         <h1 className={styles.title}>
           Ma page de profil
         </h1>
-        
+
         <button
           className={styles.update}
           type='button'
@@ -118,52 +85,17 @@ const Profile: NextPage<Props> = ({
       </header>
 
       <div className={styles.container}>
-        <section
-          className={updateProfile ?
-            `${styles.infos} ${styles.opened}`
-          :
-            `${styles.infos}`
-          }
-        >
-          <h2 className={styles.infos__title}>
-            Modifier mon profil
-          </h2>
 
-          <EditUser
-            isLogged={isLogged}
-            userLogged={userLogged}
-            setIsLogged={setIsLogged}
-            setUserLogged={setUserLogged}
-            setShowLoader={setShowLoader}
-          />
-
-          <button
-            className={styles.cancel}
-            type='button'
-            title="Fermer le formulaire de modification du profil"
-            aria-label="Fermer le formulaire de modification du profil"
-            onClick={() => setUpdateProfile(!updateProfile)}
-          >
-            Annuler
-          </button>
-
-          <button
-            className={styles.delete}
-            type='button'
-            title='Supprimer définitivement mon compte'
-            aria-label='Supprimer définitivement mon compte'
-            onClick={() => setShowConfirmDelete(true)}
-          >
-            Supprimer mon compte
-          </button>
-
-          {warningMessage && (
-            <Warning
-              warningMessage={warningMessage}
-              setWarningMessage={setWarningMessage}
-            />
-          )}
-        </section>
+        <UserInfos
+          updateProfile={updateProfile}
+          isLogged={isLogged}
+          userLogged={userLogged}
+          setIsLogged={setIsLogged}
+          setUserLogged={setUserLogged}
+          setShowLoader={setShowLoader}
+          setUpdateProfile={setUpdateProfile}
+          handleDisconnect={handleDisconnect}
+        />
       </div>
 
       {userQuizz?.length === 0 ?
@@ -185,35 +117,14 @@ const Profile: NextPage<Props> = ({
         </section>
       :
         <section className={styles.container}>
-          <h2 className={styles.container__title}>
-            Mes Quizz
-          </h2>
-
-          <ul className={styles.list}>
-
-            {userQuizz?.map((quiz: Quiz) =>
-
-              <li key={uuidv4()}>
-                <UserQuizCard
-                  quiz={quiz}
-                  userLogged={userLogged}
-                  getQuizzFromUser={getQuizzFromUser}
-                  setShowLoader={setShowLoader}
-                />
-              </li>
-            )}
-          </ul>
+          <UserQuizz
+            quizz={userQuizz}
+            userLogged={userLogged}
+            getQuizzFromUser={getQuizzFromUser}
+            setShowLoader={setShowLoader}
+          />
         </section>
       }
-
-      {showConfirmDelete && (
-        <ConfirmModal
-          message={'Êtes vous certain de vouloir supprimer votre compte ?'}
-          text={'Tous les quizz et les questions liées, ainsi que tous vos commentaires seront supprimés définitivement.'}
-          handleFunction={handleDeleteUser}
-          closeModal={() => setShowConfirmDelete(false)}
-        />
-      )}
     </>
   );
 };

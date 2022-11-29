@@ -20,10 +20,6 @@ const AdminDeletedQuizz: FunctionComponent<Props> = ({
 
   const [deletedQuizzFilter, setDeletedQuizzFilter] = useState<string>('');
 
-  const handleChangeDeletedQuizzFilter = (event: ChangeEvent<HTMLInputElement>) => {
-    setDeletedQuizzFilter(event.target.value);
-  };
-
   return (
     <>
       <header className={styles.header}>
@@ -45,7 +41,7 @@ const AdminDeletedQuizz: FunctionComponent<Props> = ({
               isDisabled={false}
               required={true}
               autoFocus={false}
-              handleFunction={handleChangeDeletedQuizzFilter}
+              setState={setDeletedQuizzFilter}
             />
           </div>
         }
