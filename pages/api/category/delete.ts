@@ -20,7 +20,7 @@ export default isAdmin(async function handle (
     });
 
     res.status(200).json(categories);
-    
+
   } catch (error){
     res.status(404).json(error);
   };

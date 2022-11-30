@@ -27,7 +27,7 @@ const Warning: FunctionComponent<Props> = ({
       >
         &times;
       </button>
-      
+
     </div>
   );
 };

@@ -20,7 +20,7 @@ export default checkUser(async function handle (
     });
 
     res.status(200).json(quiz);
-    
+
   } catch (error){
     res.status(404).json(error);
   };

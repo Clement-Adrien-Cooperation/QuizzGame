@@ -29,7 +29,7 @@ const QuestionDetails: FunctionComponent<Props> = ({
               key={uuidv4()}
             >
               {proposal}
-            </li>  
+            </li>
           )}
         </ul>
       </section>

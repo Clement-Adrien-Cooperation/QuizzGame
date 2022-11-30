@@ -9,7 +9,7 @@ export const checkBanishedUser = (fn: NextApiHandler) => async (
   const secret: any = process.env.JWT_SECRET;
 
   verify(req.headers.authorization!, secret, async(err: any, decoded: any) => {
-    
+
     if(!err && decoded) {
       try {
         // get user from database
@@ -23,7 +23,7 @@ export const checkBanishedUser = (fn: NextApiHandler) => async (
         if(user) {
           // verify if user is admin
           if(user.is_admin === true) {
-            
+
             // we return original API call
             return await fn(req, res);
 
@@ -34,9 +34,9 @@ export const checkBanishedUser = (fn: NextApiHandler) => async (
 
           // & if this is the right user
           } else if(user.id !== req.body.user_id) {
-            
+
             res.status(401).json({message: "L'ID de l'utilisateur ne correspond pas"});
-          
+
           } else {
             // if everything is ok, we return the original API call
             return await fn(req, res);

@@ -36,7 +36,7 @@ const AdminHeader: FunctionComponent = () => {
               </a>
             </Link>
           </li>
-          
+
           <li
             key={uuidv4()}
             title="Gérer les quizz"
@@ -74,7 +74,7 @@ const AdminHeader: FunctionComponent = () => {
               </a>
             </Link>
           </li>
-          
+
           <li
             key={uuidv4()}
             title="Gérer les signalements"

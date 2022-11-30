@@ -34,13 +34,13 @@ const QuizCard: FunctionComponent<Props> = ({
       case quiz.difficulty === 'Très difficile' :
         setBackgroundColor('var(--red)');
       break;
-        
+
       default:
         setBackgroundColor('var(--yellow)');
       break;
     };
   }, []);
-  
+
   return (
     <article className={styles.card}>
 
@@ -84,7 +84,7 @@ const QuizCard: FunctionComponent<Props> = ({
 
           {quiz.rate.length !== 0 &&
             <span className={styles.rate}>
-              
+
               <Stars
                 rate={quiz.rate}
               />
@@ -114,7 +114,7 @@ const QuizCard: FunctionComponent<Props> = ({
           {quiz.date}
         </p>
       </footer>
-      
+
     </article>
   );
 };

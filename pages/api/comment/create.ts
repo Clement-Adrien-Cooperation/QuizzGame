@@ -16,7 +16,7 @@ export default checkUser(async function handle (
     });
 
     res.status(201).json(comment);
-    
+
   } catch (error){
     res.status(404).json(error);
   };

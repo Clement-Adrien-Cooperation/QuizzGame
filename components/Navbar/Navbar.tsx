@@ -103,7 +103,7 @@ const Navbar: FunctionComponent<Props> = ({
             </Link>
           </li>
         )}
-        
+
         <li
           className={styles.list__item}
           title="Contactez nous"

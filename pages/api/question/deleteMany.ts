@@ -12,7 +12,7 @@ export default checkUser(async function handle (
         quiz_id: req.body.quiz_id
       }
     });
-    
+
   } catch (error){
     res.status(404).json(error);
   };

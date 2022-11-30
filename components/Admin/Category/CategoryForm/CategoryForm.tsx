@@ -84,7 +84,7 @@ const CategoryForm: FunctionComponent<Props> = ({
 
           // then, reset state
           setCategoryName('');
-          
+
         } else if(data.meta.target.includes('name')) {
 
           setWarningMessage('Cette catégorie existe déjà');
@@ -93,13 +93,13 @@ const CategoryForm: FunctionComponent<Props> = ({
         } else {
           setWarningMessage('Un problème est survenu');
         };
-        
+
         setDisableButton(false);
         setShowLoader(false);
       })
       .catch((error) => {
         setWarningMessage('Un problème est survenu');
-        
+
         setShowLoader(false);
         console.log(error);
       });
@@ -124,7 +124,7 @@ const CategoryForm: FunctionComponent<Props> = ({
           autoFocus={false}
           setState={setCategoryName}
         />
-        
+
         <button
           className={styles.button}
           type='submit'

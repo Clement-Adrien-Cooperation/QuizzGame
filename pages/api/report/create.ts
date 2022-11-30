@@ -14,7 +14,7 @@ export default authenticated(async function handle (
         ...req.body
       }
     });
-    
+
     res.status(201).json(report);
 
   } catch (error){

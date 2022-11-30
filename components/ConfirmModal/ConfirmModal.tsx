@@ -29,11 +29,11 @@ const ConfirmModal: FunctionComponent<Props> = ({
           {message}
         </p>
 
-        {text && (
+        {text &&
           <p className={styles.text}>
             {text}
           </p>
-        )}
+        }
 
         <div className={styles.buttons}>
 

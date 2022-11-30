@@ -11,13 +11,13 @@ export default async function handle (
         pseudo: req.body.pseudo
       }
     });
-    
+
     res.status(200).json({
       id: user?.id,
       pseudo: user?.pseudo,
       is_banished: user?.is_banished
     });
-    
+
   } catch (error){
     res.status(404).json(error);
   };

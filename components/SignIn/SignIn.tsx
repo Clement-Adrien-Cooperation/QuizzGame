@@ -69,7 +69,6 @@ const SignIn: FunctionComponent<Props> = ({
         setIsLogged(true);
         setShowLoader(false);
 
-        
         if(data.user.is_banished) {
           router.push('/banned');
         } else {
@@ -91,74 +90,71 @@ const SignIn: FunctionComponent<Props> = ({
   };
 
   return (
-    <>
-      <section className={styles.container}>
+    <section className={styles.container}>
 
-        <h1 className={styles.container__title}>
-          Se connecter
-        </h1>
+      <h1 className={styles.container__title}>
+        Se connecter
+      </h1>
 
-        <form
-          className={styles.form}
-          onSubmit={handleSubmitForm}
-        >
+      <form
+        className={styles.form}
+        onSubmit={handleSubmitForm}
+      >
+        <InputField
+          name={'Pseudo ou Email'}
+          state={pseudoOrEmail}
+          inputID={'ID'}
+          type={'text'}
+          isDisabled={false}
+          required={true}
+          autoFocus={true}
+          setState={setPseudoOrEmail}
+        />
 
-          <InputField
-            name={'Pseudo ou Email'}
-            state={pseudoOrEmail}
-            inputID={'ID'}
-            type={'text'}
-            isDisabled={false}
-            required={true}
-            autoFocus={true}
-            setState={setPseudoOrEmail}
+        <PasswordField
+          name={'Mot de passe'}
+          inputID={'password'}
+          password={password}
+          setPassword={setPassword}
+        />
+
+        <CheckButton
+          label={"Se souvenir de moi"}
+          id={"remember-me"}
+          title={"Me connecter automatiquement à ma prochaine visite"}
+          state={rememberMe}
+          setState={setRememberMe}
+        />
+
+        {warningMessage && 
+          <Warning
+            warningMessage={warningMessage}
+            setWarningMessage={setWarningMessage}
           />
+        }
 
-          <PasswordField
-            name={'Mot de passe'}
-            inputID={'password'}
-            password={password}
-            setPassword={setPassword}
-          />
+        <input
+          className={styles.submit_button}
+          title='Se connecter'
+          type='submit'
+          value='Connexion'
+          disabled={disableButton}
+        />
+      </form>
 
-          <CheckButton
-            label={"Se souvenir de moi"}
-            id={"remember-me"}
-            title={"Me connecter automatiquement à ma prochaine visite"}
-            state={rememberMe}
-            setState={setRememberMe}
-          />
+      <button
+        className={styles.secondary_button}
+        type='button'
+        title='Créer un nouveau compte'
+        aria-label='Créer un nouveau compte'
+        onClick={() => handleToggleForm()}
+      >
+        Nouveau ?
+        <br/>
+        Se créer un compte
+      </button>
 
-          {warningMessage && 
-            <Warning
-              warningMessage={warningMessage}
-              setWarningMessage={setWarningMessage}
-            />
-          }
-          
-          <input
-            className={styles.submit_button}
-            title='Se connecter'
-            type='submit'
-            value='Connexion'
-            disabled={disableButton}
-          />
-        </form>
-
-        <button
-          className={styles.secondary_button}
-          type='button'
-          title='Créer un nouveau compte'
-          aria-label='Créer un nouveau compte'
-          onClick={() => handleToggleForm()}
-        >
-          Nouveau ?
-          <br/>
-          Se créer un compte
-        </button>
-
-      </section>
-    </>
+    </section>
   );
 };
 

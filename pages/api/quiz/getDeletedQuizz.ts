@@ -13,7 +13,7 @@ export default isAdmin(async function handle (
       }
     });
     res.status(200).json(quizz);
-    
+
   } catch (error){
     res.status(404).json(error);
   };

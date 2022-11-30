@@ -28,7 +28,7 @@ const ReportedSubject: FunctionComponent<Props> = ({
   useEffect(() => {
     getSubject();
   }, []);
- 
+
   const getSubject = async() => {
     setShowLoader(true);
 
@@ -62,7 +62,7 @@ const ReportedSubject: FunctionComponent<Props> = ({
 
     setShowLoader(false);
   };
-  
+
   const sortingSubject = (data: any) => {
     // sort subject
     switch(true) {
@@ -89,19 +89,19 @@ const ReportedSubject: FunctionComponent<Props> = ({
             {title}
           </h5>
         </header>
-        
+
         {user &&
           <ReportedUser
             user={user}
           />
         }
-        
+
         {quiz &&
           <ReportedQuiz
             quiz={quiz}
           />
         }
-        
+
         {comment &&
           <ReportedComment
             comment={comment}

@@ -65,7 +65,7 @@ const PasswordValidation: FunctionComponent<Props> = ({
           setPassword={setConfirmPassword}
         />
       </div>
-  
+
       <ul
         className={
           showValidation ?

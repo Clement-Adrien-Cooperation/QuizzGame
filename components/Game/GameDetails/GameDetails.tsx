@@ -16,7 +16,7 @@ const GameDetails: FunctionComponent<Props> = ({
     <section className={styles.infos}>
       <p>
         Créé par
-        
+
         <Link href={`/profile/${quiz.creator}`}>
           <a className={styles.link}>
             <strong>{quiz.creator}</strong>

@@ -1,4 +1,4 @@
-import type { FunctionComponent, ChangeEvent } from 'react';
+import type { FunctionComponent } from 'react';
 import type { Report } from '@prisma/client';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -22,10 +22,6 @@ const ReportsLists: FunctionComponent<Props> = ({
 
   const [reportFilter, setReportFilter] = useState<string>('');
 
-  const handleChangeFilter = (event: ChangeEvent<HTMLInputElement>) => {
-    setReportFilter(event.target.value);
-  };
-
   return (
     <section
       className={styles.container}
@@ -47,12 +43,12 @@ const ReportsLists: FunctionComponent<Props> = ({
             <InputField
               name={'Filtrer...'}
               state={reportFilter}
-              handleFunction={handleChangeFilter}
               inputID={'filter'}
               type={'text'}
               isDisabled={false}
               required={true}
               autoFocus={false}
+              setState={setReportFilter}
             />
           </div>
         }

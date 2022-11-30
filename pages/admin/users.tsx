@@ -126,7 +126,7 @@ const Users: NextPage<Props> = ({
 
     setShowLoader(true);
     const token = localStorage.getItem('token');
-  
+
     // Fetch our API
     await fetch(`${api}/user/moderate`, {
       method: 'POST',
@@ -199,7 +199,7 @@ const Users: NextPage<Props> = ({
           <IconMail />
         </IconButton>
       </section>
-      
+
       <section className={styles.container}>
         <div id='users'>
           <AdminUsers

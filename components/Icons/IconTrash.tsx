@@ -9,7 +9,7 @@ const IconTrash: FunctionComponent<Props> = ({
 }) => {
 
   return (
-    <svg 
+    <svg
       aria-hidden="true"
       role="img"
       preserveAspectRatio="xMidYMid meet"

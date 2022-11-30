@@ -18,7 +18,7 @@ export default checkUser(async function handle (
         user_id: req.body.user_id
       }
     });
-  
+
     await db.question.deleteMany({
       where: {
         user_id: req.body.user_id
@@ -38,7 +38,7 @@ export default checkUser(async function handle (
     });
 
     res.status(200).json(deleteUser);
-  
+
   } catch (error){
     res.status(404).json(error);
   };

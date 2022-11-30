@@ -31,11 +31,10 @@ const AdminQuestionCard: FunctionComponent<Props> = ({
       <div
         className={showDetails ?
           `${styles.body} ${styles.opened}`
-        : 
+        :
           `${styles.body}`
         }
       >
-
         <p className={styles.answer}>
           {question.answer}
         </p>
@@ -47,7 +46,7 @@ const AdminQuestionCard: FunctionComponent<Props> = ({
               <p className={styles.proposal}>
                 {proposal}
               </p>
-            </li>  
+            </li>
           )}
         </ul>
 

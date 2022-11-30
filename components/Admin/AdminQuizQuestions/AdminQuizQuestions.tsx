@@ -1,5 +1,5 @@
 import type { Question } from '@prisma/client';
-import type { ChangeEvent, FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import { useEffect, useState } from 'react';
 import { api } from '../../../api/api';
 import { v4 as uuidv4 } from 'uuid';
@@ -32,19 +32,15 @@ const AdminQuizQuestions: FunctionComponent<Props> = ({
       body: JSON.stringify({ quiz_id: id })
     })
     .then(async(res) => {
-      
+
       const data = await res.json();
-      
+
       setQuestions(data);
       setShowLoader(false);
     })
     .catch((error) => {
       console.log(error);
     });
-  };
-
-  const handleChangeQuestionFilter = (event: ChangeEvent<HTMLInputElement>) => {
-    setQuestionFilter(event.target.value);
   };
 
   return (
@@ -63,7 +59,7 @@ const AdminQuizQuestions: FunctionComponent<Props> = ({
             isDisabled={false}
             required={true}
             autoFocus={true}
-            handleFunction={handleChangeQuestionFilter}
+            setState={setQuestionFilter}
           />
         </div>
       }

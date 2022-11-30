@@ -21,7 +21,7 @@ const AdminMessage: FunctionComponent<Props> = ({
   setNotification,
   setShowMessageForm
 }) => {
-  
+
   const [title, setTitle] = useState<string>('Message de la modération');
   const [message, setMessage] = useState<string>('');
 

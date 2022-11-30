@@ -44,7 +44,7 @@ const QuizzSlider: FunctionComponent<Props> = ({
     if(currentPosition >= 0) {
       setShowLeftArrow(false);
     };
-    
+
     const visibleQuizzWidth = getVisibleQuizzWidth();
 
     if(listWidth > visibleQuizzWidth

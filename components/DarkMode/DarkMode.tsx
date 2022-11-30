@@ -20,7 +20,6 @@ const DarkMode: FunctionComponent = () => {
 
   // This useEffect watch state of dark mode
   useEffect(() => {
-
     // If dark mode is on
     if(darkMode) {
       // Add classlist to body for colors in CSS

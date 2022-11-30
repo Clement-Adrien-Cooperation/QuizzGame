@@ -32,7 +32,7 @@ export default checkUser(async function handle (
     });
 
     res.status(200).json(deleteQuiz);
-  
+
   } catch (error){
     res.status(404).json(error);
   };

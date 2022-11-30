@@ -68,7 +68,7 @@ const ReportedUser: FunctionComponent<Props> = ({
         <p className={styles.info}>
           Administrateur : <span className={styles.content}>{user.is_admin ? '✅' : '❌'}</span>
         </p>
-        
+
         <p className={styles.info}>
           Banni : <span className={styles.content}>{banned ? '✅' : '❌'}</span>
         </p>
@@ -98,7 +98,6 @@ const ReportedUser: FunctionComponent<Props> = ({
         >
           {banned ? <IconUnban /> : <IconBan />}
         </IconButton>
-
       </footer>
 
       {showMessage &&

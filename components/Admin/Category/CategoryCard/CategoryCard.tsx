@@ -21,7 +21,7 @@ const CategoryCard: FunctionComponent<Props> = ({
 }) => {
 
   const handleDeleteCategory = async() => {
-    
+
     setShowLoader(true);
     const token = localStorage.getItem('token');
 
@@ -37,7 +37,6 @@ const CategoryCard: FunctionComponent<Props> = ({
       if(res.status === 200) {
 
         const data = await res.json();
-
         setCategories(data);
 
       } else {

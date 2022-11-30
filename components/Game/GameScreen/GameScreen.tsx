@@ -31,7 +31,7 @@ const GameScreen: FunctionComponent<Props> = ({
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
   const [goodAnswer, setGoodAnswer] = useState<boolean>(false);
-  
+
   const handleUserAnswer = (userAnswer: string) => {
 
     if(userAnswer === currentQuestion.answer) {
@@ -46,7 +46,6 @@ const GameScreen: FunctionComponent<Props> = ({
 
   const handleNextQuestion = () => {
     // Check if this is the last question
-    
     if(currentIndex === 10) {
       // Game if over
       handleGameOver();

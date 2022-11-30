@@ -12,11 +12,11 @@ export default isAdmin(async function handle (
         ...req.body
       }
     });
-    
+
     res.status(201).json(category);
-    
+
   } catch (error){
-    
+
     res.status(404).json(error);
   };
 });

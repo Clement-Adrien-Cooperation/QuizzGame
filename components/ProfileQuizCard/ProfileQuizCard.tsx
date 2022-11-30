@@ -34,7 +34,7 @@ const ProfileQuizCard: FunctionComponent<Props> = ({
       case quiz.difficulty === 'Très difficile' :
         setBackgroundColor('var(--red)');
       break;
-        
+
       default:
         setBackgroundColor('var(--yellow)');
       break;

@@ -33,7 +33,7 @@ const Stars: FunctionComponent<Props> = ({
     for(let j = 0; j < rating; j++) {
       filledStars.push('+1');
     };
-    
+
     for(let k = 0; k < 5 - rating; k++) {
       emptyStars.push('+1');
     };
@@ -41,14 +41,14 @@ const Stars: FunctionComponent<Props> = ({
     setEmpty(emptyStars);
     setFilled(filledStars);
   }, []);
-  
+
   return (
     <span
       className={styles.stars}
       title={`Ce quiz a été noté ${quizRate}/5 par ${rate.length} ${rate.length < 2 ? "utilisateur" : "utilisateurs"}`}
       aria-label={`Ce quiz a été noté ${quizRate}/5 par ${rate.length} ${rate.length < 2 ? "utilisateur" : "utilisateurs"}`}
     >
-      {filled?.map(star => 
+      {filled?.map(star =>
         <em
           className={styles.star}
           key={uuidv4()}
@@ -56,7 +56,7 @@ const Stars: FunctionComponent<Props> = ({
           &#9733;
         </em>
       )}
-      
+
       {empty?.map(star => 
         <em
           className={styles.star}

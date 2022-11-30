@@ -8,9 +8,9 @@ export default isAdmin(async function getAllUsers (
 ) {
   try {
     const users = await db.user.findMany();
-    
+
     res.status(200).json(users);
-    
+
   } catch (error){
     res.status(404).json(error);
   };

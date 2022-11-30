@@ -1,4 +1,4 @@
-import type { ChangeEvent, FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import type { User } from '@prisma/client';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -24,10 +24,6 @@ const AdminUsers: FunctionComponent<Props> = ({
 
   const [usersFilter, setUsersFilter] = useState<string>('');
 
-  const handleChangeFilter = (event: ChangeEvent<HTMLInputElement>) => {
-    setUsersFilter(event.target.value);
-  };
-
   return (
     <section className={styles.container}>
 
@@ -45,11 +41,11 @@ const AdminUsers: FunctionComponent<Props> = ({
             isDisabled={false}
             required={true}
             autoFocus={true}
-            handleFunction={handleChangeFilter}
+            setState={setUsersFilter}
           />
         </div>
       }
-      
+
       <ul>
         {users.map((user: User) => {
 

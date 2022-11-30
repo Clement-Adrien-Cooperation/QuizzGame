@@ -28,7 +28,7 @@ const GameOver: FunctionComponent<Props> = ({
       </header>
 
       <p className={styles.text}>
-        Votre score est de 
+        Votre score est de
 
         <span className={styles.score}>
           {score}

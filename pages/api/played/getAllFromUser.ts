@@ -11,11 +11,11 @@ export default async function handle (
         user_id: req.body.user_id
       }
     });
-    
+
     res.status(200).json(played);
-    
+
   } catch (error){
-    
+
     res.status(404).json(error);
   };
 };

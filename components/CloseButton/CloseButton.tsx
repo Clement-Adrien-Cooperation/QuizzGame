@@ -15,7 +15,7 @@ const CloseButton: FunctionComponent<Props> = ({
       type='button'
       title='Fermer'
       aria-label='Fermer'
-      onClick={() => handleFunction()}
+      onClick={handleFunction}
     >
       &times;
     </button>

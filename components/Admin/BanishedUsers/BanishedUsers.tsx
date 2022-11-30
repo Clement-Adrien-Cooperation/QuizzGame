@@ -24,10 +24,6 @@ const BanishedUsers: FunctionComponent<Props> = ({
 
   const [banishedUsersFilter, setBanishedUsersFilter] = useState<string>('');
 
-  const handleChangeFilter = (event: ChangeEvent<HTMLInputElement>) => {
-    setBanishedUsersFilter(event.target.value);
-  };
-
   return (
     <>
       {banishedUsers.length > 0 &&
@@ -46,7 +42,7 @@ const BanishedUsers: FunctionComponent<Props> = ({
                 isDisabled={false}
                 required={true}
                 autoFocus={false}
-                handleFunction={handleChangeFilter}
+                setState={setBanishedUsersFilter}
               />
             </div>
           }

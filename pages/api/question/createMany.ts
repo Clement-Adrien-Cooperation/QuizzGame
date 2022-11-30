@@ -12,7 +12,7 @@ export default authenticated(async function handle (
         quiz_id: req.body[0].quiz_id
       }
     });
-    
+
     const questions = await db.question.createMany({
       data: [
         ...req.body
@@ -20,7 +20,7 @@ export default authenticated(async function handle (
     });
 
     res.status(201).json(questions);
-    
+
   } catch (error){
     res.status(404).json(error);
   };

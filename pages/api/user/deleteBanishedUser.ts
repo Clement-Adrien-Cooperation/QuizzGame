@@ -39,8 +39,8 @@ export default checkBanishedUser(async function handle (
 
     res.status(200).json(deleteUser);
 
-  } catch (error){
-    
+  } catch(error) {
+
   console.log('dans le catch');
     res.status(404).json(error);
   };

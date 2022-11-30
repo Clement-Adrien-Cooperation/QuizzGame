@@ -10,7 +10,7 @@ export default isAdmin(async function handle (
     const questions = await db.question.findMany();
 
     res.status(201).json(questions);
-    
+
   } catch (error){
     res.status(404).json(error);
   };

@@ -64,7 +64,7 @@ const UpdateQuiz: NextPage<Props> = ({
 export default UpdateQuiz;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  
+
   const title = context.query.slug;
 
   const categoriesDataFromAPI = await fetch(`${api}/category/getAll`);

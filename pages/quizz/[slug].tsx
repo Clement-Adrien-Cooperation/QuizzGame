@@ -256,7 +256,7 @@ const QuizGame: NextPage<Props> = ({
 export default QuizGame;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  
+
   const title = context.query.slug;
 
   // Get data from API

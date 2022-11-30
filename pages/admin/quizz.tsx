@@ -190,7 +190,7 @@ const Quizz: NextPage<Props> = ({
               handleDeleteQuiz={handleDeleteQuiz}
             />
           </section>
-        } 
+        }
       </div>
     </section>
   );

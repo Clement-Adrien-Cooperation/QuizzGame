@@ -37,7 +37,7 @@ export default async function handle (
         };
 
         res.status(201).json({user, token});
-        
+
       } catch (error){
         res.status(404).json(error);
       };

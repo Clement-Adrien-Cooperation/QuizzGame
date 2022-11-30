@@ -1,4 +1,4 @@
-import type { ChangeEvent, FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import type { Quiz } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';

@@ -1,6 +1,6 @@
-import type { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction } from 'react'
+import type { Dispatch, FormEvent, FunctionComponent, SetStateAction } from 'react'
 import type { Comment, User } from '@prisma/client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { api } from '../../../api/api';
 import styles from './CommentForm.module.scss';
 import TextArea from '../../TextArea/TextArea';
@@ -32,7 +32,7 @@ const CommentForm: FunctionComponent<Props> = ({
   const [disableButton, setDisableButton] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
-  const handleChangeComment = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  useEffect(() => {
     if(comment.length > 300) {
       setDisableButton(true);
       setWarningMessage("Votre commentaire ne doit pas excéder 300 caractères");
@@ -40,9 +40,7 @@ const CommentForm: FunctionComponent<Props> = ({
       setDisableButton(false);
       setWarningMessage('');
     };
-
-    setComment(event.target.value);
-  };
+  }, [comment]);
 
   const handleSubmitForm = async(event: FormEvent<HTMLFormElement>) => {
     // Prevent refresh
@@ -128,7 +126,7 @@ const CommentForm: FunctionComponent<Props> = ({
           state={comment}
           title={"Écrivez un commentaire à propos de ce quiz"}
           required={true}
-          handleFunction={handleChangeComment}
+          setState={setComment}
         />
 
         <button

@@ -16,7 +16,7 @@ export default authenticated(async function handle (
     });
 
     res.status(201).json(quiz);
-    
+
   } catch (error){
     res.status(404).json(error);
   };

@@ -16,7 +16,7 @@ export default isAdmin(async function handle (
     });
 
     res.status(201).json(notification);
-    
+
   } catch (error){
     res.status(404).json(error);
   };

@@ -63,7 +63,7 @@ const EditUser: FunctionComponent<Props> = ({
   };
 
   const checkPassword = () => {
-
+    
     const lowercase = new RegExp('(?=.*[a-z])');
     const uppercase = new RegExp('(?=.*[A-Z])');
     const number = new RegExp('(?=.*[0-9])');
@@ -257,7 +257,6 @@ const EditUser: FunctionComponent<Props> = ({
       const data = await res.json();
 
       if(res.status === 401) {
-        
         if(data.meta.target.includes('pseudo')) {
 
           setWarningMessage('Ce pseudo est déjà pris');
@@ -269,7 +268,7 @@ const EditUser: FunctionComponent<Props> = ({
         } else {
           setWarningMessage('Un problème est survenu, veuillez réessayer ou nous contacter');
         };
-        
+
       // If response status is 200 (OK),
       } else if(res.status === 200) {
         // update state with user's data

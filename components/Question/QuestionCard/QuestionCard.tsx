@@ -45,7 +45,7 @@ const QuestionCard: FunctionComponent<Props> = ({
 
     setUpdating(true);
     setUpdateIndex(questionIndex);
-    
+
     const questionData = {
       id,
       quiz_id,
@@ -60,7 +60,7 @@ const QuestionCard: FunctionComponent<Props> = ({
 
   const handleDeleteQuestion = () => {
     const previousQuestions = [...questions];
-    
+
     previousQuestions.splice(questionIndex, 1);
 
     setQuestions(previousQuestions);

@@ -24,7 +24,7 @@ export default async function handle (
     });
 
     res.status(200);
-    
+
   } catch (error){
     res.status(404).json(error);
   };

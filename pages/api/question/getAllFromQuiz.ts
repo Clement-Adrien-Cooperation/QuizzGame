@@ -13,7 +13,7 @@ export default async function handle (
     });
 
     res.status(200).json(questions);
-    
+
   } catch (error){
     res.status(404).json(error);
   };

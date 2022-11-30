@@ -20,13 +20,13 @@ const Modal: FunctionComponent<Props> = ({
       </div>
 
       <section className={styles.container}>
-        
+
         <CloseButton
           handleFunction={() => setShowModal(false)}
         />
-      
+
         {children}
-        
+
       </section>
     </div>
   );

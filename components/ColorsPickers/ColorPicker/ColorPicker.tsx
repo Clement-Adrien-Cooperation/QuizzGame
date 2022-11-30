@@ -30,7 +30,7 @@ const ColorPicker: FunctionComponent<Props> = ({
         defaultChecked={hue === hueColor ? true : false}
         readOnly
       />
-      
+
       <label
         className={styles.picker}
         htmlFor={colorName}

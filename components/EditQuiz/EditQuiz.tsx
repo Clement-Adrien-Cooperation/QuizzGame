@@ -200,7 +200,7 @@ const EditQuiz: FunctionComponent<Props> = ({
           setDifficulty('Très difficile');
           setColorDifficulty('var(--red)');
           break;
-          
+
         default:
           setRangeColor(`var(--medium)`);
           setDifficulty('Normal');
@@ -226,7 +226,7 @@ const EditQuiz: FunctionComponent<Props> = ({
 
       setDisableButton(false);
       setShowLoader(false);
-      
+
       if(router.pathname.includes('create')) {
         router.push(`/quizz/update/${title}`);
       };

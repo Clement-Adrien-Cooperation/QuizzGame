@@ -7,7 +7,7 @@ export default isAdmin(async function handle (
   res: NextApiResponse
 ) {
   if(req.body.about === 'user') {
-  
+
     try {
       const user = await db.user.findUnique({
         where:{
@@ -16,7 +16,7 @@ export default isAdmin(async function handle (
       });
 
       res.status(200).json(user);
-      
+
     } catch (error){
       res.status(404).json(error);
     };
@@ -31,13 +31,13 @@ export default isAdmin(async function handle (
       });
 
       res.status(200).json(quiz);
-      
+
     } catch (error){
       res.status(404).json(error);
     };
 
   } else if(req.body.about === 'question') {
-    
+
     try {
       const question = await db.question.findUnique({
         where:{
@@ -46,7 +46,7 @@ export default isAdmin(async function handle (
       });
 
       res.status(200).json(question);
-      
+
     } catch (error){
       res.status(404).json(error);
     };
@@ -61,7 +61,7 @@ export default isAdmin(async function handle (
       });
 
       res.status(200).json(comment);
-      
+
     } catch (error){
       res.status(404).json(error);
     };

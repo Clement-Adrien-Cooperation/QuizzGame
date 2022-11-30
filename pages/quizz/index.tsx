@@ -67,7 +67,7 @@ const Quizz: NextPage<Props> = ({
           />
         </div>
 
-        {isLogged && (
+        {isLogged &&
           <button
             className={styles.button}
             type='button'
@@ -80,11 +80,10 @@ const Quizz: NextPage<Props> = ({
               </a>
             </Link>
           </button>
-        )}
+        }
       </header>
 
       <section>
-
         <ul className={styles.container}>
           {quizz?.map((quiz: Quiz) => {
 
