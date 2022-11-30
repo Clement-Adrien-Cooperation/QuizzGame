@@ -14,6 +14,7 @@ type Props = {
   setIsLogged: Dispatch<SetStateAction<boolean>>,
   setUserLogged: Dispatch<SetStateAction<User>>,
   setShowLoader: Dispatch<SetStateAction<boolean>>,
+  setPageTitle: Dispatch<SetStateAction<string>>,
   handleDisconnect: () => void
 };
 
@@ -23,13 +24,13 @@ const Profile: NextPage<Props> = ({
   setIsLogged,
   setUserLogged,
   setShowLoader,
+  setPageTitle,
   handleDisconnect
 }) => {
 
   const router = useRouter();
 
   const [userQuizz, setUserQuizz] = useState<Quiz[]>([]);
-
   const [updateProfile, setUpdateProfile] = useState<boolean>(false);
 
   useEffect(() => {
@@ -38,7 +39,7 @@ const Profile: NextPage<Props> = ({
         router.push('/banned');
       } else {
 
-        document.title = "Mon profil - s'Quizz Game";
+        setPageTitle("Mon profil - s'Quizz Game");
         getQuizzFromUser();
       };
     } else {

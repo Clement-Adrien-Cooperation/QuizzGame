@@ -11,7 +11,7 @@ type Props = {
   difficulty: string,
   difficultyRange: number,
   rangeColor: string,
-  colorDifficultyName: string,
+  colorDifficulty: string,
   handleChangeDifficulty: ChangeEventHandler<HTMLInputElement>,
   setCategory: Dispatch<SetStateAction<string>>,
   setTitle: Dispatch<SetStateAction<string>>
@@ -24,7 +24,7 @@ const QuizForm: FunctionComponent<Props> = ({
   difficulty,
   difficultyRange,
   rangeColor,
-  colorDifficultyName,
+  colorDifficulty,
   handleChangeDifficulty,
   setTitle,
   setCategory
@@ -59,7 +59,7 @@ const QuizForm: FunctionComponent<Props> = ({
         max={'4'}
         gradient={rangeColor}
         difficulty={difficulty}
-        colorDifficultyName={colorDifficultyName}
+        color={colorDifficulty}
         handleFunction={handleChangeDifficulty}
       />
     </section>

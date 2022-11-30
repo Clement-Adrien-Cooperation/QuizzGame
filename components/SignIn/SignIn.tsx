@@ -1,6 +1,6 @@
-import type { ChangeEvent, Dispatch, FormEvent, FunctionComponent, SetStateAction } from 'react';
+import type { Dispatch, FormEvent, FunctionComponent, SetStateAction } from 'react';
 import type { User } from '@prisma/client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { api } from '../../api/api';
 import { useRouter } from 'next/router';
 import styles from './SignIn.module.scss';
@@ -11,16 +11,20 @@ import CheckButton from '../CheckButton/CheckButton';
 
 type Props = {
   handleToggleForm: () => void,
+  isLogged: boolean,
   setIsLogged: Dispatch<SetStateAction<boolean>>,
   setUserLogged: Dispatch<SetStateAction<User>>,
-  setShowLoader: Dispatch<SetStateAction<boolean>>
+  setShowLoader: Dispatch<SetStateAction<boolean>>,
+  setPageTitle: Dispatch<SetStateAction<string>>
 };
 
 const SignIn: FunctionComponent<Props> = ({
   handleToggleForm,
+  isLogged,
   setIsLogged,
   setUserLogged,
-  setShowLoader
+  setShowLoader,
+  setPageTitle
 }) => {
 
   const router = useRouter();
@@ -28,9 +32,17 @@ const SignIn: FunctionComponent<Props> = ({
   const [pseudoOrEmail, setPseudoOrEmail] = useState<string>('adrienlcp@gmail.com');
   const [password, setPassword] = useState<string>('!xJeLth!P4!psnjT');
   const [rememberMe, setRememberMe] = useState<boolean>(false);
-  
+
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [disableButton, setDisableButton] = useState<boolean>(false);
+
+  useEffect(() => {
+    if(isLogged) {
+      router.push('/');
+    } else {
+      setPageTitle("S'inscrire - s'Quizz Game");
+    };
+  }, []);
 
   const handleSubmitForm = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -42,7 +54,6 @@ const SignIn: FunctionComponent<Props> = ({
       password,
       rememberMe
     };
-  
     await fetch(`${api}/user/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

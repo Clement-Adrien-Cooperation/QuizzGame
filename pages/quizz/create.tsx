@@ -17,7 +17,8 @@ const emptyQuiz: Quiz = {
   date: '',
   nbOfQuestions: 0,
   rate: [],
-  rates_IDs: []
+  rates_IDs: [],
+  nbOfPlayed: 0
 };
 
 const emptyQuestion: Question = {
@@ -34,6 +35,7 @@ type Props = {
   isLogged: boolean,
   userLogged: User,
   setShowLoader: Dispatch<SetStateAction<boolean>>,
+  setPageTitle: Dispatch<SetStateAction<string>>,
   categoriesData: Category[]
 };
 
@@ -41,18 +43,18 @@ const CreateQuizz: NextPage<Props> = ({
   isLogged,
   userLogged,
   setShowLoader,
+  setPageTitle,
   categoriesData
 }) => {
 
   const router = useRouter();
-  
+
   useEffect(() => {
-
-    document.title = `Créer mon quiz - s'Quizz Game`;
-
     if(isLogged) {
       if(userLogged.is_banished) {
         router.push('/banned');
+      } else {
+        setPageTitle("Créer mon quiz - s'Quizz Game");
       };
     } else {
       router.push('/');

@@ -1,26 +1,28 @@
 import type { NextPage } from 'next';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import type { User } from '@prisma/client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { api } from '../api/api';
 import ConfirmModal from '../components/ConfirmModal/ConfirmModal';
 import ContactForm from '../components/ContactForm/ContactForm';
 import styles from '../styles/Banned.module.scss';
 import Warning from '../components/Warning/Warning';
-import { useRouter } from 'next/router';
 
 type Props = {
   userLogged: User,
   isLogged: boolean,
   handleDisconnect: () => void,
-  setShowLoader: Dispatch<SetStateAction<boolean>>
+  setShowLoader: Dispatch<SetStateAction<boolean>>,
+  setPageTitle: Dispatch<SetStateAction<string>>
 }
 
 const Banned: NextPage<Props> = ({
   userLogged,
   isLogged,
   handleDisconnect,
-  setShowLoader
+  setShowLoader,
+  setPageTitle
 }) => {
 
   const router = useRouter();
@@ -32,6 +34,8 @@ const Banned: NextPage<Props> = ({
     if(isLogged) {
       if(!userLogged.is_banished) {
         router.push('/');
+      } else {
+        setPageTitle("Banni");
       };
     } else {
       router.push('/');

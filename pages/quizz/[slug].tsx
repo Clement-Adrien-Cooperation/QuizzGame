@@ -1,3 +1,4 @@
+import type { Dispatch, SetStateAction } from 'react';
 import type { GetServerSideProps, NextPage } from 'next';
 import type { Question, Quiz, User, Comment } from '@prisma/client';
 import { useEffect, useState } from 'react';
@@ -40,7 +41,8 @@ type Props = {
   isLogged: boolean,
   quizData: Quiz,
   questionsData: Question[],
-  commentsData: Comment[]
+  commentsData: Comment[],
+  setPageTitle: Dispatch<SetStateAction<string>>
 };
 
 const QuizGame: NextPage<Props> = ({
@@ -48,7 +50,8 @@ const QuizGame: NextPage<Props> = ({
   isLogged,
   quizData,
   questionsData,
-  commentsData
+  commentsData,
+  setPageTitle
 }) => {
 
   const router = useRouter();
@@ -66,13 +69,13 @@ const QuizGame: NextPage<Props> = ({
 
   useEffect(() => {
 
-    const title = router.query.slug; 
-
-    document.title = `${title} - s'Quizz Game`;
+    const title = router.query.slug;
 
     if(userLogged.is_banished) {
       router.push('/banned');
     } else {
+
+      setPageTitle(`${title} - s'Quizz Game`);
 
       if(questionsData.length < 10) {
         setWarningMessage('Ce quiz contient moins de 10 questions');
@@ -93,7 +96,7 @@ const QuizGame: NextPage<Props> = ({
     // Create a array with 10 random questions from current quiz
     const gameQuestions = [];
     const availableQuestions = [...questionsData];
-    
+
     // Loop for push 10 random questions in a new array
     for(let i = 0; i < 10; i++) {
 
@@ -151,10 +154,10 @@ const QuizGame: NextPage<Props> = ({
   const nextQuestion = () => {
     // Set the next question with it
     const newQuestion = questions[currentIndex];
-    
+
     // Update state
     setCurrentQuestion(newQuestion);
-    
+
     // Randomize proposals from this new question
     randomizeProposals(newQuestion);
 

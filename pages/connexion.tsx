@@ -1,8 +1,7 @@
 import type { NextPage } from 'next';
 import type { Dispatch, SetStateAction } from 'react';
 import type { User } from '@prisma/client';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useState } from 'react';
 import styles from '../styles/Connexion.module.scss';
 import SignUp from '../components/SignUp/SignUp';
 import SignIn from '../components/SignIn/SignIn';
@@ -12,7 +11,8 @@ type Props = {
   userLogged: User,
   setIsLogged: Dispatch<SetStateAction<boolean>>,
   setUserLogged: Dispatch<SetStateAction<User>>,
-  setShowLoader: Dispatch<SetStateAction<boolean>>
+  setShowLoader: Dispatch<SetStateAction<boolean>>,
+  setPageTitle: Dispatch<SetStateAction<string>>
 };
 
 const Connexion: NextPage<Props> = ({
@@ -20,21 +20,11 @@ const Connexion: NextPage<Props> = ({
   userLogged,
   setIsLogged,
   setUserLogged,
-  setShowLoader
+  setShowLoader,
+  setPageTitle
 }) => {
 
-  const router = useRouter();
-  
   const [toggleForm, setToggleForm] = useState(false);
-  
-  useEffect(() => {
-
-    document.title = "Connexion - s'Quizz Game";
-
-    if(isLogged) {
-      router.push('/');
-    };
-  }, []);
 
   const handleToggleForm = () => {
     setToggleForm(!toggleForm);
@@ -52,15 +42,18 @@ const Connexion: NextPage<Props> = ({
               isLogged={isLogged}
               userLogged={userLogged}
               setShowLoader={setShowLoader}
+              setPageTitle={setPageTitle}
             />
           </div>
         :
           <div className={styles.sign_in}>
             <SignIn
+              isLogged={isLogged}
               handleToggleForm={handleToggleForm}
               setIsLogged={setIsLogged}
               setUserLogged={setUserLogged}
               setShowLoader={setShowLoader}
+              setPageTitle={setPageTitle}
             />
           </div>
         }

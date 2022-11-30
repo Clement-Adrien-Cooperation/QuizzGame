@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import type { Quiz, User } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -14,32 +14,32 @@ type Props = {
   quizzData: any,
   isLogged: boolean,
   userLogged: User,
-  setShowLoader: Dispatch<SetStateAction<boolean>>
+  setShowLoader: Dispatch<SetStateAction<boolean>>,
+  setPageTitle: Dispatch<SetStateAction<string>>
 };
 
 const Quizz: NextPage<Props> = ({
   quizzData,
   isLogged,
   userLogged,
-  setShowLoader
+  setShowLoader,
+  setPageTitle
 }) => {
 
   const router = useRouter();
 
   const [filter, setFilter] = useState<string>('');
   const [quizz, setQuizz] = useState<Quiz[]>([]);
-  
+
   useEffect(() => {
 
-    document.title = "Quizz - s'Quizz Game";
-    
+    setPageTitle("Tous les quizz - s'Quizz Game");
+
     setQuizz(quizzData);
     setShowLoader(false);
 
-    if(isLogged) {
-      if(userLogged.is_banished) {
-        router.push('/banned');
-      };
+    if(isLogged && userLogged.is_banished) {
+      router.push('/banned');
     };
   }, []);
 
@@ -91,7 +91,7 @@ const Quizz: NextPage<Props> = ({
             const quizTitle = quiz.title.toLowerCase();
             const quizCreator = quiz.creator.toLowerCase();
             const userFilter = filter.toLowerCase();
-            
+
             // If quiz doesn't have question, we don't render it
             if(quizTitle.includes(userFilter) && quiz.nbOfQuestions >= 10
             || quizCreator.includes(userFilter) && quiz.nbOfQuestions >= 10) {

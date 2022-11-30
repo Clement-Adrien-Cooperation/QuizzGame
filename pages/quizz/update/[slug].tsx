@@ -11,6 +11,7 @@ type Props = {
   isLogged: boolean,
   userLogged: User,
   setShowLoader: Dispatch<SetStateAction<boolean>>,
+  setPageTitle: Dispatch<SetStateAction<string>>,
   quizData: Quiz,
   questionsData: Question[],
   categoriesData: Category[]
@@ -20,13 +21,14 @@ const UpdateQuiz: NextPage<Props> = ({
   isLogged,
   userLogged,
   setShowLoader,
+  setPageTitle,
   quizData,
   questionsData,
   categoriesData
 }) => {
-  
+
   const router = useRouter();
-  
+
   useEffect(() => {
 
     if(isLogged) {
@@ -35,7 +37,7 @@ const UpdateQuiz: NextPage<Props> = ({
       } else if(userLogged.id !== quizData.user_id) {
         router.push('/404');
       } else {
-        document.title = `Modifier "${router.query.slug}" - s'Quizz Game`;
+        setPageTitle(`Modifier "${router.query.slug}" - s'Quizz Game`);
       };
     } else {
       router.push('/');
@@ -53,7 +55,7 @@ const UpdateQuiz: NextPage<Props> = ({
           questionsData={questionsData}
           categoriesData={categoriesData}
         />
-        
+
       </div>
     </>
   );

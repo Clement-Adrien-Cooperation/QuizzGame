@@ -2,24 +2,30 @@
 
 .container {
   @include flexCenter;
-  // height: 100vh;
 }
 
-// .sign_in {
-//   opacity: 0;
-//   transform: translateX(100vw);
-//   animation: apparitionAnimation 0.3s ease-in-out forwards;
-// }
+.sign_in {
+  opacity: 0;
+  transform: translateX(100vw);
+  animation: signIn 0.5s ease-in-out forwards;
+}
 
-// .sign_up {
-//   opacity: 0;
-//   transform: translateX(-100vw);
-//   animation: apparitionAnimation 0.3s ease-in-out forwards;
-// }
+.sign_up {
+  opacity: 0;
+  transform: translateX(-100vw);
+  animation: signUp 0.5s ease-in-out forwards;
+}
 
-// @keyframes apparitionAnimation {
-//   100% {
-//     transform: none;
-//     opacity: 1;
-//   }
-// }
+@keyframes signIn {
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes signUp {
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

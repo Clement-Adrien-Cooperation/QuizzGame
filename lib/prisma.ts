@@ -1,4 +1,4 @@
-// Solution found on web to not running many instances of Prisma Client at the same time
+// Solution found on the web for not running many instances of Prisma Client at the same time
 
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { PrismaClient } from '@prisma/client';

@@ -1,4 +1,4 @@
-import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import type { Category, User } from '@prisma/client';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -15,21 +15,23 @@ type Props = {
   categoriesData: Category[],
   isLogged: boolean,
   userLogged: User,
-  setShowLoader: Dispatch<SetStateAction<boolean>>
+  setShowLoader: Dispatch<SetStateAction<boolean>>,
+  setPageTitle: Dispatch<SetStateAction<string>>
 };
 
 const Categories: NextPage<Props> = ({
   categoriesData,
   isLogged,
   userLogged,
-  setShowLoader
+  setShowLoader,
+  setPageTitle
 }) => {
 
   const router = useRouter();
 
   const [categories, setCategories] = useState<Category[]>([]);
   const [categoryFilter, setCategoryFilter] = useState<string>('');
-  
+
   useEffect(() => {
 
     if(isLogged) {
@@ -38,7 +40,7 @@ const Categories: NextPage<Props> = ({
       } else if(userLogged.is_admin) {
 
         setCategories(categoriesData);
-        document.title = "Modérer les catégories - s'Quizz Game";
+        setPageTitle("Modérer les catégories - s'Quizz Game");
 
       } else {
         router.push('/');
@@ -47,10 +49,6 @@ const Categories: NextPage<Props> = ({
       router.push('/');
     };
   }, []);
-
-  const handleChangeCategoryFilter = (event: ChangeEvent<HTMLInputElement>) => {
-    setCategoryFilter(event.target.value);
-  };
 
   return (
     <>
@@ -82,7 +80,7 @@ const Categories: NextPage<Props> = ({
                 isDisabled={false}
                 required={true}
                 autoFocus={true}
-                handleFunction={handleChangeCategoryFilter}
+                setState={setCategoryFilter}
               />
             }
 

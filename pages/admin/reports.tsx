@@ -1,3 +1,4 @@
+import type { Dispatch, SetStateAction } from 'react';
 import type { NextPage } from 'next';
 import type { Report, User } from '@prisma/client';
 import { useEffect, useState } from 'react';
@@ -9,12 +10,14 @@ import styles from '../../styles/admin/AdminReports.module.scss';
 
 type Props = {
   isLogged: boolean,
-  userLogged: User
+  userLogged: User,
+  setPageTitle: Dispatch<SetStateAction<string>>
 };
 
 const Reports: NextPage<Props> = ({
   isLogged,
-  userLogged
+  userLogged,
+  setPageTitle
 }) => {
 
   const router = useRouter();
@@ -22,7 +25,7 @@ const Reports: NextPage<Props> = ({
   const [usersReported, setUsersReported] = useState<Report[]>([]);
   const [quizzReported, setQuizzReported] = useState<Report[]>([]);
   const [commentsReported, setCommentsReported] = useState<Report[]>([]);
-  
+
   useEffect(() => {
     if(isLogged) {
       // if user is banished
@@ -31,7 +34,7 @@ const Reports: NextPage<Props> = ({
         router.push('/banned');
       } else if(userLogged.is_admin) {
         // if user is admin, change title of document
-        document.title = "Modérer les signalements - s'Quizz Game";
+        setPageTitle("Modérer les signalements - s'Quizz Game");
         // and get reports
         getReports();
       } else {
@@ -67,7 +70,7 @@ const Reports: NextPage<Props> = ({
       console.log(error);
     });
   };
-  
+
   const reportsSorting = (reports: Report[]) => {
 
     // sort data by "user", "quizz" or "comment"
@@ -153,7 +156,7 @@ const Reports: NextPage<Props> = ({
             getReports={getReports}
           />
         }
-        
+
         {commentsReported.length > 0 &&
           <ReportsList
             reports={commentsReported}

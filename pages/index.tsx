@@ -1,3 +1,4 @@
+import type { Dispatch, SetStateAction } from 'react';
 import type { GetServerSideProps, NextPage } from 'next';
 import type { Quiz, User } from '@prisma/client';
 import { useEffect } from 'react';
@@ -11,7 +12,8 @@ type Props = {
   userLogged: User,
   bestRatedQuizz: Quiz[],
   mostPlayedQuizz: Quiz[],
-  mostRecentsQuizz: Quiz[]
+  mostRecentsQuizz: Quiz[],
+  setPageTitle: Dispatch<SetStateAction<string>>
 };
 
 const Home: NextPage<Props> = ({
@@ -19,14 +21,15 @@ const Home: NextPage<Props> = ({
   userLogged,
   bestRatedQuizz,
   mostPlayedQuizz,
-  mostRecentsQuizz
+  mostRecentsQuizz,
+  setPageTitle
 }) => {
 
   const router = useRouter();
 
   useEffect(() => {
 
-    document.title = "s'Quizz Game";
+    setPageTitle("s'Quizz Game - créez et jouez aux quizz de la communauté")
 
     if(isLogged) {
       if(userLogged.is_banished) {

@@ -11,6 +11,7 @@ type Props = PropsWithChildren<{
   handleDisconnect: () => void,
   notifications: Notification[],
   nbOfNotifications: number,
+  pageTitle: string,
   setNbOfNotifications: Dispatch<SetStateAction<number>>
 }>;
 
@@ -21,10 +22,9 @@ const Container: FunctionComponent<Props> = ({
   notifications,
   nbOfNotifications,
   setNbOfNotifications,
+  pageTitle,
   children
 }) => {
-
-  const pageTitle = "s'Quizz Game - créez et jouez aux quizz de la communauté";
 
   return (
     <>
@@ -33,7 +33,7 @@ const Container: FunctionComponent<Props> = ({
       />
 
       <Background />
-      
+
       <Navbar
         isLogged={isLogged}
         userLogged={userLogged}

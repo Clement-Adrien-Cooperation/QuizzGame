@@ -1,4 +1,4 @@
-import type { ChangeEvent } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import type { GetServerSideProps, NextPage } from 'next';
 import type { Played, Quiz, User } from '@prisma/client';
 import { useRouter } from 'next/router';
@@ -15,7 +15,8 @@ type Props = {
   userLogged: User,
   userData: User,
   userQuizzData: Quiz[],
-  playedData: Played[]
+  playedData: Played[],
+  setPageTitle: Dispatch<SetStateAction<string>>
 };
 
 const UserProfile: NextPage<Props> = ({
@@ -23,7 +24,8 @@ const UserProfile: NextPage<Props> = ({
   userLogged,
   userData,
   userQuizzData,
-  playedData
+  playedData,
+  setPageTitle
 }) => {
 
   const router = useRouter();
@@ -33,23 +35,18 @@ const UserProfile: NextPage<Props> = ({
   const [report, setReport] = useState<boolean>(false);
 
   useEffect(() => {
-    if(userData.is_banished) {
-      router.push('/404');
-    } else {
-      document.title = `Profil de ${router.query.slug} - s'Quizz Game`;
-      setUserQuizz(userQuizzData);
-    };
 
-    if(isLogged) {
-      if(userLogged.is_banished) {
-        router.push('/banned');
+    if(isLogged && userLogged.is_banished) {
+      router.push('/banned');
+    } else {
+      if(userData.is_banished) {
+        router.push('/404');
+      } else {
+        setPageTitle(`Profil de ${router.query.slug} - s'Quizz Game`);
+        setUserQuizz(userQuizzData);
       };
     };
   }, []);
-
-  const handleChangeQuizzFilter = (event: ChangeEvent<HTMLInputElement>) => {
-    setQuizzFilter(event.target.value);
-  };
 
   return (
     <>
@@ -61,8 +58,7 @@ const UserProfile: NextPage<Props> = ({
         <PlayedQuizz
           playedData={playedData}
         />
-
-      </header>      
+      </header>
 
       <section className={styles.container}>
 
@@ -76,7 +72,7 @@ const UserProfile: NextPage<Props> = ({
               isDisabled={false}
               required={true}
               autoFocus={true}
-              handleFunction={handleChangeQuizzFilter}
+              setState={setQuizzFilter}
             />
           </div>
         }
@@ -84,7 +80,7 @@ const UserProfile: NextPage<Props> = ({
         <ul className={styles.list}>
 
           {userQuizz?.map((quiz: Quiz, index: number) => {
-            
+
             const filteredTitle = quiz.title.toLowerCase();
             const filteredCategory = quiz.category.toLowerCase();
             const filter = quizzFilter.toLowerCase();

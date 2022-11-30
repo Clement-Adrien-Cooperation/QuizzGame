@@ -22,16 +22,14 @@ const Report: FunctionComponent<Props> = ({
 }) => {
 
   return (
-    <Modal
-      setShowModal={setShowReportForm}
-    >
+    <Modal setShowModal={setShowReportForm}>
       <section className={styles.container}>
         <header className={styles.header}>
           <h4 className={styles.title}>
             Signalement
           </h4>
         </header>
-        
+
         <ReportForm
           user_id={user_id}
           pseudo={pseudo}

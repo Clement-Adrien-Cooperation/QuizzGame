@@ -40,7 +40,7 @@ const EditQuiz: FunctionComponent<Props> = ({
   const [difficulty, setDifficulty] = useState<string>('Normal');
   const [difficultyRange, setDifficultyRange] = useState<number>(2);
   const [rangeColor, setRangeColor] = useState<string>(`var(--medium)`);
-  const [colorDifficultyName, setColorDifficultyName] = useState<string>('var(--yellow)');
+  const [colorDifficulty, setColorDifficulty] = useState<string>('var(--yellow)');
 
   const [questions, setQuestions] = useState<Question[]>([]);
 
@@ -97,33 +97,33 @@ const EditQuiz: FunctionComponent<Props> = ({
       case quizData.difficulty === 'Très facile' :
         setRangeColor(`var(--very-easy)`);
         setDifficultyRange(0);
-        setColorDifficultyName('var(--text-color)');
+        setColorDifficulty('var(--text-color)');
         break;
       case quizData.difficulty === 'Facile' :
         setRangeColor(`var(--easy)`);
         setDifficultyRange(1);
-        setColorDifficultyName('var(--green)');
+        setColorDifficulty('var(--green)');
         break;
       case quizData.difficulty === 'Normal' :
         setRangeColor(`var(--medium)`);
         setDifficultyRange(2);
-        setColorDifficultyName('var(--yellow)');
+        setColorDifficulty('var(--yellow)');
         break;
       case quizData.difficulty === 'Difficile' :
         setRangeColor(`var(--hard)`);
         setDifficultyRange(3);
-        setColorDifficultyName('var(--orange)');
+        setColorDifficulty('var(--orange)');
         break;
       case quizData.difficulty === 'Très difficile' :
         setRangeColor(`var(--very-hard)`);
         setDifficultyRange(4);
-        setColorDifficultyName('var(--red)');
+        setColorDifficulty('var(--red)');
         break;
         
       default:
         setRangeColor(`var(--medium)`);
         setDifficultyRange(2);
-        setColorDifficultyName('var(--yellow)');
+        setColorDifficulty('var(--yellow)');
         break;
     };
   };
@@ -160,7 +160,7 @@ const EditQuiz: FunctionComponent<Props> = ({
   }, [title]);
 
   const handleChangeDifficulty = (event: ChangeEvent<HTMLInputElement>) => {
-    
+
     const newDifficulty :number = parseInt(event.target.value, 10);
 
     // Watch if user change min & max values in html
@@ -178,33 +178,33 @@ const EditQuiz: FunctionComponent<Props> = ({
         case newDifficulty === 0 :
           setRangeColor(`var(--very-easy)`);
           setDifficulty('Très facile');
-          setColorDifficultyName('var(--text-color)');
+          setColorDifficulty('var(--text-color)');
           break;
         case newDifficulty === 1 :
           setRangeColor(`var(--easy)`);
           setDifficulty('Facile');
-          setColorDifficultyName('var(--green)');
+          setColorDifficulty('var(--green)');
           break;
         case newDifficulty === 2 :
           setRangeColor(`var(--medium)`);
           setDifficulty('Normal');
-          setColorDifficultyName('var(--yellow)');
+          setColorDifficulty('var(--yellow)');
           break;
         case newDifficulty === 3 :
           setRangeColor(`var(--hard)`);
           setDifficulty('Difficile');
-          setColorDifficultyName('var(--orange)');
+          setColorDifficulty('var(--orange)');
           break;
         case newDifficulty === 4 :
           setRangeColor(`var(--very-hard)`);
           setDifficulty('Très difficile');
-          setColorDifficultyName('var(--red)');
+          setColorDifficulty('var(--red)');
           break;
           
         default:
           setRangeColor(`var(--medium)`);
           setDifficulty('Normal');
-          setColorDifficultyName('var(--yellow)');
+          setColorDifficulty('var(--yellow)');
           break;
       };
     };
@@ -417,7 +417,7 @@ const EditQuiz: FunctionComponent<Props> = ({
           difficulty={difficulty}
           difficultyRange={difficultyRange}
           rangeColor={rangeColor}
-          colorDifficultyName={colorDifficultyName}
+          colorDifficulty={colorDifficulty}
           handleChangeDifficulty={handleChangeDifficulty}
           setTitle={setTitle}
           setCategory={setCategory}

@@ -1,5 +1,5 @@
-import type { NextPage } from 'next';
 import type { Dispatch, SetStateAction } from 'react';
+import type { NextPage } from 'next';
 import type { User } from '@prisma/client';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -19,13 +19,15 @@ import IconMail from '../../components/Icons/IconMail';
 type Props = {
   isLogged: boolean,
   userLogged: User,
-  setShowLoader: Dispatch<SetStateAction<boolean>>
+  setShowLoader: Dispatch<SetStateAction<boolean>>,
+  setPageTitle: Dispatch<SetStateAction<string>>
 };
 
 const Users: NextPage<Props> = ({
   isLogged,
   userLogged,
-  setShowLoader
+  setShowLoader,
+  setPageTitle
 }) => {
 
   const router = useRouter();
@@ -35,7 +37,7 @@ const Users: NextPage<Props> = ({
 
   const [message, setMessage] = useState<string>('');
   const [showMessageForm, setShowMessageForm] = useState<boolean>(false);
-  
+
   useEffect(() => {
 
     if(isLogged) {
@@ -43,7 +45,7 @@ const Users: NextPage<Props> = ({
         router.push('/banned');
       } else if(userLogged.is_admin) {
 
-        document.title = "Modérer les utilisateurs - s'Quizz Game";
+        setPageTitle("Modérer les utilisateurs - s'Quizz Game");
         getUsers();
 
       } else {

@@ -23,6 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [userLogged, setUserLogged] = useState<User>(unLoggedUser);
+  const [pageTitle, setPageTitle] = useState<string>("s'Quizz Game - créez et jouez aux quizz de la communauté");
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -133,6 +134,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       notifications={notifications}
       nbOfNotifications={nbOfNotifications}
       setNbOfNotifications={setNbOfNotifications}
+      pageTitle={pageTitle}
     >
       <Component
         {...pageProps}
@@ -142,11 +144,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         setUserLogged={setUserLogged}
         handleDisconnect={handleDisconnect}
         setShowLoader={setShowLoader}
+        setPageTitle={setPageTitle}
       />
 
-      {showLoader && (
+      {showLoader &&
         <Loader />
-      )}
+      }
     </Container>
   );
 };

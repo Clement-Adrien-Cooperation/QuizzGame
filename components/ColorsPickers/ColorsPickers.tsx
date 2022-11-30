@@ -1,10 +1,10 @@
 import type { FunctionComponent } from 'react';
 import { useEffect, useState } from 'react';
-import styles from './ColorsPicker.module.scss';
+import styles from './ColorsPickers.module.scss';
 
 import ColorPicker from './ColorPicker/ColorPicker';
 
-const ColorsPicker: FunctionComponent = () => {
+const ColorsPickers: FunctionComponent = () => {
 
   const [hue, setHue] = useState<string>('250');
 
@@ -88,4 +88,4 @@ const ColorsPicker: FunctionComponent = () => {
   );
 };
 
-export default ColorsPicker;
+export default ColorsPickers;

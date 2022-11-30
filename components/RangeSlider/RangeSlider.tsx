@@ -8,7 +8,7 @@ type Props = {
   max: string,
   gradient: string,
   difficulty: string,
-  colorDifficultyName: string,
+  color: string,
   handleFunction: ChangeEventHandler<HTMLInputElement>
 };
 
@@ -19,13 +19,12 @@ const RangeSlider: FunctionComponent<Props> = ({
   max,
   gradient,
   difficulty,
-  colorDifficultyName,
+  color,
   handleFunction
 }) => {
 
   return (
     <div className={styles.slideContainer}>
-
       <label
         className={styles.label}
         htmlFor={name}
@@ -46,7 +45,7 @@ const RangeSlider: FunctionComponent<Props> = ({
 
       <span
         className={styles.span}
-        style={{color: `${colorDifficultyName}`}}
+        style={{background: `${color}`}}
       >
         {difficulty}
       </span>

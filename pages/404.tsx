@@ -1,8 +1,20 @@
+import type { Dispatch, SetStateAction } from 'react';
 import type { NextPage } from 'next';
+import { useEffect } from 'react';
 import Link from 'next/link';
 import styles from '../styles/NotFound.module.scss';
 
-const NotFound: NextPage = () => {
+type Props = {
+  setPageTitle: Dispatch<SetStateAction<string>>
+};
+
+const NotFound: NextPage<Props> = ({
+  setPageTitle
+}) => {
+
+  useEffect(() => {
+    setPageTitle("Erreur 404 - s'Quizz Game");
+  }, []);
 
   return (
     <section className={styles.container}>

@@ -13,14 +13,15 @@ type Props = {
   isLogged: boolean,
   userLogged: User,
   setShowLoader: Dispatch<SetStateAction<boolean>>,
-  quizzData: Quiz[],
-  deletedQuizzData: Quiz[]
+  setPageTitle: Dispatch<SetStateAction<string>>,
+  quizzData: Quiz[]
 };
 
 const Quizz: NextPage<Props> = ({
   isLogged,
   userLogged,
   setShowLoader,
+  setPageTitle,
   quizzData
 }) => {
 
@@ -28,7 +29,7 @@ const Quizz: NextPage<Props> = ({
 
   const [quizz, setQuizz] = useState<Quiz[]>([]);
   const [deletedQuizz, setDeletedQuizz] = useState<Quiz[]>([]);
-  
+
   useEffect(() => {
 
     if(isLogged) {
@@ -38,8 +39,8 @@ const Quizz: NextPage<Props> = ({
 
         setShowLoader(true);
 
-        document.title = "Modérer les utilisateurs - s'Quizz Game";
-        
+        setPageTitle("Modérer les utilisateurs - s'Quizz Game");
+
         setQuizz(quizzData);
         getDeletedQuizz();
 
@@ -71,7 +72,7 @@ const Quizz: NextPage<Props> = ({
   const getDeletedQuizz = async () => {
 
     const token = localStorage.getItem('token');
-    
+
     await fetch(`${api}/quiz/getDeletedQuizz`, {
       method: 'GET',
       headers: { 

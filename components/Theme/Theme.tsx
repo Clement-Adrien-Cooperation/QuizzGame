@@ -1,12 +1,9 @@
 import type { FunctionComponent } from 'react';
 import { useState } from 'react';
-import Image from 'next/image';
-import settings from '../../public/icons/settings.svg';
 import styles from './Theme.module.scss';
-import ColorsPicker from "../ColorsPicker/ColorsPicker";
-import DarkMode from "../DarkMode/DarkMode";
+import ColorsPickers from "../ColorsPickers/ColorsPickers";
 import CloseButton from '../CloseButton/CloseButton';
-import IconButton from '../IconButton/IconButton';
+import DarkMode from "../DarkMode/DarkMode";
 import IconSettings from '../Icons/IconSettings';
 
 const Theme: FunctionComponent = () => {
@@ -33,7 +30,7 @@ const Theme: FunctionComponent = () => {
           `${styles.settings}`
         }
       >
-        <ColorsPicker/>
+        <ColorsPickers />
         <DarkMode />
 
         <CloseButton
