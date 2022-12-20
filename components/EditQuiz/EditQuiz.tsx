@@ -40,7 +40,7 @@ const EditQuiz: FunctionComponent<Props> = ({
   const [difficulty, setDifficulty] = useState<string>('Normal');
   const [difficultyRange, setDifficultyRange] = useState<number>(2);
   const [rangeColor, setRangeColor] = useState<string>(`var(--medium)`);
-  const [colorDifficulty, setColorDifficulty] = useState<string>('var(--yellow)');
+  const [colorDifficulty, setColorDifficulty] = useState<string>('yellow');
 
   const [questions, setQuestions] = useState<Question[]>([]);
 
@@ -57,7 +57,6 @@ const EditQuiz: FunctionComponent<Props> = ({
     } else {
 
       if(userLogged.id === quizData.user_id) {
-
         setPageTitle(`Modifier le quiz "${router.query.slug}"`);
         setPreviousData(quizData);
 
@@ -93,37 +92,37 @@ const EditQuiz: FunctionComponent<Props> = ({
   };
 
   const setPreviousDifficulty = () => {
-    switch (true) {
+    switch(true) {
       case quizData.difficulty === 'Très facile' :
         setRangeColor(`var(--very-easy)`);
         setDifficultyRange(0);
-        setColorDifficulty('var(--text-color)');
+        setColorDifficulty('text-color');
         break;
       case quizData.difficulty === 'Facile' :
         setRangeColor(`var(--easy)`);
         setDifficultyRange(1);
-        setColorDifficulty('var(--green)');
+        setColorDifficulty('green');
         break;
       case quizData.difficulty === 'Normal' :
         setRangeColor(`var(--medium)`);
         setDifficultyRange(2);
-        setColorDifficulty('var(--yellow)');
+        setColorDifficulty('yellow');
         break;
       case quizData.difficulty === 'Difficile' :
         setRangeColor(`var(--hard)`);
         setDifficultyRange(3);
-        setColorDifficulty('var(--orange)');
+        setColorDifficulty('orange');
         break;
       case quizData.difficulty === 'Très difficile' :
         setRangeColor(`var(--very-hard)`);
         setDifficultyRange(4);
-        setColorDifficulty('var(--red)');
+        setColorDifficulty('red');
         break;
-        
+
       default:
         setRangeColor(`var(--medium)`);
         setDifficultyRange(2);
-        setColorDifficulty('var(--yellow)');
+        setColorDifficulty('yellow');
         break;
     };
   };
@@ -178,33 +177,33 @@ const EditQuiz: FunctionComponent<Props> = ({
         case newDifficulty === 0 :
           setRangeColor(`var(--very-easy)`);
           setDifficulty('Très facile');
-          setColorDifficulty('var(--text-color)');
+          setColorDifficulty('text-color');
           break;
         case newDifficulty === 1 :
           setRangeColor(`var(--easy)`);
           setDifficulty('Facile');
-          setColorDifficulty('var(--green)');
+          setColorDifficulty('green');
           break;
         case newDifficulty === 2 :
           setRangeColor(`var(--medium)`);
           setDifficulty('Normal');
-          setColorDifficulty('var(--yellow)');
+          setColorDifficulty('yellow');
           break;
         case newDifficulty === 3 :
           setRangeColor(`var(--hard)`);
           setDifficulty('Difficile');
-          setColorDifficulty('var(--orange)');
+          setColorDifficulty('orange');
           break;
         case newDifficulty === 4 :
           setRangeColor(`var(--very-hard)`);
           setDifficulty('Très difficile');
-          setColorDifficulty('var(--red)');
+          setColorDifficulty('red');
           break;
 
         default:
           setRangeColor(`var(--medium)`);
           setDifficulty('Normal');
-          setColorDifficulty('var(--yellow)');
+          setColorDifficulty('yellow');
           break;
       };
     };
@@ -271,6 +270,7 @@ const EditQuiz: FunctionComponent<Props> = ({
       nbOfPlayed: 0,
       category,
       difficulty,
+      color: colorDifficulty,
       date: new Date().toLocaleDateString(),
       rate: [],
       rates_IDs: [],
@@ -305,6 +305,7 @@ const EditQuiz: FunctionComponent<Props> = ({
       title: title.trim(),
       category,
       difficulty,
+      color: colorDifficulty,
       nbOfQuestions: questions.length
     };
 
@@ -317,11 +318,7 @@ const EditQuiz: FunctionComponent<Props> = ({
       body: JSON.stringify(body)
     })
     .then(async(res) => {
-      if(res.status === 200) {
-
-        const data = await res.json();
-        setPreviousData(data);
-      } else {
+      if(res.status !== 200) {
         setWarningMessage('Ce titre est déjà utilisé');
       };
     })

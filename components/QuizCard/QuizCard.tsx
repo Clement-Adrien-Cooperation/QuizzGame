@@ -1,6 +1,5 @@
-import type { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import type { Quiz } from '@prisma/client';
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from './QuizCard.module.scss';
 import Stars from '../Stars/Stars';
@@ -14,32 +13,6 @@ const QuizCard: FunctionComponent<Props> = ({
 }) => {
 
   const router = useRouter();
-
-  const [backgroundColor, setBackgroundColor] = useState<string>('var(--yellow)');
-
-  useEffect(() => {
-    switch (true) {
-      case quiz.difficulty === 'Très facile' :
-        setBackgroundColor('var(--white)');
-      break;
-      case quiz.difficulty === 'Facile' :
-        setBackgroundColor('var(--green)');
-      break;
-      case quiz.difficulty === 'Normal' :
-        setBackgroundColor('var(--yellow)');
-      break;
-      case quiz.difficulty === 'Difficile' :
-        setBackgroundColor('var(--orange)');
-      break;
-      case quiz.difficulty === 'Très difficile' :
-        setBackgroundColor('var(--red)');
-      break;
-
-      default:
-        setBackgroundColor('var(--yellow)');
-      break;
-    };
-  }, []);
 
   return (
     <article className={styles.card}>
@@ -60,7 +33,7 @@ const QuizCard: FunctionComponent<Props> = ({
 
             <span
               className={styles.header__aside__difficulty}
-              style={{background: `${backgroundColor}`}}
+              style={{background: `var(--${quiz.color})`}}
             >
               {quiz.difficulty}
             </span>

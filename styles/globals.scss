@@ -17,6 +17,23 @@ body {
     color: var(--body-color);
   }
 
+  &::-webkit-scrollbar {
+    width: 1rem;
+
+    &-track {
+      background: var(--light-grey);
+    }
+
+    &-thumb {
+      background: var(--main-color-lighter);
+      border-radius: 1rem;
+
+      &:hover {
+        background: var(--main-color);
+      }
+    }
+  }
+
   &.dark {
     --main-color-secondary: hsl(var(--hue-color), 90%, 80%);
     --main-color-light: hsl(var(--hue-color), 70%, 80%);
@@ -48,6 +65,17 @@ body {
 svg {
   filter: var(--icon-filter);
 }
+
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
+
+// input[type="search"]::-webkit-search-decoration,
+// input[type="search"]::-webkit-search-cancel-button,
+// input[type="search"]::-webkit-search-results-button,
+// input[type="search"]::-webkit-search-results-decoration {
+//   display: none;
+// }
 
 h1, h2, h3, h4{
   color: var(--title-color);

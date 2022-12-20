@@ -2,7 +2,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import type { Category, User } from '@prisma/client';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { api } from '../../api/api';
 import AdminHeader from '../../components/Admin/AdminHeader/AdminHeader';
@@ -30,7 +30,7 @@ const Categories: NextPage<Props> = ({
   const router = useRouter();
 
   const [categories, setCategories] = useState<Category[]>([]);
-  const [categoryFilter, setCategoryFilter] = useState<string>('');
+  const [filter, setFilter] = useState<string>('');
 
   useEffect(() => {
 
@@ -50,6 +50,17 @@ const Categories: NextPage<Props> = ({
     };
   }, []);
 
+  const displayedCategories = useMemo(() => {
+    if(filter) {
+      return categoriesData.filter((category: Category) => {
+        return category.name.toLowerCase().includes(filter.toLowerCase());
+      });
+    };
+
+    return categoriesData;
+
+  }, [filter]);
+
   return (
     <>
       <AdminHeader />
@@ -68,41 +79,33 @@ const Categories: NextPage<Props> = ({
           setShowLoader={setShowLoader}
         />
 
-        {categories.length > 0 &&
+        {categoriesData.length > 0 &&
           <div className={styles.categories}>
 
             {categories?.length > 10 &&
               <InputField
                 name={'Filtrer les catégories...'}
-                state={categoryFilter}
+                state={filter}
                 inputID={'category-filter'}
                 type={'text'}
                 isDisabled={false}
                 required={true}
                 autoFocus={true}
-                setState={setCategoryFilter}
+                setState={setFilter}
               />
             }
 
             <ul className={styles.list}>
-              {categories?.map((category: Category) => {
-
-                const filteredName = category.name.toLocaleLowerCase();
-                const filter = categoryFilter.toLowerCase();
-
-                if(filteredName.includes(filter)) {
-                  return (
-                    <li key={uuidv4()}>
-                      <CategoryCard
-                        id={category.id}
-                        name={category.name}
-                        setCategories={setCategories}
-                        setShowLoader={setShowLoader}
-                      />
-                    </li>
-                  );
-                };
-              })}
+              {displayedCategories.map((category: Category) =>
+                <li key={uuidv4()}>
+                  <CategoryCard
+                    id={category.id}
+                    name={category.name}
+                    setCategories={setCategories}
+                    setShowLoader={setShowLoader}
+                  />
+                </li>
+              )}
             </ul>
           </div>
         }

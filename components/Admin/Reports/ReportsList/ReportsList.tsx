@@ -1,6 +1,6 @@
 import type { FunctionComponent } from 'react';
 import type { Report } from '@prisma/client';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import InputField from '../../../InputField/InputField';
 import ReportsCard from '../ReportsCard/ReportsCard';
@@ -20,7 +20,19 @@ const ReportsLists: FunctionComponent<Props> = ({
   getReports
 }) => {
 
-  const [reportFilter, setReportFilter] = useState<string>('');
+  const [filter, setFilter] = useState<string>('');
+
+  const displayedReports = useMemo(() => {
+    if(filter) {
+      return reports.filter((report: Report) => {
+        return report.about_title.toLowerCase().includes(filter.toLowerCase())
+        || report.pseudo.toLowerCase().includes(filter.toLowerCase());
+      });
+    };
+
+    return reports;
+
+  }, [filter, reports]);
 
   return (
     <section
@@ -42,36 +54,27 @@ const ReportsLists: FunctionComponent<Props> = ({
           >
             <InputField
               name={'Filtrer...'}
-              state={reportFilter}
+              state={filter}
               inputID={'filter'}
               type={'text'}
               isDisabled={false}
               required={true}
               autoFocus={false}
-              setState={setReportFilter}
+              setState={setFilter}
             />
           </div>
         }
 
         <ul className={styles.list}>
-          {reports.map(report => {
-
-            const filteredTitle = report.about_title.toLowerCase();
-            const filteredPseudo = report.pseudo.toLowerCase();
-            const filter = reportFilter.toLowerCase();
-
-            if(filteredPseudo.includes(filter) || filteredTitle.includes(filter)) {
-              return (
-                <li key={uuidv4()}>
-                  <ReportsCard
-                    report={report}
-                    getReports={getReports}
-                    reportsSorting={reportsSorting}
-                  />
-                </li>
-              );
-            };
-          })}
+          {displayedReports.map(report =>
+            <li key={uuidv4()}>
+              <ReportsCard
+                report={report}
+                getReports={getReports}
+                reportsSorting={reportsSorting}
+              />
+            </li>
+          )}
         </ul>
       </section>
     </section>

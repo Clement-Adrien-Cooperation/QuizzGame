@@ -1,6 +1,6 @@
 import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import type { Question } from '@prisma/client';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import InputField from '../InputField/InputField';
 import QuestionCard from './QuestionCard/QuestionCard';
@@ -31,7 +31,7 @@ const Questions: FunctionComponent<Props> = ({
   const [updateIndex, setUpdateIndex] = useState<number>(0);
   const [questionID, setQuestionID] = useState<string>('');
 
-  const [questionFilter, setQuestionFilter] = useState<string>('');
+  const [filter, setFilter] = useState<string>('');
 
   const updateQuestion = (questionData: Question) => {
     setQuestionID(questionData.id);
@@ -62,6 +62,18 @@ const Questions: FunctionComponent<Props> = ({
       setShowForm(true);
     };
   };
+
+  const displayedQuestions = useMemo(() => {
+    if(filter) {
+      return questions.filter((question: Question) => {
+        return question.question.toLowerCase().includes(filter.toLowerCase())
+        || question.answer.toLowerCase().includes(filter.toLowerCase());
+      });
+    };
+
+    return questions;
+
+  }, [questions, filter]);
 
   return (
     <section className={styles.container}>
@@ -125,46 +137,36 @@ const Questions: FunctionComponent<Props> = ({
                 >
                   <InputField
                     name={'Rechercher une question'}
-                    state={questionFilter}
+                    state={filter}
                     inputID={'question-filter'}
                     type={'text'}
                     isDisabled={false}
                     required={true}
                     autoFocus={true}
-                    setState={setQuestionFilter}
+                    setState={setFilter}
                   />
                 </div>
               }
 
               <ul className={styles.list}>
-                {questions?.map((question, index) => {
-
-                  const filteredQuestion = question.question.toLowerCase();
-                  const filteredAnswer = question.answer.toLowerCase();
-                  const filter = questionFilter.toLocaleLowerCase();
-
-                  if(filteredQuestion.includes(filter) || filteredAnswer.includes(filter)) {
-
-                    return (
-                      <li key={uuidv4()}>
-                        <QuestionCard
-                          questions={questions}
-                          setQuestions={setQuestions}
-                          id={question.id}
-                          quiz_id={question.quiz_id}
-                          question={question.question}
-                          answer={question.answer}
-                          proposals={question.proposals}
-                          description={question.description}
-                          updateQuestion={updateQuestion}
-                          setUpdating={setUpdating}
-                          questionIndex={index}
-                          setUpdateIndex={setUpdateIndex}
-                        />
-                      </li>
-                    );
-                  };
-                })}
+                {displayedQuestions?.map((question, index) =>
+                  <li key={uuidv4()}>
+                    <QuestionCard
+                      questions={questions}
+                      setQuestions={setQuestions}
+                      id={question.id}
+                      quiz_id={question.quiz_id}
+                      question={question.question}
+                      answer={question.answer}
+                      proposals={question.proposals}
+                      description={question.description}
+                      updateQuestion={updateQuestion}
+                      setUpdating={setUpdating}
+                      questionIndex={index}
+                      setUpdateIndex={setUpdateIndex}
+                    />
+                  </li>
+                )}
               </ul>
             </>
           }

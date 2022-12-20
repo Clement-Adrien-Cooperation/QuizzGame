@@ -1,9 +1,10 @@
 import type { FunctionComponent } from 'react'
 import type { Quiz } from '@prisma/client';
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import styles from './QuizzSlider.module.scss';
 import QuizCard from '../QuizCard/QuizCard';
+import IconArrow from '../Icons/IconArrow';
 
 // 400px is the width of a quiz card
 const cardWidth = 400; // in QuizCard.module.scss => .card
@@ -24,11 +25,11 @@ const QuizzSlider: FunctionComponent<Props> = ({
   title
 }) => {
 
+  const sliderRef = useRef<HTMLUListElement>(null);
+
   const [showLeftArrow, setShowLeftArrow] = useState<boolean>(false);
   const [showRightArrow, setShowRightArrow] = useState<boolean>(false);
-
   const [currentPosition, setCurrentPosition] = useState<number>(0);
-
   const [disabledButtons, setDisabledButtons] = useState<boolean>(false);
 
   const listWidth = quizz.length * (cardWidth + cardsGap);
@@ -40,7 +41,6 @@ const QuizzSlider: FunctionComponent<Props> = ({
   };
 
   useEffect(() => {
-
     if(currentPosition >= 0) {
       setShowLeftArrow(false);
     };
@@ -64,9 +64,11 @@ const QuizzSlider: FunctionComponent<Props> = ({
 
     if((currentPosition - newScroll) > (-listWidth + newScroll)) {
       setCurrentPosition(currentPosition => currentPosition - newScroll);
+      sliderRef.current?.setAttribute('style', `transform: translateX(${currentPosition - newScroll}px)`);
     } else {
       const newPosition = -listWidth + visibleQuizzWidth;
       setCurrentPosition(newPosition);
+      sliderRef.current?.setAttribute('style', `transform: translateX(${newPosition}px)`);
     };
 
     // Time for animation is 500ms
@@ -84,8 +86,10 @@ const QuizzSlider: FunctionComponent<Props> = ({
 
     if((currentPosition + newScroll) >= 0) {
       setCurrentPosition(0);
+      sliderRef.current?.setAttribute('style', `transform: translateX(0)px`);
     } else {
       setCurrentPosition(currentPosition => currentPosition + newScroll);
+      sliderRef.current?.setAttribute('style', `transform: translateX(${currentPosition + newScroll}px)`);
     };
 
     // Time for animation is 500ms
@@ -111,13 +115,14 @@ const QuizzSlider: FunctionComponent<Props> = ({
           disabled={disabledButtons}
           onClick={slideToRight}
         >
-          &lt;
+          <IconArrow color="var(--white)" />
         </button>
       }
 
       <ul
         className={styles.list}
-        style={{ transform: `translateX(${currentPosition}px)` }}
+        // style={{ transform: `translateX(${currentPosition}px)` }}
+        ref={sliderRef}
       >
         {quizz.map(quiz =>
           <li key={uuidv4()}>
@@ -137,7 +142,7 @@ const QuizzSlider: FunctionComponent<Props> = ({
           disabled={disabledButtons}
           onClick={slideToLeft}
         >
-          &gt;
+          <IconArrow color="var(--white)" />
         </button>
       }
     </section>

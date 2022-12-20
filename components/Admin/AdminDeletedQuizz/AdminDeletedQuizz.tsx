@@ -1,7 +1,7 @@
 import type { FunctionComponent } from 'react';
 import type { Quiz } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import AdminQuizCard from '../AdminQuizCard/AdminQuizCard';
 import InputField from '../../InputField/InputField';
 import styles from './AdminDeletedQuizz.module.scss';
@@ -18,7 +18,19 @@ const AdminDeletedQuizz: FunctionComponent<Props> = ({
   handleDeleteQuiz
 }) => {
 
-  const [deletedQuizzFilter, setDeletedQuizzFilter] = useState<string>('');
+  const [filter, setFilter] = useState<string>('');
+
+  const displayedQuizz = useMemo(() => {
+    if(filter) {
+      return deletedQuizz.filter((quiz: Quiz) => {
+        return quiz.title.toLowerCase().includes(filter.toLowerCase()) ||
+        quiz.creator.toLowerCase().includes(filter.toLowerCase());
+      });
+    };
+
+    return deletedQuizz;
+
+  }, [filter]);
 
   return (
     <>
@@ -35,37 +47,29 @@ const AdminDeletedQuizz: FunctionComponent<Props> = ({
           >
             <InputField
               name={'Rechercher dans la corbeille...'}
-              state={deletedQuizzFilter}
+              state={filter}
               inputID={'deleted-quizz-filter'}
               type={'text'}
               isDisabled={false}
               required={true}
               autoFocus={false}
-              setState={setDeletedQuizzFilter}
+              setState={setFilter}
             />
           </div>
         }
       </header>
 
       <ul className={styles.list}>
-        {deletedQuizz?.map((quiz: Quiz) => {
+        {displayedQuizz.map((quiz: Quiz) =>
 
-          const filteredTitle = quiz.title.toLowerCase();
-          const filteredCreator = quiz.creator.toLowerCase();
-          const filter = deletedQuizzFilter.toLocaleLowerCase();
-
-          if(filteredTitle.includes(filter) || filteredCreator.includes(filter)) {
-            return (
-              <li key={uuidv4()}>
-                <AdminQuizCard
-                  quiz={quiz}
-                  handleModerateQuiz={handleModerateQuiz}
-                  handleDeleteQuiz={handleDeleteQuiz}
-                />
-              </li>
-            );
-          };
-        })}
+          <li key={uuidv4()}>
+            <AdminQuizCard
+              quiz={quiz}
+              handleModerateQuiz={handleModerateQuiz}
+              handleDeleteQuiz={handleDeleteQuiz}
+            />
+          </li>
+        )}
       </ul>
     </>
   );

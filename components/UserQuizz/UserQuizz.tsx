@@ -1,6 +1,6 @@
 import type { FunctionComponent, Dispatch, SetStateAction } from 'react';
 import type { Quiz, User } from '@prisma/client';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import UserQuizCard from '../UserQuizCard/UserQuizCard';
 import styles from './UserQuizz.module.scss';
@@ -20,7 +20,19 @@ const UserQuizz: FunctionComponent<Props> = ({
   setShowLoader
 }) => {
 
-  const [quizzFilter, setQuizzFilter] = useState<string>('');
+  const [filter, setFilter] = useState<string>('');
+
+  const displayedQuizz = useMemo(() => {
+    if(filter) {
+      return quizz.filter((quiz: Quiz) => {
+        return quiz.title.toLowerCase().includes(filter.toLowerCase()) ||
+        quiz.creator.toLowerCase().includes(filter.toLowerCase());
+      });
+    };
+
+    return quizz;
+
+  }, [quizz, filter]);
 
   return (
     <>
@@ -35,37 +47,28 @@ const UserQuizz: FunctionComponent<Props> = ({
       >
         <InputField
           name={'Filtrer mes quiz...'}
-          state={quizzFilter}
+          state={filter}
           inputID={'user-quizz-filter'}
           type={'text'}
           isDisabled={false}
           required={true}
           autoFocus={true}
-          setState={setQuizzFilter}
+          setState={setFilter}
         />
       </div>
 
       <ul className={styles.list}>
 
-        {quizz?.map((quiz: Quiz) => {
-
-          const filter = quizzFilter.toLowerCase();
-          const title = quiz.title.toLowerCase();
-          const category = quiz.category.toLowerCase();
-
-          if(title.includes(filter) || category.includes(filter)) {
-            return (
-              <li key={uuidv4()}>
-                <UserQuizCard
-                  quiz={quiz}
-                  userLogged={userLogged}
-                  getQuizzFromUser={getQuizzFromUser}
-                  setShowLoader={setShowLoader}
-                />
-              </li>
-            );
-          }
-        })}
+        {displayedQuizz?.map((quiz: Quiz) =>
+          <li key={uuidv4()}>
+            <UserQuizCard
+              quiz={quiz}
+              userLogged={userLogged}
+              getQuizzFromUser={getQuizzFromUser}
+              setShowLoader={setShowLoader}
+            />
+          </li>
+        )}
       </ul>
     </>
   );

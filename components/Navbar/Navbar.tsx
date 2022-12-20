@@ -28,7 +28,7 @@ const Navbar: FunctionComponent<Props> = ({
               aria-label="Revenir à la page d'accueil"
             >
               <Link href='/'>
-                <a>
+                <a className={styles.list__item__link}>
                   Accueil
                 </a>
               </Link>
@@ -40,7 +40,7 @@ const Navbar: FunctionComponent<Props> = ({
               aria-label="Voir tous les quizz"
             >
               <Link href='/quizz'>
-                <a>
+                <a className={styles.list__item__link}>
                   Quizz
                 </a>
               </Link>
@@ -56,7 +56,7 @@ const Navbar: FunctionComponent<Props> = ({
               aria-label="Créer un nouveau quiz"
             >
               <Link href='/quizz/create'>
-                <a>
+                <a className={styles.list__item__link}>
                   Créer un quiz
                 </a>
               </Link>
@@ -68,7 +68,7 @@ const Navbar: FunctionComponent<Props> = ({
                 aria-label="Aller à ma page de profil"
               >
               <Link href='/profile'>
-                <a>
+                <a className={styles.list__item__link}>
                   Mon espace
                 </a>
               </Link>
@@ -83,7 +83,7 @@ const Navbar: FunctionComponent<Props> = ({
             aria-label="Se connecter"
           >
             <Link href='/connexion'>
-              <a>
+              <a className={styles.list__item__link}>
                 Connexion
               </a>
             </Link>
@@ -97,7 +97,7 @@ const Navbar: FunctionComponent<Props> = ({
             aria-label="Aller à la page d'administration"
           >
             <Link href='/admin/reports'>
-              <a>
+              <a className={styles.list__item__link}>
                 Administration
               </a>
             </Link>
@@ -110,7 +110,7 @@ const Navbar: FunctionComponent<Props> = ({
           aria-label="Contactez nous"
         >
           <Link href='/contact'>
-            <a>
+            <a className={styles.list__item__link}>
               Contact
             </a>
           </Link>
@@ -121,9 +121,10 @@ const Navbar: FunctionComponent<Props> = ({
             className={styles.list__item}
             title="Se déconnecter"
             aria-label="Se déconnecter"
+            onClick={handleDisconnect}
           >
             <Link href='/'>
-              <a onClick={handleDisconnect}>
+              <a className={styles.list__item__link}>
                 Déconnexion
               </a>
             </Link>
@@ -132,7 +133,6 @@ const Navbar: FunctionComponent<Props> = ({
       </ul>
 
       <Theme />
-
     </nav>
   );
 };

@@ -1,25 +1,56 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Quiz } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
 
 const prisma = new PrismaClient();
 
 async function main() {
 
-  const newQuizz = [];
-
   for(let i = 0; i < 50; i++) {
+    await prisma.user.create({
+      data: {
+        id: `${i + 2}`,
+        pseudo: `User ${i}`,
+        email: `user${i}@gmail.com`,
+        password: `${i}123abcABC&`,
+        is_admin: false
+      }
+    });
+  };
+
+  const newQuizz: Quiz[] = [];
+
+  for(let i = 0; i < 10; i++) {
     newQuizz.push({
-      id: i.toString(),
-      user_id: '1',
+      id: `${i}`,
+      user_id: `1`,
       creator: 'Vadrial',
       title: `Quiz ${i}`,
       nbOfQuestions: 50,
       nbOfPlayed: 0,
       category: "Cinéma",
       difficulty: "Facile",
+      color: 'green',
       date: new Date().toLocaleDateString(),
       rate: [4],
-      rates_IDs: ['2'],
+      rates_IDs: [`${i + 1}`],
+      is_visible: true
+    });
+  };
+
+  for(let i = 0; i < 40; i++) {
+    newQuizz.push({
+      id: `${i + 11}`,
+      user_id: `2`,
+      creator: 'User 0',
+      title: `Quiz ${i + 11}`,
+      nbOfQuestions: 50,
+      nbOfPlayed: 0,
+      category: "Cinéma",
+      difficulty: "Facile",
+      color: 'green',
+      date: new Date().toLocaleDateString(),
+      rate: [3],
+      rates_IDs: [`${i + 11}`],
       is_visible: true
     });
   };

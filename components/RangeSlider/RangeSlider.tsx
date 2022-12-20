@@ -45,7 +45,7 @@ const RangeSlider: FunctionComponent<Props> = ({
 
       <span
         className={styles.span}
-        style={{background: `${color}`}}
+        style={{background: `var(--${color})`}}
       >
         {difficulty}
       </span>

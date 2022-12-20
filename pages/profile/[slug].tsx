@@ -3,7 +3,7 @@ import type { GetServerSideProps, NextPage } from 'next';
 import type { Played, Quiz, User } from '@prisma/client';
 import { useRouter } from 'next/router';
 import { api } from '../../api/api';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import InputField from '../../components/InputField/InputField';
 import ProfileQuizCard from '../../components/ProfileQuizCard/ProfileQuizCard';
 import styles from '../../styles/UserProfile.module.scss';
@@ -31,7 +31,7 @@ const UserProfile: NextPage<Props> = ({
   const router = useRouter();
 
   const [userQuizz, setUserQuizz] = useState<Quiz[]>([]);
-  const [quizzFilter, setQuizzFilter] = useState<string>('');
+  const [filter, setFilter] = useState<string>('');
   const [report, setReport] = useState<boolean>(false);
 
   useEffect(() => {
@@ -47,6 +47,18 @@ const UserProfile: NextPage<Props> = ({
       };
     };
   }, []);
+
+  const displayedQuizz = useMemo(() => {
+    if(filter) {
+      return userQuizzData.filter((quiz: Quiz) => {
+        return quiz.title.toLowerCase().includes(filter.toLowerCase()) ||
+        quiz.creator.toLowerCase().includes(filter.toLowerCase());
+      });
+    };
+
+    return userQuizzData;
+
+  }, [filter, userQuizz]);
 
   return (
     <>
@@ -66,36 +78,26 @@ const UserProfile: NextPage<Props> = ({
           <div className={styles.input}>
             <InputField
               name={'Chercher un quiz...'}
-              state={quizzFilter}
+              state={filter}
               inputID={'quizz-filter'}
               type={'text'}
               isDisabled={false}
               required={true}
               autoFocus={true}
-              setState={setQuizzFilter}
+              setState={setFilter}
             />
           </div>
         }
 
         <ul className={styles.list}>
 
-          {userQuizz?.map((quiz: Quiz, index: number) => {
-
-            const filteredTitle = quiz.title.toLowerCase();
-            const filteredCategory = quiz.category.toLowerCase();
-            const filter = quizzFilter.toLowerCase();
-
-            if(quiz.nbOfQuestions >= 10 && filteredTitle.includes(filter)
-            || quiz.nbOfQuestions >= 10 && filteredCategory.includes(filter)) {
-              return (
-                <li key={index}>
-                  <ProfileQuizCard
-                    quiz={quiz}
-                  />
-                </li>
-              );
-            };
-          })}
+          {displayedQuizz?.map((quiz: Quiz, index: number) =>
+            <li key={index}>
+              <ProfileQuizCard
+                quiz={quiz}
+              />
+            </li>
+          )}
         </ul>
       </section>
 

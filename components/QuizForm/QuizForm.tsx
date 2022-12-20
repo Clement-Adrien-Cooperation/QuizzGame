@@ -33,9 +33,9 @@ const QuizForm: FunctionComponent<Props> = ({
   return (
     <section className={styles.container}>
       <InputField
-        name={'Nom du Quizz'}
+        name={'Titre du Quizz'}
         state={title}
-        inputID={'title'}
+        inputID={'quiz-title'}
         type={'text'}
         isDisabled={false}
         required={true}

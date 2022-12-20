@@ -1,6 +1,6 @@
-import type { ChangeEvent, FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import type { User } from '@prisma/client';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import InputField from '../../InputField/InputField';
 import UserCard from '../UserCard/UserCard';
@@ -22,7 +22,19 @@ const BanishedUsers: FunctionComponent<Props> = ({
   handleDeleteUser
 }) => {
 
-  const [banishedUsersFilter, setBanishedUsersFilter] = useState<string>('');
+  const [filter, setFilter] = useState<string>('');
+
+  const displayedUsers = useMemo(() => {
+    if(filter) {
+      return banishedUsers.filter((user: User) => {
+        return user.pseudo.toLowerCase().includes(filter.toLowerCase())
+        || user.email.toLowerCase().includes(filter.toLowerCase());
+      });
+    };
+
+    return banishedUsers;
+
+  }, [banishedUsers, filter]);
 
   return (
     <>
@@ -33,41 +45,36 @@ const BanishedUsers: FunctionComponent<Props> = ({
           </h2>
 
           {banishedUsers.length > 10 &&
-            <div className={styles.input}>
+            <div
+              className={styles.input}
+              title={"Vous pouvez filtrer les utilisateurs avec leur pseudo ou leur email"}
+              aria-label={"Vous pouvez filtrer les utilisateurs avec leur pseudo ou leur email"}
+            >
               <InputField
                 name={'Rechercher un utilisateur'}
-                state={banishedUsersFilter}
+                state={filter}
                 inputID={'banished-users-filter'}
                 type={'text'}
                 isDisabled={false}
                 required={true}
                 autoFocus={false}
-                setState={setBanishedUsersFilter}
+                setState={setFilter}
               />
             </div>
           }
 
           <ul>
-            {banishedUsers?.map((user: User) => {
-
-              const filteredPseudo = user.pseudo.toLowerCase();
-              const filteredEmail = user.email.toLowerCase();
-              const filter = banishedUsersFilter.toLocaleLowerCase();
-
-              if(filteredPseudo.includes(filter) || filteredEmail.includes(filter)) {
-                return (
-                  <li key={uuidv4()}>
-                    <UserCard
-                      user={user}
-                      userLogged={userLogged}
-                      handleBanishment={handleBanishment}
-                      handlePromotion={handlePromotion}
-                      handleDeleteUser={handleDeleteUser}
-                    />
-                  </li>
-                );
-              };
-            })}
+            {displayedUsers?.map((user: User) => 
+              <li key={uuidv4()}>
+                <UserCard
+                  user={user}
+                  userLogged={userLogged}
+                  handleBanishment={handleBanishment}
+                  handlePromotion={handlePromotion}
+                  handleDeleteUser={handleDeleteUser}
+                />
+              </li>
+            )}
           </ul>
         </section>
       }

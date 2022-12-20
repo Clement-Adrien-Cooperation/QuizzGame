@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import type { Dispatch, SetStateAction } from 'react';
 import type { Quiz, User } from '@prisma/client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
 import { api } from '../../api/api';
@@ -11,10 +11,9 @@ import QuizCard from '../../components/QuizCard/QuizCard';
 import InputField from '../../components/InputField/InputField';
 
 type Props = {
-  quizzData: any,
+  quizzData: Quiz[],
   isLogged: boolean,
   userLogged: User,
-  setShowLoader: Dispatch<SetStateAction<boolean>>,
   setPageTitle: Dispatch<SetStateAction<string>>
 };
 
@@ -22,26 +21,33 @@ const Quizz: NextPage<Props> = ({
   quizzData,
   isLogged,
   userLogged,
-  setShowLoader,
   setPageTitle
 }) => {
 
   const router = useRouter();
 
   const [filter, setFilter] = useState<string>('');
-  const [quizz, setQuizz] = useState<Quiz[]>([]);
 
   useEffect(() => {
 
     setPageTitle("Tous les quizz - s'Quizz Game");
 
-    setQuizz(quizzData);
-    setShowLoader(false);
-
     if(isLogged && userLogged.is_banished) {
       router.push('/banned');
     };
   }, []);
+
+  const displayedQuizz = useMemo(() => {
+    if(filter) {
+      return quizzData.filter((quiz: Quiz) => {
+        return quiz.title.toLowerCase().includes(filter.toLowerCase())
+        || quiz.creator.toLowerCase().includes(filter.toLowerCase());
+      });
+    };
+
+    return quizzData;
+
+  }, [filter]);
 
   return (
     <>
@@ -85,16 +91,8 @@ const Quizz: NextPage<Props> = ({
 
       <section>
         <ul className={styles.container}>
-          {quizz?.map((quiz: Quiz) => {
-
-            const quizTitle = quiz.title.toLowerCase();
-            const quizCreator = quiz.creator.toLowerCase();
-            const userFilter = filter.toLowerCase();
-
-            // If quiz doesn't have question, we don't render it
-            if(quizTitle.includes(userFilter) && quiz.nbOfQuestions >= 10
-            || quizCreator.includes(userFilter) && quiz.nbOfQuestions >= 10) {
-
+          {displayedQuizz.map((quiz: Quiz) => {
+            if(quiz.nbOfQuestions >= 10) {
               return (
                 <li key={uuidv4()}>
                   <QuizCard

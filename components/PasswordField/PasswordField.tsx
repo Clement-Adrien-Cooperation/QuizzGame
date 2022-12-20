@@ -38,6 +38,7 @@ const PasswordField: FunctionComponent<Props> = ({
         <button
           className={styles.icon}
           type='button'
+          tabIndex={-1}
           title={showPassword ? "Cacher le mot de passe" : "Montrer le mot de passe"}
           aria-label={showPassword ? "Cacher le mot de passe" : "Montrer le mot de passe"}
           onClick={() => setShowPassword(!showPassword)}

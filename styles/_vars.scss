@@ -21,36 +21,37 @@
   --black: hsl(var(--hue-color), 10%, 10%);
   --white: hsl(var(--hue-color), 10%, 90%);
 
-  --light-grey: hsl(var(--hue-color), 5%, 70%);
+  --light-grey: hsl(var(--hue-color), 5%, 80%);
   --grey: hsl(var(--hue-color), 5%, 50%);
   --dark-grey: hsl(var(--hue-color), 5%, 25%);
 
-  --green: #2e8b57;
-  --green-secondary: #acbdb3;
-  --green-hover: #4da874;
+  --green: hsl(146, 50%, 36%);
+  --green-secondary: hsl(145, 11%, 71%);
+  --green-hover: hsl(146, 37%, 48%);
 
-  --yellow: #e2be0a;
-  --yellow-secondary: #d3cdae;
-  --yellow-hover: #e2ca53;
+  --yellow: hsl(50, 92%, 46%);
+  --yellow-secondary: hsl(50, 30%, 75%);
+  --yellow-hover: hsl(50, 92%, 66%);
+  --gold: hsl(45, 100%, 50%);
 
-  --orange: #e08f57;
-  --orange-secondary: #dfbfa8;
-  --orange-hover: #f7b180;
+  --orange: hsl(25, 69%, 61%);
+  --orange-secondary: hsl(25, 46%, 77%);
+  --orange-hover: hsl(25, 88%, 74%);
 
-  --red: #df5757;
-  --red-secondary: #d8b2b2;
-  --red-hover: #f37f7f;
+  --red: hsl(0, 68%, 61%);
+  --red-secondary: hsl(0, 33%, 77%);
+  --red-hover: hsl(0, 83%, 73%);
 
-  --warning: #721c24;
-  --warning-hover: #b95f68;
-  --warning-bg: #f8d7da;
-  --warning-border: #f5c6cb;
+  --warning: hsl(354, 61%, 28%);
+  --warning-hover: hsl(354, 39%, 55%);
+  --warning-bg: hsl(354, 70%, 91%);
+  --warning-border: hsl(354, 70%, 87%);
 
   --title-color:  hsl(var(--hue-color), 8%, 15%);
   --text-color:  hsl(var(--hue-color), 8%, 30%);
   --text-color-light: hsl(var(--hue-color), 8%, 75%);
 
-  --body-color: hsl(var(--hue-color), 60%, 90%);
+  --body-color: hsl(var(--hue-color), 60%, 93%);
   --input-color: hsl(var(--hue-color), 70%, 95%);
   --card-gradient: linear-gradient(45deg, var(--main-color), var(--main-color-alt), var(--main-color));
   --icon-filter: brightness(90%);

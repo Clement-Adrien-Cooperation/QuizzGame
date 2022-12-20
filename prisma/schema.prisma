@@ -3,7 +3,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["interactiveTransactions"]
 }
 
 datasource db {
@@ -29,6 +28,7 @@ model Quiz {
   nbOfPlayed    Int
   category      String
   difficulty    String
+  color         String
   date          String
   rate          Int[]
   rates_IDs     String[]

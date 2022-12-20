@@ -2,9 +2,9 @@ import type { FunctionComponent } from 'react';
 import type { Quiz, User } from '@prisma/client';
 import { useState } from 'react';
 import { v4 as uuidv4 } from "uuid";
-import { FaStar } from 'react-icons/fa';
 import { api } from '../../../api/api';
 import styles from './GameRate.module.scss';
+import IconStar from '../../Icons/IconStar';
 
 type Props = {
   quiz: Quiz,
@@ -80,18 +80,21 @@ const GameRate: FunctionComponent<Props> = ({
               const value = index + 1;
 
               return (
-                <li
-                  key={uuidv4()}
-                  title={`Donner une note de ${value}/5 à ce quiz`}
-                  aria-label={`Donner une note de ${value}/5 à ce quiz`}
-                >
-                  <FaStar
+                <li key={uuidv4()}>
+                  <button
                     className={styles.star}
-                    color={value <= hover ? "#ffc107" : "var(--input-color)"}
+                    type="button"
+                    title={`Donner une note de ${value}/5 à ce quiz`}
+                    aria-label={`Donner une note de ${value}/5 à ce quiz`}
                     onMouseEnter={() => setHover(value)}
                     onMouseLeave={() => setHover(0)}
                     onClick={() => handleRateQuiz(value)}
-                  />
+                  >
+                    <IconStar
+                      color={value <= hover ? "var(--gold)" : "var(--light-grey)"}
+                      height={'36'}
+                    />
+                  </button>
                 </li>
               );
             })}

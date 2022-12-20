@@ -15,6 +15,7 @@ export default checkUser(async function handle (
         title: req.body.title,
         category: req.body.category,
         difficulty: req.body.difficulty,
+        color: req.body.color,
         nbOfQuestions: req.body.nbOfQuestions
       }
     });

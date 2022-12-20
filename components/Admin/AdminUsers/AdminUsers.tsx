@@ -1,6 +1,6 @@
 import type { FunctionComponent } from 'react';
 import type { User } from '@prisma/client';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import InputField from '../../InputField/InputField';
 import UserCard from '../UserCard/UserCard';
@@ -22,7 +22,19 @@ const AdminUsers: FunctionComponent<Props> = ({
   handleDeleteUser
 }) => {
 
-  const [usersFilter, setUsersFilter] = useState<string>('');
+  const [filter, setFilter] = useState<string>('');
+
+  const displayedUsers = useMemo(() => {
+    if(filter) {
+      return users.filter((user: User) => {
+        return user.pseudo.toLowerCase().includes(filter.toLowerCase())
+        || user.email.toLowerCase().includes(filter.toLowerCase());
+      });
+    };
+
+    return users;
+
+  }, [filter, users]);
 
   return (
     <section className={styles.container}>
@@ -32,41 +44,36 @@ const AdminUsers: FunctionComponent<Props> = ({
       </h2>
 
       {users.length > 10 &&
-        <div className={styles.input}>
+        <div
+          className={styles.input}
+          title={"Vous pouvez filtrer les utilisateurs avec leur pseudo ou leur email"}
+          aria-label={"Vous pouvez filtrer les utilisateurs avec leur pseudo ou leur email"}
+        >
           <InputField
             name={'Rechercher un utilisateur'}
-            state={usersFilter}
+            state={filter}
             inputID={'users-filter'}
             type={'text'}
             isDisabled={false}
             required={true}
             autoFocus={true}
-            setState={setUsersFilter}
+            setState={setFilter}
           />
         </div>
       }
 
       <ul>
-        {users.map((user: User) => {
-
-          const filteredPseudo = user.pseudo.toLowerCase();
-          const filteredEmail = user.email.toLowerCase();
-          const filter = usersFilter.toLocaleLowerCase();
-
-          if(filteredPseudo.includes(filter) || filteredEmail.includes(filter)) {
-            return (
-              <li key={uuidv4()}>
-                <UserCard
-                  user={user}
-                  userLogged={userLogged}
-                  handleBanishment={handleBanishment}
-                  handlePromotion={handlePromotion}
-                  handleDeleteUser={handleDeleteUser}
-                />
-              </li>
-            );
-          };
-        })}
+        {displayedUsers?.map((user: User) =>
+          <li key={uuidv4()}>
+            <UserCard
+              user={user}
+              userLogged={userLogged}
+              handleBanishment={handleBanishment}
+              handlePromotion={handlePromotion}
+              handleDeleteUser={handleDeleteUser}
+            />
+          </li>
+        )}
       </ul>
     </section>
   );

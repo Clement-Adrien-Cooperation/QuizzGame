@@ -1,6 +1,6 @@
 import type { Question } from '@prisma/client';
 import type { FunctionComponent } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { api } from '../../../api/api';
 import { v4 as uuidv4 } from 'uuid';
 import AdminQuestionCard from '../AdminQuestionCard/AdminQuestionCard';
@@ -17,7 +17,7 @@ const AdminQuizQuestions: FunctionComponent<Props> = ({
 }) => {
 
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [questionFilter, setQuestionFilter] = useState<string>('');
+  const [filter, setFilter] = useState<string>('');
   const [showLoader, setShowLoader] = useState<boolean>(true);
 
   useEffect(() => {
@@ -43,6 +43,18 @@ const AdminQuizQuestions: FunctionComponent<Props> = ({
     });
   };
 
+  const displayedQuestions = useMemo(() => {
+    if(filter) {
+      return questions.filter((question: Question) => {
+        return question.question.toLowerCase().includes(filter.toLowerCase())
+        || question.answer.toLowerCase().includes(filter.toLowerCase());
+      });
+    };
+
+    return questions;
+
+  }, [filter, questions]);
+
   return (
     <section className={styles.questions}>
       {questions.length > 10 &&
@@ -53,34 +65,25 @@ const AdminQuizQuestions: FunctionComponent<Props> = ({
         >
           <InputField
             name="Chercher une question"
-            state={questionFilter}
+            state={filter}
             inputID="question-filter"
             type="text"
             isDisabled={false}
             required={true}
             autoFocus={true}
-            setState={setQuestionFilter}
+            setState={setFilter}
           />
         </div>
       }
 
       <ul className={styles.list}>
-        {questions?.map((question: Question) => {
-
-          const filteredQuestion = question.question.toLowerCase();
-          const filteredAnswer = question.answer.toLocaleLowerCase();
-          const filter = questionFilter.toLocaleLowerCase();
-
-          if(filteredQuestion.includes(filter) || filteredAnswer.includes(filter)) {
-            return (
-              <li key={uuidv4()}>
-                <AdminQuestionCard
-                  question={question}
-                />
-              </li>
-            );
-          };
-        })}
+        {displayedQuestions?.map((question: Question) =>
+          <li key={uuidv4()}>
+            <AdminQuestionCard
+              question={question}
+            />
+          </li>
+        )}
       </ul>
 
       {showLoader && (

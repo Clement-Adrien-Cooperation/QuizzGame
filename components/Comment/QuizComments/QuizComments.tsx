@@ -35,7 +35,7 @@ const QuizComments: FunctionComponent<Props> = ({
 
         <header className={styles.header}>
           <h2>
-            {comments.length} {comments.length > 1 ? "commentaires" : "commentaire"}
+            {comments.length === 0 ? "Aucun" : comments.length} {comments.length > 1 ? "commentaires" : "commentaire"}
           </h2>
 
           {isLogged &&

@@ -4,10 +4,11 @@
   @include posCenter;
   @include flexCenter;
   flex-direction: column;
-  gap: 50px;
+  gap: 5rem;
+  padding: 5rem 10rem;
   box-shadow: var(--card-shadow);
-  padding: 50px 100px;
   border-radius: var(--medium-radius);
+  background: var(--body-color);
 }
 
 .title {

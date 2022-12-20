@@ -57,6 +57,7 @@ const InputField: FunctionComponent<Props> = ({
         className={styles.delete}
         type="button"
         title="Effacer"
+        tabIndex={-1}
         aria-label="Effacer la saisie"
         onClick={erase}
       >
