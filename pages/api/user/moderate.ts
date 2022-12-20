@@ -19,16 +19,47 @@ export default isAdmin(async function handle (
 
     const newDate = new Date().toLocaleDateString();
 
-    await db.notification.create({
-      data: {
-        id: uuidv4(),
-        user_id: user.id,
-        title: "Bannissement de votre compte",
-        message: `Votre compte a été banni. Surveillez votre langage ou l'exactitude de vos questions/réponses`,
-        date: newDate,
-        seen: false
-      }
-    });
+    if(user.is_banished) {
+      await db.quiz.updateMany({
+        where: {
+          user_id: user.id
+        },
+        data: {
+          is_visible: false
+        }
+      });
+
+      await db.notification.create({
+        data: {
+          id: uuidv4(),
+          user_id: user.id,
+          title: "Vous avez été banni",
+          message: `Votre compte a été banni du site s'Quizz Game. Surveillez votre langage ou l'exactitude de vos questions/réponses`,
+          date: newDate,
+          seen: false
+        }
+      });
+    } else {
+      await db.quiz.updateMany({
+        where: {
+          user_id: user.id
+        },
+        data: {
+          is_visible: true
+        }
+      });
+
+      await db.notification.create({
+        data: {
+          id: uuidv4(),
+          user_id: user.id,
+          title: "Vous avez été débanni",
+          message: `Votre compte a été débanni du site s'Quizz Game. Surveillez votre langage ou l'exactitude de vos questions/réponses`,
+          date: newDate,
+          seen: false
+        }
+      });
+    };
 
     res.status(200).json(user);
 

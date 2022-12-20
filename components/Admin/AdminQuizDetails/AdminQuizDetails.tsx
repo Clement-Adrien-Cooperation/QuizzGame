@@ -7,8 +7,8 @@ import CloseButton from '../../CloseButton/CloseButton';
 import AdminQuizQuestions from '../AdminQuizQuestions/AdminQuizQuestions';
 
 import IconButton from '../../IconButton/IconButton';
-import IconTrash from '../../Icons/IconTrash';
-import IconRestore from '../../Icons/IconRestore';
+import IconTrash from '../../../public/Icons/IconTrash';
+import IconRestore from '../../../public/Icons/IconRestore';
 
 const emptyQuiz: Quiz = {
   id: '',
@@ -17,6 +17,7 @@ const emptyQuiz: Quiz = {
   title: '',
   category: '',
   difficulty: '',
+  color: '',
   is_visible: false,
   date: '',
   nbOfQuestions: 0,
@@ -27,13 +28,15 @@ const emptyQuiz: Quiz = {
 
 type Props = {
   quiz: Quiz,
+  index: number,
   setQuizDetails: Dispatch<SetStateAction<Quiz>>,
-  handleModerateQuiz: (id: string, is_visible: boolean) => void,
-  handleDeleteQuiz: (id: string) => void
+  handleModerateQuiz: (id: string, is_visible: boolean, index: number) => void,
+  handleDeleteQuiz: (id: string, index: number) => void
 };
 
 const AdminQuizDetails: FunctionComponent<Props> = ({
   quiz,
+  index,
   setQuizDetails,
   handleModerateQuiz,
   handleDeleteQuiz
@@ -118,7 +121,7 @@ const AdminQuizDetails: FunctionComponent<Props> = ({
               type='button'
               title="Supprimer définitivement ce quiz"
               aria-label="Supprimer définitivement ce quiz"
-              onClick={() => handleDeleteQuiz(quiz.id)}
+              onClick={() => handleDeleteQuiz(quiz.id, index)}
             >
               Supprimer définitivement
             </button>
@@ -126,7 +129,7 @@ const AdminQuizDetails: FunctionComponent<Props> = ({
 
           <IconButton
             title={quiz.is_visible ? "Envoyer ce quiz à la corbeille" : "Restaurer ce quiz"}
-            handleFunction={() => handleModerateQuiz(quiz.id, quiz.is_visible)}
+            handleFunction={() => handleModerateQuiz(quiz.id, quiz.is_visible, index)}
           >
             {quiz.is_visible ? <IconTrash /> : <IconRestore />}
           </IconButton>

@@ -4,7 +4,7 @@ import styles from './ConfirmModal.module.scss';
 
 type Props = {
   message: string,
-  text: string,
+  text?: string,
   handleFunction: () => void,
   closeModal: () => void
 };
@@ -42,7 +42,10 @@ const ConfirmModal: FunctionComponent<Props> = ({
             type='button'
             title='Accepter'
             aria-label='Accepter'
-            onClick={handleFunction}
+            onClick={() => {
+              handleFunction();
+              closeModal();
+            }}
           >
             Confirmer
           </button>

@@ -4,7 +4,7 @@ import styles from './Theme.module.scss';
 import ColorsPickers from "../ColorsPickers/ColorsPickers";
 import CloseButton from '../CloseButton/CloseButton';
 import DarkMode from "../DarkMode/DarkMode";
-import IconSettings from '../Icons/IconSettings';
+import IconSettings from '../../public/Icons/IconSettings';
 
 const Theme: FunctionComponent = () => {
 

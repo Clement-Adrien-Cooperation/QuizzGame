@@ -11,8 +11,8 @@ import AdminMessage from '../../AdminMessage/AdminMessage';
 import Message from '../../../Message/Message';
 
 import IconButton from '../../../IconButton/IconButton';
-import IconTrash from '../../../Icons/IconTrash';
-import IconMail from '../../../Icons/IconMail';
+import IconTrash from '../../../../public/Icons/IconTrash';
+import IconMail from '../../../../public/Icons/IconMail';
 
 type Props = {
   comment: Comment,

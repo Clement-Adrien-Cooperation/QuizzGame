@@ -3,7 +3,7 @@ import type { Question } from '@prisma/client';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './AdminQuestionCard.module.scss';
-import IconArrow from '../../Icons/IconArrow';
+import IconArrow from '../../../public/Icons/IconArrow';
 
 type Props = {
   question: Question

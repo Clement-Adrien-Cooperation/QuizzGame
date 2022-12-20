@@ -30,7 +30,7 @@ const PasswordValidation: FunctionComponent<Props> = ({
   validSpecial,
   validLength,
   checkPassword,
-  checkPasswords
+  checkPasswords 
 }) => {
 
   const [showValidation, setShowValidation] = useState<boolean>(false);

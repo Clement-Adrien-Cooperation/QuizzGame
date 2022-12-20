@@ -5,7 +5,7 @@ import styles from './UserCard.module.scss';
 import UserDetails from '../UserDetails/UserDetails';
 import AdminMessage from '../AdminMessage/AdminMessage';
 import Message from '../../Message/Message';
-import IconArrow from '../../Icons/IconArrow';
+import IconArrow from '../../../public/Icons/IconArrow';
 
 type Props = {
   user: User,

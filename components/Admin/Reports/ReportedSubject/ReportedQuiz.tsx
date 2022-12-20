@@ -13,12 +13,12 @@ import Message from '../../../Message/Message';
 import Modal from '../../../Modal/Modal';
 
 import IconButton from '../../../IconButton/IconButton';
-import IconUnban from '../../../Icons/IconUnban';
-import IconBan from '../../../Icons/IconBan';
-import IconTrash from '../../../Icons/IconTrash';
-import IconRestore from '../../../Icons/IconRestore';
-import IconMail from '../../../Icons/IconMail';
-import IconEye from '../../../Icons/IconEye';
+import IconUnban from '../../../../public/Icons/IconUnban';
+import IconBan from '../../../../public/Icons/IconBan';
+import IconTrash from '../../../../public/Icons/IconTrash';
+import IconRestore from '../../../../public/Icons/IconRestore';
+import IconMail from '../../../../public/Icons/IconMail';
+import IconEye from '../../../../public/Icons/IconEye';
 
 type Props = {
   quiz: Quiz,

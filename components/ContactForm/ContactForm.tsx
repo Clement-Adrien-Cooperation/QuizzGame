@@ -1,7 +1,7 @@
 import type { FunctionComponent } from 'react';
 import { useForm, ValidationError } from '@formspree/react';
 import styles from './ContactForm.module.scss';
-import IconSend from '../Icons/IconSend';
+import IconSend from '../../public/Icons/IconSend';
 
 const ContactForm: FunctionComponent = () => {
 

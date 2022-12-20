@@ -7,9 +7,9 @@ import styles from './UserQuizCard.module.scss';
 
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
 import IconButton from '../IconButton/IconButton';
-import IconTrash from '../Icons/IconTrash';
-import IconPen from '../Icons/IconPen';
-import IconPlay from '../Icons/IconPlay';
+import IconTrash from '../../public/Icons/IconTrash';
+import IconPen from '../../public/Icons/IconPen';
+import IconPlay from '../../public/Icons/IconPlay';
 
 type Props = {
   quiz: Quiz,

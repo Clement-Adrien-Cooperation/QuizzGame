@@ -4,10 +4,10 @@ import { useState } from 'react';
 import styles from './QuestionCard.module.scss';
 
 import QuestionDetails from '../QuestionDetails/QuestionDetails';
-import IconTrash from '../../Icons/IconTrash';
+import IconTrash from '../../../public/Icons/IconTrash';
 import IconButton from '../../IconButton/IconButton';
-import IconPen from '../../Icons/IconPen';
-import IconArrow from '../../Icons/IconArrow';
+import IconPen from '../../../public/Icons/IconPen';
+import IconArrow from '../../../public/Icons/IconArrow';
 
 type Props = {
   questions: Question[],

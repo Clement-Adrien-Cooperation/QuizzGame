@@ -31,7 +31,6 @@ const Quizz: NextPage<Props> = ({
   const [deletedQuizz, setDeletedQuizz] = useState<Quiz[]>([]);
 
   useEffect(() => {
-
     if(isLogged) {
       if(userLogged.is_banished) {
         router.push('/banned');
@@ -51,23 +50,6 @@ const Quizz: NextPage<Props> = ({
       router.push('/');
     };
   }, []);
-
-  const getQuizz = async () => {
-
-    setShowLoader(true);
-
-    await fetch(`${api}/quiz/getAll`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-    })
-    .then(async(res) => {
-      const data = await res.json();
-      setQuizz(data);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  };
 
   const getDeletedQuizz = async () => {
 
@@ -91,7 +73,7 @@ const Quizz: NextPage<Props> = ({
     setShowLoader(false);
   };
 
-  const handleModerateQuiz = async(quiz_id: string, is_visible: boolean) => {
+  const handleModerateQuiz = async(quiz_id: string, is_visible: boolean, index: number) => {
 
     setShowLoader(true);
     const token = localStorage.getItem('token');
@@ -105,15 +87,35 @@ const Quizz: NextPage<Props> = ({
       body: JSON.stringify({ quiz_id, is_visible })
     })
     .then(() => {
-      getQuizz();
-      getDeletedQuizz();
+      if(is_visible) {
+        // update state of this quiz, & switch it from quizz to deletedQuizz
+        const newDeletedQuiz = quizz[index];
+        newDeletedQuiz.is_visible = false;
+        setDeletedQuizz([...deletedQuizz, newDeletedQuiz]);
+
+        // delete right quiz from state & update it for visible quizz as well
+        const previousQuizz = [...quizz];
+        previousQuizz.splice(index, 1);
+        setQuizz([...previousQuizz]);
+      } else {
+        // Same, but reverse
+        const newVisibleQuiz = deletedQuizz[index];
+        newVisibleQuiz.is_visible = true;
+        setQuizz([...quizz, newVisibleQuiz]);
+
+        const previousDeletedQuizz = [...deletedQuizz];
+        previousDeletedQuizz.splice(index, 1);
+        setDeletedQuizz([...previousDeletedQuizz]);
+      };
     })
     .catch((error) => {
       console.log(error);
     });
+
+    setShowLoader(false);
   };
 
-  const handleDeleteQuiz = async(quiz_id: string) => {
+  const handleDeleteQuiz = async(quiz_id: string, index: number) => {
 
     setShowLoader(true);
     const token = localStorage.getItem('token');
@@ -127,12 +129,16 @@ const Quizz: NextPage<Props> = ({
       body: JSON.stringify({ quiz_id })
     })
     .then(() => {
-      getQuizz();
-      getDeletedQuizz();
+      // splice right quiz from state & update it
+      const previousDeletedQuizz = [...deletedQuizz];
+      previousDeletedQuizz.splice(index, 1);
+      setDeletedQuizz([...previousDeletedQuizz]);
     })
     .catch((error) => {
       console.log(error);
     });
+
+    setShowLoader(false);
   };
 
   return (
@@ -179,7 +185,6 @@ const Quizz: NextPage<Props> = ({
         }
 
         {deletedQuizz?.length !== 0 &&
-
           <section
             className={styles.quizz}
             id='deleted-quizz'

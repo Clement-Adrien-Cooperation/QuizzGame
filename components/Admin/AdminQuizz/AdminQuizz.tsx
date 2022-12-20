@@ -8,8 +8,8 @@ import styles from './AdminQuizz.module.scss';
 
 type Props = {
   quizz: Quiz[],
-  handleModerateQuiz: (id: string, is_visible: boolean) => void,
-  handleDeleteQuiz: (id: string) => void
+  handleModerateQuiz: (id: string, is_visible: boolean, index: number) => void,
+  handleDeleteQuiz: (id: string, index: number) => void
 };
 
 const AdminQuizz: FunctionComponent<Props> = ({
@@ -30,7 +30,7 @@ const AdminQuizz: FunctionComponent<Props> = ({
 
     return quizz;
 
-  }, [filter]);
+  }, [filter, quizz]);
 
   return (
     <>
@@ -39,31 +39,30 @@ const AdminQuizz: FunctionComponent<Props> = ({
           Quizz visibles
         </h2>
 
-        {quizz?.length > 10 &&
-          <div
-            className={styles.input}
-            title='Vous pouvez trouver un quiz avec son titre ou le pseudo de son createur'
-            aria-label='Vous pouvez trouver un quiz avec son titre ou le pseudo de son createur'
-          >
-            <InputField
-              name={'Rechercher un quiz...'}
-              state={filter}
-              inputID={'quizz-filter'}
-              type={'text'}
-              isDisabled={false}
-              required={true}
-              autoFocus={true}
-              setState={setFilter}
-            />
-          </div>
-        }
+        <div
+          className={styles.input}
+          title='Vous pouvez trouver un quiz avec son titre ou le pseudo de son createur'
+          aria-label='Vous pouvez trouver un quiz avec son titre ou le pseudo de son createur'
+        >
+          <InputField
+            name={'Rechercher un quiz...'}
+            state={filter}
+            inputID={'quizz-filter'}
+            type={'search'}
+            isDisabled={false}
+            required={true}
+            autoFocus={true}
+            setState={setFilter}
+          />
+        </div>
       </header>
 
       <ul className={styles.list}>
-        {displayedQuizz?.map((quiz: Quiz) => 
+        {displayedQuizz?.map((quiz: Quiz, index: number) =>
           <li key={uuidv4()}>
             <AdminQuizCard
               quiz={quiz}
+              index={index}
               handleModerateQuiz={handleModerateQuiz}
               handleDeleteQuiz={handleDeleteQuiz}
             />

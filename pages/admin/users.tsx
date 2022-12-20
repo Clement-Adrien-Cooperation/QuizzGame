@@ -14,7 +14,7 @@ import AdminMessage from '../../components/Admin/AdminMessage/AdminMessage';
 import Message from '../../components/Message/Message';
 
 import IconButton from '../../components/IconButton/IconButton';
-import IconMail from '../../components/Icons/IconMail';
+import IconMail from '../../public/Icons/IconMail';
 
 type Props = {
   isLogged: boolean,

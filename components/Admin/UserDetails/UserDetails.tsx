@@ -4,13 +4,13 @@ import { useRouter } from 'next/router';
 import styles from './UserDetails.module.scss';
 
 import IconButton from '../../IconButton/IconButton';
-import IconDowngrade from '../../Icons/IconDowngrade';
-import IconPromote from '../../Icons/IconPromote';
-import IconTrash from '../../Icons/IconTrash';
-import IconUnban from '../../Icons/IconUnban';
-import IconBan from '../../Icons/IconBan';
-import IconMail from '../../Icons/IconMail';
-import IconAvatar from '../../Icons/IconAvatar';
+import IconDowngrade from '../../../public/Icons/IconDowngrade';
+import IconPromote from '../../../public/Icons/IconPromote';
+import IconTrash from '../../../public/Icons/IconTrash';
+import IconUnban from '../../../public/Icons/IconUnban';
+import IconBan from '../../../public/Icons/IconBan';
+import IconMail from '../../../public/Icons/IconMail';
+import IconAvatar from '../../../public/Icons/IconAvatar';
 
 type Props = {
   user: User,

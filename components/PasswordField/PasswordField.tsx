@@ -2,8 +2,8 @@ import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import { useState } from 'react';
 import styles from './PasswordField.module.scss';
 import InputField from '../InputField/InputField';
-import IconEye from '../Icons/IconEye';
-import IconHiddenEye from '../Icons/IconHiddenEye';
+import IconEye from '../../public/Icons/IconEye';
+import IconHiddenEye from '../../public/Icons/IconHiddenEye';
 
 type Props = {
   name: string,
@@ -41,7 +41,7 @@ const PasswordField: FunctionComponent<Props> = ({
           tabIndex={-1}
           title={showPassword ? "Cacher le mot de passe" : "Montrer le mot de passe"}
           aria-label={showPassword ? "Cacher le mot de passe" : "Montrer le mot de passe"}
-          onClick={() => setShowPassword(!showPassword)}
+          onClick={() => setShowPassword(prev => !prev)}
         >
           {showPassword ? <IconEye /> : <IconHiddenEye />}
         </button>

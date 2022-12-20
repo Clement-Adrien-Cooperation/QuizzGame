@@ -2,18 +2,19 @@
 
 .container {
   @include flexCenter;
+  overflow-x: hidden;
 }
 
 .sign_in {
   opacity: 0;
-  transform: translateX(100vw);
-  animation: signIn 0.5s ease-in-out forwards;
+  transform: translateX(200%);
+  animation: signIn 0.5s ease-out forwards;
 }
 
 .sign_up {
   opacity: 0;
-  transform: translateX(-100vw);
-  animation: signUp 0.5s ease-in-out forwards;
+  transform: translateX(-200%);
+  animation: signUp 0.5s ease-out forwards;
 }
 
 @keyframes signIn {

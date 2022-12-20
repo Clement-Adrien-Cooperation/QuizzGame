@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from "uuid";
 import { api } from '../../../api/api';
 import styles from './GameRate.module.scss';
-import IconStar from '../../Icons/IconStar';
+import IconStar from '../../../public/Icons/IconStar';
 
 type Props = {
   quiz: Quiz,

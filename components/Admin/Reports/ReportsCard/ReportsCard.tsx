@@ -11,9 +11,9 @@ import AdminMessage from '../../AdminMessage/AdminMessage';
 import Message from '../../../Message/Message';
 
 import IconButton from '../../../IconButton/IconButton';
-import IconTrash from '../../../Icons/IconTrash';
-import IconMail from '../../../Icons/IconMail';
-import IconEye from '../../../Icons/IconEye';
+import IconTrash from '../../../../public/Icons/IconTrash';
+import IconMail from '../../../../public/Icons/IconMail';
+import IconEye from '../../../../public/Icons/IconEye';
 
 type Props = {
   report: Report,

@@ -4,7 +4,7 @@ import { api } from '../../../../api/api';
 
 import styles from './CategoryCard.module.scss';
 import IconButton from '../../../IconButton/IconButton';
-import IconTrash from '../../../Icons/IconTrash';
+import IconTrash from '../../../../public/Icons/IconTrash';
 
 type Props = {
   id: number,

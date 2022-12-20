@@ -11,11 +11,11 @@ import AdminMessage from '../../AdminMessage/AdminMessage';
 import Message from '../../../Message/Message';
 import Modal from '../../../Modal/Modal';
 
-import IconBan from '../../../Icons/IconBan';
+import IconBan from '../../../../public/Icons/IconBan';
 import IconButton from '../../../IconButton/IconButton';
-import IconMail from '../../../Icons/IconMail';
-import IconEye from '../../../Icons/IconEye';
-import IconUnban from '../../../Icons/IconUnban';
+import IconMail from '../../../../public/Icons/IconMail';
+import IconEye from '../../../../public/Icons/IconEye';
+import IconUnban from '../../../../public/Icons/IconUnban';
 
 type Props = {
   user: User

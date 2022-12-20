@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import styles from './QuizzSlider.module.scss';
 import QuizCard from '../QuizCard/QuizCard';
-import IconArrow from '../Icons/IconArrow';
+import IconArrow from '../../public/Icons/IconArrow';
 
 // 400px is the width of a quiz card
 const cardWidth = 400; // in QuizCard.module.scss => .card

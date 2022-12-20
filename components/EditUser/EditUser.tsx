@@ -63,7 +63,7 @@ const EditUser: FunctionComponent<Props> = ({
   };
 
   const checkPassword = () => {
-    
+
     const lowercase = new RegExp('(?=.*[a-z])');
     const uppercase = new RegExp('(?=.*[A-Z])');
     const number = new RegExp('(?=.*[0-9])');

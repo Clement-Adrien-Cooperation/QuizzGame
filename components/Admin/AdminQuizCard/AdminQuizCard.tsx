@@ -11,6 +11,7 @@ const emptyQuiz: Quiz = {
   title: '',
   category: '',
   difficulty: '',
+  color: '',
   is_visible: false,
   date: '',
   nbOfQuestions: 0,
@@ -21,12 +22,14 @@ const emptyQuiz: Quiz = {
 
 type Props = {
   quiz: Quiz,
-  handleModerateQuiz: (id: string, is_visible: boolean) => void,
-  handleDeleteQuiz: (id: string) => void
+  index: number,
+  handleModerateQuiz: (id: string, is_visible: boolean, index: number) => void,
+  handleDeleteQuiz: (id: string, index: number) => void
 };
 
 const AdminQuizCard: FunctionComponent<Props> = ({
   quiz,
+  index,
   handleModerateQuiz,
   handleDeleteQuiz
 }) => {
@@ -66,6 +69,7 @@ const AdminQuizCard: FunctionComponent<Props> = ({
       {quizDetails.id !== '' &&
         <AdminQuizDetails
           quiz={quiz}
+          index={index}
           setQuizDetails={setQuizDetails}
           handleModerateQuiz={handleModerateQuiz}
           handleDeleteQuiz={handleDeleteQuiz}

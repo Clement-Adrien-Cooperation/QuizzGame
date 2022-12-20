@@ -1,7 +1,7 @@
 import type { FunctionComponent } from 'react';
 import { useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import IconStar from '../Icons/IconStar';
+import IconStar from '../../public/Icons/IconStar';
 import styles from './Stars.module.scss';
 
 type Props = {
