@@ -120,8 +120,8 @@ const Profile: NextPage<Props> = ({
         <section className={styles.container}>
           <UserQuizz
             quizz={userQuizz}
+            setQuizz={setUserQuizz}
             userLogged={userLogged}
-            getQuizzFromUser={getQuizzFromUser}
             setShowLoader={setShowLoader}
           />
         </section>

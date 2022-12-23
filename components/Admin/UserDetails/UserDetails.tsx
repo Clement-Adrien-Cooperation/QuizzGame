@@ -14,15 +14,17 @@ import IconAvatar from '../../../public/Icons/IconAvatar';
 
 type Props = {
   user: User,
+  index: number,
   userLogged: User,
-  handlePromotion: (user_id: string, is_admin: boolean) => void,
-  handleBanishment: (user_id: string, is_banished: boolean) => void,
-  handleDeleteUser: (user_id: string) => void,
+  handlePromotion: (user_id: string, is_admin: boolean, index: number) => void,
+  handleBanishment: (user_id: string, is_banished: boolean, index: number) => void,
+  handleDeleteUser: (user_id: string, index: number) => void,
   setShowMessageForm: Dispatch<SetStateAction<boolean>>
 };
 
 const UserDetails: FunctionComponent<Props> = ({
   user,
+  index,
   userLogged,
   handlePromotion,
   handleBanishment,
@@ -61,7 +63,7 @@ const UserDetails: FunctionComponent<Props> = ({
           {!user.is_admin &&
             <IconButton
               title={user.is_banished ? `Débannir ${user.pseudo}` : `Bannir ${user.pseudo}`}
-              handleFunction={() => handleBanishment(user.id, user.is_banished)}
+              handleFunction={() => handleBanishment(user.id, user.is_banished, index)}
             >
               {user.is_banished ? <IconUnban /> : <IconBan />}
             </IconButton>
@@ -70,14 +72,14 @@ const UserDetails: FunctionComponent<Props> = ({
           {user.is_banished ?
             <IconButton
               title={`Supprimer le compte de ${user.pseudo} définitivement`}
-              handleFunction={() => handleDeleteUser(user.id)}
+              handleFunction={() => handleDeleteUser(user.id, index)}
             >
               <IconTrash />
             </IconButton>
           :
             <IconButton
               title={user.is_admin ? `Retirer les droits d'administrateurs à ${user.pseudo}` : `Donner les droits d'administration à ${user.pseudo}`}
-              handleFunction={() => handlePromotion(user.id, user.is_admin)}
+              handleFunction={() => handlePromotion(user.id, user.is_admin, index)}
             >
 
               {user.is_admin ? <IconDowngrade /> : <IconPromote />}

@@ -39,7 +39,6 @@ const Users: NextPage<Props> = ({
   const [showMessageForm, setShowMessageForm] = useState<boolean>(false);
 
   useEffect(() => {
-
     if(isLogged) {
       if(userLogged.is_banished) {
         router.push('/banned');
@@ -100,7 +99,7 @@ const Users: NextPage<Props> = ({
     setShowLoader(false);
   };
 
-  const handlePromotion = async (user_id: string, is_admin: boolean) => {
+  const handlePromotion = async (user_id: string, is_admin: boolean, index: number) => {
 
     setShowLoader(true);
 
@@ -114,15 +113,23 @@ const Users: NextPage<Props> = ({
       },
       body: JSON.stringify({ user_id, is_admin })
     })
-    .then(async() => {
-      await getUsers();
+    .then((res) => {
+      if(res.status === 200) {
+        const userTargeted = users[index];
+        userTargeted.is_admin = is_admin ? false : true;
+        setMessage(is_admin ? "✅ L'utilisateur a bien été rétrogradé" : "✅ L'utilisateur a bien été promu");
+      } else {
+        setMessage('❌ Une erreur est survenue');
+      };
     })
     .catch((error) => {
       console.log(error);
     });
+
+    setShowLoader(false);
   };
 
-  const handleBanishment = async (user_id: string, is_banished: boolean) => {
+  const handleBanishment = async (user_id: string, is_banished: boolean, index: number) => {
 
     setShowLoader(true);
     const token = localStorage.getItem('token');
@@ -136,15 +143,39 @@ const Users: NextPage<Props> = ({
       },
       body: JSON.stringify({ user_id, is_banished })
     })
-    .then(async() => {
-      await getUsers();
+    .then((res) => {
+      if(res.status === 200) {
+        if(is_banished) {
+          const targetedUser = banishedUsers[index];
+          targetedUser.is_banished = false;
+          setUsers([...users, targetedUser]);
+
+          const newBanishedUsers = [...banishedUsers];
+          newBanishedUsers.splice(index, 1);
+          setBanishedUsers([...newBanishedUsers]);
+        } else {
+          const targetedUser = users[index];
+          targetedUser.is_banished = true;
+          setBanishedUsers([...banishedUsers, targetedUser]);
+
+          const newUsers = [...users];
+          newUsers.splice(index, 1);
+          setUsers([...newUsers]);
+        };
+
+        setMessage(`✅ L'utilisateur a bien été ${is_banished ? "débanni" : "banni"}`);
+      } else {
+        setMessage('❌ Une erreur est survenue');
+      };
     })
     .catch((error) => {
       console.log(error);
     });
+
+    setShowLoader(false);
   };
 
-  const handleDeleteUser = async(user_id: string) => {
+  const handleDeleteUser = async(user_id: string, index: number) => {
     setShowLoader(true);
     const token = localStorage.getItem('token');
 
@@ -158,7 +189,12 @@ const Users: NextPage<Props> = ({
     })
     .then(async(res) => {
       if(res.status === 200) {
-        await getUsers();
+        const previousUsers = [...banishedUsers];
+        previousUsers.splice(index, 1);
+        setBanishedUsers([...previousUsers]);
+        setMessage("✅ L'utilisateur a bien été supprimé");
+      } else {
+        setMessage('❌ Une erreur est survenue');
       };
     })
     .catch((error) => {

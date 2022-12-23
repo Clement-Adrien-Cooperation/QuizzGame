@@ -9,9 +9,9 @@ import styles from './AdminUsers.module.scss';
 type Props = {
   users: User[],
   userLogged: User,
-  handlePromotion: (user_id: string, is_banished: boolean) => void,
-  handleBanishment: (user_id: string, is_banished: boolean) => void,
-  handleDeleteUser: (user_id: string) => void
+  handlePromotion: (user_id: string, is_banished: boolean, index: number) => void,
+  handleBanishment: (user_id: string, is_banished: boolean, index: number) => void,
+  handleDeleteUser: (user_id: string, index: number) => void
 };
 
 const AdminUsers: FunctionComponent<Props> = ({
@@ -63,10 +63,11 @@ const AdminUsers: FunctionComponent<Props> = ({
       }
 
       <ul>
-        {displayedUsers?.map((user: User) =>
+        {displayedUsers?.map((user: User, index: number) =>
           <li key={uuidv4()}>
             <UserCard
               user={user}
+              index={index}
               userLogged={userLogged}
               handleBanishment={handleBanishment}
               handlePromotion={handlePromotion}

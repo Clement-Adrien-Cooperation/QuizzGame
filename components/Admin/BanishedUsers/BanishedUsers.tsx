@@ -9,9 +9,9 @@ import styles from './BanishedUsers.module.scss';
 type Props = {
   banishedUsers: User[],
   userLogged: User,
-  handlePromotion: (user_id: string, is_admin: boolean) => void,
-  handleBanishment: (user_id: string, is_banished: boolean) => void,
-  handleDeleteUser: (user_id: string) => void
+  handlePromotion: (user_id: string, is_admin: boolean, index: number) => void,
+  handleBanishment: (user_id: string, is_banished: boolean, index: number) => void,
+  handleDeleteUser: (user_id: string, index: number) => void
 };
 
 const BanishedUsers: FunctionComponent<Props> = ({ 
@@ -64,10 +64,11 @@ const BanishedUsers: FunctionComponent<Props> = ({
           }
 
           <ul>
-            {displayedUsers?.map((user: User) => 
+            {displayedUsers?.map((user: User, index: number) => 
               <li key={uuidv4()}>
                 <UserCard
                   user={user}
+                  index={index}
                   userLogged={userLogged}
                   handleBanishment={handleBanishment}
                   handlePromotion={handlePromotion}

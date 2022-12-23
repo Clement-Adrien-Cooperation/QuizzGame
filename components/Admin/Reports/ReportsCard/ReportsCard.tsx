@@ -50,10 +50,14 @@ const ReportsCard: FunctionComponent<Props> = ({
         const newReports = await res.json();
         // update state by sorting data received
         reportsSorting(newReports);
+        setMessage('✅ Le signalement a bien été supprimé');
+      } else {
+        setMessage('❌ Un problème est survenu');
       };
     })
     .catch((error) => {
       console.log(error);
+      setMessage('❌ Un problème est survenu');
     });
   };
 
@@ -117,9 +121,7 @@ const ReportsCard: FunctionComponent<Props> = ({
       </article>
 
       {showSubject &&
-        <Modal
-          setShowModal={setShowSubject}
-        >
+        <Modal setShowModal={setShowSubject}>
           <ReportedSubject
             report={report}
             getReports={getReports}
@@ -128,9 +130,7 @@ const ReportsCard: FunctionComponent<Props> = ({
       }
 
       {showMessage &&
-        <Modal
-          setShowModal={setShowMessage}
-        >
+        <Modal setShowModal={setShowMessage}>
           <AdminMessage
             recipient={report.pseudo}
             userID={report.user_id}

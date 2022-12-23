@@ -10,24 +10,30 @@ import IconButton from '../IconButton/IconButton';
 import IconTrash from '../../public/Icons/IconTrash';
 import IconPen from '../../public/Icons/IconPen';
 import IconPlay from '../../public/Icons/IconPlay';
+import Message from '../Message/Message';
 
 type Props = {
   quiz: Quiz,
+  quizz: Quiz[],
+  setQuizz: Dispatch<SetStateAction<Quiz[]>>,
+  index: number,
   userLogged: User,
-  getQuizzFromUser: () => void,
   setShowLoader: Dispatch<SetStateAction<boolean>>
 };
 
 const UserQuizCard: FunctionComponent<Props> = ({
   quiz,
+  quizz,
+  setQuizz,
+  index,
   userLogged,
-  getQuizzFromUser,
   setShowLoader,
 }) => {
 
   const router = useRouter();
 
   const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>('');
 
   const handleDeleteQuiz = async () => {
     setShowLoader(true);
@@ -47,12 +53,18 @@ const UserQuizCard: FunctionComponent<Props> = ({
       },
       body: JSON.stringify(body)
     })
-    .then(() => {
-      getQuizzFromUser();
+    .then((res) => {
+      if(res.status === 200) {
+        const newQuizz = [...quizz];
+        newQuizz.splice(index, 1);
+        setQuizz(newQuizz);
+      } else {
+        setMessage('❌ Une erreur est survenue');
+      };
     })
     .catch((error) => {
       console.log(error);
-      setShowLoader(false);
+      setMessage('❌ Une erreur est survenue');
     });
 
     setShowLoader(false);
@@ -138,6 +150,13 @@ const UserQuizCard: FunctionComponent<Props> = ({
           text={"Toutes les questions qu'il contient seront supprimées"}
           handleFunction={handleDeleteQuiz}
           closeModal={() => setShowConfirmModal(false)}
+        />
+      }
+
+      {message &&
+        <Message
+          message={message}
+          setMessage={setMessage}
         />
       }
     </>

@@ -9,20 +9,22 @@ import IconArrow from '../../../public/Icons/IconArrow';
 
 type Props = {
   user: User,
+  index: number,
   userLogged: User,
-  handlePromotion: (user_id: string, is_admin: boolean) => void,
-  handleBanishment: (user_id: string, is_banished: boolean) => void,
-  handleDeleteUser: (user_id: string) => void
+  handlePromotion: (user_id: string, is_admin: boolean, index: number) => void,
+  handleBanishment: (user_id: string, is_banished: boolean, index: number) => void,
+  handleDeleteUser: (user_id: string, index: number) => void
 };
 
 const UserCard: FunctionComponent<Props> = ({
   user,
+  index,
   userLogged,
   handlePromotion,
   handleBanishment,
   handleDeleteUser
 }) => {
-  
+
   const [showDetails, setShowDetails] = useState<boolean>(false);
   const [showMessageForm, setShowMessageForm] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
@@ -34,7 +36,6 @@ const UserCard: FunctionComponent<Props> = ({
   return (
     <>
       <article className={styles.container}>
-
         <input
           className={styles.input}
           type='checkbox'
@@ -45,6 +46,7 @@ const UserCard: FunctionComponent<Props> = ({
         <label
           className={styles.card}
           htmlFor={user.pseudo}
+          style={{background: user.is_admin ? 'var(--main-color-light)' : 'var(--body-color)'}}
           onClick={toggleDetails}
         >
           <section className={styles.header}>
@@ -62,6 +64,7 @@ const UserCard: FunctionComponent<Props> = ({
           {showDetails &&
             <UserDetails
               user={user}
+              index={index}
               userLogged={userLogged}
               handleBanishment={handleBanishment}
               handlePromotion={handlePromotion}

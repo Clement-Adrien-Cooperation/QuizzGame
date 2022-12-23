@@ -8,15 +8,15 @@ import InputField from '../InputField/InputField';
 
 type Props = {
   quizz: Quiz[],
+  setQuizz: Dispatch<SetStateAction<Quiz[]>>
   userLogged: User,
-  getQuizzFromUser: () => void,
   setShowLoader: Dispatch<SetStateAction<boolean>>
 };
 
 const UserQuizz: FunctionComponent<Props> = ({
   quizz,
+  setQuizz,
   userLogged,
-  getQuizzFromUser,
   setShowLoader
 }) => {
 
@@ -59,12 +59,14 @@ const UserQuizz: FunctionComponent<Props> = ({
 
       <ul className={styles.list}>
 
-        {displayedQuizz?.map((quiz: Quiz) =>
+        {displayedQuizz?.map((quiz: Quiz, index: number) =>
           <li key={uuidv4()}>
             <UserQuizCard
               quiz={quiz}
+              quizz={quizz}
+              setQuizz={setQuizz}
+              index={index}
               userLogged={userLogged}
-              getQuizzFromUser={getQuizzFromUser}
               setShowLoader={setShowLoader}
             />
           </li>

@@ -52,14 +52,14 @@ const Categories: NextPage<Props> = ({
 
   const displayedCategories = useMemo(() => {
     if(filter) {
-      return categoriesData.filter((category: Category) => {
+      return categories.filter((category: Category) => {
         return category.name.toLowerCase().includes(filter.toLowerCase());
       });
     };
 
-    return categoriesData;
+    return categories;
 
-  }, [filter]);
+  }, [filter, categories]);
 
   return (
     <>

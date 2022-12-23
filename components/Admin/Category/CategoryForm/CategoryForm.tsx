@@ -18,7 +18,7 @@ const CategoryForm: FunctionComponent<Props> = ({
   setCategories,
   setShowLoader
 }) => {
-
+  
   const [categoryName, setCategoryName] = useState<string>('');
 
   const [message, setMessage] = useState<string>('');
@@ -88,7 +88,6 @@ const CategoryForm: FunctionComponent<Props> = ({
         } else if(data.meta.target.includes('name')) {
 
           setWarningMessage('Cette catégorie existe déjà');
-          setCategoryName('');
 
         } else {
           setWarningMessage('Un problème est survenu');

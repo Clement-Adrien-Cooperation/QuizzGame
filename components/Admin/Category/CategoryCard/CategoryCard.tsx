@@ -1,10 +1,12 @@
 import type { Category } from '@prisma/client';
 import type { Dispatch, FunctionComponent, SetStateAction } from 'react';
+import { useState } from 'react';
 import { api } from '../../../../api/api';
 
 import styles from './CategoryCard.module.scss';
 import IconButton from '../../../IconButton/IconButton';
 import IconTrash from '../../../../public/Icons/IconTrash';
+import Message from '../../../Message/Message';
 
 type Props = {
   id: number,
@@ -19,6 +21,8 @@ const CategoryCard: FunctionComponent<Props> = ({
   setCategories,
   setShowLoader
 }) => {
+
+  const [message, setMessage] = useState<string>('');
 
   const handleDeleteCategory = async() => {
 
@@ -38,36 +42,45 @@ const CategoryCard: FunctionComponent<Props> = ({
 
         const data = await res.json();
         setCategories(data);
+        setMessage(`✅ La catégorie "${name}" a bien été supprimée`);
 
       } else {
-        console.log('une erreur est survenue');
+        setMessage('❌ Une erreur est survenue');
       };
-
-      setShowLoader(false);
     })
     .catch((error) => {
-      console.log(error);
-      setShowLoader(false);
+      setMessage('❌ Une erreur est survenue');
     });
+
+      setShowLoader(false);
   };
 
   return (
-    <article className={styles.card}>
-      <header>
-        <h2 className={styles.name}>
-          {name}
-        </h2>
-      </header>
+    <>
+      <article className={styles.card}>
+        <header>
+          <h2 className={styles.name}>
+            {name}
+          </h2>
+        </header>
 
-      <footer>
-        <IconButton
-          title="Supprimer cette catégorie"
-          handleFunction={handleDeleteCategory}
-        >
-          <IconTrash />
-        </IconButton>
-      </footer>
-    </article>
+        <footer>
+          <IconButton
+            title="Supprimer cette catégorie"
+            handleFunction={handleDeleteCategory}
+          >
+            <IconTrash />
+          </IconButton>
+        </footer>
+      </article>
+
+      {message &&
+        <Message
+          message={message}
+          setMessage={setMessage}
+        />
+      }
+    </>
   );
 };
 
